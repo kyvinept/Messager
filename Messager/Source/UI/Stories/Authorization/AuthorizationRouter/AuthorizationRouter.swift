@@ -12,8 +12,8 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     var assembly: AuthorizationAssembly
     var rootViewController: UIViewController
     
-    init(authorizationAssembly: AuthorizationAssembly, rootViewController: UIViewController) {
-        self.assembly = authorizationAssembly
+    init(assembly: AuthorizationAssembly, rootViewController: UIViewController) {
+        self.assembly = assembly
         self.rootViewController = rootViewController
     }
     
@@ -21,10 +21,17 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
         showLoginVC()
     }
     
+    private func showInfo(to viewController: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        viewController.present(alert,
+                               animated: true,
+                             completion: nil)
+    }
+    
     private func showRegistrationVC() {
         let registerVC = assembly.registrationVC()
         registerVC.delegate = self
-        registerVC.title = "Register"
         action(with: registerVC,
                from: rootViewController,
                with: .push,
@@ -34,7 +41,6 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     private func showLoginVC() {
         let loginVC = assembly.loginVC()
         loginVC.delegate = self
-        loginVC.title = "Login"
         action(with: loginVC,
                from: rootViewController,
                with: .push,
@@ -44,7 +50,6 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     private func showPasswordRecoveryVC() {
         let passwordRecoveryVC = assembly.passwordRecoveryVC()
         passwordRecoveryVC.delegate = self
-        passwordRecoveryVC.title = "Restore password"
         action(with: passwordRecoveryVC,
                from: rootViewController,
                with: .push,
@@ -53,39 +58,53 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 }
 
 extension AuthorizationRouter: LoginViewControllerDelegate {
-
-    func registerButtonWasTapped(_ sender: UIButton) {
+    
+    func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton) {
         showRegistrationVC()
     }
-
-    func passwordRecovery(_ sender: UIButton) {
+    
+    func loginViewController(viewController: LoginViewController, didTouchPasswordRecoveryButton sender: UIButton) {
         showPasswordRecoveryVC()
     }
-
-    func checkUserButtonTapped(with email: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
-        assembly.assembly.appAssembly.authorizationManager.login(with: email,
-                                                             password: password,
-                                                         successBlock: successBlock,
-                                                           errorBlock: errorBlock)
+    
+    func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton) {
+        assembly.appAssembly.authorizationManager.login(withEmail: email,
+                                                                  password: password,
+                                                              successBlock: { user in
+                                                                  print("success")
+                                                              },
+                                                                errorBlock: { _ in
+                                                                    self.showInfo(to: viewController,
+                                                                               title: "Error",
+                                                                             message: "Invalid email or password")
+                                                                })
     }
 }
 
 extension AuthorizationRouter: RegistrationViewControllerDelegate {
-  
-    func registerUserButtonTapped(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
-        assembly.assembly.appAssembly.authorizationManager.register(with: email,
+    
+    func registrationViewController(with email: String, name: String, password: String, viewController: RegistrationViewController, didTouchRegisterButton sender: UIButton) {
+        assembly.appAssembly.authorizationManager.register(with: email,
                                                                     name: name,
                                                                 password: password,
-                                                            successBlock: successBlock,
-                                                              errorBlock: errorBlock)
+                                                            successBlock: { (_) in
+                                                                print("success")
+                                                            }) { error in
+                                                                self.showInfo(to: viewController,
+                                                                           title: "Error",
+                                                                         message: error!.detail)
+                                                            }
     }
 }
 
 extension AuthorizationRouter: PasswordRecoveryViewControllerDelegate {
     
-    func passwordRecovery(with email: String, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
-        assembly.assembly.appAssembly.authorizationManager.passwordRecovery(with: email,
-                                                                    successBlock: successBlock,
-                                                                      errorBlock: errorBlock)
+    func passwordRecoveryViewController(with email: String, viewController: PasswordRecoveryViewController, didTouchRegisterButton sender: UIButton) {
+        assembly.appAssembly.authorizationManager.passwordRecovery(with: email,
+                                                                    successBlock: {
+                                                                        print("success")
+                                                                    }) { (_) in
+                                                                        print("error")
+                                                                    }
     }
 }

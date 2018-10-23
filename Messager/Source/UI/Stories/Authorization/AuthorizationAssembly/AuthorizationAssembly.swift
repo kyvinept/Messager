@@ -9,22 +9,28 @@ import UIKit
 
 class AuthorizationAssembly: AuthorizationAssemblyProtocol {
     
-    var assembly: MainUIAssembly
+    var appAssembly: ApplicationAssembly
     
-    init(assembly: MainUIAssembly) {
-        self.assembly = assembly
+    init(appAssembly: ApplicationAssembly) {
+        self.appAssembly = appAssembly
     }
     
     func loginVC() -> LoginViewController {
-        return getStoryboard().instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        vc.title = "Login"
+        return vc
     }
     
     func registrationVC() -> RegistrationViewController {
-        return getStoryboard().instantiateViewController(withIdentifier: "RegistrationViewController") as! RegistrationViewController
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "RegistrationViewController") as! RegistrationViewController
+        vc.title = "Register"
+        return vc
     }
     
     func passwordRecoveryVC() -> PasswordRecoveryViewController {
-        return getStoryboard().instantiateViewController(withIdentifier: "PasswordRecoveryViewController") as! PasswordRecoveryViewController
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "PasswordRecoveryViewController") as! PasswordRecoveryViewController
+        vc.title = "Restore password"
+        return vc
     }
     
     private func getStoryboard() -> UIStoryboard {

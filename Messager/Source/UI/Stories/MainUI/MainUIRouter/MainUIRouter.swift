@@ -16,8 +16,8 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     }
     
     func showMainUIInterfaceAfterLaunch(from viewController: UIViewController, animated: Bool) {
-        let authorizationAssembly = AuthorizationAssembly(assembly: assembly)
-        let authorizationRouter = AuthorizationRouter(authorizationAssembly: authorizationAssembly, rootViewController: viewController)
+        let authorizationAssembly = AuthorizationAssembly(appAssembly: assembly.appAssembly)
+        let authorizationRouter = AuthorizationRouter(assembly: authorizationAssembly, rootViewController: viewController)
         authorizationRouter.showInitVC()
     }
 }

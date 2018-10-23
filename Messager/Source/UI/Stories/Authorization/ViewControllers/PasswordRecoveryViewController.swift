@@ -9,7 +9,7 @@ import UIKit
 
 protocol PasswordRecoveryViewControllerDelegate: class {
     
-    func passwordRecovery(with email: String, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ())
+    func passwordRecoveryViewController(with email: String, viewController: PasswordRecoveryViewController, didTouchRegisterButton sender: UIButton)
 }
 
 class PasswordRecoveryViewController: UIViewController {
@@ -21,13 +21,9 @@ class PasswordRecoveryViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    @IBAction func restorePasswordButtonTapped(_ sender: Any) {
-        delegate?.passwordRecovery(with: emailTextField.text!,
-                                   successBlock: {
-                                       print("success")
-                                   },
-                                   errorBlock: { (_) in
-                                       print("error")
-                                   })
+    @IBAction func restorePasswordButtonTapped(_ sender: UIButton) {
+        delegate?.passwordRecoveryViewController(with: emailTextField.text!,
+                                        viewController: self,
+                                didTouchRegisterButton: sender)
     }
 }

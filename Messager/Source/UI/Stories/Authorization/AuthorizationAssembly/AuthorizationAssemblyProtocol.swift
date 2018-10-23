@@ -9,7 +9,7 @@ import UIKit
 
 protocol AuthorizationAssemblyProtocol {
     
-    var assembly: MainUIAssembly { get }
+    var appAssembly: ApplicationAssembly { get }
     
     func loginVC() -> LoginViewController
     func registrationVC() -> RegistrationViewController

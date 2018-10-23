@@ -3,9 +3,9 @@
  
  protocol LoginViewControllerDelegate: class {
     
-    func registerButtonWasTapped(_ sender: UIButton)
-    func passwordRecovery(_ sender: UIButton)
-    func checkUserButtonTapped(with email: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ())
+    func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton)
+    func loginViewController(viewController: LoginViewController, didTouchPasswordRecoveryButton sender: UIButton)
+    func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton)
  }
  
  class LoginViewController: UIViewController {
@@ -19,22 +19,18 @@
     }
     
     @IBAction func registrationButtonTapped(_ sender: UIButton) {
-        delegate?.registerButtonWasTapped(sender)
+        delegate?.loginViewController(viewController: self, didTouchRegisterButton: sender)
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        delegate?.checkUserButtonTapped(with: emailTextField.text!,
-                                    password: passwordTextField.text!,
-                                successBlock: { (_) in
-                                    print("success")
-                                },
-                                  errorBlock: { (_) in
-                                      print("error")
-                                  })
+        delegate?.loginViewController(withEmail: emailTextField.text!,
+                                       password: passwordTextField.text!,
+                                 viewController: self,
+                            didTouchLoginButton: sender)
     }
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
-        delegate?.passwordRecovery(sender)
+        delegate?.loginViewController(viewController: self, didTouchPasswordRecoveryButton: sender)
     }
     
     

@@ -9,7 +9,7 @@ import UIKit
 
 protocol RegistrationViewControllerDelegate: class {
     
-    func registerUserButtonTapped(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ())
+    func registrationViewController(with email: String, name: String, password: String, viewController: RegistrationViewController, didTouchRegisterButton sender: UIButton)
 }
 
 class RegistrationViewController: UIViewController {
@@ -23,15 +23,11 @@ class RegistrationViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    @IBAction func registerButtonTapped(_ sender: Any) {
-        delegate?.registerUserButtonTapped(with: emailTextField.text!,
-                                           name: nameTextField.text!,
-                                       password: passwordTextField.text!,
-                                   successBlock: { _ in
-                                       print("success")
-                                   },
-                                     errorBlock: { _ in
-                                         print("error")
-                                     })
+    @IBAction func registerButtonTapped(_ sender: UIButton) {
+        delegate?.registrationViewController(with: emailTextField.text!,
+                                             name: nameTextField.text!,
+                                         password: passwordTextField.text!,
+                                   viewController: self,
+                           didTouchRegisterButton: sender)
     }
 }

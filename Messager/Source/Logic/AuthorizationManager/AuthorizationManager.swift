@@ -19,7 +19,7 @@ class AuthorizationManager {
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
     }
     
-    func login(with email: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+    func login(withEmail email: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
         backendless.userService.login(email,
                                       password: password,
                                       response: { (user) in
@@ -28,6 +28,10 @@ class AuthorizationManager {
                                          error: { (error) in
                                              errorBlock(error)
                                          })
+    }
+    
+    func login() {
+        //backendless.userService.login(withGoogleSDK: <#T##String!#>, accessToken: <#T##String!#>, response: <#T##((BackendlessUser?) -> Void)!##((BackendlessUser?) -> Void)!##(BackendlessUser?) -> Void#>, error: <#T##((Fault?) -> Void)!##((Fault?) -> Void)!##(Fault?) -> Void#>)
     }
     
     func register(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
