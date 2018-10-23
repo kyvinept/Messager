@@ -2,22 +2,39 @@
  import UIKit
  
  protocol LoginViewControllerDelegate: class {
-    func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton)
+    
+    func registerButtonWasTapped(_ sender: UIButton)
+    func passwordRecovery(_ sender: UIButton)
+    func checkUserButtonTapped(with email: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ())
  }
  
  class LoginViewController: UIViewController {
     
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
     var delegate: LoginViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Backendless.sharedInstance().hostURL = SERVER_URL
-        Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
-        saveTestObject()
     }
     
     @IBAction func registrationButtonTapped(_ sender: UIButton) {
-        delegate?.loginViewController(viewController: self, didTouchRegisterButton: sender)
+        delegate?.registerButtonWasTapped(sender)
+    }
+    
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
+        delegate?.checkUserButtonTapped(with: emailTextField.text!,
+                                    password: passwordTextField.text!,
+                                successBlock: { (_) in
+                                    print("success")
+                                },
+                                  errorBlock: { (_) in
+                                      print("error")
+                                  })
+    }
+    
+    @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
+        delegate?.passwordRecovery(sender)
     }
     
     
@@ -30,11 +47,6 @@
     
     
     
-    
-    
-    let APPLICATION_ID = "6750B226-C13A-6F57-FF65-037600EDE000"
-    let API_KEY = "BE8D84AE-A2FE-56B8-FF3A-98F4FD827900"
-    let SERVER_URL = "https://api.backendless.com"
     
     var dataStore: IDataStore?
     var testObject: [String : Any]?

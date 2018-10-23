@@ -23,6 +23,10 @@ class AuthorizationAssembly: AuthorizationAssemblyProtocol {
         return getStoryboard().instantiateViewController(withIdentifier: "RegistrationViewController") as! RegistrationViewController
     }
     
+    func passwordRecoveryVC() -> PasswordRecoveryViewController {
+        return getStoryboard().instantiateViewController(withIdentifier: "PasswordRecoveryViewController") as! PasswordRecoveryViewController
+    }
+    
     private func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Authorization", bundle: nil)
     }

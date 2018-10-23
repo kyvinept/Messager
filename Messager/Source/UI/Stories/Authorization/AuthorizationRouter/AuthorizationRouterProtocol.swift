@@ -12,7 +12,5 @@ protocol AuthorizationRouterProtocol {
     var assembly: AuthorizationAssembly { get }
     var rootViewController: UIViewController { get }
     
-    func showRegistrationVC()
-    func showLoginVC()
-    func showPasswordRecoveryVC()
+    func showInitVC()
 }

@@ -10,7 +10,6 @@ import UIKit
 protocol ApplicationRouterProtocol {
     
     var applicationAssembly: ApplicationAssembly { get }
-    var navigationController: UINavigationController! { get }
     
     func showInitialUI(forWindow window: UIWindow)
 }

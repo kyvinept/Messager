@@ -26,6 +26,9 @@
 		5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */; };
 		5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */; };
 		5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */; };
+		5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */; };
+		5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */; };
+		5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE284A217F0AC000A2B6A4 /* User.swift */; };
 		86FDAEE282B09FC0E2BA72A5 /* Pods_Messager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A28CF456D7B3F7253BD3F6B /* Pods_Messager.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +55,9 @@
 		5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
 		5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterProtocol.swift; sourceTree = "<group>"; };
+		5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryViewController.swift; sourceTree = "<group>"; };
+		5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		5BCE284A217F0AC000A2B6A4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C15D05230E00E983E5007E47 /* Pods-Messager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Messager/Pods-Messager.debug.xcconfig"; sourceTree = "<group>"; };
 		E8558C1F8C442471ED26C1C8 /* Pods-Messager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messager.release.xcconfig"; path = "Pods/Target Support Files/Pods-Messager/Pods-Messager.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +114,7 @@
 			children = (
 				0F22E1B01E8407D1004B722A /* LoginViewController.swift */,
 				5B360953217DEE46008B46EB /* RegistrationViewController.swift */,
+				5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -187,6 +194,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5BCE2847217F085B00A2B6A4 /* AuthorizationManager */,
 				5B9E217B217DC43400884A96 /* Application */,
 			);
 			path = Logic;
@@ -205,6 +213,7 @@
 		5B9E2176217DC3CB00884A96 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5BCE284A217F0AC000A2B6A4 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,6 +336,14 @@
 				5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */,
 			);
 			path = AuthorizationRouter;
+			sourceTree = "<group>";
+		};
+		5BCE2847217F085B00A2B6A4 /* AuthorizationManager */ = {
+			isa = PBXGroup;
+			children = (
+				5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */,
+			);
+			path = AuthorizationManager;
 			sourceTree = "<group>";
 		};
 		9EF7CB5648798CD53B55066E /* Pods */ = {
@@ -471,11 +488,14 @@
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */,
 				5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */,
+				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */,
 				5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */,
+				5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,
+				5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

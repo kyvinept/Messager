@@ -18,7 +18,6 @@ class ApplicationRouter: ApplicationRouterProtocol {
     
     func showInitialUI(forWindow window: UIWindow) {
         let navVC = UINavigationController()
-        navVC.isNavigationBarHidden = true
         window.rootViewController = navVC
         self.navigationController = navVC
         

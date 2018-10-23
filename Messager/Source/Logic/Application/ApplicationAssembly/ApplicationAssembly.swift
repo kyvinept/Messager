@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ApplicationAssembly: ApplicationAssemblyProtocol {  
+class ApplicationAssembly: ApplicationAssemblyProtocol {
+    
+    lazy var authorizationManager = AuthorizationManager()
         
     init() { }
 }

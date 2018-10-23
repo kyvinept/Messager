@@ -9,4 +9,5 @@ import UIKit
 
 protocol ApplicationAssemblyProtocol {
     
+    var authorizationManager: AuthorizationManager { get }
 }
