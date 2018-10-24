@@ -7,18 +7,22 @@
 
 import UIKit
 
+protocol AuthorizationRouterDelegate: class {
+    
+    func authorizationStoryWasOver(from viewController: UIViewController)
+}
+
 class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
-    
+
     var assembly: AuthorizationAssembly
-    var rootViewController: UIViewController
+    var delegate: AuthorizationRouterDelegate?
     
-    init(assembly: AuthorizationAssembly, rootViewController: UIViewController) {
+    init(assembly: AuthorizationAssembly) {
         self.assembly = assembly
-        self.rootViewController = rootViewController
     }
     
-    func showInitVC() {
-        showLoginVC()
+    func showInitVC(from viewController: UIViewController) {
+        showLoginVC(from: viewController)
     }
     
     private func showInfo(to viewController: UIViewController, title: String, message: String) {
@@ -29,29 +33,29 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
                              completion: nil)
     }
     
-    private func showRegistrationVC() {
+    private func showRegistrationVC(from viewController: UIViewController) {
         let registerVC = assembly.registrationVC()
         registerVC.delegate = self
         action(with: registerVC,
-               from: rootViewController,
+               from: viewController.navigationController!,
                with: .push,
            animated: true)
     }
     
-    private func showLoginVC() {
+    private func showLoginVC(from viewController: UIViewController) {
         let loginVC = assembly.loginVC()
         loginVC.delegate = self
         action(with: loginVC,
-               from: rootViewController,
+               from: viewController,
                with: .push,
            animated: true)
     }
     
-    private func showPasswordRecoveryVC() {
+    private func showPasswordRecoveryVC(from viewController: UIViewController) {
         let passwordRecoveryVC = assembly.passwordRecoveryVC()
         passwordRecoveryVC.delegate = self
         action(with: passwordRecoveryVC,
-               from: rootViewController,
+               from: viewController.navigationController!,
                with: .push,
            animated: true)
     }
@@ -60,23 +64,23 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 extension AuthorizationRouter: LoginViewControllerDelegate {
     
     func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton) {
-        showRegistrationVC()
+        showRegistrationVC(from: viewController)
     }
     
     func loginViewController(viewController: LoginViewController, didTouchPasswordRecoveryButton sender: UIButton) {
-        showPasswordRecoveryVC()
+        showPasswordRecoveryVC(from: viewController)
     }
     
     func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton) {
         assembly.appAssembly.authorizationManager.login(withEmail: email,
                                                                   password: password,
                                                               successBlock: { user in
-                                                                  print("success")
+                                                                  self.delegate?.authorizationStoryWasOver(from: viewController)
                                                               },
-                                                                errorBlock: { _ in
+                                                                errorBlock: { error in
                                                                     self.showInfo(to: viewController,
                                                                                title: "Error",
-                                                                             message: "Invalid email or password")
+                                                                             message: error!.detail)
                                                                 })
     }
 }
@@ -103,8 +107,8 @@ extension AuthorizationRouter: PasswordRecoveryViewControllerDelegate {
         assembly.appAssembly.authorizationManager.passwordRecovery(with: email,
                                                                     successBlock: {
                                                                         print("success")
-                                                                    }) { (_) in
-                                                                        print("error")
+                                                                    }) { error in
+                                                                        print(error!.detail)
                                                                     }
     }
 }

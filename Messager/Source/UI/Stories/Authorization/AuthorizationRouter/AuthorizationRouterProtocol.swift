@@ -10,7 +10,6 @@ import UIKit
 protocol AuthorizationRouterProtocol {
     
     var assembly: AuthorizationAssembly { get }
-    var rootViewController: UIViewController { get }
     
-    func showInitVC()
+    func showInitVC(from viewController: UIViewController)
 }

@@ -10,19 +10,17 @@ import UIKit
 class ApplicationRouter: ApplicationRouterProtocol {
     
     var applicationAssembly: ApplicationAssembly
-    var navigationController: UINavigationController!
     
     init(applicationAssembly: ApplicationAssembly) {
         self.applicationAssembly = applicationAssembly
     }
     
     func showInitialUI(forWindow window: UIWindow) {
-        let navVC = UINavigationController()
-        window.rootViewController = navVC
-        self.navigationController = navVC
+        let vc = UINavigationController()
+        window.rootViewController = vc
         
         let mainUIAssembly = MainUIAssembly(appAssembly: applicationAssembly)
         let mainUIRouter = MainUIRouter(assembly: mainUIAssembly)
-        mainUIRouter.showMainUIInterfaceAfterLaunch(from: self.navigationController, animated: false)
+        mainUIRouter.showMainUIInterfaceAfterLaunch(from: vc, animated: false)
     }
 }

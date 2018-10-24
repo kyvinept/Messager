@@ -7,6 +7,7 @@ use_frameworks!
 
   # Pods for Messager
 pod 'Backendless'
+pod 'MessageKit', '~> 1.0.0'
 
 end
             

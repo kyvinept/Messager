@@ -9,7 +9,13 @@ import UIKit
 
 class ApplicationAssembly: ApplicationAssemblyProtocol {
     
-    lazy var authorizationManager = AuthorizationManager()
+    lazy var authorizationManager = self.createAuthorizationManager()
+    
+    private func createAuthorizationManager() -> AuthorizationManager {
+        let keychain = KeychainManager()
+        return AuthorizationManager(with: keychain)
+    }
+    //lazy var keychainManager = KeychainManager()
         
     init() { }
 }
