@@ -15,13 +15,16 @@ protocol AuthorizationRouterDelegate: class {
 class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 
     var assembly: AuthorizationAssembly
-    var delegate: AuthorizationRouterDelegate?
+    weak var delegate: AuthorizationRouterDelegate?
+    private var loginViewController: LoginViewController?
+    private var registrationViewController: RegistrationViewController?
+    private var passwordRecoveryViewController: PasswordRecoveryViewController?
     
     init(assembly: AuthorizationAssembly) {
         self.assembly = assembly
     }
     
-    func showInitVC(from viewController: UIViewController) {
+    func showInitialVC(from viewController: UIViewController) {
         showLoginVC(from: viewController)
     }
     
@@ -34,8 +37,9 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     }
     
     private func showRegistrationVC(from viewController: UIViewController) {
-        let registerVC = assembly.registrationVC()
+        let registerVC = assembly.createRegistrationViewController()
         registerVC.delegate = self
+        self.registrationViewController = registerVC
         action(with: registerVC,
                from: viewController.navigationController!,
                with: .push,
@@ -43,8 +47,9 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     }
     
     private func showLoginVC(from viewController: UIViewController) {
-        let loginVC = assembly.loginVC()
+        let loginVC = assembly.createLoginViewController()
         loginVC.delegate = self
+        self.loginViewController = loginVC
         action(with: loginVC,
                from: viewController,
                with: .push,
@@ -52,8 +57,9 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
     }
     
     private func showPasswordRecoveryVC(from viewController: UIViewController) {
-        let passwordRecoveryVC = assembly.passwordRecoveryVC()
+        let passwordRecoveryVC = assembly.createPasswordRecoveryViewController()
         passwordRecoveryVC.delegate = self
+        self.passwordRecoveryViewController = passwordRecoveryVC
         action(with: passwordRecoveryVC,
                from: viewController.navigationController!,
                with: .push,

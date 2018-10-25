@@ -9,11 +9,23 @@ import UIKit
 import MessageKit
 import Photos
 
+protocol ChatViewControllerDelegate: class {
+    
+    func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController)
+}
+
 class ChatViewController: MessagesViewController {
     
     private var messages: [Message] = []
-    private var camera: InputBarButtonItem!
-    private var file: InputBarButtonItem!
+    private var createPhotoButton: InputBarButtonItem!
+    private var choseFileButton: InputBarButtonItem!
+    private var currentUser: User!
+    private var toUser: User!
+    private let widthButton: CGFloat = 35
+    private let heightButton: CGFloat = 35
+    private let horizontalOffset: CGFloat = 50
+    
+    weak var delegate: ChatViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +38,11 @@ class ChatViewController: MessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureStyleInputBar()
+    }
+    
+    func configure(with currentUser: User, toUser: User) {
+        self.currentUser = currentUser
+        self.toUser = toUser
     }
     
     private func setDelegate() {
@@ -84,31 +101,31 @@ extension ChatViewController {
     }
     
     private func createRightButtons() {
-        camera = InputBarButtonItem(type: .system)
-        camera.tintColor = .gray
-        camera.image = UIImage(named: "photo-camera")
-        camera.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
-        camera.setSize(CGSize(width: 30, height: 30), animated: false)
+        createPhotoButton = InputBarButtonItem(type: .system)
+        createPhotoButton.tintColor = .gray
+        createPhotoButton.image = UIImage(named: "photo-camera")
+        createPhotoButton.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
+        createPhotoButton.setSize(CGSize(width: widthButton, height: heightButton), animated: false)
         
-        file = InputBarButtonItem(type: .system)
-        file.tintColor = .gray
-        file.image = UIImage(named: "clip")
-        file.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
-        file.setSize(CGSize(width: 40, height: 30), animated: false)
+        choseFileButton = InputBarButtonItem(type: .system)
+        choseFileButton.tintColor = .gray
+        choseFileButton.image = UIImage(named: "clip")
+        choseFileButton.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
+        choseFileButton.setSize(CGSize(width: widthButton, height: heightButton), animated: false)
     }
     
     private func setConstraintsForRightButtons() {
         messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: 50, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset, animated: false)
         
         messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: 80, animated: false)
-        messageInputBar.setStackViewItems([file, camera], forStack: .right, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset + widthButton, animated: false)
+        messageInputBar.setStackViewItems([choseFileButton, createPhotoButton], forStack: .right, animated: false)
     }
     
     private func setConstraintsForSendButton() {
         messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: 50, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset, animated: false)
         messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
     }
 }
@@ -154,12 +171,6 @@ extension ChatViewController: MessagesLayoutDelegate {
         return .zero
     }
     
-    func footerViewSize(for message: MessageType, at indexPath: IndexPath,
-                        in messagesCollectionView: MessagesCollectionView) -> CGSize {
-        
-        return CGSize(width: 0, height: 8)
-    }
-    
     func heightForLocation(message: MessageType, at indexPath: IndexPath,
                            with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         
@@ -196,6 +207,7 @@ extension ChatViewController: MessageInputBarDelegate {
         let message = Message(sender: Sender(id: "1", displayName: "User"), messageId: "1", sentDate: Date(), kind: .text(text))
         insertNewMessage(message)
         inputBar.inputTextView.text = ""
+        delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
     }
     
     func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {

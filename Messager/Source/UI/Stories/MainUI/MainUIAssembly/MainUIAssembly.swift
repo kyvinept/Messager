@@ -15,12 +15,12 @@ class MainUIAssembly: MainUIAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func navigationController() -> UINavigationController {
+    func createNavigationController() -> UINavigationController {
         let vc = UINavigationController()
         return vc
     }
     
-    func tabBarController() -> UITabBarController {
+    func createTabBarController() -> UITabBarController {
         let vc = UITabBarController()
         return vc
     }

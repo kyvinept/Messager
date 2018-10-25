@@ -10,7 +10,9 @@ import UIKit
 class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     
     var assembly: MainUIAssembly
-    var rootViewController: UIViewController!
+    private var authorizationRouter: AuthorizationRouter?
+    private var chatRouter: ChatRouter?
+    private var rootViewController: UIViewController!
     
     init(assembly: MainUIAssembly) {
         self.assembly = assembly
@@ -18,7 +20,7 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     
     func showMainUIInterfaceAfterLaunch(from rootViewController: UIViewController, animated: Bool) {
         self.rootViewController = rootViewController
-        if !assembly.appAssembly.authorizationManager.isLoginUser() {
+        if true {//!assembly.appAssembly.authorizationManager.isLoginUser() {
             showAuthorizationStory()
         } else {
             showChatStory()
@@ -30,14 +32,16 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
         let authorizationAssembly = AuthorizationAssembly(appAssembly: assembly.appAssembly)
         let authorizationRouter = AuthorizationRouter(assembly: authorizationAssembly)
         authorizationRouter.delegate = self
-        authorizationRouter.showInitVC(from: rootViewController)
+        self.authorizationRouter = authorizationRouter
+        authorizationRouter.showInitialVC(from: rootViewController)
     }
     
     func showChatStory() {
         resetRootViewController()
         let chatAssembly = ChatAssembly(appAssembly: assembly.appAssembly)
         let chatRouter = ChatRouter(assembly: chatAssembly)
-        chatRouter.showInitVC(from: rootViewController)
+        self.chatRouter = chatRouter
+        chatRouter.showInitialVC(from: rootViewController)
     }
     
     private func resetRootViewController() {
@@ -51,6 +55,7 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
 extension MainUIRouter: AuthorizationRouterDelegate {
     
     func authorizationStoryWasOver(from viewController: UIViewController) {
+        authorizationRouter = nil
         showChatStory()
     }
 }

@@ -14,6 +14,7 @@ class AuthorizationManager {
     private let SERVER_URL = "https://api.backendless.com"
     private let backendless = Backendless.sharedInstance()!
     private var keychainManager: KeychainManager
+    private(set) var currentUser: User?
     
     init(with keychainManager: KeychainManager) {
         Backendless.sharedInstance().hostURL = SERVER_URL
@@ -67,6 +68,7 @@ class AuthorizationManager {
     private func checkCurrentUser(user: BackendlessUser?) -> User? {
         if let user = user {
             let newUser = self.createNewUser(user: user)
+            self.currentUser = newUser
             self.keychainManager.save(email: newUser.email)
             return newUser
         }

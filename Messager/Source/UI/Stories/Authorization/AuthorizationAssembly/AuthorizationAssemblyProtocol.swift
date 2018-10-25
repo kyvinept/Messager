@@ -11,7 +11,7 @@ protocol AuthorizationAssemblyProtocol {
     
     var appAssembly: ApplicationAssembly { get }
     
-    func loginVC() -> LoginViewController
-    func registrationVC() -> RegistrationViewController
-    func passwordRecoveryVC() -> PasswordRecoveryViewController
+    func createLoginViewController() -> LoginViewController
+    func createRegistrationViewController() -> RegistrationViewController
+    func createPasswordRecoveryViewController() -> PasswordRecoveryViewController
 }

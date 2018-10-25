@@ -15,7 +15,7 @@ protocol PasswordRecoveryViewControllerDelegate: class {
 class PasswordRecoveryViewController: UIViewController {
 
     @IBOutlet private weak var emailTextField: UITextField!
-    var delegate: PasswordRecoveryViewControllerDelegate?
+    weak var delegate: PasswordRecoveryViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

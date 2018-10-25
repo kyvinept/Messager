@@ -11,5 +11,5 @@ protocol ChatRouterProtocol {
     
     var assembly: ChatAssembly { get }
 
-    func showInitVC(from rootViewController: UIViewController)
+    func showInitialVC(from rootViewController: UIViewController)
 }

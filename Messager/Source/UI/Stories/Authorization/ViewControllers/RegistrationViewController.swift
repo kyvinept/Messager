@@ -17,7 +17,7 @@ class RegistrationViewController: UIViewController {
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
-    var delegate: RegistrationViewControllerDelegate?
+    weak var delegate: RegistrationViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -11,5 +11,5 @@ protocol AuthorizationRouterProtocol {
     
     var assembly: AuthorizationAssembly { get }
     
-    func showInitVC(from viewController: UIViewController)
+    func showInitialVC(from viewController: UIViewController)
 }

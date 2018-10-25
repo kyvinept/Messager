@@ -15,13 +15,14 @@ class ChatAssembly: ChatAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func chatVC() -> ChatViewController {
+    func createChatViewController(currentUser: User, toUser: User) -> ChatViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         vc.title = "Chats"
+        vc.configure(with: currentUser, toUser: toUser)
         return vc
     }
     
-    func messageVC() -> MessageViewController {
+    func createMessageViewController() -> MessageViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
         vc.title = "Messages"
         return vc

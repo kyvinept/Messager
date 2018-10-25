@@ -10,6 +10,7 @@ import UIKit
 class ApplicationRouter: ApplicationRouterProtocol {
     
     var applicationAssembly: ApplicationAssembly
+    private var mainUIRouter: MainUIRouter?
     
     init(applicationAssembly: ApplicationAssembly) {
         self.applicationAssembly = applicationAssembly
@@ -21,6 +22,7 @@ class ApplicationRouter: ApplicationRouterProtocol {
         
         let mainUIAssembly = MainUIAssembly(appAssembly: applicationAssembly)
         let mainUIRouter = MainUIRouter(assembly: mainUIAssembly)
+        self.mainUIRouter = mainUIRouter
         mainUIRouter.showMainUIInterfaceAfterLaunch(from: vc, animated: false)
     }
 }

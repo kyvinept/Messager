@@ -9,9 +9,9 @@ import UIKit
 
 struct User {
     
-    var id: String
     var email: String
     var name: String
     var password: String?
+    var id: String
     var userToken: String?
 }

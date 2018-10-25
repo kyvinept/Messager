@@ -19,6 +19,7 @@
 		5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360964217E2F59008B46EB /* MainUIRouter.swift */; };
 		5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */; };
 		5B69DF5A2181BE5D0072E76E /* ImageMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF592181BE5D0072E76E /* ImageMessage.swift */; };
+		5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF5C2181E55F0072E76E /* ApiManager.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
 		5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5032180BB71003B5351 /* KeychainManager.swift */; };
 		5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */; };
@@ -58,6 +59,7 @@
 		5B360964217E2F59008B46EB /* MainUIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouter.swift; sourceTree = "<group>"; };
 		5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouterProtocol.swift; sourceTree = "<group>"; };
 		5B69DF592181BE5D0072E76E /* ImageMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMessage.swift; sourceTree = "<group>"; };
+		5B69DF5C2181E55F0072E76E /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5B76B5032180BB71003B5351 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssembly.swift; sourceTree = "<group>"; };
@@ -182,6 +184,14 @@
 			path = MainUIAssembly;
 			sourceTree = "<group>";
 		};
+		5B69DF5B2181E54F0072E76E /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B69DF5C2181E55F0072E76E /* ApiManager.swift */,
+			);
+			path = ApiManager;
+			sourceTree = "<group>";
+		};
 		5B76B5022180BB11003B5351 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +232,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B69DF5B2181E54F0072E76E /* ApiManager */,
 				5B76B5022180BB11003B5351 /* KeychainManager */,
 				5BCE2847217F085B00A2B6A4 /* AuthorizationManager */,
 				5B9E217B217DC43400884A96 /* Application */,
@@ -572,6 +583,7 @@
 				5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */,
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5BD3EBEA217F68BA00FD3D83 /* ChatAssemblyProtocol.swift in Sources */,
+				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
 				5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */,
 				5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */,
 				5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */,

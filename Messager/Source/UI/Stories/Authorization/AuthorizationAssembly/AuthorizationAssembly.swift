@@ -15,19 +15,19 @@ class AuthorizationAssembly: AuthorizationAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func loginVC() -> LoginViewController {
+    func createLoginViewController() -> LoginViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         vc.title = "Login"
         return vc
     }
     
-    func registrationVC() -> RegistrationViewController {
+    func createRegistrationViewController() -> RegistrationViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "RegistrationViewController") as! RegistrationViewController
         vc.title = "Register"
         return vc
     }
     
-    func passwordRecoveryVC() -> PasswordRecoveryViewController {
+    func createPasswordRecoveryViewController() -> PasswordRecoveryViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "PasswordRecoveryViewController") as! PasswordRecoveryViewController
         vc.title = "Restore password"
         return vc
