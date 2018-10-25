@@ -17,30 +17,36 @@ class KeychainManager {
                 kSecValueData as String: email]
     }
     
-    func save(email: String) {
-        guard let data = email.data(using: String.Encoding.utf8) else { return }
+    func getCurrentUser() -> User {
+        let query = load()!
+        return User(email: query["email"]!, name: query["name"]!, password: nil, id: query["id"]!, userToken: nil)
+    }
+    
+    func save(email: String, id: String, name: String) {
+        let saveData = ["email": email, "id": id, "name": name]
+        let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
         let getQuery: [String: Any] = query(with: data)
         let status = SecItemAdd(getQuery as CFDictionary, nil)
         guard status == errSecSuccess else { return }
     }
     
     func delete() {
-        guard let email = load() else { return }
-        guard let data = email.data(using: .utf8) else { return }
+        guard let objects = load() else { return }
+        let data = NSKeyedArchiver.archivedData(withRootObject: objects)
         let getQuery: [String: Any] = query(with: data)
         SecItemDelete(getQuery as CFDictionary)
     }
     
-    func load() -> String? {
+    func load() -> [String : String]? {
         let getquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                        kSecAttrAccount as String: key,
                                        kSecReturnData as String: kCFBooleanTrue,
                                        kSecMatchLimit as String: kSecMatchLimitOne]
         var item: CFTypeRef?
-        let status1 = SecItemCopyMatching(getquery as CFDictionary, &item)
-        guard status1 == errSecSuccess else { return nil }
+        let status = SecItemCopyMatching(getquery as CFDictionary, &item)
+        guard status == errSecSuccess else { return nil }
         if let data = item as? Data {
-            return String(data: data, encoding: .utf8)
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : String]
         }
         return nil
     }

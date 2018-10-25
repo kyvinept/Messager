@@ -20,7 +20,7 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     
     func showMainUIInterfaceAfterLaunch(from rootViewController: UIViewController, animated: Bool) {
         self.rootViewController = rootViewController
-        if true {//!assembly.appAssembly.authorizationManager.isLoginUser() {
+        if !assembly.appAssembly.authorizationManager.isLoginUser() {
             showAuthorizationStory()
         } else {
             showChatStory()

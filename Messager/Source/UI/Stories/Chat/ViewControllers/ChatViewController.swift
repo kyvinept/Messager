@@ -22,7 +22,7 @@ class ChatViewController: MessagesViewController {
     private var currentUser: User!
     private var toUser: User!
     private let widthButton: CGFloat = 35
-    private let heightButton: CGFloat = 35
+    private let heightButton: CGFloat = 30
     private let horizontalOffset: CGFloat = 50
     
     weak var delegate: ChatViewControllerDelegate?
@@ -211,7 +211,7 @@ extension ChatViewController: MessageInputBarDelegate {
     }
     
     func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {
-        if text != "" {
+        if !text.isEmpty {
             setConstraintsForSendButton()
         } else {
             setConstraintsForRightButtons()

@@ -11,7 +11,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
 
     var assembly: ChatAssembly
     private var chatViewController: ChatViewController?
-    lazy private var currentUser: User? = {
+    lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
     
