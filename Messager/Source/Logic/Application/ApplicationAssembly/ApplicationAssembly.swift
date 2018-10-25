@@ -15,7 +15,6 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
         let keychain = KeychainManager()
         return AuthorizationManager(with: keychain)
     }
-    //lazy var keychainManager = KeychainManager()
         
     init() { }
 }
