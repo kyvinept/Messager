@@ -45,6 +45,14 @@ class ChatViewController: MessagesViewController {
         self.toUser = toUser
     }
     
+    func showNewMessage(_ message: String) {
+        let newMessage = Message(sender: Sender(id: toUser.id, displayName: toUser.name),
+                              messageId: String(messages.count+1),
+                               sentDate: Date(),
+                                   kind: .text(message))
+        insertNewMessage(newMessage)
+    }
+    
     private func setDelegate() {
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
@@ -141,7 +149,7 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func currentSender() -> Sender {
-        return Sender(id: "1", displayName: "Name")
+        return Sender(id: currentUser.id, displayName: currentUser.name)
     }
     
     func messageForItem(at indexPath: IndexPath,
@@ -204,10 +212,15 @@ extension ChatViewController: MessagesDisplayDelegate {
 extension ChatViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        let message = Message(sender: Sender(id: "1", displayName: "User"), messageId: "1", sentDate: Date(), kind: .text(text))
+        let message = Message(sender: Sender(id: currentUser.id, displayName: currentUser.name),
+                           messageId: String(messages.count + 1),
+                            sentDate: Date(),
+                                kind: .text(text))
         insertNewMessage(message)
         inputBar.inputTextView.text = ""
-        delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
+        delegate?.didTouchSendMessageButton(with: message,
+                                          toUser: toUser,
+                                  viewController: self)
     }
     
     func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {
