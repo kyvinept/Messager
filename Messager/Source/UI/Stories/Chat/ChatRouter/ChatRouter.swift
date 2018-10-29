@@ -11,6 +11,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
 
     var assembly: ChatAssembly
     private var chatViewController: ChatViewController?
+    private var usersViewController: UsersViewController?
     lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
@@ -20,16 +21,27 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     func showInitialVC(from rootViewController: UIViewController) {
-        var toUser = User(email: "b@gmail.com", name: "name", password: nil, id: "05260029-BD82-1E22-FF0C-A1DF8CD38200", userToken: nil)
-        if currentUser!.id == "05260029-BD82-1E22-FF0C-A1DF8CD38200" {
-            toUser = User(email: "a@gmail.com", name: "Pup", password: nil, id: "D935A236-A31E-8BEB-FF8E-63E5846AD300", userToken: nil)
-        } else {
-            toUser = User(email: "b@gmail.com", name: "name", password: nil, id: "05260029-BD82-1E22-FF0C-A1DF8CD38200", userToken: nil)
-        }
-        showChatVC(from: rootViewController, currentUser: currentUser!, toUser: toUser)
+        showUsersViewController(from: rootViewController)
     }
     
-    private func showChatVC(from rootViewController: UIViewController, currentUser: User, toUser: User) {
+    private func showUsersViewController(from rootViewController: UIViewController) {
+        assembly.appAssembly.apiManager
+        .getUsers(successBlock: { (users) in
+                                    var allUsers = users
+                                    allUsers?.removeAll { $0.email == self.currentUser!.email && $0.id == self.currentUser!.id && $0.name == self.currentUser!.name }
+                                    let vc = self.assembly.createUsersViewController(with: allUsers ?? [User]())
+                                    vc.delegate = self
+                                    self.usersViewController = vc
+                                    self.action(with: vc,
+                                                from: rootViewController,
+                                                with: .push,
+                                            animated: true)
+                                }, errorBlock: { (error) in
+                                    print("error")
+                                })
+    }
+    
+    private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
         assembly.appAssembly.apiManager
         .startRealtimeChat(fromUser: currentUser,
                              toUser: toUser,
@@ -38,18 +50,26 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                            .addMessageListener(successBlock: { message in
                                self.showNewMessage(message)
                            }, errorBlock: { error in
-                               print(error)
+                               print("error")
                            })
                            let vc = self.assembly.createChatViewController(currentUser: currentUser, toUser: toUser)
                            vc.delegate = self
                            self.chatViewController = vc
                            self.action(with: vc,
-                                       from: rootViewController,
+                                       from: viewController.navigationController!,
                                        with: .push,
                                    animated: true)
+                           viewController.tabBarController?.tabBar.isHidden = true
                        }, errorBlock: { error in
-                           print(error)
+                           print("error")
                        })
+    }
+}
+
+extension ChatRouter: UsersViewControllerDelegate {
+    
+    func didSelectCell(with user: User, from viewController: UsersViewController) {
+        showChatViewController(from: viewController, currentUser: currentUser!, toUser: user)
     }
 }
 
@@ -61,5 +81,10 @@ extension ChatRouter: ChatViewControllerDelegate {
     
     private func showNewMessage(_ message: String?) {
         chatViewController?.showNewMessage(message ?? "")
+    }
+    
+    func didTouchBackButton(viewController: ChatViewController) {
+        viewController.navigationController?.popViewController(animated: true)
+        viewController.tabBarController?.tabBar.isHidden = false
     }
 }

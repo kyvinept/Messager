@@ -78,15 +78,18 @@ extension AuthorizationRouter: LoginViewControllerDelegate {
     }
     
     func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton) {
+        sender.isEnabled = false
         assembly.appAssembly.authorizationManager.login(withEmail: email,
                                                                   password: password,
                                                               successBlock: { user in
                                                                   self.delegate?.authorizationStoryWasOver(from: viewController)
+                                                                  sender.isEnabled = true
                                                               },
                                                                 errorBlock: { error in
                                                                     self.showInfo(to: viewController,
                                                                                title: "Error",
                                                                              message: error!.detail)
+                                                                    sender.isEnabled = true
                                                                 })
     }
 }
@@ -94,15 +97,18 @@ extension AuthorizationRouter: LoginViewControllerDelegate {
 extension AuthorizationRouter: RegistrationViewControllerDelegate {
     
     func registrationViewController(with email: String, name: String, password: String, viewController: RegistrationViewController, didTouchRegisterButton sender: UIButton) {
+        sender.isEnabled = false
         assembly.appAssembly.authorizationManager.register(with: email,
                                                                     name: name,
                                                                 password: password,
                                                             successBlock: { (_) in
                                                                 print("success")
+                                                                sender.isEnabled = true
                                                             }) { error in
                                                                 self.showInfo(to: viewController,
                                                                            title: "Error",
                                                                          message: error!.detail)
+                                                                sender.isEnabled = true
                                                             }
     }
 }
@@ -110,11 +116,14 @@ extension AuthorizationRouter: RegistrationViewControllerDelegate {
 extension AuthorizationRouter: PasswordRecoveryViewControllerDelegate {
     
     func passwordRecoveryViewController(with email: String, viewController: PasswordRecoveryViewController, didTouchRegisterButton sender: UIButton) {
+        sender.isEnabled = false
         assembly.appAssembly.authorizationManager.passwordRecovery(with: email,
                                                                     successBlock: {
                                                                         print("success")
+                                                                        sender.isEnabled = true
                                                                     }) { error in
                                                                         print(error!.detail)
+                                                                        sender.isEnabled = true
                                                                     }
     }
 }

@@ -17,7 +17,7 @@ class ApplicationRouter: ApplicationRouterProtocol {
     }
     
     func showInitialUI(forWindow window: UIWindow) {
-        let vc = UINavigationController()
+        let vc = UITabBarController()
         window.rootViewController = vc
         
         let mainUIAssembly = MainUIAssembly(appAssembly: applicationAssembly)

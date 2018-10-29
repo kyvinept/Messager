@@ -1,28 +1,41 @@
 PODS:
-  - Backendless (5.1.6):
+  - Backendless (5.1.8):
     - Socket.IO-Client-Swift
+  - Chatto (3.3.1)
+  - ChattoAdditions (3.3.1):
+    - Chatto
   - MessageKit (1.0.0)
-  - Socket.IO-Client-Swift (13.3.0):
+  - Socket.IO-Client-Swift (13.3.1):
     - Starscream (~> 3.0.2)
-  - Starscream (3.0.5)
+  - Starscream (3.0.6)
+  - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - Backendless
+  - Chatto (= 3.3.1)
+  - ChattoAdditions (= 3.3.1)
   - MessageKit (~> 1.0.0)
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Backendless
+    - Chatto
+    - ChattoAdditions
     - MessageKit
     - Socket.IO-Client-Swift
     - Starscream
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Backendless: 259915a361b0781099c463265ab8d1b8de298557
+  Backendless: 394f705e142e27e012adfd5d6c1ce0db1dc63c46
+  Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
+  ChattoAdditions: cc74cd3dd371aa3f70e5ab8568a4f383f0c0eb8c
   MessageKit: 16160036b16476b04bd0e9f2c7ce67e662e503e4
-  Socket.IO-Client-Swift: 0afb192a562db90d50e3f7f7421c06925a3f0179
-  Starscream: faf918b2f2eff7d5dd21180646bf015a669673bd
+  Socket.IO-Client-Swift: 79f8f85fa44881838175a20f9bd2c32bef2c9d37
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 461efe6dd9a1455352c00c91128f1e2f4c6a9d28
+PODFILE CHECKSUM: 2c2d21ce24d1283a255fb1b51a46dc6d2cf5d59c
 
 COCOAPODS: 1.5.3

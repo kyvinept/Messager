@@ -25,20 +25,49 @@
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="131.78410794602701"/>
         </scene>
-        <!--Message View Controller-->
+        <!--Users View Controller-->
         <scene sceneID="Y7i-kX-Fe4">
             <objects>
-                <viewController storyboardIdentifier="MessageViewController" id="Al5-fj-LfG" customClass="MessageViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UsersViewController" id="Al5-fj-LfG" customClass="UsersViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X5s-Vm-cbS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7J6-hI-YDR">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Xdu-Sp-OtM" customClass="UserCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xdu-Sp-OtM" id="aXZ-YG-9qg">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Al5-fj-LfG" id="VM1-Op-ayP"/>
+                                    <outlet property="delegate" destination="Al5-fj-LfG" id="efQ-KP-W8D"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.50980392159999999" green="0.75294117650000003" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7J6-hI-YDR" firstAttribute="top" secondItem="X5s-Vm-cbS" secondAttribute="top" id="Lxo-Ub-NlB"/>
+                            <constraint firstItem="7J6-hI-YDR" firstAttribute="trailing" secondItem="FVY-G3-tZ5" secondAttribute="trailing" id="chq-Gc-uoD"/>
+                            <constraint firstItem="7J6-hI-YDR" firstAttribute="bottom" secondItem="FVY-G3-tZ5" secondAttribute="bottom" id="juL-ZV-L2g"/>
+                            <constraint firstItem="7J6-hI-YDR" firstAttribute="leading" secondItem="FVY-G3-tZ5" secondAttribute="leading" id="pAM-FY-2xX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="FVY-G3-tZ5"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="7J6-hI-YDR" id="diH-uX-d8p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpS-1G-gql" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="773" y="133"/>
+            <point key="canvasLocation" x="765.60000000000002" y="131.78410794602701"/>
         </scene>
     </scenes>
 </document>

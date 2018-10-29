@@ -22,9 +22,10 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
-    func createMessageViewController() -> MessageViewController {
-        let vc = getStoryboard().instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
-        vc.title = "Messages"
+    func createUsersViewController(with users: [User]) -> UsersViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "UsersViewController") as! UsersViewController
+        vc.title = "Users"
+        vc.configure(users: users)
         return vc
     }
     

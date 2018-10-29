@@ -6,17 +6,21 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ApiManager {
+    
+    private enum Table: String {
+        case message = "Message"
+        case users = "Users"
+    }
     
     private var dataStore: IDataStore?
     private let tableName = "Message"
     private var channel: Channel?
     private var lastMessage: String?
     
-    init() {
-        dataStore = Backendless.sharedInstance().data.ofTable(tableName)
-    }
+    init() { }
     
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
         var users = [fromUser.id, toUser.id]
@@ -58,7 +62,29 @@ class ApiManager {
         })
     }
     
+    func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+        dataStore = Backendless.sharedInstance()!.data.ofTable(Table.users.rawValue)
+        dataStore?.find({ (users) in
+           successBlock(self.allUsers(users: users as! [[String : Any]]))
+        }, error: { (error) in
+            errorBlock(error)
+        })
+    }
+    
+    private func allUsers(users: [[String: Any]]) -> [User] {
+        var newUsers = [User]()
+        for user in users {
+            newUsers.append(User(email: user["email"] as! String,
+                                  name: user["name"] as! String,
+                              password: nil,
+                                    id: user["objectId"] as! String,
+                             userToken: nil))
+        }
+        return newUsers
+    }
+    
 //    func saveMessage(fromUser: User, toUser: User, message: Message) {
+//        dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
 //        var textMessage = ""
 //        switch message.kind {
 //        case .text(let text):

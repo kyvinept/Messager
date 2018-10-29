@@ -8,10 +8,12 @@
 import UIKit
 import MessageKit
 import Photos
+import Chatto
 
 protocol ChatViewControllerDelegate: class {
     
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController)
+    func didTouchBackButton(viewController: ChatViewController)
 }
 
 class ChatViewController: MessagesViewController {
@@ -29,10 +31,14 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.resignFirstResponder()
         setDelegate()
         createRightButtons()
         configureSendButton()
         setConstraintsForRightButtons()
+        setNotification()
+        createBackButton()
+        addGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,11 +68,8 @@ class ChatViewController: MessagesViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
-        messagesCollectionView.reloadData()
-        
-        DispatchQueue.main.async {
-            self.messagesCollectionView.scrollToBottom(animated: true)
-        }
+        self.messagesCollectionView.reloadData()
+        self.messagesCollectionView.scrollToBottom(animated: true)
     }
     
     @objc private func cameraButtonPressed() {
@@ -79,18 +82,81 @@ class ChatViewController: MessagesViewController {
         }
         present(picker, animated: true, completion: nil)
     }
+    
+    @objc private func chosePhotoButtonPressed() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
+    }
+}
+
+extension ChatViewController {
+
+    private func createBackButton() {
+        let backButton = UIBarButtonItem(title: "< to Users",
+                                         style: .plain,
+                                        target: self,
+                                        action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
+    @objc func backButtonTapped() {
+        delegate?.didTouchBackButton(viewController: self)
+    }
+    
+    private func addGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(messagesCollectionViewWasTapped(_:)))
+        messagesCollectionView.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func messagesCollectionViewWasTapped(_ gesture: UITapGestureRecognizer){
+        hideKeyboard()
+    }
+    
+    private func hideKeyboard() {
+        messageInputBar.inputTextView.resignFirstResponder()
+        messageInputBar.inputTextView.endEditing(true)
+    }
+    
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyBoardWillShow(notification: NSNotification) {
+        messagesCollectionView.scrollToBottom()
+    }
+    
+    @objc func keyBoardWillHide(notification: NSNotification) {
+        messageInputBar.inputTextView.text = ""
+    }
 }
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
+        hideKeyboard()
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageSize = image.preferredPresentationSizeForItemProvider
-        let size = CGSize(width: self.view.frame.width*0.6, height: imageSize.height/imageSize.width*self.view.frame.width*0.6)
-        let mediaItem = ImageMessage(url: nil, image: image, placeholderImage: UIImage(named: "backendlessLogo")!, size: size)
-        let message = Message(sender: Sender(id: "1", displayName: "Name"), messageId: "1", sentDate: Date(), kind: MessageKind.photo(mediaItem))
+        let size = CGSize(width: self.view.frame.width*0.6,
+                         height: imageSize.height/imageSize.width*self.view.frame.width*0.6)
+        
+        let mediaItem = ImageMessage(url: nil,
+                                   image: image,
+                        placeholderImage: UIImage(named: "backgroundMessage")!,
+                                    size: size)
+        let message = Message(sender: Sender(id: currentUser.id, displayName: currentUser.name),
+                           messageId: String(messages.count+1),
+                            sentDate: Date(),
+                                kind: MessageKind.photo(mediaItem))
         insertNewMessage(message)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+        hideKeyboard()
     }
 }
 
@@ -98,8 +164,14 @@ extension ChatViewController {
 
     private func configureStyleInputBar() {
         messageInputBar.inputTextView.placeholder = "Input message..."
-        let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        backgroundView.backgroundColor = UIColor(red: 245/255.0, green: 222/255.0, blue: 179/255.0, alpha: 1)
+        let backgroundView = UIView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                              width: self.view.frame.width,
+                                             height: self.view.frame.height))
+        backgroundView.backgroundColor = UIColor(red: 245/255.0,
+                                               green: 222/255.0,
+                                                blue: 179/255.0,
+                                               alpha: 1)
         messageInputBar.backgroundView.addSubview(backgroundView)
     }
     
@@ -118,7 +190,7 @@ extension ChatViewController {
         choseFileButton = InputBarButtonItem(type: .system)
         choseFileButton.tintColor = .gray
         choseFileButton.image = UIImage(named: "clip")
-        choseFileButton.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
+        choseFileButton.addTarget(self, action: #selector(chosePhotoButtonPressed), for: .primaryActionTriggered)
         choseFileButton.setSize(CGSize(width: widthButton, height: heightButton), animated: false)
     }
     

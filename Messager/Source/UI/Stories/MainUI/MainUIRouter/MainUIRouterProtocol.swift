@@ -11,7 +11,7 @@ protocol MainUIRouterProtocol {
     
     var assembly: MainUIAssembly { get }
     
-    func showMainUIInterfaceAfterLaunch(from rootViewController: UIViewController, animated: Bool)
+    func showMainUIInterfaceAfterLaunch(from rootViewController: UITabBarController, animated: Bool)
     func showAuthorizationStory()
     func showChatStory()
 }

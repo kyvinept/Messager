@@ -8,7 +8,7 @@
 import UIKit
 
 class MainUIRouter: BaseRouter, MainUIRouterProtocol {
-    
+
     var assembly: MainUIAssembly
     private var authorizationRouter: AuthorizationRouter?
     private var chatRouter: ChatRouter?
@@ -18,13 +18,28 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
         self.assembly = assembly
     }
     
-    func showMainUIInterfaceAfterLaunch(from rootViewController: UIViewController, animated: Bool) {
-        self.rootViewController = rootViewController
+    func showMainUIInterfaceAfterLaunch(from rootViewController: UITabBarController, animated: Bool) {
+        createTabs(for: rootViewController)
         if !assembly.appAssembly.authorizationManager.isLoginUser() {
+            self.rootViewController.tabBarController?.tabBar.isHidden = true
             showAuthorizationStory()
         } else {
             showChatStory()
         }
+    }
+    
+    private func createTabs(for rootViewController: UITabBarController) {
+        let navigationViewController = UINavigationController()
+        navigationViewController.tabBarItem = UITabBarItem(title: "Chats",
+                                                           image: nil,
+                                                   selectedImage: nil)
+        self.rootViewController = navigationViewController
+
+        let settingsViewController = UINavigationController()
+        navigationViewController.tabBarItem = UITabBarItem(title: "Settings",
+                                                           image: nil,
+                                                   selectedImage: nil)
+        rootViewController.viewControllers = [navigationViewController, settingsViewController]
     }
     
     func showAuthorizationStory() {
@@ -56,6 +71,7 @@ extension MainUIRouter: AuthorizationRouterDelegate {
     
     func authorizationStoryWasOver(from viewController: UIViewController) {
         authorizationRouter = nil
+        rootViewController.tabBarController?.tabBar.isHidden = false
         showChatStory()
     }
 }
