@@ -91,6 +91,9 @@
                                             <constraint firstAttribute="width" constant="24" id="5mT-17-MZ1"/>
                                         </constraints>
                                         <state key="normal" image="send-button"/>
+                                        <connections>
+                                            <action selector="sendMessageButtonTapped:" destination="25m-C8-Uid" eventType="touchUpInside" id="4lC-58-LIw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0m-86-CnX">
                                         <rect key="frame" x="10" y="9" width="24" height="24"/>
@@ -130,51 +133,74 @@
                                     <constraint firstAttribute="trailing" secondItem="8eR-pC-0by" secondAttribute="trailing" constant="10" id="ovU-I1-2uw"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0ah-Ou-TvV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="f5b-0U-vLQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="625"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewLayout key="collectionViewLayout" id="15p-Dh-miX" customClass="ChatCollectionViewLayout" customModule="Messager" customModuleProvider="target"/>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TextCell" id="3bh-92-RhJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OutgoingMessageCell" id="IEt-kl-3Sc" customClass="OutgoingMessageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IEt-kl-3Sc" id="V44-w1-CtA">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="IncomingMessageCell" id="yAB-hR-sS3" customClass="IncomingMessageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yAB-hR-sS3" id="YZr-ZE-gkW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="IncomingImageCell" id="r4c-w3-MEz" customClass="IncomingImageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r4c-w3-MEz" id="IjD-QY-uvd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OutgoingImageCell" id="uwi-We-rWm" customClass="OutgoingImageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uwi-We-rWm" id="STj-Qd-a2o">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="25m-C8-Uid" id="K83-rT-fra"/>
-                                    <outlet property="delegate" destination="25m-C8-Uid" id="Wd9-TX-oa1"/>
+                                    <outlet property="dataSource" destination="25m-C8-Uid" id="ScD-ee-pm7"/>
+                                    <outlet property="delegate" destination="25m-C8-Uid" id="jk5-ff-jj4"/>
                                 </connections>
-                            </collectionView>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="f5b-0U-vLQ" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="7HF-wO-xaG"/>
+                            <constraint firstItem="Ypj-Hx-JV6" firstAttribute="trailing" secondItem="f5b-0U-vLQ" secondAttribute="trailing" id="7yg-0e-kle"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="AJt-7F-6XP"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="trailing" secondItem="Ypj-Hx-JV6" secondAttribute="trailing" id="Ety-PG-BCr"/>
-                            <constraint firstItem="0ah-Ou-TvV" firstAttribute="top" secondItem="uK8-pG-7dQ" secondAttribute="top" id="SNh-Qv-H6o"/>
-                            <constraint firstItem="Ypj-Hx-JV6" firstAttribute="trailing" secondItem="0ah-Ou-TvV" secondAttribute="trailing" id="TkG-Li-Oow"/>
+                            <constraint firstItem="s0z-wf-lAl" firstAttribute="top" secondItem="f5b-0U-vLQ" secondAttribute="bottom" id="Nc3-dL-78i"/>
+                            <constraint firstItem="f5b-0U-vLQ" firstAttribute="top" secondItem="uK8-pG-7dQ" secondAttribute="top" id="YZ7-XH-Cqy"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="bottom" secondItem="Ypj-Hx-JV6" secondAttribute="bottom" id="hsH-MQ-08w"/>
-                            <constraint firstItem="s0z-wf-lAl" firstAttribute="top" secondItem="0ah-Ou-TvV" secondAttribute="bottom" id="rZ3-Kk-9oc"/>
-                            <constraint firstItem="0ah-Ou-TvV" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="rvJ-3B-mOP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ypj-Hx-JV6"/>
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="lNE-tE-qAd" id="BKn-QT-iq0"/>
-                        <outlet property="collectionView" destination="0ah-Ou-TvV" id="pRe-IF-qJR"/>
                         <outlet property="getFileButton" destination="2Lx-Fd-s4y" id="A8e-ba-zNO"/>
                         <outlet property="sendMessageButton" destination="8eR-pC-0by" id="VeM-NH-pd6"/>
                         <outlet property="sendMessageButtonLeftConstraint" destination="OVQ-n6-qaM" id="knp-mO-9k7"/>
+                        <outlet property="tableView" destination="f5b-0U-vLQ" id="8wr-iw-Ofp"/>
                         <outlet property="textView" destination="wOj-Je-pkw" id="DRY-FB-6W6"/>
                         <outlet property="textViewBottomConstraint" destination="hsH-MQ-08w" id="ONS-vy-bnX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7dd-fO-l1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1430" y="132"/>
+            <point key="canvasLocation" x="1429.5999999999999" y="131.78410794602701"/>
         </scene>
     </scenes>
     <resources>

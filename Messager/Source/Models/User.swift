@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct User {
+struct User: Equatable {
     
     var email: String
     var name: String

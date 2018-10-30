@@ -18,8 +18,10 @@
 		5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */; };
 		5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360964217E2F59008B46EB /* MainUIRouter.swift */; };
 		5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */; };
-		5B65F8AF2188682D006EF9F8 /* ChatCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8AE2188682D006EF9F8 /* ChatCollectionViewLayout.swift */; };
 		5B65F8B1218869EF006EF9F8 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B0218869EF006EF9F8 /* UICollectionView.swift */; };
+		5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */; };
+		5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */; };
+		5B65F8BD218892A5006EF9F8 /* IncomingMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B65F8BB218892A5006EF9F8 /* IncomingMessageCell.xib */; };
 		5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF592181BE5D0072E76E /* MediaItem.swift */; };
 		5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF5C2181E55F0072E76E /* ApiManager.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
@@ -35,6 +37,13 @@
 		5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */; };
 		5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */; };
 		5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */; };
+		5BB514D221889D82003D2C04 /* OutgoingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514D021889D82003D2C04 /* OutgoingMessageCell.swift */; };
+		5BB514D321889D82003D2C04 /* OutgoingMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB514D121889D82003D2C04 /* OutgoingMessageCell.xib */; };
+		5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514DF2188A0AB003D2C04 /* OutgoingImageCell.swift */; };
+		5BB514E22188A0AB003D2C04 /* OutgoingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB514E02188A0AB003D2C04 /* OutgoingImageCell.xib */; };
+		5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514E52188A0CD003D2C04 /* IncomingImageCell.swift */; };
+		5BB514E82188A0CD003D2C04 /* IncomingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB514E62188A0CD003D2C04 /* IncomingImageCell.xib */; };
+		5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */; };
 		5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */; };
 		5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */; };
 		5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE284A217F0AC000A2B6A4 /* User.swift */; };
@@ -63,8 +72,10 @@
 		5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B360964217E2F59008B46EB /* MainUIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouter.swift; sourceTree = "<group>"; };
 		5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouterProtocol.swift; sourceTree = "<group>"; };
-		5B65F8AE2188682D006EF9F8 /* ChatCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCollectionViewLayout.swift; sourceTree = "<group>"; };
 		5B65F8B0218869EF006EF9F8 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
+		5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
+		5B65F8BB218892A5006EF9F8 /* IncomingMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingMessageCell.xib; sourceTree = "<group>"; };
 		5B69DF592181BE5D0072E76E /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		5B69DF5C2181E55F0072E76E /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -80,6 +91,13 @@
 		5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
 		5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterProtocol.swift; sourceTree = "<group>"; };
+		5BB514D021889D82003D2C04 /* OutgoingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageCell.swift; sourceTree = "<group>"; };
+		5BB514D121889D82003D2C04 /* OutgoingMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingMessageCell.xib; sourceTree = "<group>"; };
+		5BB514DF2188A0AB003D2C04 /* OutgoingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingImageCell.swift; sourceTree = "<group>"; };
+		5BB514E02188A0AB003D2C04 /* OutgoingImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingImageCell.xib; sourceTree = "<group>"; };
+		5BB514E52188A0CD003D2C04 /* IncomingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingImageCell.swift; sourceTree = "<group>"; };
+		5BB514E62188A0CD003D2C04 /* IncomingImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingImageCell.xib; sourceTree = "<group>"; };
+		5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryViewController.swift; sourceTree = "<group>"; };
 		5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		5BCE284A217F0AC000A2B6A4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -202,12 +220,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5B65F8AB21886806006EF9F8 /* ChatCollectionViewLayout */ = {
+		5B65F8B221886D8F006EF9F8 /* UserCell */ = {
 			isa = PBXGroup;
 			children = (
-				5B65F8AE2188682D006EF9F8 /* ChatCollectionViewLayout.swift */,
+				5B7828F821874DE800059F6B /* UserCell.swift */,
+				5B7828F921874DE800059F6B /* UserCell.xib */,
 			);
-			path = ChatCollectionViewLayout;
+			path = UserCell;
+			sourceTree = "<group>";
+		};
+		5B65F8B321886D9A006EF9F8 /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				5BB514D521889FCE003D2C04 /* Incoming */,
+				5BB514D421889FBB003D2C04 /* Outgoing */,
+			);
+			path = MessageCell;
 			sourceTree = "<group>";
 		};
 		5B69DF5B2181E54F0072E76E /* ApiManager */ = {
@@ -226,19 +254,22 @@
 			path = KeychainManager;
 			sourceTree = "<group>";
 		};
-		5B7828F721874DBF00059F6B /* UserCell */ = {
+		5B7828F721874DBF00059F6B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5B7828F821874DE800059F6B /* UserCell.swift */,
-				5B7828F921874DE800059F6B /* UserCell.xib */,
+				5BB514DA2188A051003D2C04 /* ImageCell */,
+				5B65F8B321886D9A006EF9F8 /* MessageCell */,
+				5B65F8B221886D8F006EF9F8 /* UserCell */,
 			);
-			path = UserCell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		5B7828FC2187501D00059F6B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				5B7828FD2187502B00059F6B /* UserCellViewModel.swift */,
+				5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */,
+				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -425,6 +456,51 @@
 			path = AuthorizationRouter;
 			sourceTree = "<group>";
 		};
+		5BB514D421889FBB003D2C04 /* Outgoing */ = {
+			isa = PBXGroup;
+			children = (
+				5BB514D021889D82003D2C04 /* OutgoingMessageCell.swift */,
+				5BB514D121889D82003D2C04 /* OutgoingMessageCell.xib */,
+			);
+			name = Outgoing;
+			sourceTree = "<group>";
+		};
+		5BB514D521889FCE003D2C04 /* Incoming */ = {
+			isa = PBXGroup;
+			children = (
+				5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */,
+				5B65F8BB218892A5006EF9F8 /* IncomingMessageCell.xib */,
+			);
+			name = Incoming;
+			sourceTree = "<group>";
+		};
+		5BB514DA2188A051003D2C04 /* ImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				5BB514DC2188A07D003D2C04 /* Outgoing */,
+				5BB514DB2188A077003D2C04 /* Incoming */,
+			);
+			path = ImageCell;
+			sourceTree = "<group>";
+		};
+		5BB514DB2188A077003D2C04 /* Incoming */ = {
+			isa = PBXGroup;
+			children = (
+				5BB514E52188A0CD003D2C04 /* IncomingImageCell.swift */,
+				5BB514E62188A0CD003D2C04 /* IncomingImageCell.xib */,
+			);
+			path = Incoming;
+			sourceTree = "<group>";
+		};
+		5BB514DC2188A07D003D2C04 /* Outgoing */ = {
+			isa = PBXGroup;
+			children = (
+				5BB514DF2188A0AB003D2C04 /* OutgoingImageCell.swift */,
+				5BB514E02188A0AB003D2C04 /* OutgoingImageCell.xib */,
+			);
+			path = Outgoing;
+			sourceTree = "<group>";
+		};
 		5BCE2847217F085B00A2B6A4 /* AuthorizationManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,9 +512,8 @@
 		5BD3EBDC217F67FD00FD3D83 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5B65F8AB21886806006EF9F8 /* ChatCollectionViewLayout */,
 				5B7828FC2187501D00059F6B /* ViewModel */,
-				5B7828F721874DBF00059F6B /* UserCell */,
+				5B7828F721874DBF00059F6B /* Cells */,
 				5BD3EBE0217F682100FD3D83 /* ChatAssembly */,
 				5BD3EBDF217F681A00FD3D83 /* ChatRouter */,
 				5BD3EBDE217F681300FD3D83 /* ViewControllers */,
@@ -553,9 +628,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BB514E82188A0CD003D2C04 /* IncomingImageCell.xib in Resources */,
 				0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */,
+				5BB514D321889D82003D2C04 /* OutgoingMessageCell.xib in Resources */,
+				5B65F8BD218892A5006EF9F8 /* IncomingMessageCell.xib in Resources */,
 				0F22E1B61E8407D1004B722A /* Assets.xcassets in Resources */,
 				5BD3EBE2217F683000FD3D83 /* Chat.storyboard in Resources */,
+				5BB514E22188A0AB003D2C04 /* OutgoingImageCell.xib in Resources */,
 				0F22E1B41E8407D1004B722A /* Authorization.storyboard in Resources */,
 				5B7828FB21874DE800059F6B /* UserCell.xib in Resources */,
 			);
@@ -648,8 +727,10 @@
 				0F22E1B11E8407D1004B722A /* LoginViewController.swift in Sources */,
 				5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */,
 				5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */,
+				5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */,
 				5B9E2184217DC4F400884A96 /* ApplicationRouter.swift in Sources */,
 				5B7828FE2187502B00059F6B /* UserCellViewModel.swift in Sources */,
+				5BB514D221889D82003D2C04 /* OutgoingMessageCell.swift in Sources */,
 				5B360961217E2F0C008B46EB /* MainUIAssembly.swift in Sources */,
 				5B9E21A2217DD8B000884A96 /* AuthorizationAssembly.swift in Sources */,
 				5BD3EBEE217F68D100FD3D83 /* ChatRouterProtocol.swift in Sources */,
@@ -658,8 +739,10 @@
 				5B7828FA21874DE800059F6B /* UserCell.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
+				5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */,
 				5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */,
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
+				5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */,
 				5BD3EBEA217F68BA00FD3D83 /* ChatAssemblyProtocol.swift in Sources */,
 				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
 				5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */,
@@ -667,6 +750,8 @@
 				5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */,
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
+				5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */,
+				5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */,
 				5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */,
 				5BD3EBE6217F688600FD3D83 /* UsersViewController.swift in Sources */,
 				5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */,
@@ -676,7 +761,6 @@
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,
 				5BD3EBE4217F687A00FD3D83 /* ChatViewController.swift in Sources */,
-				5B65F8AF2188682D006EF9F8 /* ChatCollectionViewLayout.swift in Sources */,
 				5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

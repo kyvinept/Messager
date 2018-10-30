@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="139" id="Ylk-ek-JnD" customClass="IncomingImageCell" customModule="Messager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="197" height="139"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ylk-ek-JnD" id="MFI-1k-Xx7">
+                <rect key="frame" x="0.0" y="0.0" width="197" height="138.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="BCj-QV-V47">
+                        <rect key="frame" x="66" y="8" width="123" height="123"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="123" id="TD6-hg-WVh"/>
+                            <constraint firstAttribute="height" constant="123" id="zfB-rt-skx"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="jrd-lm-Eq3">
+                        <rect key="frame" x="8" y="80.5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="LgK-Wk-xT0"/>
+                            <constraint firstAttribute="height" constant="50" id="kOa-sE-ZLr"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K5E-Gs-l4g">
+                        <rect key="frame" x="66" y="8" width="123" height="111"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="111" id="0lK-FX-NyB"/>
+                            <constraint firstAttribute="width" constant="123" id="Iwo-UP-qYC"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B39-cg-jAg">
+                        <rect key="frame" x="66" y="116" width="100" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="VoV-c4-QkZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="B39-cg-jAg" secondAttribute="bottom" constant="7.5" id="5ho-NR-Q7o"/>
+                    <constraint firstItem="B39-cg-jAg" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="8FH-UX-wcP"/>
+                    <constraint firstAttribute="bottom" secondItem="jrd-lm-Eq3" secondAttribute="bottom" constant="8" id="CQ2-ei-bsM"/>
+                    <constraint firstAttribute="bottom" secondItem="BCj-QV-V47" secondAttribute="bottom" constant="7.5" id="DJJ-nl-QvP"/>
+                    <constraint firstItem="jrd-lm-Eq3" firstAttribute="leading" secondItem="MFI-1k-Xx7" secondAttribute="leading" constant="8" id="Stu-aJ-VFB"/>
+                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="ayL-Gw-LZK"/>
+                    <constraint firstItem="BCj-QV-V47" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="fYb-AA-WSD"/>
+                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="ft2-lU-Co4"/>
+                    <constraint firstItem="BCj-QV-V47" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="mI5-6P-ZxK"/>
+                    <constraint firstAttribute="bottom" secondItem="B39-cg-jAg" secondAttribute="bottom" constant="7.5" id="uvV-7G-Nby"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="NlM-s5-dg8"/>
+            <connections>
+                <outlet property="bubbleHeightConstraint" destination="zfB-rt-skx" id="kD9-nB-YFZ"/>
+                <outlet property="bubbleWidthConstraint" destination="TD6-hg-WVh" id="xuX-L1-Smv"/>
+                <outlet property="imageViewHeightConstraint" destination="0lK-FX-NyB" id="Q72-p0-HJ2"/>
+                <outlet property="imageViewWidthConstraint" destination="Iwo-UP-qYC" id="crg-K4-Vvh"/>
+                <outlet property="messageImage" destination="K5E-Gs-l4g" id="5gm-yj-G6Y"/>
+                <outlet property="timeLabel" destination="B39-cg-jAg" id="xC8-e0-7ze"/>
+                <outlet property="timeLabelWidthConstraint" destination="VoV-c4-QkZ" id="atr-80-MCS"/>
+            </connections>
+            <point key="canvasLocation" x="-103.2" y="6.746626686656672"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bubble" width="64" height="64"/>
+        <image name="person" width="32" height="32"/>
+    </resources>
+</document>

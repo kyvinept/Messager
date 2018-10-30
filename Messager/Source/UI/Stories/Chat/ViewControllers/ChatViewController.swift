@@ -22,7 +22,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var getFileButton: UIButton!
     @IBOutlet private weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var sendMessageButtonLeftConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private var messages: [Message] = []
     private var currentUser: User!
@@ -32,6 +32,7 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerCell()
         addNotification()
         addGesture()
         sendMessageButton.alpha = 0
@@ -45,7 +46,10 @@ class ChatViewController: UIViewController {
     }
 
     func showNewMessage(_ message: String) {
-        
+        insertNewMessage(Message(sender: toUser,
+                              messageId: String(messages.count+1),
+                               sentDate: Date(),
+                                   kind: MessageKind.text(message)))
     }
     
     @IBAction func getFileButtonTapped(_ sender: Any) {
@@ -65,14 +69,23 @@ class ChatViewController: UIViewController {
         }
         present(picker, animated: true, completion: nil)
     }
+    
+    @IBAction func sendMessageButtonTapped(_ sender: Any) {
+        insertNewMessage(Message(sender: currentUser,
+                              messageId: String(messages.count+1),
+                               sentDate: Date(),
+                                   kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines))))
+        textView.text = ""
+        self.view.endEditing(true)
+    }
 }
 
 extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
-        collectionView.reloadData()
-        collectionView.scrollToBottom(animated: true)
+        tableView.reloadData()
+        tableView.scrollToBottom(animated: true)
     }
 }
 
@@ -106,6 +119,7 @@ extension ChatViewController {
             textViewBottomConstraint.constant = -(keyboardSize.height - self.view.safeAreaInsets.bottom)
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()
+                self.tableView.scrollToBottom(animated: true)
             }
         }
     }
@@ -114,6 +128,7 @@ extension ChatViewController {
         textViewBottomConstraint.constant = 0
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
+            self.tableView.scrollToBottom(animated: true)
         }
     }
 }
@@ -166,7 +181,16 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         self.dismiss(animated: true, completion: nil)
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageSize = image.preferredPresentationSizeForItemProvider
-       
+        var size: CGSize
+        if imageSize.height > imageSize.width {
+            size = CGSize(width: self.view.frame.width*0.45, height: imageSize.height/imageSize.width*self.view.frame.width*0.45)
+        } else {
+            size = CGSize(width: self.view.frame.width*0.75, height: imageSize.height/imageSize.width*self.view.frame.width*0.75)
+        }
+        insertNewMessage(Message(sender: currentUser!,
+                              messageId: String(messages.count+1),
+                               sentDate: Date(),
+                                   kind: MessageKind.photo(MediaItem(image: image, size: size))))
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -174,14 +198,50 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath)
-        return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch messages[indexPath.row].kind {
+        case .text(let text):
+            
+            if messages[indexPath.row].sender == currentUser! {
+                tableView.register(UINib(nibName: "OutgoingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingMessageCell", for: indexPath) as! OutgoingMessageCell
+                cell.configure(model: MessageCellViewModel(message: text))
+                return cell
+            } else {
+                tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessageCell", for: indexPath) as! IncomingMessageCell
+                cell.configure(model: MessageCellViewModel(message: text))
+                return cell
+            }
+            
+        case .photo(let mediaItem):
+            
+            if messages[indexPath.row].sender == currentUser! {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as! OutgoingImageCell
+                cell.configure(model: ImageCellViewModel(image: mediaItem.image, imageSize: mediaItem.size))
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as! IncomingImageCell
+                cell.configure(model: ImageCellViewModel(image: mediaItem.image, imageSize: mediaItem.size))
+                return cell
+            }
+        }
+    }
+    
+    private func registerCell() {
+        tableView.register(UINib(nibName: "OutgoingMessageCell", bundle: nil), forCellReuseIdentifier: "OutgoingMessageCell")
+        tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "IncomingMessageCell")
+        tableView.register(UINib(nibName: "OutgoingImageCell", bundle: nil), forCellReuseIdentifier: "OutgoingImageCell")
+        tableView.register(UINib(nibName: "IncomingImageCell", bundle: nil), forCellReuseIdentifier: "IncomingImageCell")
     }
 }
