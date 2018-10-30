@@ -21,6 +21,14 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     func showInitialVC(from rootViewController: UIViewController) {
+//        let vc = self.assembly.createChatViewController(currentUser: currentUser!, toUser: currentUser!)
+//        vc.delegate = self
+//        self.chatViewController = vc
+//        self.action(with: vc,
+//                    from: rootViewController,
+//                    with: .push,
+//                    animated: true)
+//        rootViewController.tabBarController?.tabBar.isHidden = true
         showUsersViewController(from: rootViewController)
     }
     
