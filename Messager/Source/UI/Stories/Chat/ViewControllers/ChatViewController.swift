@@ -6,9 +6,7 @@
 //
 
 import UIKit
-import MessageKit
-import Photos
-import Chatto
+
 
 protocol ChatViewControllerDelegate: class {
     
@@ -16,35 +14,29 @@ protocol ChatViewControllerDelegate: class {
     func didTouchBackButton(viewController: ChatViewController)
 }
 
-class ChatViewController: MessagesViewController {
+class ChatViewController: UIViewController {
 
+    @IBOutlet private weak var sendMessageButton: UIButton!
+    @IBOutlet private weak var cameraButton: UIButton!
+    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet private weak var getFileButton: UIButton!
+    @IBOutlet private weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var sendMessageButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    
     private var messages: [Message] = []
-    private var createPhotoButton: InputBarButtonItem!
-    private var choseFileButton: InputBarButtonItem!
     private var currentUser: User!
     private var toUser: User!
-    private let widthButton: CGFloat = 35
-    private let heightButton: CGFloat = 30
-    private let horizontalOffset: CGFloat = 50
     
     weak var delegate: ChatViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDelegate()
-        createRightButtons()
-        configureSendButton()
-        setConstraintsForRightButtons()
-        setNotification()
-        createBackButton()
+        addNotification()
         addGesture()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureStyleInputBar()
-        messagesCollectionView.contentInset.bottom = messageInputBar.frame.height
-        messagesCollectionView.scrollIndicatorInsets.bottom = messageInputBar.frame.height
+        sendMessageButton.alpha = 0
+        textView.isScrollEnabled = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     func configure(with currentUser: User, toUser: User) {
@@ -53,27 +45,17 @@ class ChatViewController: MessagesViewController {
     }
 
     func showNewMessage(_ message: String) {
-        let newMessage = Message(sender: Sender(id: toUser.id, displayName: toUser.name),
-                              messageId: String(messages.count+1),
-                               sentDate: Date(),
-                                   kind: .text(message))
-        insertNewMessage(newMessage)
+        
     }
-
-    private func setDelegate() {
-        messageInputBar.delegate = self
-        messagesCollectionView.messagesDataSource = self
-        messagesCollectionView.messagesLayoutDelegate = self
-        messagesCollectionView.messagesDisplayDelegate = self
+    
+    @IBAction func getFileButtonTapped(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
     }
-
-    private func insertNewMessage(_ message: Message) {
-        messages.append(message)
-        self.messagesCollectionView.reloadData()
-        self.messagesCollectionView.scrollToBottom(animated: true)
-    }
-
-    @objc private func cameraButtonPressed() {
+    
+    @IBAction func cameraButtonTapped(_ sender: Any) {
         let picker = UIImagePickerController()
         picker.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -83,229 +65,123 @@ class ChatViewController: MessagesViewController {
         }
         present(picker, animated: true, completion: nil)
     }
+}
 
-    @objc private func chosePhotoButtonPressed() {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true, completion: nil)
+extension ChatViewController {
+    
+    private func insertNewMessage(_ message: Message) {
+        messages.append(message)
+        collectionView.reloadData()
+        collectionView.scrollToBottom(animated: true)
     }
 }
 
 extension ChatViewController {
-
-    private func createBackButton() {
-        let backButton = UIBarButtonItem(title: "< to Users",
-                                         style: .plain,
-                                        target: self,
-                                        action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backButton
+    
+    func addGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped(_:)))
+        self.view.addGestureRecognizer(tap)
     }
-
-    @objc func backButtonTapped() {
-        delegate?.didTouchBackButton(viewController: self)
+    
+    @objc func viewWasTapped(_ gesture: UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
+}
 
-    private func addGesture() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(messagesCollectionViewWasTapped(_:)))
-        messagesCollectionView.addGestureRecognizer(gesture)
+extension ChatViewController {
+    
+    private func addNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
     }
-
-    @objc private func messagesCollectionViewWasTapped(_ gesture: UITapGestureRecognizer){
-        hideKeyboard()
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            textViewBottomConstraint.constant = -(keyboardSize.height - self.view.safeAreaInsets.bottom)
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
-
-    private func hideKeyboard() {
-        messageInputBar.inputTextView.resignFirstResponder()
-        messageInputBar.inputTextView.endEditing(true)
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        textViewBottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
+}
 
-    private func setNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+extension ChatViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+        textView.textColor = UIColor.black
     }
-
-    @objc func keyBoardWillShow(notification: NSNotification) {
-        messagesCollectionView.scrollToBottom()
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.text = "Input text..."
+        textView.textColor = UIColor.lightGray
+        textViewNoText()
     }
-
-    @objc func keyBoardWillHide(notification: NSNotification) {
-        messageInputBar.inputTextView.text = ""
+    
+    func textViewDidChange(_ textViewf: UITextView) {
+        if textView.text.isEmpty {
+            textViewNoText()
+        } else {
+            newTextInTextView()
+        }
+    }
+    
+    private func textViewNoText() {
+        sendMessageButtonLeftConstraint.constant = 48
+        UIView.animate(withDuration: 0.4) {
+            self.cameraButton.alpha = 1
+            self.getFileButton.alpha = 1
+            self.sendMessageButton.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func newTextInTextView() {
+        sendMessageButtonLeftConstraint.constant = 12
+        UIView.animate(withDuration: 0.4) {
+            self.cameraButton.alpha = 0
+            self.getFileButton.alpha = 0
+            self.sendMessageButton.alpha = 1
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
-        hideKeyboard()
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageSize = image.preferredPresentationSizeForItemProvider
-        
-        var size: CGSize
-        if imageSize.height > imageSize.width {
-            size = CGSize(width: self.view.frame.width*0.5, height: imageSize.height/imageSize.width*self.view.frame.width*0.5)
-        } else {
-            size = CGSize(width: self.view.frame.width*0.8, height: imageSize.height/imageSize.width*self.view.frame.width*0.8)
-        }
-        
-        let mediaItem = ImageMessage(url: nil,
-                                   image: image,
-                        placeholderImage: UIImage(named: "backgroundMessage")!,
-                                    size: size)
-        let message = Message(sender: Sender(id: currentUser.id, displayName: currentUser.name),
-                           messageId: String(messages.count+1),
-                            sentDate: Date(),
-                                kind: MessageKind.photo(mediaItem))
-        insertNewMessage(message)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-        hideKeyboard()
-    }
-}
-
-extension ChatViewController {
-
-    private func configureStyleInputBar() {
-        messageInputBar.inputTextView.placeholder = "Input message..."
-        let backgroundView = UIView(frame: CGRect(x: 0,
-                                                  y: 0,
-                                              width: self.view.frame.width,
-                                             height: self.view.frame.height))
-        backgroundView.backgroundColor = UIColor(red: 245/255.0,
-                                               green: 222/255.0,
-                                                blue: 179/255.0,
-                                               alpha: 1)
-        messageInputBar.backgroundView.addSubview(backgroundView)
+       
     }
     
-    private func configureSendButton() {
-        messageInputBar.sendButton.image = UIImage(named: "send")
-        messageInputBar.sendButton.title = ""
-    }
-
-    private func createRightButtons() {
-        createPhotoButton = InputBarButtonItem(type: .system)
-        createPhotoButton.tintColor = .gray
-        createPhotoButton.image = UIImage(named: "photo-camera")
-        createPhotoButton.addTarget(self, action: #selector(cameraButtonPressed), for: .primaryActionTriggered)
-        createPhotoButton.setSize(CGSize(width: widthButton, height: heightButton), animated: false)
-
-        choseFileButton = InputBarButtonItem(type: .system)
-        choseFileButton.tintColor = .gray
-        choseFileButton.image = UIImage(named: "clip")
-        choseFileButton.addTarget(self, action: #selector(chosePhotoButtonPressed), for: .primaryActionTriggered)
-        choseFileButton.setSize(CGSize(width: widthButton, height: heightButton), animated: false)
-    }
-
-    private func setConstraintsForRightButtons() {
-        messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset, animated: false)
-
-        messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset + widthButton, animated: false)
-        messageInputBar.setStackViewItems([choseFileButton, createPhotoButton], forStack: .right, animated: false)
-    }
-
-    private func setConstraintsForSendButton() {
-        messageInputBar.rightStackView.alignment = .center
-        messageInputBar.setRightStackViewWidthConstant(to: horizontalOffset, animated: false)
-        messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension ChatViewController: MessagesDataSource {
-
-    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        avatarView.image = UIImage(named: "person")
-    }
-
-    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+extension ChatViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
     
-    func currentSender() -> Sender {
-        return Sender(id: currentUser.id, displayName: currentUser.name)
-    }
-
-    func messageForItem(at indexPath: IndexPath,
-                        in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messages[indexPath.section]
-    }
-
-    func cellTopLabelAttributedText(for message: MessageType,
-                                    at indexPath: IndexPath) -> NSAttributedString? {
-
-        let name = message.sender.displayName
-        return NSAttributedString(
-            string: name,
-            attributes: [
-                .font: UIFont.preferredFont(forTextStyle: .caption1),
-                .foregroundColor: UIColor(white: 0.3, alpha: 1)
-            ]
-        )
-    }
-}
-
-extension ChatViewController: MessagesLayoutDelegate {
-
-    func avatarSize(for message: MessageType, at indexPath: IndexPath,
-                    in messagesCollectionView: MessagesCollectionView) -> CGSize {
-
-        return .zero
-    }
-
-    func heightForLocation(message: MessageType, at indexPath: IndexPath,
-                           with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        
-        return 0
-    }
-}
-
-extension ChatViewController: MessagesDisplayDelegate {
-
-    func backgroundColor(for message: MessageType, at indexPath: IndexPath,
-                         in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        
-        return isFromCurrentSender(message: message) ? .blue : .gray
-    }
-
-    func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath,
-                             in messagesCollectionView: MessagesCollectionView) -> Bool {
-
-        return false
-    }
-
-    func messageStyle(for message: MessageType, at indexPath: IndexPath,
-                      in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        
-        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
-
-        return .bubbleTail(corner, .curved)
-    }
-}
-
-extension ChatViewController: MessageInputBarDelegate {
-    
-    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        let message = Message(sender: Sender(id: currentUser.id, displayName: currentUser.name),
-                           messageId: String(messages.count + 1),
-                            sentDate: Date(),
-                                kind: .text(text.trimmingCharacters(in: .whitespacesAndNewlines)))
-        insertNewMessage(message)
-        inputBar.inputTextView.text = ""
-        delegate?.didTouchSendMessageButton(with: message,
-                                          toUser: toUser,
-                                  viewController: self)
-    }
-
-    func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {
-        if !text.isEmpty {
-            setConstraintsForSendButton()
-        } else {
-            setConstraintsForRightButtons()
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath)
+        return cell
     }
 }

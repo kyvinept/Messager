@@ -6,11 +6,16 @@
 //
 
 import UIKit
-import MessageKit
 
-struct Message: MessageType {
+enum MessageKind {
+
+    case text(String)
+    case photo(MediaItem)
+}
+
+struct Message {
     
-    var sender: Sender
+    var sender: User
     var messageId: String
     var sentDate: Date
     var kind: MessageKind
