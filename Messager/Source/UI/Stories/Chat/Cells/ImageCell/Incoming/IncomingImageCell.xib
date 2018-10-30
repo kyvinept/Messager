@@ -12,22 +12,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="139" id="Ylk-ek-JnD" customClass="IncomingImageCell" customModule="Messager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="197" height="139"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="134" id="Ylk-ek-JnD" customClass="IncomingImageCell" customModule="Messager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="197" height="134"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ylk-ek-JnD" id="MFI-1k-Xx7">
-                <rect key="frame" x="0.0" y="0.0" width="197" height="138.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="197" height="133.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="BCj-QV-V47">
-                        <rect key="frame" x="66" y="8" width="123" height="123"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="123" id="TD6-hg-WVh"/>
-                            <constraint firstAttribute="height" constant="123" id="zfB-rt-skx"/>
-                        </constraints>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="jrd-lm-Eq3">
-                        <rect key="frame" x="8" y="80.5" width="50" height="50"/>
+                        <rect key="frame" x="8" y="75.5" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="LgK-Wk-xT0"/>
                             <constraint firstAttribute="height" constant="50" id="kOa-sE-ZLr"/>
@@ -40,50 +33,43 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K5E-Gs-l4g">
-                        <rect key="frame" x="66" y="8" width="123" height="111"/>
+                        <rect key="frame" x="66" y="8" width="123" height="118"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="111" id="0lK-FX-NyB"/>
-                            <constraint firstAttribute="width" constant="123" id="Iwo-UP-qYC"/>
+                            <constraint firstAttribute="height" constant="118" id="Lkj-jr-Nnz"/>
+                            <constraint firstAttribute="width" constant="123" id="Ra0-sS-wNQ"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B39-cg-jAg">
-                        <rect key="frame" x="66" y="116" width="100" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="100" id="VoV-c4-QkZ"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Uz-xd-hms">
+                        <rect key="frame" x="0.0" y="108.5" width="30" height="15"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="B39-cg-jAg" secondAttribute="bottom" constant="7.5" id="5ho-NR-Q7o"/>
-                    <constraint firstItem="B39-cg-jAg" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="8FH-UX-wcP"/>
+                    <constraint firstAttribute="bottom" secondItem="4Uz-xd-hms" secondAttribute="bottom" constant="10" id="2Bc-f8-OgM"/>
+                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="ByY-dH-g15"/>
                     <constraint firstAttribute="bottom" secondItem="jrd-lm-Eq3" secondAttribute="bottom" constant="8" id="CQ2-ei-bsM"/>
-                    <constraint firstAttribute="bottom" secondItem="BCj-QV-V47" secondAttribute="bottom" constant="7.5" id="DJJ-nl-QvP"/>
+                    <constraint firstItem="4Uz-xd-hms" firstAttribute="leading" secondItem="MFI-1k-Xx7" secondAttribute="leading" id="Eu5-Qz-J6h"/>
                     <constraint firstItem="jrd-lm-Eq3" firstAttribute="leading" secondItem="MFI-1k-Xx7" secondAttribute="leading" constant="8" id="Stu-aJ-VFB"/>
-                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="ayL-Gw-LZK"/>
-                    <constraint firstItem="BCj-QV-V47" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="fYb-AA-WSD"/>
-                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="ft2-lU-Co4"/>
-                    <constraint firstItem="BCj-QV-V47" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="mI5-6P-ZxK"/>
-                    <constraint firstAttribute="bottom" secondItem="B39-cg-jAg" secondAttribute="bottom" constant="7.5" id="uvV-7G-Nby"/>
+                    <constraint firstAttribute="bottom" secondItem="K5E-Gs-l4g" secondAttribute="bottom" constant="7.5" id="Zjp-yF-ChR"/>
+                    <constraint firstItem="K5E-Gs-l4g" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="llj-eM-Iog"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="NlM-s5-dg8"/>
             <connections>
-                <outlet property="bubbleHeightConstraint" destination="zfB-rt-skx" id="kD9-nB-YFZ"/>
-                <outlet property="bubbleWidthConstraint" destination="TD6-hg-WVh" id="xuX-L1-Smv"/>
-                <outlet property="imageViewHeightConstraint" destination="0lK-FX-NyB" id="Q72-p0-HJ2"/>
-                <outlet property="imageViewWidthConstraint" destination="Iwo-UP-qYC" id="crg-K4-Vvh"/>
+                <outlet property="imageViewHeightConstraint" destination="Lkj-jr-Nnz" id="dv3-w7-f6c"/>
+                <outlet property="imageViewWidthConstraint" destination="Ra0-sS-wNQ" id="Jdt-Il-vfV"/>
                 <outlet property="messageImage" destination="K5E-Gs-l4g" id="5gm-yj-G6Y"/>
-                <outlet property="timeLabel" destination="B39-cg-jAg" id="xC8-e0-7ze"/>
-                <outlet property="timeLabelWidthConstraint" destination="VoV-c4-QkZ" id="atr-80-MCS"/>
+                <outlet property="timeLabel" destination="4Uz-xd-hms" id="h5F-kD-MFI"/>
+                <outlet property="timeLabelLeftConstraint" destination="Eu5-Qz-J6h" id="zsk-dP-ngy"/>
+                <outlet property="userImage" destination="jrd-lm-Eq3" id="sxq-JQ-5mw"/>
             </connections>
-            <point key="canvasLocation" x="-103.2" y="6.746626686656672"/>
+            <point key="canvasLocation" x="-103.2" y="8.995502248875562"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bubble" width="64" height="64"/>
         <image name="person" width="32" height="32"/>
     </resources>
 </document>

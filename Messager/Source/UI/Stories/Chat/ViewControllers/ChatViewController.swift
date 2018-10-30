@@ -45,11 +45,11 @@ class ChatViewController: UIViewController {
         self.toUser = toUser
     }
 
-    func showNewMessage(_ message: String) {
+    func showNewMessage(_ messageKind: MessageKind) {
         insertNewMessage(Message(sender: toUser,
                               messageId: String(messages.count+1),
                                sentDate: Date(),
-                                   kind: MessageKind.text(message)))
+                                   kind: messageKind))
     }
     
     @IBAction func getFileButtonTapped(_ sender: Any) {
@@ -71,10 +71,14 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
-        insertNewMessage(Message(sender: currentUser,
-                              messageId: String(messages.count+1),
-                               sentDate: Date(),
-                                   kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines))))
+        let message = Message(sender: currentUser,
+                             messageId: String(messages.count+1),
+                             sentDate: Date(),
+                             kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+        insertNewMessage(message)
+        delegate?.didTouchSendMessageButton(with: message,
+                                          toUser: toUser,
+                                  viewController: self)
         textView.text = ""
         self.view.endEditing(true)
     }
@@ -180,17 +184,16 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let imageSize = image.preferredPresentationSizeForItemProvider
-        var size: CGSize
-        if imageSize.height > imageSize.width {
-            size = CGSize(width: self.view.frame.width*0.45, height: imageSize.height/imageSize.width*self.view.frame.width*0.45)
-        } else {
-            size = CGSize(width: self.view.frame.width*0.75, height: imageSize.height/imageSize.width*self.view.frame.width*0.75)
-        }
-        insertNewMessage(Message(sender: currentUser!,
-                              messageId: String(messages.count+1),
-                               sentDate: Date(),
-                                   kind: MessageKind.photo(MediaItem(image: image, size: size))))
+        let size = image.getSizeForMessage()
+        
+        let message = Message(sender: currentUser!,
+                           messageId: String(messages.count+1),
+                            sentDate: Date(),
+                                kind: MessageKind.photo(MediaItem(image: image, size: size)))
+        insertNewMessage(message)
+        delegate?.didTouchSendMessageButton(with: message,
+                                          toUser: toUser,
+                                  viewController: self)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

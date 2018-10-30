@@ -9,15 +9,14 @@ import UIKit
 
 class OutgoingImageCell: UITableViewCell {
 
+    @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var messageImage: UIImageView!
     private let horizontalMargin: CGFloat = 0
     private let verticalMargin: CGFloat = 13
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var bubbleWidthConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var bubbleHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var timeLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var timeLabelRightConstraint: NSLayoutConstraint!
     private let shiftTime: CGFloat = -23
     
     override func awakeFromNib() {
@@ -30,9 +29,6 @@ class OutgoingImageCell: UITableViewCell {
         imageViewWidthConstraint.constant = model.imageSize.width
         imageViewHeightConstraint.constant = model.imageSize.height
         
-        bubbleWidthConstraint.constant = model.imageSize.width + horizontalMargin
-        bubbleHeightConstraint.constant = model.imageSize.height + verticalMargin
-        
-        timeLabelWidthConstraint.constant = model.imageSize.width + shiftTime
+        timeLabelRightConstraint.constant = model.imageSize.width + userImage.frame.width - timeLabel.frame.width
     }
 }

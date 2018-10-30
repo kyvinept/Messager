@@ -55,8 +55,8 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                              toUser: toUser,
                        successBlock: {
                            self.assembly.appAssembly.apiManager
-                           .addMessageListener(successBlock: { message in
-                               self.showNewMessage(message)
+                           .addMessageListener(successBlock: { messageKind in
+                               self.chatViewController?.showNewMessage(messageKind!)
                            }, errorBlock: { error in
                                print("error")
                            })
@@ -85,10 +85,6 @@ extension ChatRouter: ChatViewControllerDelegate {
     
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController) {
         assembly.appAssembly.apiManager.publishMessage(message)
-    }
-    
-    private func showNewMessage(_ message: String?) {
-        chatViewController?.showNewMessage(message ?? "")
     }
     
     func didTouchBackButton(viewController: ChatViewController) {

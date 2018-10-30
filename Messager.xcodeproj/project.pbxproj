@@ -18,7 +18,7 @@
 		5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */; };
 		5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360964217E2F59008B46EB /* MainUIRouter.swift */; };
 		5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */; };
-		5B65F8B1218869EF006EF9F8 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B0218869EF006EF9F8 /* UICollectionView.swift */; };
+		5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B0218869EF006EF9F8 /* UITableView.swift */; };
 		5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */; };
 		5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */; };
 		5B65F8BD218892A5006EF9F8 /* IncomingMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B65F8BB218892A5006EF9F8 /* IncomingMessageCell.xib */; };
@@ -44,6 +44,7 @@
 		5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514E52188A0CD003D2C04 /* IncomingImageCell.swift */; };
 		5BB514E82188A0CD003D2C04 /* IncomingImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB514E62188A0CD003D2C04 /* IncomingImageCell.xib */; };
 		5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */; };
+		5BB514EC2188C049003D2C04 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514EB2188C049003D2C04 /* UIImage.swift */; };
 		5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */; };
 		5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */; };
 		5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE284A217F0AC000A2B6A4 /* User.swift */; };
@@ -72,7 +73,7 @@
 		5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B360964217E2F59008B46EB /* MainUIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouter.swift; sourceTree = "<group>"; };
 		5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouterProtocol.swift; sourceTree = "<group>"; };
-		5B65F8B0218869EF006EF9F8 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		5B65F8B0218869EF006EF9F8 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
 		5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
 		5B65F8BB218892A5006EF9F8 /* IncomingMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingMessageCell.xib; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		5BB514E52188A0CD003D2C04 /* IncomingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingImageCell.swift; sourceTree = "<group>"; };
 		5BB514E62188A0CD003D2C04 /* IncomingImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingImageCell.xib; sourceTree = "<group>"; };
 		5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
+		5BB514EB2188C049003D2C04 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		5BCE2845217F031600A2B6A4 /* PasswordRecoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryViewController.swift; sourceTree = "<group>"; };
 		5BCE2848217F086F00A2B6A4 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		5BCE284A217F0AC000A2B6A4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -215,7 +217,8 @@
 		5B65F8AA218862F7006EF9F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5B65F8B0218869EF006EF9F8 /* UICollectionView.swift */,
+				5B65F8B0218869EF006EF9F8 /* UITableView.swift */,
+				5BB514EB2188C049003D2C04 /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -735,7 +738,7 @@
 				5B9E21A2217DD8B000884A96 /* AuthorizationAssembly.swift in Sources */,
 				5BD3EBEE217F68D100FD3D83 /* ChatRouterProtocol.swift in Sources */,
 				5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */,
-				5B65F8B1218869EF006EF9F8 /* UICollectionView.swift in Sources */,
+				5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */,
 				5B7828FA21874DE800059F6B /* UserCell.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
@@ -748,6 +751,7 @@
 				5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */,
 				5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */,
 				5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */,
+				5BB514EC2188C049003D2C04 /* UIImage.swift in Sources */,
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
 				5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */,

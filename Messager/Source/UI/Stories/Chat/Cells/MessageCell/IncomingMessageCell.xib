@@ -23,7 +23,7 @@
                         <rect key="frame" x="66" y="8" width="405" height="123"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I87-vd-j12">
-                        <rect key="frame" x="77" y="22" width="414" height="83"/>
+                        <rect key="frame" x="76" y="22" width="384" height="83"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -52,16 +52,16 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="I87-vd-j12" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="3Kt-4S-MUq"/>
                     <constraint firstAttribute="trailing" secondItem="VU7-S7-Vnj" secondAttribute="trailing" constant="40" id="3zE-r5-UGX"/>
                     <constraint firstAttribute="bottom" secondItem="ks8-Yf-nG9" secondAttribute="bottom" constant="8" id="A4a-hr-Tl5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="I87-vd-j12" secondAttribute="trailing" constant="31" id="C6P-wK-0Wp"/>
                     <constraint firstAttribute="bottomMargin" secondItem="7Na-DZ-vFu" secondAttribute="bottom" id="CfI-ps-lr7"/>
                     <constraint firstItem="VU7-S7-Vnj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ITk-Mg-xzY"/>
-                    <constraint firstItem="I87-vd-j12" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="Vxp-jA-9xe"/>
+                    <constraint firstItem="I87-vd-j12" firstAttribute="leading" secondItem="ks8-Yf-nG9" secondAttribute="trailing" constant="18" id="O5H-Rh-Fql"/>
+                    <constraint firstItem="I87-vd-j12" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="RcE-Dw-kUn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="I87-vd-j12" secondAttribute="bottom" constant="23" id="SsP-Yh-VWQ"/>
                     <constraint firstAttribute="bottom" secondItem="VU7-S7-Vnj" secondAttribute="bottom" constant="7.5" id="iAg-hk-Bpw"/>
                     <constraint firstItem="ks8-Yf-nG9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iPd-W5-9tv"/>
-                    <constraint firstItem="I87-vd-j12" firstAttribute="leading" secondItem="ks8-Yf-nG9" secondAttribute="trailing" constant="19" id="mK1-Ht-BjQ"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="I87-vd-j12" secondAttribute="bottom" constant="23" id="n5T-SQ-XFw"/>
                     <constraint firstItem="VU7-S7-Vnj" firstAttribute="leading" secondItem="ks8-Yf-nG9" secondAttribute="trailing" constant="8" id="tOY-s5-006"/>
                     <constraint firstAttribute="trailingMargin" secondItem="7Na-DZ-vFu" secondAttribute="trailing" constant="25" id="uwC-da-ikA"/>
                 </constraints>

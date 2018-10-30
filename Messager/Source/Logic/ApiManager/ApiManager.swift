@@ -36,26 +36,43 @@ class ApiManager {
         })
     }
     
-    func addMessageListener(successBlock: @escaping (String?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+    func addMessageListener(successBlock: @escaping (MessageKind?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+        channel?.addCommandListener({ (object) in
+            if let message = object?.data as? String {
+                successBlock(MessageKind.text(message))
+            } else if let data = object?.data as? Data {
+                if let image = UIImage(data: data) {
+                    successBlock(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage())))
+                }
+            }
+        }, error: { (error) in
+            print("error")
+        })
         channel?.addMessageListenerString({ message in
-            if self.lastMessage != message {
-                successBlock(message)
+            if message != self.lastMessage, let message = message {
+                successBlock(MessageKind.text(message))
             }
         }, error: { error in
-            errorBlock(error)
+            print("error")
         })
     }
     
     func publishMessage(_ message: Message) {
-        var textMessage = ""
         switch message.kind {
         case .text(let text):
-            textMessage = text
-        default:
-            break
+            lastMessage = text
+            sendMessage(message: text)
+        case .photo(let mediaItem):
+            if let data = UIImagePNGRepresentation(mediaItem.image) {
+                sendMessage(message: data)
+            } else if let data = UIImageJPEGRepresentation(mediaItem.image, 1.0) {
+                sendMessage(message: data)
+            }
         }
-        lastMessage = textMessage
-        Backendless.sharedInstance().messaging.publish(channel?.channelName, message: textMessage, response: { messageStatus in
+    }
+    
+    private func sendMessage(message: Any) {
+        Backendless.sharedInstance().messaging.publish(channel?.channelName, message: message, response: { messageStatus in
             print(messageStatus)
         }, error: { error in
             print("error")
