@@ -16,6 +16,7 @@ class ApiManager {
         case users = "Users"
     }
     
+    private var mapper: Mapper
     private var dataStore: IDataStore?
     private let tableName = "Message"
     private var channel: Channel?
@@ -23,8 +24,9 @@ class ApiManager {
     private let cloudinaryUrl = "cloudinary://335865959162651:a6r9CrEp64WEkIHihFWGJccYlAA@dfneucqih"
     private var cloudinary: CLDCloudinary!
     
-    init() {
+    init(mapper: Mapper) {
         cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!)
+        self.mapper = mapper
     }
     
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
@@ -80,7 +82,7 @@ class ApiManager {
         }
     }
     
-    private func sendMessage(message: Any) {
+    private func sendMessage(message: String) {
         Backendless.sharedInstance().messaging.publish(channel?.channelName, message: message, response: { messageStatus in
             print(messageStatus)
         }, error: { error in
@@ -91,22 +93,10 @@ class ApiManager {
     func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> ()) {
         dataStore = Backendless.sharedInstance()!.data.ofTable(Table.users.rawValue)
         dataStore?.find({ (users) in
-           successBlock(self.allUsers(users: users as! [[String : Any]]))
+           successBlock(self.mapper.allUsers(users: users as! [[String : Any]]))
         }, error: { (error) in
             errorBlock(error)
         })
-    }
-    
-    private func allUsers(users: [[String: Any]]) -> [User] {
-        var newUsers = [User]()
-        for user in users {
-            newUsers.append(User(email: user["email"] as! String,
-                                  name: user["name"] as! String,
-                              password: nil,
-                                    id: user["objectId"] as! String,
-                             userToken: nil))
-        }
-        return newUsers
     }
     
 //    func saveMessage(fromUser: User, toUser: User, message: Message) {

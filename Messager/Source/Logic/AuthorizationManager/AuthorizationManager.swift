@@ -14,14 +14,16 @@ class AuthorizationManager {
     private let SERVER_URL = "https://api.backendless.com"
     private let backendless = Backendless.sharedInstance()!
     private var keychainManager: KeychainManager
+    private var mapper: Mapper
     var currentUser: User {
         return keychainManager.getCurrentUser()
     }
     
-    init(with keychainManager: KeychainManager) {
+    init(with keychainManager: KeychainManager, mapper: Mapper) {
         Backendless.sharedInstance().hostURL = SERVER_URL
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
         self.keychainManager = keychainManager
+        self.mapper = mapper
     }
     
     func isLoginUser() -> Bool {
@@ -69,19 +71,10 @@ class AuthorizationManager {
     
     private func checkCurrentUser(user: BackendlessUser?) -> User? {
         if let user = user {
-            let newUser = self.createNewUser(user: user)
+            let newUser = mapper.createNewUser(user: user)
             self.keychainManager.save(email: newUser.email, id: newUser.id, name: newUser.name)
             return newUser
         }
         return nil
-    }
-    
-    private func createNewUser(user: BackendlessUser) -> User {
-        let newUser = User(email: String(user.email),
-                            name: String(user.name),
-                        password: nil,
-                              id: String(user.objectId),
-                       userToken: user.getToken())
-        return newUser
     }
 }
