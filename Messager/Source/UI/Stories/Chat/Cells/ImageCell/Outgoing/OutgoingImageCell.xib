@@ -40,7 +40,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ln8-jf-6EX">
-                        <rect key="frame" x="151" y="101" width="30" height="15"/>
+                        <rect key="frame" x="167" y="101" width="30" height="15"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -48,12 +48,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="Ln8-jf-6EX" secondAttribute="trailing" id="VmS-Do-MdQ"/>
                     <constraint firstAttribute="bottom" secondItem="TCU-2v-Unn" secondAttribute="bottom" constant="8" id="eAQ-dS-3IJ"/>
                     <constraint firstItem="bVT-Mg-EA7" firstAttribute="top" secondItem="5qJ-RY-Y5E" secondAttribute="top" constant="8" id="fd4-M8-7Iy"/>
+                    <constraint firstAttribute="trailing" secondItem="Ln8-jf-6EX" secondAttribute="trailing" id="h3Z-DR-nHk"/>
                     <constraint firstAttribute="bottom" secondItem="bVT-Mg-EA7" secondAttribute="bottom" constant="7.5" id="hit-xf-sbv"/>
                     <constraint firstItem="TCU-2v-Unn" firstAttribute="leading" secondItem="bVT-Mg-EA7" secondAttribute="trailing" constant="8" id="pBz-ux-QS4"/>
-                    <constraint firstAttribute="bottom" secondItem="Ln8-jf-6EX" secondAttribute="bottom" constant="10.5" id="rCc-xx-CK5"/>
+                    <constraint firstAttribute="bottom" secondItem="Ln8-jf-6EX" secondAttribute="bottom" constant="10.5" id="x6V-qC-nMK"/>
                     <constraint firstAttribute="trailing" secondItem="TCU-2v-Unn" secondAttribute="trailing" constant="8" id="yiH-ZJ-mL2"/>
                 </constraints>
             </tableViewCellContentView>
@@ -63,7 +63,7 @@
                 <outlet property="imageViewWidthConstraint" destination="opR-Lm-MKo" id="PKR-eK-3ex"/>
                 <outlet property="messageImage" destination="bVT-Mg-EA7" id="I64-w5-Qjk"/>
                 <outlet property="timeLabel" destination="Ln8-jf-6EX" id="saZ-Yh-Pqh"/>
-                <outlet property="timeLabelRightConstraint" destination="VmS-Do-MdQ" id="GH5-tQ-97N"/>
+                <outlet property="timeLabelRightConstraint" destination="h3Z-DR-nHk" id="Zxg-os-egS"/>
                 <outlet property="userImage" destination="TCU-2v-Unn" id="9K9-mW-gAO"/>
             </connections>
             <point key="canvasLocation" x="112.8" y="83.208395802098963"/>

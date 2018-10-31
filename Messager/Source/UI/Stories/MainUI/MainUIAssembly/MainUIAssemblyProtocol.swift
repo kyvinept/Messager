@@ -11,6 +11,7 @@ protocol MainUIAssemblyProtocol {
     
     var appAssembly: ApplicationAssembly { get }
     
-    func createNavigationController() -> UINavigationController
+    func createNavigationController(with rootViewController: UIViewController?) -> UINavigationController
     func createTabBarController() -> UITabBarController
+    func createSettingsViewController() -> SettingsViewController
 }

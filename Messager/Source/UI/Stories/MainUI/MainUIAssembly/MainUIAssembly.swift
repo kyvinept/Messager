@@ -15,13 +15,20 @@ class MainUIAssembly: MainUIAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func createNavigationController() -> UINavigationController {
-        let vc = UINavigationController()
-        return vc
+    func createNavigationController(with rootViewController: UIViewController? = nil) -> UINavigationController {
+        if let rootViewController = rootViewController {
+            return UINavigationController(rootViewController: rootViewController)
+        } else {
+            return UINavigationController()
+        }
     }
     
     func createTabBarController() -> UITabBarController {
         let vc = UITabBarController()
         return vc
+    }
+    
+    func createSettingsViewController() -> SettingsViewController {
+        return UIStoryboard(name: "Settings", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
     }
 }

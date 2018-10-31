@@ -1,9 +1,12 @@
 PODS:
+  - Alamofire (4.7.3)
   - Backendless (5.1.8):
     - Socket.IO-Client-Swift
   - Chatto (3.3.1)
   - ChattoAdditions (3.3.1):
     - Chatto
+  - Cloudinary (2.4.0):
+    - Alamofire (~> 4.7.2)
   - MessageKit (1.0.0)
   - Socket.IO-Client-Swift (13.3.1):
     - Starscream (~> 3.0.2)
@@ -14,28 +17,33 @@ DEPENDENCIES:
   - Backendless
   - Chatto (= 3.3.1)
   - ChattoAdditions (= 3.3.1)
+  - Cloudinary (~> 2.0)
   - MessageKit (~> 1.0.0)
   - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - Backendless
     - Chatto
     - ChattoAdditions
+    - Cloudinary
     - MessageKit
     - Socket.IO-Client-Swift
     - Starscream
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Backendless: 394f705e142e27e012adfd5d6c1ce0db1dc63c46
   Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
   ChattoAdditions: cc74cd3dd371aa3f70e5ab8568a4f383f0c0eb8c
+  Cloudinary: d87b545d6a5d00c4022bec964839fdaf359d7c53
   MessageKit: 16160036b16476b04bd0e9f2c7ce67e662e503e4
   Socket.IO-Client-Swift: 79f8f85fa44881838175a20f9bd2c32bef2c9d37
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 2c2d21ce24d1283a255fb1b51a46dc6d2cf5d59c
+PODFILE CHECKSUM: c4b71bfe98430f59bff62b4fd15b45d1f22329ed
 
 COCOAPODS: 1.5.3

@@ -13,6 +13,7 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     private var authorizationRouter: AuthorizationRouter?
     private var chatRouter: ChatRouter?
     private var rootViewController: UIViewController!
+    private var settingsViewController: SettingsViewController!
     
     init(assembly: MainUIAssembly) {
         self.assembly = assembly
@@ -29,15 +30,16 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
     }
     
     private func createTabs(for rootViewController: UITabBarController) {
-        let navigationViewController = UINavigationController()
+        let navigationViewController = assembly.createNavigationController()
         navigationViewController.tabBarItem = UITabBarItem(title: "Chats",
-                                                           image: nil,
+                                                           image: UIImage(named: "mail"),
                                                    selectedImage: nil)
         self.rootViewController = navigationViewController
 
-        let settingsViewController = UINavigationController()
-        navigationViewController.tabBarItem = UITabBarItem(title: "Settings",
-                                                           image: nil,
+        self.settingsViewController = assembly.createSettingsViewController()
+        let settingsViewController = assembly.createNavigationController(with: self.settingsViewController)
+        settingsViewController.tabBarItem = UITabBarItem(title: "Settings",
+                                                           image: UIImage(named: "settings"),
                                                    selectedImage: nil)
         rootViewController.viewControllers = [navigationViewController, settingsViewController]
     }

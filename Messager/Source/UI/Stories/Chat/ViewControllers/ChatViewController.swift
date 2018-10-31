@@ -32,6 +32,7 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createBackButton()
         registerCell()
         addNotification()
         addGesture()
@@ -50,6 +51,15 @@ class ChatViewController: UIViewController {
                               messageId: String(messages.count+1),
                                sentDate: Date(),
                                    kind: messageKind))
+    }
+    
+    private func createBackButton() {
+        let back = UIBarButtonItem(title: "< to Users", style: .done, target: self, action: #selector(ChatViewController.backButtonTapped))
+        self.navigationItem.leftBarButtonItem = back
+    }
+    
+    @objc func backButtonTapped() {
+        delegate?.didTouchBackButton(viewController: self)
     }
     
     @IBAction func getFileButtonTapped(_ sender: Any) {
@@ -88,8 +98,10 @@ extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
-        tableView.reloadData()
-        tableView.scrollToBottom(animated: true)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.tableView.scrollToBottom(animated: true)
+        }
     }
 }
 

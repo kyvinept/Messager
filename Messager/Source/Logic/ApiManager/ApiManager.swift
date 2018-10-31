@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import Cloudinary
 
 class ApiManager {
     
@@ -18,9 +19,13 @@ class ApiManager {
     private var dataStore: IDataStore?
     private let tableName = "Message"
     private var channel: Channel?
-    private var lastMessage: String?
+    private var lastMessage = [String]()
+    private let cloudinaryUrl = "cloudinary://335865959162651:a6r9CrEp64WEkIHihFWGJccYlAA@dfneucqih"
+    private var cloudinary: CLDCloudinary!
     
-    init() { }
+    init() {
+        cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!)
+    }
     
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
         var users = [fromUser.id, toUser.id]
@@ -37,19 +42,18 @@ class ApiManager {
     }
     
     func addMessageListener(successBlock: @escaping (MessageKind?) -> (), errorBlock: @escaping (Fault?) -> ()) {
-        channel?.addCommandListener({ (object) in
-            if let message = object?.data as? String {
-                successBlock(MessageKind.text(message))
-            } else if let data = object?.data as? Data {
-                if let image = UIImage(data: data) {
-                    successBlock(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage())))
-                }
-            }
-        }, error: { (error) in
-            print("error")
-        })
         channel?.addMessageListenerString({ message in
-            if message != self.lastMessage, let message = message {
+            guard let message = message, !self.lastMessage.contains(message) else { return }
+            self.lastMessage.append(message)
+            if let _ = URL(string: message) {
+                self.cloudinary.createDownloader().fetchImage(message, { (progress) in
+                    print(progress)
+                }, completionHandler: { (image, error) in
+                    if let image = image {
+                        successBlock(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage())))
+                    }
+                })
+            } else {
                 successBlock(MessageKind.text(message))
             }
         }, error: { error in
@@ -60,13 +64,18 @@ class ApiManager {
     func publishMessage(_ message: Message) {
         switch message.kind {
         case .text(let text):
-            lastMessage = text
+            lastMessage.append(text)
             sendMessage(message: text)
         case .photo(let mediaItem):
-            if let data = UIImagePNGRepresentation(mediaItem.image) {
-                sendMessage(message: data)
-            } else if let data = UIImageJPEGRepresentation(mediaItem.image, 1.0) {
-                sendMessage(message: data)
+            if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
+                cloudinary.createUploader().signedUpload(data: data, params: nil, progress: { (progress) in
+                    print(progress.fractionCompleted)
+                }) { (result, error) in
+                    if let url = result?.url {
+                        self.lastMessage.append(url)
+                        self.sendMessage(message: url)
+                    }
+                }
             }
         }
     }
