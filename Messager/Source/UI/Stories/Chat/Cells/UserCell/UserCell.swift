@@ -14,10 +14,6 @@ class UserCell: UITableViewCell {
     @IBOutlet private weak var lastMessageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     func configure(model: UserCellViewModel) {
         self.userImage.image = model.userImage
         self.nameLabel.text = model.userName

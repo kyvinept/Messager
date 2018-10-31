@@ -14,7 +14,7 @@ protocol AuthorizationRouterDelegate: class {
 
 class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 
-    var assembly: AuthorizationAssembly
+    var assembly: AuthorizationAssemblyProtocol
     weak var delegate: AuthorizationRouterDelegate?
     private var loginViewController: LoginViewController?
     private var registrationViewController: RegistrationViewController?

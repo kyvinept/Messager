@@ -24,6 +24,11 @@ class UsersViewController: UIViewController {
         registerUserCell()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.isUserInteractionEnabled = true
+    }
+    
     func configure(users: [User]) {
         self.users = users
     }
@@ -53,6 +58,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        tableView.isUserInteractionEnabled = false
         delegate?.didSelectCell(with: users[indexPath.row], from: self)
     }
 }

@@ -71,8 +71,10 @@ class AuthorizationManager {
     
     private func checkCurrentUser(user: BackendlessUser?) -> User? {
         if let user = user {
-            let newUser = mapper.createNewUser(user: user)
-            self.keychainManager.save(email: newUser.email, id: newUser.id, name: newUser.name)
+            let newUser = mapper.mapUser(fromBackendlessUser: user)
+            self.keychainManager.save(email: newUser.email,
+                                         id: newUser.id,
+                                       name: newUser.name)
             return newUser
         }
         return nil

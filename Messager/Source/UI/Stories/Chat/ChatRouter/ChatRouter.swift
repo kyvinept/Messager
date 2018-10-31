@@ -9,14 +9,14 @@ import UIKit
 
 class ChatRouter: BaseRouter, ChatRouterProtocol {
 
-    var assembly: ChatAssembly
+    var assembly: ChatAssemblyProtocol
     private var chatViewController: ChatViewController?
     private var usersViewController: UsersViewController?
     lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
     
-    init(assembly: ChatAssembly) {
+    init(assembly: ChatAssemblyProtocol) {
         self.assembly = assembly
     }
     

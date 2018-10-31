@@ -9,11 +9,7 @@ import UIKit
 
 class IncomingMessageCell: UITableViewCell {
     
-    @IBOutlet weak var messageLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    @IBOutlet private weak var messageLabel: UILabel!
     
     func configure(model: MessageCellViewModel) {
         messageLabel.text = model.message

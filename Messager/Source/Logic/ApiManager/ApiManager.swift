@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftyJSON
-import Cloudinary
 
 class ApiManager {
     
@@ -21,12 +20,11 @@ class ApiManager {
     private let tableName = "Message"
     private var channel: Channel?
     private var lastMessage = [String]()
-    private let cloudinaryUrl = "cloudinary://335865959162651:a6r9CrEp64WEkIHihFWGJccYlAA@dfneucqih"
-    private var cloudinary: CLDCloudinary!
+    private var imageManager: ImageManager
     
-    init(mapper: Mapper) {
-        cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!)
+    init(mapper: Mapper, imageManager: ImageManager) {
         self.mapper = mapper
+        self.imageManager = imageManager
     }
     
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
@@ -48,13 +46,16 @@ class ApiManager {
             guard let message = message, !self.lastMessage.contains(message) else { return }
             self.lastMessage.append(message)
             if let _ = URL(string: message) {
-                self.cloudinary.createDownloader().fetchImage(message, { (progress) in
-                    print(progress)
-                }, completionHandler: { (image, error) in
-                    if let image = image {
-                        successBlock(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage())))
-                    }
-                })
+                self.imageManager.downloadImage(url: message,
+                                           progress: { (progress) in
+                                                         print(progress)
+                                                     },
+                                  completionHandler: { (messageKind) in
+                                                         if let messageKind = messageKind {
+                                                             successBlock(messageKind)
+                                                         }
+                                                     })
+                
             } else {
                 successBlock(MessageKind.text(message))
             }
@@ -70,30 +71,33 @@ class ApiManager {
             sendMessage(message: text)
         case .photo(let mediaItem):
             if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
-                cloudinary.createUploader().signedUpload(data: data, params: nil, progress: { (progress) in
-                    print(progress.fractionCompleted)
-                }) { (result, error) in
-                    if let url = result?.url {
-                        self.lastMessage.append(url)
-                        self.sendMessage(message: url)
-                    }
-                }
+                imageManager.uploadImage(data: data,
+                                     progress: { (progress) in
+                                                   print(progress)
+                                               },
+                            completionHandler: { (url) in
+                                                   guard let url = url else { return }
+                                                   self.lastMessage.append(url)
+                                                   self.sendMessage(message: url)
+                                               })
             }
         }
     }
     
     private func sendMessage(message: String) {
-        Backendless.sharedInstance().messaging.publish(channel?.channelName, message: message, response: { messageStatus in
-            print(messageStatus)
-        }, error: { error in
-            print("error")
-        })
+        Backendless.sharedInstance().messaging.publish(channel?.channelName,
+                                                       message: message,
+                                                      response: { messageStatus in
+                                                          print(messageStatus)
+                                                      }, error: { error in
+                                                          print("error")
+                                                      })
     }
     
     func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> ()) {
         dataStore = Backendless.sharedInstance()!.data.ofTable(Table.users.rawValue)
         dataStore?.find({ (users) in
-           successBlock(self.mapper.allUsers(users: users as! [[String : Any]]))
+           successBlock(self.mapper.mapAllUsers(users: users as! [[String : Any]]))
         }, error: { (error) in
             errorBlock(error)
         })

@@ -9,7 +9,7 @@ import UIKit
 
 protocol MainUIRouterProtocol {
     
-    var assembly: MainUIAssembly { get }
+    var assembly: MainUIAssemblyProtocol { get }
     
     func showMainUIInterfaceAfterLaunch(from rootViewController: UITabBarController, animated: Bool)
     func showAuthorizationStory()

@@ -10,24 +10,24 @@ import UIKit
 class Mapper {
     
     init() {   }
- 
-    func createNewUser(user: BackendlessUser) -> User {
-        let newUser = User(email: String(user.email),
-                           name: String(user.name),
-                           password: nil,
-                           id: String(user.objectId),
-                           userToken: user.getToken())
+    
+    func mapUser(fromBackendlessUser backendlessUser: BackendlessUser) -> User {
+        let newUser = User(email: String(backendlessUser.email),
+                            name: String(backendlessUser.name),
+                        password: nil,
+                              id: String(backendlessUser.objectId),
+                       userToken: backendlessUser.getToken())
         return newUser
     }
     
-    func allUsers(users: [[String: Any]]) -> [User] {
+    func mapAllUsers(users: [[String: Any]]) -> [User] {
         var newUsers = [User]()
         for user in users {
             newUsers.append(User(email: user["email"] as! String,
-                                 name: user["name"] as! String,
-                                 password: nil,
-                                 id: user["objectId"] as! String,
-                                 userToken: nil))
+                                  name: user["name"] as! String,
+                              password: nil,
+                                    id: user["objectId"] as! String,
+                             userToken: nil))
         }
         return newUsers
     }

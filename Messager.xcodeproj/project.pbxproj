@@ -25,6 +25,11 @@
 		5B6765022189AD1000239DCF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6765012189AD1000239DCF /* Settings.storyboard */; };
 		5B6765042189AD2300239DCF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6765032189AD2300239DCF /* SettingsViewController.swift */; };
 		5B6765082189B5A400239DCF /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6765072189B5A400239DCF /* Mapper.swift */; };
+		5B67650C2189E59800239DCF /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67650B2189E59800239DCF /* SettingsRouter.swift */; };
+		5B67650E2189E5C200239DCF /* SettingsRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67650D2189E5C200239DCF /* SettingsRouterProtocol.swift */; };
+		5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67650F2189E5DE00239DCF /* SettingsAssembly.swift */; };
+		5B6765122189E5FF00239DCF /* SettingsAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6765112189E5FF00239DCF /* SettingsAssemblyProtocol.swift */; };
+		5B6765152189EA0900239DCF /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6765142189EA0900239DCF /* ImageManager.swift */; };
 		5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF592181BE5D0072E76E /* MediaItem.swift */; };
 		5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF5C2181E55F0072E76E /* ApiManager.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
@@ -83,6 +88,11 @@
 		5B6765012189AD1000239DCF /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		5B6765032189AD2300239DCF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5B6765072189B5A400239DCF /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		5B67650B2189E59800239DCF /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		5B67650D2189E5C200239DCF /* SettingsRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouterProtocol.swift; sourceTree = "<group>"; };
+		5B67650F2189E5DE00239DCF /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
+		5B6765112189E5FF00239DCF /* SettingsAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssemblyProtocol.swift; sourceTree = "<group>"; };
+		5B6765142189EA0900239DCF /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		5B69DF592181BE5D0072E76E /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		5B69DF5C2181E55F0072E76E /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -250,6 +260,8 @@
 		5B6764FE2189ACF000239DCF /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5B67650A2189E57200239DCF /* SettingsAssembly */,
+				5B6765092189E56500239DCF /* SettingsRouter */,
 				5B6765002189ACFE00239DCF /* Storyboards */,
 				5B6764FF2189ACF500239DCF /* ViewControllers */,
 			);
@@ -278,6 +290,32 @@
 				5B6765072189B5A400239DCF /* Mapper.swift */,
 			);
 			path = Mapper;
+			sourceTree = "<group>";
+		};
+		5B6765092189E56500239DCF /* SettingsRouter */ = {
+			isa = PBXGroup;
+			children = (
+				5B67650B2189E59800239DCF /* SettingsRouter.swift */,
+				5B67650D2189E5C200239DCF /* SettingsRouterProtocol.swift */,
+			);
+			path = SettingsRouter;
+			sourceTree = "<group>";
+		};
+		5B67650A2189E57200239DCF /* SettingsAssembly */ = {
+			isa = PBXGroup;
+			children = (
+				5B67650F2189E5DE00239DCF /* SettingsAssembly.swift */,
+				5B6765112189E5FF00239DCF /* SettingsAssemblyProtocol.swift */,
+			);
+			path = SettingsAssembly;
+			sourceTree = "<group>";
+		};
+		5B6765132189E9FC00239DCF /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B6765142189EA0900239DCF /* ImageManager.swift */,
+			);
+			path = ImageManager;
 			sourceTree = "<group>";
 		};
 		5B69DF5B2181E54F0072E76E /* ApiManager */ = {
@@ -349,6 +387,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B6765132189E9FC00239DCF /* ImageManager */,
 				5B6765062189B55200239DCF /* Mapper */,
 				5B69DF5B2181E54F0072E76E /* ApiManager */,
 				5B76B5022180BB11003B5351 /* KeychainManager */,
@@ -776,6 +815,7 @@
 				0F22E1B11E8407D1004B722A /* LoginViewController.swift in Sources */,
 				5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */,
 				5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */,
+				5B67650C2189E59800239DCF /* SettingsRouter.swift in Sources */,
 				5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */,
 				5B9E2184217DC4F400884A96 /* ApplicationRouter.swift in Sources */,
 				5B7828FE2187502B00059F6B /* UserCellViewModel.swift in Sources */,
@@ -792,6 +832,7 @@
 				5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */,
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */,
+				5B6765122189E5FF00239DCF /* SettingsAssemblyProtocol.swift in Sources */,
 				5B6765082189B5A400239DCF /* Mapper.swift in Sources */,
 				5BD3EBEA217F68BA00FD3D83 /* ChatAssemblyProtocol.swift in Sources */,
 				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
@@ -802,6 +843,7 @@
 				5BB514EC2188C049003D2C04 /* UIImage.swift in Sources */,
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
+				5B6765152189EA0900239DCF /* ImageManager.swift in Sources */,
 				5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */,
 				5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */,
 				5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */,
@@ -810,9 +852,11 @@
 				5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
+				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,
 				5BD3EBE4217F687A00FD3D83 /* ChatViewController.swift in Sources */,
+				5B67650E2189E5C200239DCF /* SettingsRouterProtocol.swift in Sources */,
 				5BCE284B217F0AC000A2B6A4 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

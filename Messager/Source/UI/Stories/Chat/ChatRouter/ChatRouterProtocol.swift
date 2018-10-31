@@ -9,7 +9,7 @@ import UIKit
 
 protocol ChatRouterProtocol {
     
-    var assembly: ChatAssembly { get }
+    var assembly: ChatAssemblyProtocol { get }
 
     func showInitialVC(from rootViewController: UIViewController)
 }

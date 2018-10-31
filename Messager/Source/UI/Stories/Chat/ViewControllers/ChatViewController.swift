@@ -36,9 +36,7 @@ class ChatViewController: UIViewController {
         registerCell()
         addNotification()
         addGesture()
-        sendMessageButton.alpha = 0
-        textView.isScrollEnabled = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
+        setBaseUIComponents()
     }
 
     func configure(with currentUser: User, toUser: User) {
@@ -51,6 +49,12 @@ class ChatViewController: UIViewController {
                               messageId: String(messages.count+1),
                                sentDate: Date(),
                                    kind: messageKind))
+    }
+    
+    private func setBaseUIComponents() {
+        sendMessageButton.alpha = 0
+        textView.isScrollEnabled = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func createBackButton() {
