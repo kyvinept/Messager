@@ -9,7 +9,7 @@ import UIKit
 
 protocol SettingsRouterDelegate: class {
     
-    
+    func logoutButtonWasTapped()
 }
 
 class SettingsRouter: BaseRouter, SettingsRouterProtocol {
@@ -40,6 +40,6 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 extension SettingsRouter: SettingsViewControllerDelegate {
     
     func settingsViewController(viewController: SettingsViewController, didTouchLogoutButton sender: UIButton) {
-        print("Touch")
+        delegate?.logoutButtonWasTapped()
     }
 }

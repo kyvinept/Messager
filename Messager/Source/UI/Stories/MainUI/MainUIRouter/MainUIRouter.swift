@@ -87,4 +87,11 @@ extension MainUIRouter: AuthorizationRouterDelegate {
 
 extension MainUIRouter: SettingsRouterDelegate {
     
+    func logoutButtonWasTapped() {
+        chatRouter = nil
+        assembly.appAssembly.authorizationManager.logout()
+        self.chatViewController.tabBarController?.selectedIndex = 0
+        self.chatViewController.tabBarController?.tabBar.isHidden = true
+        showAuthorizationStory()
+    }
 }

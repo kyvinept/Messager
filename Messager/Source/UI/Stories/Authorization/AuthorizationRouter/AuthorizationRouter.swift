@@ -83,7 +83,6 @@ extension AuthorizationRouter: LoginViewControllerDelegate {
                                                                   password: password,
                                                               successBlock: { user in
                                                                   self.delegate?.authorizationStoryWasOver(from: viewController)
-                                                                  sender.isEnabled = true
                                                               },
                                                                 errorBlock: { error in
                                                                     self.showInfo(to: viewController,
@@ -102,8 +101,7 @@ extension AuthorizationRouter: RegistrationViewControllerDelegate {
                                                                     name: name,
                                                                 password: password,
                                                             successBlock: { (_) in
-                                                                print("success")
-                                                                sender.isEnabled = true
+                                                                self.delegate?.authorizationStoryWasOver(from: viewController)
                                                             }) { error in
                                                                 self.showInfo(to: viewController,
                                                                            title: "Error",
@@ -119,10 +117,11 @@ extension AuthorizationRouter: PasswordRecoveryViewControllerDelegate {
         sender.isEnabled = false
         assembly.appAssembly.authorizationManager.passwordRecovery(with: email,
                                                                     successBlock: {
-                                                                        print("success")
-                                                                        sender.isEnabled = true
+                                                                        viewController.navigationController?.popToRootViewController(animated: true)
                                                                     }) { error in
-                                                                        print(error!.detail)
+                                                                        self.showInfo(to: viewController,
+                                                                                   title: "Error",
+                                                                                 message: error!.detail)
                                                                         sender.isEnabled = true
                                                                     }
     }

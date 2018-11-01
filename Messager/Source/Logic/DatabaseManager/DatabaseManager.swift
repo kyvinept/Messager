@@ -72,6 +72,23 @@ extension DatabaseManager {
                                      })
     }
     
+    func removeAddUsers() {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.user.rawValue)
+        fetchRequest.returnsObjectsAsFaults = false
+        let context = self.persistentContainer.viewContext
+        var users = [UserEntity]()
+        
+        do {
+            users = try context.fetch(fetchRequest) as! [UserEntity]
+            for user in users {
+                persistentContainer.viewContext.delete(user)
+            }
+            saveContext()
+        } catch {
+            print(error)
+        }
+    }
+    
     private func save(user: User, successBlock: @escaping (UserEntity) -> ()) {
         getUsers(successBlock: { users in
             var isInclude = false
@@ -132,6 +149,21 @@ extension DatabaseManager {
                                     })
     }
     
+    func getMessages(currentUser: User, toUser: User, successBlock: @escaping ([Message]?) -> (), errorBlock: @escaping (Error) -> ()) {
+        getUserEntity(successBlock: { users in
+            if let user = users?.first(where: { $0.email == toUser.email &&
+                                                $0.id == toUser.id &&
+                                                $0.name == toUser.name }) {
+                var messages = user.messages?.allObjects as! [MessageEntity]
+                successBlock(self.databaseMapper.map(messagesEntity: messages,
+                                                        currentUser: currentUser,
+                                                             toUser: toUser))
+            }
+        }) { error in
+            print(error)
+        }
+    }
+    
     private func checkMessage(currentUser: User, toUser: User, checkUser: UserEntity, message: Message, successBlock: @escaping () -> ()) {
         self.getMessages(currentUser: currentUser,
                          toUser: toUser,
@@ -154,24 +186,6 @@ extension DatabaseManager {
                            errorBlock: { error in
                             
                                        })
-    }
-    
-    func getMessages(currentUser: User, toUser: User, successBlock: @escaping ([Message]?) -> (), errorBlock: @escaping (Error) -> ()) {
-        queue.async {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.message.rawValue)
-            fetchRequest.returnsObjectsAsFaults = false
-            let context = self.persistentContainer.viewContext
-            var messages = [MessageEntity]()
-            
-            do {
-                messages = try context.fetch(fetchRequest) as! [MessageEntity]
-                successBlock(self.databaseMapper.map(messagesEntity: messages,
-                                                        currentUser: currentUser,
-                                                             toUser: toUser))
-            } catch {
-                errorBlock(error)
-            }
-        }
     }
     
     private func createMessageEntity(from message: Message, successBlock: @escaping (MessageEntity) -> ()) {

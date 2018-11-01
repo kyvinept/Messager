@@ -237,12 +237,12 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             if messages[indexPath.row].sender == currentUser! {
                 tableView.register(UINib(nibName: "OutgoingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingMessageCell", for: indexPath) as! OutgoingMessageCell
-                cell.configure(model: MessageCellViewModel(message: text))
+                cell.configure(model: MessageCellViewModel(message: text, date: messages[indexPath.row].sentDate))
                 return cell
             } else {
                 tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessageCell", for: indexPath) as! IncomingMessageCell
-                cell.configure(model: MessageCellViewModel(message: text))
+                cell.configure(model: MessageCellViewModel(message: text, date: messages[indexPath.row].sentDate))
                 return cell
             }
             
@@ -250,11 +250,15 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             
             if messages[indexPath.row].sender == currentUser! {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as! OutgoingImageCell
-                cell.configure(model: ImageCellViewModel(image: mediaItem.image, imageSize: mediaItem.size))
+                cell.configure(model: ImageCellViewModel(image: mediaItem.image,
+                                                     imageSize: mediaItem.size,
+                                                          date: messages[indexPath.row].sentDate))
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as! IncomingImageCell
-                cell.configure(model: ImageCellViewModel(image: mediaItem.image, imageSize: mediaItem.size))
+                cell.configure(model: ImageCellViewModel(image: mediaItem.image,
+                                                     imageSize: mediaItem.size,
+                                                          date: messages[indexPath.row].sentDate))
                 return cell
             }
         }

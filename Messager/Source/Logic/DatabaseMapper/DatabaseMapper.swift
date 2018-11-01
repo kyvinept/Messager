@@ -42,6 +42,7 @@ class DatabaseMapper {
                                      toUser: toUser)
             newMessages.append(message)
         }
+        newMessages.sort { $0.sentDate < $1.sentDate }
         return newMessages
     }
 
@@ -78,7 +79,7 @@ class DatabaseMapper {
         var user = currentUser
         switch messageEntity.direction {
         case MessageDirection.from.rawValue:
-            user = toUser
+            user = map(user: messageEntity.user!)
         case MessageDirection.to.rawValue:
             user = currentUser
         default:

@@ -15,7 +15,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userToken" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity" syncable="YES"/>
     </entity>
     <elements>
         <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="150"/>

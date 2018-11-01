@@ -18,6 +18,7 @@ class IncomingImageCell: UITableViewCell {
     
     func configure(model: ImageCellViewModel) {
         messageImage.image = model.image
+        timeLabel.text = model.date
         
         imageViewWidthConstraint.constant = model.imageSize.width
         imageViewHeightConstraint.constant = model.imageSize.height

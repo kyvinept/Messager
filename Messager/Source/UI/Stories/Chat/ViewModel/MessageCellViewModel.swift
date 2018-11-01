@@ -10,4 +10,10 @@ import UIKit
 struct MessageCellViewModel {
     
     var message: String
+    var date: String
+    
+    init(message: String, date: Date) {
+        self.message = message
+        self.date = date.toString()
+    }
 }

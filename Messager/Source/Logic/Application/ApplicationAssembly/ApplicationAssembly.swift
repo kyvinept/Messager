@@ -18,7 +18,7 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     
     private func createAuthorizationManager() -> AuthorizationManager {
         let keychain = KeychainManager()
-        return AuthorizationManager(with: keychain, mapper: mapper)
+        return AuthorizationManager(with: keychain, mapper: mapper, databaseManager: databaseManager)
     }
     
     private func createApiManager() -> ApiManager {

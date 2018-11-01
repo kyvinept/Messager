@@ -15,15 +15,17 @@ class AuthorizationManager {
     private let backendless = Backendless.sharedInstance()!
     private var keychainManager: KeychainManager
     private var mapper: Mapper
+    private var databaseManager: DatabaseManager
     var currentUser: User {
         return keychainManager.getCurrentUser()
     }
     
-    init(with keychainManager: KeychainManager, mapper: Mapper) {
+    init(with keychainManager: KeychainManager, mapper: Mapper, databaseManager: DatabaseManager) {
         Backendless.sharedInstance().hostURL = SERVER_URL
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
         self.keychainManager = keychainManager
         self.mapper = mapper
+        self.databaseManager = databaseManager
     }
     
     func isLoginUser() -> Bool {
@@ -60,13 +62,9 @@ class AuthorizationManager {
                                                 }
     }
     
-    func logout(successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
-        backendless.userService.logout({
-            self.keychainManager.delete()
-            successBlock()
-        }) { (error) in
-            print("error logout")
-        }
+    func logout() {
+        keychainManager.delete()
+        databaseManager.removeAddUsers()
     }
     
     private func checkCurrentUser(user: BackendlessUser?) -> User? {
