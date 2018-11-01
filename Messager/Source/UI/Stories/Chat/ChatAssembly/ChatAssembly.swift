@@ -29,6 +29,11 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
+    func createAddUserViewController() -> AddUserViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "AddUserViewController") as! AddUserViewController
+        return vc
+    }
+    
     private func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Chat", bundle: nil)
     }

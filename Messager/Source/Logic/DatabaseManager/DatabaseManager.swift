@@ -12,8 +12,8 @@ class DatabaseManager {
     
     private enum Entity: String {
         
-        case message = "Message"
-        case user = "User"
+        case message = "MessageEntity"
+        case user = "UserEntity"
     }
     
     private let databaseName = "Messager"
@@ -68,11 +68,19 @@ extension DatabaseManager {
     }
     
     private func save(user: User, successBlock: @escaping (UserEntity) -> ()) {
-        queue.async {
-            let entity = NSEntityDescription.entity(forEntityName: Entity.user.rawValue, in: self.persistentContainer.viewContext)
-            let newUser = NSManagedObject(entity: entity!, insertInto: self.persistentContainer.viewContext) as! UserEntity
-            self.databaseMapper.map(userEntity: newUser, from: user)
-            self.saveContext()
+        getUsers(successBlock: { users in
+            var isInclude = false
+            if let users = users, users.contains(user) {
+                isInclude = true
+            }
+            if !isInclude {
+                let entity = NSEntityDescription.entity(forEntityName: Entity.user.rawValue, in: self.persistentContainer.viewContext)
+                let newUser = NSManagedObject(entity: entity!, insertInto: self.persistentContainer.viewContext) as! UserEntity
+                self.databaseMapper.map(userEntity: newUser, from: user)
+                self.saveContext()
+            }
+        }) { (error) in
+            print("error")
         }
     }
     

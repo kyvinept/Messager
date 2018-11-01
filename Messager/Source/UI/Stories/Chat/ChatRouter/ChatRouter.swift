@@ -12,6 +12,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     var assembly: ChatAssemblyProtocol
     private var chatViewController: ChatViewController?
     private var usersViewController: UsersViewController?
+    private var addUserViewController: AddUserViewController?
     lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
@@ -21,32 +22,23 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     func showInitialVC(from rootViewController: UIViewController) {
-//        let vc = self.assembly.createChatViewController(currentUser: currentUser!, toUser: currentUser!)
-//        vc.delegate = self
-//        self.chatViewController = vc
-//        self.action(with: vc,
-//                    from: rootViewController,
-//                    with: .push,
-//                    animated: true)
-//        rootViewController.tabBarController?.tabBar.isHidden = true
         showUsersViewController(from: rootViewController)
     }
     
     private func showUsersViewController(from rootViewController: UIViewController) {
-        assembly.appAssembly.apiManager
-        .getUsers(successBlock: { (users) in
-                                    var allUsers = users
-                                    allUsers?.removeAll { $0.email == self.currentUser!.email && $0.id == self.currentUser!.id && $0.name == self.currentUser!.name }
-                                    let vc = self.assembly.createUsersViewController(with: allUsers ?? [User]())
-                                    vc.delegate = self
-                                    self.usersViewController = vc
-                                    self.action(with: vc,
-                                                from: rootViewController,
-                                                with: .push,
-                                            animated: true)
-                                }, errorBlock: { (error) in
-                                    print("error")
-                                })
+        assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
+            let vc = self.assembly.createUsersViewController(with: users ?? [User]())
+            vc.delegate = self
+            self.usersViewController = vc
+            DispatchQueue.main.async {
+                self.action(with: vc,
+                            from: rootViewController,
+                            with: .push,
+                        animated: true)
+            }
+        }) { error in
+            print(error)
+        }
     }
     
     private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
@@ -76,8 +68,61 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
 
 extension ChatRouter: UsersViewControllerDelegate {
     
+    func didTouchAddUserButton(from viewController: UsersViewController) {
+        let vc = assembly.createAddUserViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.delegate = self
+        self.addUserViewController = vc
+        DispatchQueue.main.async {
+            self.action(with: vc,
+                        from: viewController,
+                        with: .present,
+                    animated: true)
+        }
+        viewController.tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+
     func didSelectCell(with user: User, from viewController: UsersViewController) {
         showChatViewController(from: viewController, currentUser: currentUser!, toUser: user)
+    }
+}
+
+extension ChatRouter: AddUserViewControllerDelegate {
+    
+    func addUserViewController(with email: String, viewController: AddUserViewController, didTouchInputButton sender: UIButton) {
+        sender.isEnabled = false
+        assembly.appAssembly.apiManager.getUsers(successBlock: { users in
+            let user = users?.first { $0.email == email }
+            
+            if let user = user, user != self.currentUser! {
+                
+                self.assembly.appAssembly.databaseManager.save(user: user)
+                self.assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
+                    self.usersViewController?.configure(users: users ?? [User]())
+                }, errorBlock: { error in
+                    print("Error")
+                })
+                self.usersViewController?.tabBarController?.tabBar.isUserInteractionEnabled = true
+                viewController.dismiss(animated: true, completion: nil)
+                
+            } else if user == self.currentUser! {
+                
+                sender.isEnabled = true
+                self.addUserViewController?.showError(text: "You can't add yourself.")
+                
+            } else {
+                
+                sender.isEnabled = true
+                self.addUserViewController?.showError(text: "No user with this email.")
+            }
+        }) { (error) in
+            print("error")
+        }
+    }
+    
+    func addUserViewController(viewController: AddUserViewController, didTouchCancelButton sender: UIButton) {
+        usersViewController?.tabBarController?.tabBar.isUserInteractionEnabled = true
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 protocol UsersViewControllerDelegate: class {
     
     func didSelectCell(with user: User, from viewController: UsersViewController)
+    func didTouchAddUserButton(from viewController: UsersViewController)
 }
 
 class UsersViewController: UIViewController {
@@ -22,6 +23,7 @@ class UsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerUserCell()
+        createAddUserButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,10 +33,27 @@ class UsersViewController: UIViewController {
     
     func configure(users: [User]) {
         self.users = users
+        if let tableView = tableView {
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
+        }
     }
     
     private func registerUserCell() {
         tableView.register(UINib(nibName: "UserCell", bundle: nil), forCellReuseIdentifier: "Cell")
+    }
+    
+    private func createAddUserButton() {
+        let addUserButton = UIBarButtonItem(title: "Add user",
+                                               style: .done,
+                                              target: self,
+                                              action: #selector(UsersViewController.addUserButtonTapped))
+        self.navigationItem.rightBarButtonItem = addUserButton
+    }
+    
+    @objc private func addUserButtonTapped() {
+        delegate?.didTouchAddUserButton(from: self)
     }
 }
 
