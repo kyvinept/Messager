@@ -19,7 +19,6 @@ class ApiManager {
     private var dataStore: IDataStore?
     private let tableName = "Message"
     private var channel: Channel?
-    private var lastMessage = [String]()
     private var imageManager: ImageManager
     private var databaseManager: DatabaseManager
     
@@ -43,23 +42,25 @@ class ApiManager {
         })
     }
     
-    func addMessageListener(successBlock: @escaping (MessageKind?) -> (), errorBlock: @escaping (Fault?) -> ()) {
-        channel?.addMessageListenerString({ message in
-            guard let message = message, !self.lastMessage.contains(message) else { return }
-            self.lastMessage.append(message)
-            if let _ = URL(string: message) {
-                self.imageManager.downloadImage(url: message,
+    func addMessageListener(successBlock: @escaping (Message?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+        channel?.addMessageListenerDictionary({ dictionary in
+            guard let dictionary = dictionary as? [String: Any] else { return }
+            var message = self.mapper.map(message: dictionary)
+            
+            if let text = dictionary[MessageType.text.rawValue] as? String {
+                message.kind = MessageKind.text(text)
+                successBlock(message)
+            } else if let url = dictionary[MessageType.image.rawValue] as? String {
+                self.imageManager.downloadImage(url: url,
                                            progress: { (progress) in
                                                          print(progress)
                                                      },
-                                  completionHandler: { (messageKind) in
+                                  completionHandler: { messageKind in
                                                          if let messageKind = messageKind {
-                                                             successBlock(messageKind)
+                                                            message.kind = messageKind
+                                                            successBlock(message)
                                                          }
                                                      })
-                
-            } else {
-                successBlock(MessageKind.text(message))
             }
         }, error: { error in
             print("error")
@@ -67,10 +68,16 @@ class ApiManager {
     }
     
     func publishMessage(_ message: Message) {
+        var request: [String: Any] = ["sentDate": message.sentDate.toString(),
+                                      "messageId": message.messageId,
+                                      "sender": ["id": message.sender.id,
+                                                 "email": message.sender.email,
+                                                 "name": message.sender.name]]
+        
         switch message.kind {
         case .text(let text):
-            lastMessage.append(text)
-            sendMessage(message: text)
+            request[MessageType.text.rawValue] = text
+            self.sendMessage(message: request)
         case .photo(let mediaItem):
             if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
                 imageManager.uploadImage(data: data,
@@ -79,14 +86,14 @@ class ApiManager {
                                                },
                             completionHandler: { (url) in
                                                    guard let url = url else { return }
-                                                   self.lastMessage.append(url)
-                                                   self.sendMessage(message: url)
+                                                   request[MessageType.image.rawValue] = url
+                                                   self.sendMessage(message: request)
                                                })
             }
         }
     }
     
-    private func sendMessage(message: String) {
+    private func sendMessage(message: [String: Any]) {
         Backendless.sharedInstance().messaging.publish(channel?.channelName,
                                                        message: message,
                                                       response: { messageStatus in

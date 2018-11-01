@@ -31,4 +31,19 @@ class Mapper {
         }
         return newUsers
     }
+    
+    func map(message: [String: Any]) -> Message {
+        return Message(sender: map(user: message["sender"] as! [String: String]),
+                    messageId: message["messageId"] as! String,
+                     sentDate: (message["sentDate"] as! String).toDate(),
+                         kind: MessageKind.text(""))
+    }
+    
+    private func map(user: [String: String]) -> User {
+        return User(email: user["email"]!,
+                     name: user["name"]!,
+                 password: nil,
+                       id: user["id"]!,
+                userToken: nil)
+    }
 }

@@ -270,7 +270,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mg6-iB-kwo" firstAttribute="bottom" secondItem="9r9-Bx-W6K" secondAttribute="bottom" constant="40" id="1K7-rN-nde"/>
                             <constraint firstItem="rW2-dY-Te8" firstAttribute="top" secondItem="WzG-91-0M2" secondAttribute="bottom" constant="20" id="3Cr-3X-WfG"/>

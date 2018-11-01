@@ -8,6 +8,11 @@
 import UIKit
 import CoreData
 
+enum MessageDirection: String {
+    case from
+    case to
+}
+
 class DatabaseManager {
     
     private enum Entity: String {
@@ -103,27 +108,55 @@ extension DatabaseManager {
 
 extension DatabaseManager {
     
-    func save(message: Message, to user: User) {
+    func save(message: Message, currentUser: User, toUser: User, successBlock: @escaping () -> ()) {
         getUserEntity(successBlock: { users in
-                                        var currentUser = users?.first { $0.email == user.email &&
-                                                                         $0.id == user.id &&
-                                                                         $0.name == user.name
+                                        var checkUser = users?.first { $0.email == toUser.email &&
+                                                                         $0.id == toUser.id &&
+                                                                         $0.name == toUser.name
                                                                         }
-                                        if currentUser == nil {
-                                            self.save(user: user, successBlock: { userEntity in
-                                                currentUser = userEntity
+                                        if checkUser == nil {
+                                            self.save(user: toUser, successBlock: { userEntity in
+                                                checkUser = userEntity
                                             })
                                         }
-                                        self.createMessageEntity(from: message, successBlock: { messageEntity in
-                                            messageEntity.sender = currentUser!
-                                        })
+                                        self.checkMessage(currentUser: currentUser,
+                                                               toUser: toUser,
+                                                            checkUser: checkUser!,
+                                                              message: message,
+                                                         successBlock: {
+                                                                           successBlock()
+                                                                       })
                                     },
                         errorBlock: { error in
                                         print(error)
                                     })
     }
     
-    func getMessages(from user: User, successBlock: @escaping ([Message]?) -> (), errorBlock: @escaping (Error) -> ()) {
+    private func checkMessage(currentUser: User, toUser: User, checkUser: UserEntity, message: Message, successBlock: @escaping () -> ()) {
+        self.getMessages(currentUser: currentUser,
+                         toUser: toUser,
+                         successBlock: { messages in
+                                            if let messages = messages, messages.contains (where: { $0.sender == message.sender &&
+                                                                                                    $0.sentDate == message.sentDate &&
+                                                                                                    $0.messageId == message.messageId }) {
+                                                return
+                                            }
+                                            self.createMessageEntity(from: message, successBlock: { messageEntity in
+                                                messageEntity.user = checkUser
+                                                if message.sender == toUser {
+                                                    messageEntity.direction = MessageDirection.from.rawValue
+                                                } else {
+                                                    messageEntity.direction = MessageDirection.to.rawValue
+                                                }
+                                                successBlock()
+                                            })
+                                       },
+                           errorBlock: { error in
+                            
+                                       })
+    }
+    
+    func getMessages(currentUser: User, toUser: User, successBlock: @escaping ([Message]?) -> (), errorBlock: @escaping (Error) -> ()) {
         queue.async {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.message.rawValue)
             fetchRequest.returnsObjectsAsFaults = false
@@ -132,7 +165,9 @@ extension DatabaseManager {
             
             do {
                 messages = try context.fetch(fetchRequest) as! [MessageEntity]
-                successBlock(self.databaseMapper.map(messagesEntity: messages))
+                successBlock(self.databaseMapper.map(messagesEntity: messages,
+                                                        currentUser: currentUser,
+                                                             toUser: toUser))
             } catch {
                 errorBlock(error)
             }

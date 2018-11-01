@@ -11,7 +11,7 @@ protocol ChatAssemblyProtocol {
     
     var appAssembly: ApplicationAssembly { get }
     
-    func createChatViewController(currentUser: User, toUser: User) -> ChatViewController
+    func createChatViewController(currentUser: User, toUser: User, messages: [Message]) -> ChatViewController
     func createUsersViewController(with users: [User]) -> UsersViewController
     func createAddUserViewController() -> AddUserViewController
 }

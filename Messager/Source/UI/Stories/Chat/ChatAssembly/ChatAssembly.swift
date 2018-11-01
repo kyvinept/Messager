@@ -15,10 +15,10 @@ class ChatAssembly: ChatAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func createChatViewController(currentUser: User, toUser: User) -> ChatViewController {
+    func createChatViewController(currentUser: User, toUser: User, messages: [Message]) -> ChatViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         vc.title = "Chats"
-        vc.configure(with: currentUser, toUser: toUser)
+        vc.configure(with: currentUser, toUser: toUser, messages: messages)
         return vc
     }
     

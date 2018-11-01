@@ -39,16 +39,19 @@ class ChatViewController: UIViewController {
         setBaseUIComponents()
     }
 
-    func configure(with currentUser: User, toUser: User) {
+    func configure(with currentUser: User, toUser: User, messages: [Message]) {
         self.currentUser = currentUser
         self.toUser = toUser
+        self.messages = messages
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.scrollToBottom(animated: false)
     }
 
-    func showNewMessage(_ messageKind: MessageKind) {
-        insertNewMessage(Message(sender: toUser,
-                              messageId: String(messages.count+1),
-                               sentDate: Date(),
-                                   kind: messageKind))
+    func showNewMessage(_ message: Message) {
+        insertNewMessage(message)
     }
     
     private func setBaseUIComponents() {
@@ -58,7 +61,7 @@ class ChatViewController: UIViewController {
     }
     
     private func createBackButton() {
-        let back = UIBarButtonItem(title: "< to Users", style: .done, target: self, action: #selector(ChatViewController.backButtonTapped))
+        let back = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(ChatViewController.backButtonTapped))
         self.navigationItem.leftBarButtonItem = back
     }
     

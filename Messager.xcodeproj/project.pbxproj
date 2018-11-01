@@ -36,6 +36,8 @@
 		5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF5C2181E55F0072E76E /* ApiManager.swift */; };
 		5B737D08218AF58700455FF8 /* DatabaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D07218AF58700455FF8 /* DatabaseMapper.swift */; };
 		5B737D0A218B047000455FF8 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D09218B047000455FF8 /* AddUserViewController.swift */; };
+		5B737D0C218B306A00455FF8 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D0B218B306A00455FF8 /* Date.swift */; };
+		5B737D0E218B311700455FF8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D0D218B311700455FF8 /* String.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
 		5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5032180BB71003B5351 /* KeychainManager.swift */; };
 		5B7828FA21874DE800059F6B /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828F821874DE800059F6B /* UserCell.swift */; };
@@ -103,6 +105,8 @@
 		5B69DF5C2181E55F0072E76E /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		5B737D07218AF58700455FF8 /* DatabaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMapper.swift; sourceTree = "<group>"; };
 		5B737D09218B047000455FF8 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
+		5B737D0B218B306A00455FF8 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5B737D0D218B311700455FF8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5B76B5032180BB71003B5351 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		5B7828F821874DE800059F6B /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			children = (
 				5B65F8B0218869EF006EF9F8 /* UITableView.swift */,
 				5BB514EB2188C049003D2C04 /* UIImage.swift */,
+				5B737D0B218B306A00455FF8 /* Date.swift */,
+				5B737D0D218B311700455FF8 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -854,6 +860,7 @@
 				5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */,
 				5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */,
 				5B7828FA21874DE800059F6B /* UserCell.swift in Sources */,
+				5B737D0E218B311700455FF8 /* String.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
 				5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */,
@@ -880,6 +887,7 @@
 				5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */,
 				5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */,
 				5BD3EBE6217F688600FD3D83 /* UsersViewController.swift in Sources */,
+				5B737D0C218B306A00455FF8 /* Date.swift in Sources */,
 				5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */,
 				5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,

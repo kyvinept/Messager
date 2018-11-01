@@ -42,27 +42,55 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
+        assembly.appAssembly.databaseManager
+        .getMessages(currentUser: currentUser,
+                          toUser: toUser,
+                    successBlock: { messages in
+                                      guard let messages = messages else { return }
+                                      let vc = self.assembly.createChatViewController(currentUser: currentUser,
+                                                                                           toUser: toUser,
+                                                                                         messages: messages)
+                                      vc.delegate = self
+                                      self.chatViewController = vc
+                                      DispatchQueue.main.async {
+                                          self.action(with: vc,
+                                                      from: viewController.navigationController!,
+                                                      with: .push,
+                                                  animated: true)
+                                          viewController.tabBarController?.tabBar.isHidden = true
+                                      }
+                                  },
+                      errorBlock: { error in
+                                        print("error")
+                                  })
+        realtimeChat(currentUser: currentUser, toUser: toUser)
+    }
+    
+    private func realtimeChat(currentUser: User, toUser: User) {
         assembly.appAssembly.apiManager
-        .startRealtimeChat(fromUser: currentUser,
-                             toUser: toUser,
-                       successBlock: {
-                           self.assembly.appAssembly.apiManager
-                           .addMessageListener(successBlock: { messageKind in
-                               self.chatViewController?.showNewMessage(messageKind!)
-                           }, errorBlock: { error in
-                               print("error")
-                           })
-                           let vc = self.assembly.createChatViewController(currentUser: currentUser, toUser: toUser)
-                           vc.delegate = self
-                           self.chatViewController = vc
-                           self.action(with: vc,
-                                       from: viewController.navigationController!,
-                                       with: .push,
-                                   animated: true)
-                           viewController.tabBarController?.tabBar.isHidden = true
-                       }, errorBlock: { error in
-                           print("error")
-                       })
+            .startRealtimeChat(fromUser: currentUser,
+                                 toUser: toUser,
+                           successBlock: {
+                                             self.assembly.appAssembly.apiManager
+                                             .addMessageListener(successBlock: { message in
+                                                 if let message = message {
+                                                     self.assembly.appAssembly.databaseManager
+                                                        .save(message: message,
+                                                          currentUser: currentUser,
+                                                               toUser: toUser,
+                                                         successBlock: {
+                                                                            if message.sender != currentUser {
+                                                                                self.chatViewController?.showNewMessage(message)
+                                                                            }
+                                                                       })
+                                                 }
+                                             }, errorBlock: { error in
+                                                 print("error")
+                                             })
+                                         },
+                             errorBlock: { error in
+                                             print("error")
+                                         })
     }
 }
 

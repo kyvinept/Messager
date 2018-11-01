@@ -7,13 +7,12 @@
 
 import UIKit
 
+enum MessageType: String {
+    case text
+    case image
+}
+
 class DatabaseMapper {
-    
-    private enum MessageType: String {
-        
-        case text
-        case image
-    }
     
     func map(userEntity: UserEntity, from user: User) {
         userEntity.email = user.email
@@ -35,10 +34,12 @@ class DatabaseMapper {
         }
     }
     
-    func map(messagesEntity: [MessageEntity]) -> [Message] {
+    func map(messagesEntity: [MessageEntity], currentUser: User, toUser: User) -> [Message] {
         var newMessages = [Message]()
         for messageEntity in messagesEntity {
-            let message = map(messageEntity: messageEntity)
+            let message = map(messageEntity: messageEntity,
+                                currentUser: currentUser,
+                                     toUser: toUser)
             newMessages.append(message)
         }
         return newMessages
@@ -61,7 +62,7 @@ class DatabaseMapper {
                 userToken: user.userToken)
     }
     
-    private func map(messageEntity: MessageEntity) -> Message {
+    private func map(messageEntity: MessageEntity, currentUser: User, toUser: User) -> Message {
         var messageKind = MessageKind.text("")
         switch messageEntity.type! {
         case MessageType.image.rawValue:
@@ -74,7 +75,17 @@ class DatabaseMapper {
             break
         }
         
-        return Message(sender: map(user: messageEntity.sender!),
+        var user = currentUser
+        switch messageEntity.direction {
+        case MessageDirection.from.rawValue:
+            user = toUser
+        case MessageDirection.to.rawValue:
+            user = currentUser
+        default:
+            break
+        }
+        
+        return Message(sender: user,
                     messageId: messageEntity.messageId!,
                      sentDate: messageEntity.sentDate!,
                          kind: messageKind)
