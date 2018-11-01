@@ -14,7 +14,6 @@ class IncomingImageCell: UITableViewCell {
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var timeLabelLeftConstraint: NSLayoutConstraint!
     
     func configure(model: ImageCellViewModel) {
         messageImage.image = model.image
@@ -22,7 +21,5 @@ class IncomingImageCell: UITableViewCell {
         
         imageViewWidthConstraint.constant = model.imageSize.width
         imageViewHeightConstraint.constant = model.imageSize.height
-        
-        timeLabelLeftConstraint.constant = model.imageSize.width + userImage.frame.width - timeLabel.frame.width
     }
 }

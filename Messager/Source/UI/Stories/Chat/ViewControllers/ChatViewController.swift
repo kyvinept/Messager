@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import JGProgressHUD
 
 protocol ChatViewControllerDelegate: class {
     
@@ -23,7 +23,9 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var sendMessageButtonLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var noMassageLabel: UILabel!
     
+    private var progress: JGProgressHUD?
     private var messages: [Message] = []
     private var currentUser: User!
     private var toUser: User!
@@ -37,6 +39,15 @@ class ChatViewController: UIViewController {
         addNotification()
         addGesture()
         setBaseUIComponents()
+        setActivityIndicator()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.scrollToBottom(animated: false)
+        if !messages.isEmpty {
+            self.noMassageLabel.isHidden = true
+        }
     }
 
     func configure(with currentUser: User, toUser: User, messages: [Message]) {
@@ -44,20 +55,24 @@ class ChatViewController: UIViewController {
         self.toUser = toUser
         self.messages = messages
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.scrollToBottom(animated: false)
-    }
 
     func showNewMessage(_ message: Message) {
         insertNewMessage(message)
+    }
+    
+    func stopActivityIndicator() {
+        progress?.dismiss()
     }
     
     private func setBaseUIComponents() {
         sendMessageButton.alpha = 0
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setActivityIndicator() {
+        progress = JGProgressHUD(style: .dark)
+        progress?.show(in: self.view)
     }
     
     private func createBackButton() {

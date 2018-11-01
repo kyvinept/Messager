@@ -128,9 +128,9 @@ extension DatabaseManager {
     func save(message: Message, currentUser: User, toUser: User, successBlock: @escaping () -> ()) {
         getUserEntity(successBlock: { users in
                                         var checkUser = users?.first { $0.email == toUser.email &&
-                                                                         $0.id == toUser.id &&
-                                                                         $0.name == toUser.name
-                                                                        }
+                                                                       $0.id == toUser.id &&
+                                                                       $0.name == toUser.name
+                                                                     }
                                         if checkUser == nil {
                                             self.save(user: toUser, successBlock: { userEntity in
                                                 checkUser = userEntity

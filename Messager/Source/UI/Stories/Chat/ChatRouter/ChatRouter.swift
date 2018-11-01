@@ -71,6 +71,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
             .startRealtimeChat(fromUser: currentUser,
                                  toUser: toUser,
                            successBlock: {
+                                             self.chatViewController?.stopActivityIndicator()
                                              self.assembly.appAssembly.apiManager
                                              .addMessageListener(successBlock: { message in
                                                  if let message = message {

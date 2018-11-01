@@ -113,7 +113,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99992516880000004" green="0.98240086199999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="I0m-86-CnX" secondAttribute="bottom" constant="9" id="3sG-xW-NZv"/>
                                     <constraint firstAttribute="bottom" secondItem="2Lx-Fd-s4y" secondAttribute="bottom" constant="9" id="AB1-a5-Agx"/>
@@ -175,6 +175,22 @@
                                     <outlet property="delegate" destination="25m-C8-Uid" id="jk5-ff-jj4"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No message..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3v-BY-HoY">
+                                <rect key="frame" x="127.5" y="321.5" width="120" height="24"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="BBV-iq-lng"/>
+                                    <constraint firstAttribute="height" constant="24" id="dmK-Og-aTG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -182,15 +198,18 @@
                             <constraint firstItem="Ypj-Hx-JV6" firstAttribute="trailing" secondItem="f5b-0U-vLQ" secondAttribute="trailing" id="7yg-0e-kle"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="AJt-7F-6XP"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="trailing" secondItem="Ypj-Hx-JV6" secondAttribute="trailing" id="Ety-PG-BCr"/>
+                            <constraint firstItem="e3v-BY-HoY" firstAttribute="centerX" secondItem="uK8-pG-7dQ" secondAttribute="centerX" id="F4d-LV-GAC"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="top" secondItem="f5b-0U-vLQ" secondAttribute="bottom" id="Nc3-dL-78i"/>
                             <constraint firstItem="f5b-0U-vLQ" firstAttribute="top" secondItem="uK8-pG-7dQ" secondAttribute="top" id="YZ7-XH-Cqy"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="bottom" secondItem="Ypj-Hx-JV6" secondAttribute="bottom" id="hsH-MQ-08w"/>
+                            <constraint firstItem="e3v-BY-HoY" firstAttribute="centerY" secondItem="uK8-pG-7dQ" secondAttribute="centerY" id="rTn-6S-fFB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ypj-Hx-JV6"/>
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="lNE-tE-qAd" id="BKn-QT-iq0"/>
                         <outlet property="getFileButton" destination="2Lx-Fd-s4y" id="A8e-ba-zNO"/>
+                        <outlet property="noMassageLabel" destination="e3v-BY-HoY" id="X2H-Gd-8lY"/>
                         <outlet property="sendMessageButton" destination="8eR-pC-0by" id="VeM-NH-pd6"/>
                         <outlet property="sendMessageButtonLeftConstraint" destination="OVQ-n6-qaM" id="knp-mO-9k7"/>
                         <outlet property="tableView" destination="f5b-0U-vLQ" id="8wr-iw-Ofp"/>

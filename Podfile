@@ -12,5 +12,6 @@ pod 'SwiftyJSON'
 pod 'Chatto', '= 3.3.1'
 pod 'ChattoAdditions', '= 3.3.1'
 pod 'Cloudinary', '~> 2.0'
+pod 'JGProgressHUD'
 end
             
