@@ -12,6 +12,8 @@
 		0F22E1B41E8407D1004B722A /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B21E8407D1004B722A /* Authorization.storyboard */; };
 		0F22E1B61E8407D1004B722A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B51E8407D1004B722A /* Assets.xcassets */; };
 		0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B71E8407D1004B722A /* LaunchScreen.storyboard */; };
+		5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A2218A11200051DADC /* DatabaseManager.swift */; };
+		5B12F7A6218A11C60051DADC /* Messager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */; };
 		5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360953217DEE46008B46EB /* RegistrationViewController.swift */; };
 		5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36095B217E1209008B46EB /* BaseRouter.swift */; };
 		5B360961217E2F0C008B46EB /* MainUIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360960217E2F0C008B46EB /* MainUIAssembly.swift */; };
@@ -32,6 +34,7 @@
 		5B6765152189EA0900239DCF /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6765142189EA0900239DCF /* ImageManager.swift */; };
 		5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF592181BE5D0072E76E /* MediaItem.swift */; };
 		5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69DF5C2181E55F0072E76E /* ApiManager.swift */; };
+		5B737D08218AF58700455FF8 /* DatabaseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D07218AF58700455FF8 /* DatabaseMapper.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
 		5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5032180BB71003B5351 /* KeychainManager.swift */; };
 		5B7828FA21874DE800059F6B /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828F821874DE800059F6B /* UserCell.swift */; };
@@ -75,6 +78,8 @@
 		0F22E1B81E8407D1004B722A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F22E1BA1E8407D1004B722A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A28CF456D7B3F7253BD3F6B /* Pods_Messager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B12F7A2218A11200051DADC /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		5B12F7A5218A11C60051DADC /* Messager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Messager.xcdatamodel; sourceTree = "<group>"; };
 		5B360953217DEE46008B46EB /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		5B36095B217E1209008B46EB /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		5B360960217E2F0C008B46EB /* MainUIAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIAssembly.swift; sourceTree = "<group>"; };
@@ -95,6 +100,7 @@
 		5B6765142189EA0900239DCF /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		5B69DF592181BE5D0072E76E /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		5B69DF5C2181E55F0072E76E /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		5B737D07218AF58700455FF8 /* DatabaseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMapper.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5B76B5032180BB71003B5351 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		5B7828F821874DE800059F6B /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -175,6 +181,14 @@
 				5B9E2173217DC36700884A96 /* Resources */,
 			);
 			path = Messager;
+			sourceTree = "<group>";
+		};
+		5B12F7A1218A10F00051DADC /* DatabaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B12F7A2218A11200051DADC /* DatabaseManager.swift */,
+			);
+			path = DatabaseManager;
 			sourceTree = "<group>";
 		};
 		5B360957217DEF23008B46EB /* ViewControllers */ = {
@@ -326,6 +340,14 @@
 			path = ApiManager;
 			sourceTree = "<group>";
 		};
+		5B737D06218AF57800455FF8 /* DatabaseMapper */ = {
+			isa = PBXGroup;
+			children = (
+				5B737D07218AF58700455FF8 /* DatabaseMapper.swift */,
+			);
+			path = DatabaseMapper;
+			sourceTree = "<group>";
+		};
 		5B76B5022180BB11003B5351 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +409,8 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B737D06218AF57800455FF8 /* DatabaseMapper */,
+				5B12F7A1218A10F00051DADC /* DatabaseManager */,
 				5B6765132189E9FC00239DCF /* ImageManager */,
 				5B6765062189B55200239DCF /* Mapper */,
 				5B69DF5B2181E54F0072E76E /* ApiManager */,
@@ -413,6 +437,7 @@
 				5BCE284A217F0AC000A2B6A4 /* User.swift */,
 				5B76B5002180982E003B5351 /* Message.swift */,
 				5B69DF592181BE5D0072E76E /* MediaItem.swift */,
+				5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -832,9 +857,11 @@
 				5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */,
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */,
+				5B12F7A6218A11C60051DADC /* Messager.xcdatamodeld in Sources */,
 				5B6765122189E5FF00239DCF /* SettingsAssemblyProtocol.swift in Sources */,
 				5B6765082189B5A400239DCF /* Mapper.swift in Sources */,
 				5BD3EBEA217F68BA00FD3D83 /* ChatAssemblyProtocol.swift in Sources */,
+				5B737D08218AF58700455FF8 /* DatabaseMapper.swift in Sources */,
 				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
 				5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */,
 				5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */,
@@ -843,6 +870,7 @@
 				5BB514EC2188C049003D2C04 /* UIImage.swift in Sources */,
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
+				5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */,
 				5B6765152189EA0900239DCF /* ImageManager.swift in Sources */,
 				5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */,
 				5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */,
@@ -1048,6 +1076,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5B12F7A5218A11C60051DADC /* Messager.xcdatamodel */,
+			);
+			currentVersion = 5B12F7A5218A11C60051DADC /* Messager.xcdatamodel */;
+			path = Messager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0F22E1A31E8407D1004B722A /* Project object */;
 }

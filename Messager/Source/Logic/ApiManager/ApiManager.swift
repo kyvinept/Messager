@@ -21,10 +21,12 @@ class ApiManager {
     private var channel: Channel?
     private var lastMessage = [String]()
     private var imageManager: ImageManager
+    private var databaseManager: DatabaseManager
     
-    init(mapper: Mapper, imageManager: ImageManager) {
+    init(mapper: Mapper, imageManager: ImageManager, databaseManager: DatabaseManager) {
         self.mapper = mapper
         self.imageManager = imageManager
+        self.databaseManager = databaseManager
     }
     
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {

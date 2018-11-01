@@ -11,4 +11,5 @@ protocol ApplicationAssemblyProtocol {
     
     var authorizationManager: AuthorizationManager { get }
     var apiManager: ApiManager { get }
+    var databaseManager: DatabaseManager { get }
 }
