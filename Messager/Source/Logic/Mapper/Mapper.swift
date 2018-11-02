@@ -46,4 +46,32 @@ class Mapper {
                        id: user["id"]!,
                 userToken: nil)
     }
+    
+    func createRequest(message: Message, toUser: User) -> [String: Any] {
+        let request: [String: Any] = ["sentDate": message.sentDate.toString(),
+                                     "messageId": message.messageId,
+                                       "ownerId": message.sender.id,
+                                      "toUserId": toUser.id,
+                                        "sender": ["id": message.sender.id,
+                                                "email": message.sender.email,
+                                                 "name": message.sender.name]]
+        return request
+    }
+    
+    func mapAllMessages(messages: [[String: Any]]) -> [DatabaseMessage] {
+        var newMessages = [DatabaseMessage]()
+        for message in messages {
+            newMessages.append(mapMessageFromDatabase(message))
+        }
+        return newMessages
+    }
+    
+    private func mapMessageFromDatabase(_ message: [String: Any]) -> DatabaseMessage {
+        return DatabaseMessage(sentDate: message["sentDate"] as! String,
+                              messageId: message["messageId"] as! String,
+                                ownerId: message["ownerId"] as! String,
+                               toUserId: message["toUserId"] as! String,
+                                   text: message["text"] as! String?,
+                                  image: message["image"] as! String?)
+    }
 }

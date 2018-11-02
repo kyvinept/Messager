@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 protocol UsersViewControllerDelegate: class {
     
@@ -19,11 +20,13 @@ class UsersViewController: UIViewController {
     weak var delegate: UsersViewControllerDelegate?
     private var users = [User]()
     private let cellHeight: CGFloat = 80.5
+    private var progress: JGProgressHUD?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerUserCell()
         createAddUserButton()
+        self.setActivityIndicator()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +41,25 @@ class UsersViewController: UIViewController {
                 tableView.reloadData()
             }
         }
+    }
+    
+    func downloaded(users: [User]) {
+        self.users = users
+        cancelRefresh()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func cancelRefresh() {
+        DispatchQueue.main.async {
+            self.progress?.dismiss()
+        }
+    }
+    
+    private func setActivityIndicator() {
+        progress = JGProgressHUD(style: .dark)
+        progress?.show(in: self.view)
     }
     
     private func registerUserCell() {

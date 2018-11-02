@@ -25,22 +25,6 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
         showUsersViewController(from: rootViewController)
     }
     
-    private func showUsersViewController(from rootViewController: UIViewController) {
-        assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
-            let vc = self.assembly.createUsersViewController(with: users ?? [User]())
-            vc.delegate = self
-            self.usersViewController = vc
-            DispatchQueue.main.async {
-                self.action(with: vc,
-                            from: rootViewController,
-                            with: .push,
-                        animated: true)
-            }
-        }) { error in
-            print(error)
-        }
-    }
-    
     private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
         assembly.appAssembly.databaseManager
         .getMessages(currentUser: currentUser,
@@ -79,7 +63,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                                         .save(message: message,
                                                           currentUser: currentUser,
                                                                toUser: toUser,
-                                                         successBlock: {
+                                                                block: {
                                                                             if message.sender != currentUser {
                                                                                 self.chatViewController?.showNewMessage(message)
                                                                             } else {
@@ -94,6 +78,40 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                              errorBlock: { error in
                                              print("error")
                                          })
+    }
+}
+
+extension ChatRouter {
+    
+    private func showUsersViewController(from rootViewController: UIViewController) {
+        assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
+            let vc = self.assembly.createUsersViewController(with: users ?? [User]())
+            vc.delegate = self
+            self.usersViewController = vc
+            DispatchQueue.main.async {
+                self.action(with: vc,
+                            from: rootViewController,
+                            with: .push,
+                        animated: true)
+            }
+            self.checkNewUsers()
+        }) { error in
+            print(error)
+        }
+    }
+    
+    private func checkNewUsers() {
+        assembly.appAssembly.apiManager
+        .getMessages (currentUser: currentUser!) { messages in
+            self.assembly.appAssembly.databaseManager
+            .getUsers(successBlock: { users in
+                                        self.usersViewController?.downloaded(users: users ?? [User]())
+                                    },
+                        errorBlock: { error in
+                                        print(error)
+                                        self.usersViewController?.cancelRefresh()
+                                    })
+        }
     }
 }
 
@@ -113,6 +131,7 @@ extension ChatRouter: UsersViewControllerDelegate {
         viewController.tabBarController?.tabBar.isUserInteractionEnabled = false
     }
 
+    
     func didSelectCell(with user: User, from viewController: UsersViewController) {
         showChatViewController(from: viewController, currentUser: currentUser!, toUser: user)
     }
@@ -160,7 +179,7 @@ extension ChatRouter: AddUserViewControllerDelegate {
 extension ChatRouter: ChatViewControllerDelegate {
     
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController) {
-        assembly.appAssembly.apiManager.publishMessage(message)
+        assembly.appAssembly.apiManager.publishMessage(message, toUser: toUser)
     }
     
     func didTouchBackButton(viewController: ChatViewController) {

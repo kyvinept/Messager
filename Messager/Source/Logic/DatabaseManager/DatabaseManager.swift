@@ -56,8 +56,10 @@ class DatabaseManager {
 extension DatabaseManager {
     
     func save(user: User) {
-        save(user: user) { _ in
-            print("Save user!")
+        save(user: user, successBlock: { userEntity in
+            print("Success")
+        }) {
+            print("Error")
         }
     }
     
@@ -89,20 +91,20 @@ extension DatabaseManager {
         }
     }
     
-    private func save(user: User, successBlock: @escaping (UserEntity) -> ()) {
+    private func save(user: User, successBlock: @escaping (UserEntity) -> (), errorBlock: @escaping () -> ()) {
         getUsers(successBlock: { users in
-            var isInclude = false
             if let users = users, users.contains(user) {
-                isInclude = true
+                errorBlock()
+                return
             }
-            if !isInclude {
-                let entity = NSEntityDescription.entity(forEntityName: Entity.user.rawValue, in: self.persistentContainer.viewContext)
-                let newUser = NSManagedObject(entity: entity!, insertInto: self.persistentContainer.viewContext) as! UserEntity
-                self.databaseMapper.map(userEntity: newUser, from: user)
-                self.saveContext()
-            }
+            let entity = NSEntityDescription.entity(forEntityName: Entity.user.rawValue, in: self.persistentContainer.viewContext)
+            let newUser = NSManagedObject(entity: entity!, insertInto: self.persistentContainer.viewContext) as! UserEntity
+            self.databaseMapper.map(userEntity: newUser, from: user)
+            self.saveContext()
+            successBlock(newUser)
         }) { (error) in
             print("error")
+            errorBlock()
         }
     }
     
@@ -125,7 +127,7 @@ extension DatabaseManager {
 
 extension DatabaseManager {
     
-    func save(message: Message, currentUser: User, toUser: User, successBlock: @escaping () -> ()) {
+    func save(message: Message, currentUser: User, toUser: User, block: @escaping () -> ()) {
         getUserEntity(successBlock: { users in
                                         var checkUser = users?.first { $0.email == toUser.email &&
                                                                        $0.id == toUser.id &&
@@ -134,18 +136,36 @@ extension DatabaseManager {
                                         if checkUser == nil {
                                             self.save(user: toUser, successBlock: { userEntity in
                                                 checkUser = userEntity
+                                                self.checkMessage(currentUser: currentUser,
+                                                                       toUser: toUser,
+                                                                    checkUser: checkUser!,
+                                                                      message: message,
+                                                                 successBlock: {
+                                                                                   block()
+                                                                               },
+                                                                   errorBlock: {
+                                                                                   block()
+                                                                               })
+                                            },
+                                            errorBlock: {
+                                                block()
                                             })
+                                        } else {
+                                            self.checkMessage(currentUser: currentUser,
+                                                                   toUser: toUser,
+                                                                checkUser: checkUser!,
+                                                                  message: message,
+                                                             successBlock: {
+                                                                               block()
+                                                                           },
+                                                               errorBlock: {
+                                                                               block()
+                                                                           })
                                         }
-                                        self.checkMessage(currentUser: currentUser,
-                                                               toUser: toUser,
-                                                            checkUser: checkUser!,
-                                                              message: message,
-                                                         successBlock: {
-                                                                           successBlock()
-                                                                       })
                                     },
                         errorBlock: { error in
                                         print(error)
+                                        block()
                                     })
     }
     
@@ -164,13 +184,14 @@ extension DatabaseManager {
         }
     }
     
-    private func checkMessage(currentUser: User, toUser: User, checkUser: UserEntity, message: Message, successBlock: @escaping () -> ()) {
+    private func checkMessage(currentUser: User, toUser: User, checkUser: UserEntity, message: Message, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         self.getMessages(currentUser: currentUser,
                          toUser: toUser,
                          successBlock: { messages in
                                             if let messages = messages, messages.contains (where: { $0.sender == message.sender &&
                                                                                                     $0.sentDate == message.sentDate &&
                                                                                                     $0.messageId == message.messageId }) {
+                                                errorBlock()
                                                 return
                                             }
                                             self.createMessageEntity(from: message, successBlock: { messageEntity in
@@ -184,7 +205,7 @@ extension DatabaseManager {
                                             })
                                        },
                            errorBlock: { error in
-                            
+                                           errorBlock()
                                        })
     }
     
