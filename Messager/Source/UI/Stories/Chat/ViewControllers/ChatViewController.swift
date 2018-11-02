@@ -60,6 +60,23 @@ class ChatViewController: UIViewController {
         insertNewMessage(message)
     }
     
+    func update(message: Message) {
+        let oldMessage = messages.first { $0.messageId == message.messageId &&
+                                          $0.sentDate.toString() == message.sentDate.toString() }
+        if let oldMessage = oldMessage {
+            switch oldMessage.kind {
+            case .photo(let mediaItem):
+                mediaItem.downloaded = true
+            default:
+                break
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func stopActivityIndicator() {
         progress?.dismiss()
     }
@@ -120,7 +137,11 @@ extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
+        
         DispatchQueue.main.async {
+            if !self.noMassageLabel.isHidden {
+                self.noMassageLabel.isHidden = true
+            }
             self.tableView.reloadData()
             self.tableView.scrollToBottom(animated: true)
         }
@@ -223,7 +244,9 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         let message = Message(sender: currentUser!,
                            messageId: String(messages.count+1),
                             sentDate: Date(),
-                                kind: MessageKind.photo(MediaItem(image: image, size: size)))
+                                kind: MessageKind.photo(MediaItem(image: image,
+                                                                   size: size,
+                                                             downloaded: false)))
         insertNewMessage(message)
         delegate?.didTouchSendMessageButton(with: message,
                                           toUser: toUser,
@@ -267,13 +290,15 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as! OutgoingImageCell
                 cell.configure(model: ImageCellViewModel(image: mediaItem.image,
                                                      imageSize: mediaItem.size,
-                                                          date: messages[indexPath.row].sentDate))
+                                                          date: messages[indexPath.row].sentDate,
+                                                    downloaded: mediaItem.downloaded))
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as! IncomingImageCell
                 cell.configure(model: ImageCellViewModel(image: mediaItem.image,
                                                      imageSize: mediaItem.size,
-                                                          date: messages[indexPath.row].sentDate))
+                                                          date: messages[indexPath.row].sentDate,
+                                                    downloaded: true))
                 return cell
             }
         }

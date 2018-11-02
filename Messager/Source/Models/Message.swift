@@ -13,10 +13,17 @@ enum MessageKind {
     case photo(MediaItem)
 }
 
-struct Message {
+class Message {
     
     var sender: User
     var messageId: String
     var sentDate: Date
     var kind: MessageKind
+    
+    init(sender: User, messageId: String, sentDate: Date, kind: MessageKind) {
+        self.sender = sender
+        self.messageId = messageId
+        self.sentDate = sentDate
+        self.kind = kind
+    }
 }

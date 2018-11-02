@@ -82,6 +82,8 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                                          successBlock: {
                                                                             if message.sender != currentUser {
                                                                                 self.chatViewController?.showNewMessage(message)
+                                                                            } else {
+                                                                                self.chatViewController?.update(message: message)
                                                                             }
                                                                        })
                                                  }

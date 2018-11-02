@@ -34,6 +34,7 @@
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bVT-Mg-EA7">
                         <rect key="frame" x="8" y="8" width="123" height="111"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="123" id="opR-Lm-MKo"/>
                             <constraint firstAttribute="height" constant="111" id="y75-cB-NRK"/>
@@ -46,21 +47,40 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view hidden="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVF-P7-ANP">
+                        <rect key="frame" x="8" y="8" width="123" height="111"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="jOh-We-ZpJ">
+                                <rect key="frame" x="43" y="37" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jOh-We-ZpJ" firstAttribute="centerX" secondItem="aVF-P7-ANP" secondAttribute="centerX" id="uJc-zE-SRl"/>
+                            <constraint firstItem="jOh-We-ZpJ" firstAttribute="centerY" secondItem="aVF-P7-ANP" secondAttribute="centerY" id="uh4-PR-Olj"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="aVF-P7-ANP" firstAttribute="trailing" secondItem="bVT-Mg-EA7" secondAttribute="trailing" id="2ma-wZ-8Pb"/>
                     <constraint firstItem="Ln8-jf-6EX" firstAttribute="bottom" secondItem="bVT-Mg-EA7" secondAttribute="bottom" constant="-4" id="90T-nF-Qvu"/>
+                    <constraint firstItem="aVF-P7-ANP" firstAttribute="bottom" secondItem="bVT-Mg-EA7" secondAttribute="bottom" id="JrK-dc-fTm"/>
                     <constraint firstItem="Ln8-jf-6EX" firstAttribute="leading" secondItem="bVT-Mg-EA7" secondAttribute="leading" constant="4" id="UfT-YV-FhW"/>
                     <constraint firstAttribute="bottom" secondItem="TCU-2v-Unn" secondAttribute="bottom" constant="8" id="eAQ-dS-3IJ"/>
                     <constraint firstItem="bVT-Mg-EA7" firstAttribute="top" secondItem="5qJ-RY-Y5E" secondAttribute="top" constant="8" id="fd4-M8-7Iy"/>
                     <constraint firstAttribute="bottom" secondItem="bVT-Mg-EA7" secondAttribute="bottom" constant="7.5" id="hit-xf-sbv"/>
+                    <constraint firstItem="aVF-P7-ANP" firstAttribute="leading" secondItem="bVT-Mg-EA7" secondAttribute="leading" id="nFy-VN-Tv1"/>
                     <constraint firstItem="TCU-2v-Unn" firstAttribute="leading" secondItem="bVT-Mg-EA7" secondAttribute="trailing" constant="8" id="pBz-ux-QS4"/>
+                    <constraint firstItem="aVF-P7-ANP" firstAttribute="top" secondItem="bVT-Mg-EA7" secondAttribute="top" id="vUW-IE-HMp"/>
                     <constraint firstAttribute="trailing" secondItem="TCU-2v-Unn" secondAttribute="trailing" constant="8" id="yiH-ZJ-mL2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="JKq-4N-Eoj"/>
             <connections>
+                <outlet property="activityIndicator" destination="jOh-We-ZpJ" id="uGJ-TI-94J"/>
                 <outlet property="imageViewHeightConstraint" destination="y75-cB-NRK" id="8Tc-l7-0rO"/>
                 <outlet property="imageViewWidthConstraint" destination="opR-Lm-MKo" id="PKR-eK-3ex"/>
+                <outlet property="loadingView" destination="aVF-P7-ANP" id="Pcm-z5-AbP"/>
                 <outlet property="messageImage" destination="bVT-Mg-EA7" id="I64-w5-Qjk"/>
                 <outlet property="timeLabel" destination="Ln8-jf-6EX" id="saZ-Yh-Pqh"/>
                 <outlet property="userImage" destination="TCU-2v-Unn" id="9K9-mW-gAO"/>

@@ -68,7 +68,7 @@ class DatabaseMapper {
         switch messageEntity.type! {
         case MessageType.image.rawValue:
             if let data = messageEntity.image, let image = UIImage(data: data) {
-                messageKind = MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage()))
+                messageKind = MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage(), downloaded: true))
             }
         case MessageType.text.rawValue:
             messageKind = MessageKind.text(messageEntity.text!)

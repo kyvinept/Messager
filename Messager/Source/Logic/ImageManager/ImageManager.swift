@@ -23,7 +23,7 @@ class ImageManager {
             print(progress)
         }, completionHandler: { (image, error) in
             if let image = image {
-                completionHandler(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage())))
+                completionHandler(MessageKind.photo(MediaItem(image: image, size: image.getSizeForMessage(), downloaded: true)))
             }
         })
     }

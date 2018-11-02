@@ -7,8 +7,15 @@
 
 import UIKit
 
-struct MediaItem {
+class MediaItem {
     
     var image: UIImage
     var size: CGSize
+    var downloaded: Bool
+    
+    init(image: UIImage, size: CGSize, downloaded: Bool) {
+        self.image = image
+        self.size = size
+        self.downloaded = downloaded
+    }
 }
