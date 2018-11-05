@@ -120,6 +120,58 @@ class ApiManager {
                                                 })
     }
     
+    func getNewUsers(currentUser: User, successBlock: @escaping ([User]) -> (), errorBlock: @escaping () -> ()) {
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
+        let queryBuilder = DataQueryBuilder()
+        queryBuilder?.setWhereClause("ownerId = '" + currentUser.id + "' || toUserId = '" + currentUser.id + "'")
+        
+        dataStore?.find(queryBuilder, response: { databaseMessage in
+            if let message = databaseMessage as? [[String: Any]] {
+                let databaseMessage = self.mapper.mapAllMessages(messages: message)
+                
+                self.dataStore = Backendless.sharedInstance().data.ofTable(Table.users.rawValue)
+                let queryBuilder = DataQueryBuilder()
+                
+                guard let whereClause = self.getStringToSearchUser(currentUser: currentUser, messages: databaseMessage) else {
+                    errorBlock()
+                    return
+                }
+                queryBuilder?.setWhereClause(whereClause)
+                
+                self.dataStore?.find(queryBuilder, response: { databaseUser in
+                    let users = self.mapper.mapAllUsers(users: databaseUser as! [[String : Any]])
+                    self.databaseManager.save(users: users)
+                    successBlock(users)
+                }, error: { error in
+                    print(error)
+                })
+            }
+        }, error: { error in
+            print(error)
+        })
+    }
+    
+    private func getStringToSearchUser(currentUser: User, messages: [DatabaseMessage]) -> String? {
+        var idUsers = [String]()
+        for message in messages {
+            if currentUser.id == message.ownerId {
+                if !idUsers.contains(message.toUserId) {
+                    idUsers.append(message.toUserId)
+                }
+            } else {
+                if !idUsers.contains(message.ownerId) {
+                    idUsers.append(message.ownerId)
+                }
+            }
+        }
+        
+        var whereClause = ""
+        for id in idUsers {
+            whereClause += "|| ownerId = '" + id + "' "
+        }
+        return whereClause.isEmpty ? nil : String(whereClause[String.Index.init(encodedOffset: 3)...])
+    }
+    
     func getMessages(currentUser: User, successBlock: @escaping ([Message]) -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         let queryBuilder = DataQueryBuilder()
@@ -128,23 +180,7 @@ class ApiManager {
         dataStore?.find(queryBuilder, response: { databaseMessage in
             if let message = databaseMessage as? [[String: Any]] {
                 let databaseMessage = self.mapper.mapAllMessages(messages: message)
-                self.convert(datebaseMessages: databaseMessage, successBlock: { messages in
-
-                    let group = DispatchGroup()
-                    for message in messages {
-                        group.enter()
-                        self.databaseManager.save(message: message,
-                                              currentUser: currentUser,
-                                                   toUser: message.sender,
-                                                    block: {
-                                                              group.leave()
-                                                           })
-                    }
-                    
-                    group.notify(queue: DispatchQueue(label: "com.Messager.DatabaseManager"), execute: {
-                        successBlock(messages)
-                    })
-                })
+                
             }
         }, error: { error in
             print(error)
@@ -154,7 +190,9 @@ class ApiManager {
     private func convert(datebaseMessages: [DatabaseMessage], successBlock: @escaping ([Message]) -> ()) {
         getUsers(successBlock: { users in
             if let users = users {
+                let group = DispatchGroup()
                 var messages = [Message]()
+                
                 for dbMessage in datebaseMessages {
                     var owner: User?
                     for user in users {
@@ -165,7 +203,8 @@ class ApiManager {
                     if owner == nil {
                         continue
                     }
-                    
+                    group.enter()
+
                     let message = Message(sender: owner!,
                                        messageId: dbMessage.messageId,
                                         sentDate: dbMessage.sentDate.toDate(),
@@ -173,13 +212,17 @@ class ApiManager {
                     self.getMessageKind(text: dbMessage.text,
                                        image: dbMessage.image,
                                 successBlock: { messageKind in
+                                                   group.leave()
                                                    if let messageKind = messageKind {
-                                                       message.kind = messageKind
+                                                        message.kind = messageKind
+                                                        messages.append(message)
                                                    }
                                               })
-                    messages.append(message)
                 }
-                successBlock(messages)
+                
+                group.notify(queue: DispatchQueue(label: "com.Messager.DatabaseManager"), execute: {
+                    successBlock(messages)
+                })
             }
         }, errorBlock: { error in
             print(error)

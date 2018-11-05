@@ -101,17 +101,13 @@ extension ChatRouter {
     }
     
     private func checkNewUsers() {
-        assembly.appAssembly.apiManager
-        .getMessages (currentUser: currentUser!) { messages in
-            self.assembly.appAssembly.databaseManager
-            .getUsers(successBlock: { users in
-                                        self.usersViewController?.downloaded(users: users ?? [User]())
-                                    },
-                        errorBlock: { error in
-                                        print(error)
-                                        self.usersViewController?.cancelRefresh()
-                                    })
-        }
+        assembly.appAssembly.apiManager.getNewUsers(currentUser: currentUser!,
+                                                   successBlock: { users in
+                                                                     self.usersViewController?.downloaded(users: users )
+                                                                 },
+                                                                 errorBlock: {
+                                                                     self.usersViewController?.cancelRefresh()
+                                                                 })
     }
 }
 

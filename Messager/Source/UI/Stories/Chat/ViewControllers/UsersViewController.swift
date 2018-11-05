@@ -44,7 +44,11 @@ class UsersViewController: UIViewController {
     }
     
     func downloaded(users: [User]) {
-        self.users = users
+        for user in users {
+            if !self.users.contains(user) {
+                self.users.append(user)
+            }
+        }
         cancelRefresh()
         DispatchQueue.main.async {
             self.tableView.reloadData()

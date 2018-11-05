@@ -55,6 +55,12 @@ class DatabaseManager {
 
 extension DatabaseManager {
     
+    func save(users: [User]) {
+        for user in users {
+            self.save(user: user)
+        }
+    }
+    
     func save(user: User) {
         save(user: user, successBlock: { userEntity in
             print("Success")
