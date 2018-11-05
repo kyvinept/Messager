@@ -140,6 +140,7 @@ extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
+        messages.sort { $0.sentDate > $1.sentDate }
         
         DispatchQueue.main.async {
             if !self.noMassageLabel.isHidden {

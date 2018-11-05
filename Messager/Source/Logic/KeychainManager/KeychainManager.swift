@@ -27,7 +27,6 @@ class KeychainManager {
         let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
         let getQuery: [String: Any] = query(with: data)
         let status = SecItemAdd(getQuery as CFDictionary, nil)
-        guard status == errSecSuccess else { return }
     }
     
     func delete() {
