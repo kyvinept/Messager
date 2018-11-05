@@ -172,61 +172,48 @@ class ApiManager {
         return whereClause.isEmpty ? nil : String(whereClause[String.Index.init(encodedOffset: 3)...])
     }
     
-    func getMessages(currentUser: User, successBlock: @escaping ([Message]) -> ()) {
+    func getMessages(currentUser: User, toUser: User, successBlock: @escaping (Message) -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         let queryBuilder = DataQueryBuilder()
-        queryBuilder?.setWhereClause("toUserId = '" + currentUser.id + "'")
+        queryBuilder?.setWhereClause("(ownerId = '" + currentUser.id + "' && toUserId = '" + toUser.id + "') || (toUserId = '" + currentUser.id + "' && ownerId = '" + toUser.id + "')")
         
         dataStore?.find(queryBuilder, response: { databaseMessage in
             if let message = databaseMessage as? [[String: Any]] {
                 let databaseMessage = self.mapper.mapAllMessages(messages: message)
-                
+                self.convert(from: databaseMessage,
+                             with: currentUser,
+                           toUser: toUser,
+                     successBlock: { message in
+                                        successBlock(message)
+                                   },
+                                   errorBlock: {
+                                        print("error")
+                                   })
             }
         }, error: { error in
             print(error)
         })
     }
     
-    private func convert(datebaseMessages: [DatabaseMessage], successBlock: @escaping ([Message]) -> ()) {
-        getUsers(successBlock: { users in
-            if let users = users {
-                let group = DispatchGroup()
-                var messages = [Message]()
-                
-                for dbMessage in datebaseMessages {
-                    var owner: User?
-                    for user in users {
-                        if dbMessage.ownerId == user.id {
-                            owner = user
-                        }
-                    }
-                    if owner == nil {
-                        continue
-                    }
-                    group.enter()
-
-                    let message = Message(sender: owner!,
-                                       messageId: dbMessage.messageId,
-                                        sentDate: dbMessage.sentDate.toDate(),
-                                            kind: MessageKind.text(""))
-                    self.getMessageKind(text: dbMessage.text,
-                                       image: dbMessage.image,
-                                successBlock: { messageKind in
-                                                   group.leave()
-                                                   if let messageKind = messageKind {
-                                                        message.kind = messageKind
-                                                        messages.append(message)
-                                                   }
-                                              })
+    private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
+        for dbMessage in dbMessages {
+            getMessageKind(text: dbMessage.text, image: dbMessage.image) { messageKind in
+                guard let messageKind = messageKind else {
+                    errorBlock()
+                    return
                 }
-                
-                group.notify(queue: DispatchQueue(label: "com.Messager.DatabaseManager"), execute: {
-                    successBlock(messages)
-                })
+                let message = Message(sender: dbMessage.ownerId == currentUser.id ? currentUser : toUser,
+                                   messageId: dbMessage.messageId,
+                                    sentDate: dbMessage.sentDate.toDate(),
+                                        kind: messageKind)
+                self.databaseManager.save(message: message,
+                                      currentUser: currentUser,
+                                           toUser: toUser,
+                                            block: {
+                                                        successBlock(message)
+                                                   })
             }
-        }, errorBlock: { error in
-            print(error)
-        })
+        }
     }
     
     private func getMessageKind(text: String?, image: String?, successBlock: @escaping (MessageKind?) -> ()) {

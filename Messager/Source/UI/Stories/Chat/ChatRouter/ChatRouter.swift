@@ -43,11 +43,18 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                                   animated: true)
                                           viewController.tabBarController?.tabBar.isHidden = true
                                       }
+                                      self.checkNewMessages(currentUser: currentUser, toUser: toUser)
                                   },
                       errorBlock: { error in
                                         print("error")
                                   })
         realtimeChat(currentUser: currentUser, toUser: toUser)
+    }
+    
+    private func checkNewMessages(currentUser: User, toUser: User) {
+        self.assembly.appAssembly.apiManager.getMessages(currentUser: currentUser, toUser: toUser) { message in
+            self.chatViewController?.showNewMessage(message)
+        }
     }
     
     private func realtimeChat(currentUser: User, toUser: User) {

@@ -26,7 +26,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var noMassageLabel: UILabel!
     
     private var progress: JGProgressHUD?
-    private var messages: [Message] = []
+    private var messages = [Message]()
     private var currentUser: User!
     private var toUser: User!
     
@@ -57,7 +57,10 @@ class ChatViewController: UIViewController {
     }
 
     func showNewMessage(_ message: Message) {
-        insertNewMessage(message)
+        if !self.messages.contains(where: { $0.messageId == message.messageId &&
+                                            $0.sentDate.toString() == message.sentDate.toString() } ) {
+            insertNewMessage(message)
+        }
     }
     
     func update(message: Message) {
