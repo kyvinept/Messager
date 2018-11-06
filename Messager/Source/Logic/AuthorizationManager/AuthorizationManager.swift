@@ -16,16 +16,21 @@ class AuthorizationManager {
     private var keychainManager: KeychainManager
     private var mapper: Mapper
     private var databaseManager: DatabaseManager
+    private var imageManager: ImageManager
+    private var apiManager: ApiManager
     var currentUser: User {
         return keychainManager.getCurrentUser()
     }
     
-    init(with keychainManager: KeychainManager, mapper: Mapper, databaseManager: DatabaseManager) {
+    init(with keychainManager: KeychainManager, mapper: Mapper, databaseManager: DatabaseManager, imageManager: ImageManager, apiManager: ApiManager) {
         Backendless.sharedInstance().hostURL = SERVER_URL
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
+        
         self.keychainManager = keychainManager
         self.mapper = mapper
         self.databaseManager = databaseManager
+        self.imageManager = imageManager
+        self.apiManager = apiManager
     }
     
     func isLoginUser() -> Bool {
@@ -36,21 +41,27 @@ class AuthorizationManager {
         backendless.userService.login(email,
                                       password: password,
                                       response: { (user) in
-                                          successBlock(self.checkCurrentUser(user: user))
-                                      },
+                                                    self.checkCurrentUser(user: user,
+                                                                          successBlock: { user in
+                                                                            successBlock(user)
+                                                    })
+                                                },
                                          error: { (error) in
-                                             errorBlock(error)
-                                         })
+                                                    errorBlock(error)
+                                                })
     }
     
     func register(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
         let newUser = BackendlessUser(properties: ["email" : email, "name" : name, "password" : password])
         backendless.userService.register(newUser,
                                          response: { (user) in
-                                             successBlock(self.checkCurrentUser(user: user))
-                                         }) { (error) in
-                                             errorBlock(error)
-                                         }
+                                                        self.checkCurrentUser(user: user, successBlock: { user in
+                                                            successBlock(user)
+                                                        })
+                                                   },
+                                           error: { (error) in
+                                                        errorBlock(error)
+                                                  })
     }
     
     func passwordRecovery(with email: String, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
@@ -67,14 +78,21 @@ class AuthorizationManager {
         databaseManager.removeAddUsers()
     }
     
-    private func checkCurrentUser(user: BackendlessUser?) -> User? {
+    private func checkCurrentUser(user: BackendlessUser?, successBlock: @escaping (User) -> ()) {
         if let user = user {
-            let newUser = mapper.mapUser(fromBackendlessUser: user)
-            self.keychainManager.save(email: newUser.email,
-                                         id: newUser.id,
-                                       name: newUser.name)
-            return newUser
+            apiManager.getUsers(successBlock: { currentUser in
+                                                   if let currentUser = currentUser?.first {
+                                                       self.keychainManager.save(email: currentUser.email,
+                                                                                    id: currentUser.id,
+                                                                                  name: currentUser.name,
+                                                                              imageUrl: currentUser.imageUrl)
+                                                       successBlock(currentUser)
+                                                   }
+                                              },
+                                  errorBlock: { error in
+                                                   print(error)
+                                              },
+                               currentUserId: user.objectId as String)
         }
-        return nil
     }
 }

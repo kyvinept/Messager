@@ -70,12 +70,13 @@
             <connections>
                 <outlet property="messageLabel" destination="I87-vd-j12" id="lmL-8G-ZkE"/>
                 <outlet property="timeLabel" destination="7Na-DZ-vFu" id="glo-Sm-eR2"/>
+                <outlet property="userImage" destination="ks8-Yf-nG9" id="1gn-Ze-CNV"/>
             </connections>
             <point key="canvasLocation" x="-175" y="190"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="bubble" width="64" height="64"/>
-        <image name="person" width="32" height="32"/>
+        <image name="person" width="128" height="128"/>
     </resources>
 </document>

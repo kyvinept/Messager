@@ -21,12 +21,14 @@ class UsersViewController: UIViewController {
     private var users = [User]()
     private let cellHeight: CGFloat = 80.5
     private var progress: JGProgressHUD?
+    private var refresh: UIRefreshControl?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerUserCell()
         createAddUserButton()
-        self.setActivityIndicator()
+        setActivityIndicator()
+        createRefreshTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +80,17 @@ class UsersViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addUserButton
     }
     
+    private func createRefreshTableView() {
+        refresh = UIRefreshControl()
+        refresh?.addTarget(self, action: #selector(UsersViewController.refreshTableView), for: .allEvents)
+        tableView.addSubview(refresh!)
+    }
+    
+    @objc private func refreshTableView() {
+        tableView.reloadData()
+        refresh?.endRefreshing()
+    }
+    
     @objc private func addUserButtonTapped() {
         delegate?.didTouchAddUserButton(from: self)
     }
@@ -93,7 +106,8 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UserCell
         cell.configure(model: UserCellViewModel(userName: users[indexPath.row].name,
                                              lastMessage: nil,
-                                         lastMessageTime: nil))
+                                         lastMessageTime: nil,
+                                            userImageUrl: users[indexPath.row].imageUrl))
         return cell
     }
     

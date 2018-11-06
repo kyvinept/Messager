@@ -43,6 +43,7 @@
 		5B7828FA21874DE800059F6B /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828F821874DE800059F6B /* UserCell.swift */; };
 		5B7828FB21874DE800059F6B /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7828F921874DE800059F6B /* UserCell.xib */; };
 		5B7828FE2187502B00059F6B /* UserCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828FD2187502B00059F6B /* UserCellViewModel.swift */; };
+		5B797C5F2191F97800D109D6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B797C5E2191F97800D109D6 /* UIImageView.swift */; };
 		5B801BC1218C536F004033D3 /* DatabaseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B801BC0218C536F004033D3 /* DatabaseMessage.swift */; };
 		5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */; };
 		5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E2181217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift */; };
@@ -113,6 +114,7 @@
 		5B7828F821874DE800059F6B /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		5B7828F921874DE800059F6B /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		5B7828FD2187502B00059F6B /* UserCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellViewModel.swift; sourceTree = "<group>"; };
+		5B797C5E2191F97800D109D6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		5B801BC0218C536F004033D3 /* DatabaseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessage.swift; sourceTree = "<group>"; };
 		5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssembly.swift; sourceTree = "<group>"; };
 		5B9E2181217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssemblyProtocol.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				5BB514EB2188C049003D2C04 /* UIImage.swift */,
 				5B737D0B218B306A00455FF8 /* Date.swift */,
 				5B737D0D218B311700455FF8 /* String.swift */,
+				5B797C5E2191F97800D109D6 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				"${BUILT_PRODUCTS_DIR}/ChattoAdditions/ChattoAdditions.framework",
 				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -813,6 +817,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChattoAdditions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -879,6 +884,7 @@
 				5B737D08218AF58700455FF8 /* DatabaseMapper.swift in Sources */,
 				5B737D0A218B047000455FF8 /* AddUserViewController.swift in Sources */,
 				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
+				5B797C5F2191F97800D109D6 /* UIImageView.swift in Sources */,
 				5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */,
 				5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */,
 				5B6765042189AD2300239DCF /* SettingsViewController.swift in Sources */,

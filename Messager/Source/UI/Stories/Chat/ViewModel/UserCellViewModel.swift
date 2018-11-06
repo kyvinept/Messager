@@ -12,12 +12,12 @@ struct UserCellViewModel {
     var userName: String
     var lastMessage: String?
     var lastMessageTime: String?
-    var userImage: UIImage
+    var userImageUrl: String
     
-    init(userName: String, lastMessage: String?, lastMessageTime: Date?, userImage: UIImage = UIImage(named: "person")!) {
+    init(userName: String, lastMessage: String?, lastMessageTime: Date?, userImageUrl: String) {
         self.userName = userName
         self.lastMessage = lastMessage
-        self.userImage = userImage
+        self.userImageUrl = userImageUrl
         if let date = lastMessageTime {
             self.lastMessageTime = date.toString()
         }

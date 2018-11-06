@@ -25,6 +25,7 @@
 #define BACKENDLESS_NAME_KEY @"name"
 #define BACKENDLESS_PASSWORD_KEY @"password"
 #define BACKENDLESS_ID_KEY @"id"
+#define BACKENDLESS_IMAGE @"image"
 #define BACKENDLESS_USER_TOKEN @"user-token"
 #define BACKENDLESS_USER_REGISTERED @"user-registered"
 
@@ -34,6 +35,7 @@
 @property (nonatomic, assign, getter = getEmail, setter = setEmail:) NSString *email;
 @property (nonatomic, assign, getter = getPassword, setter = setPassword:) NSString *password;
 @property (nonatomic, assign, getter = getName, setter = setName:) NSString *name;
+@property (nonatomic, assign, getter = getImage, setter = setImage:) NSString *image;
 
 -(id)initWithProperties:(NSDictionary<NSString*, id> *)properties;
 -(BOOL)isUserRegistered;

@@ -12,4 +12,5 @@ protocol SettingsRouterProtocol {
     var assembly: SettingsAssemblyProtocol { get }
     
     func showInitialVC(from rootViewController: UINavigationController)
+    func configureSettingsViewController(with currentUser: User)
 }

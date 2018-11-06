@@ -23,11 +23,7 @@ class Mapper {
     func mapAllUsers(users: [[String: Any]]) -> [User] {
         var newUsers = [User]()
         for user in users {
-            newUsers.append(User(email: user["email"] as! String,
-                                  name: user["name"] as! String,
-                              password: nil,
-                                    id: user["objectId"] as! String,
-                             userToken: nil))
+            newUsers.append(self.map(user: user))
         }
         return newUsers
     }
@@ -35,16 +31,17 @@ class Mapper {
     func map(message: [String: Any]) -> Message {
         return Message(sender: map(user: message["sender"] as! [String: String]),
                     messageId: message["messageId"] as! String,
-                 sentDate: (message["sentDate"] as! String).toDate()!,
+                     sentDate: (message["sentDate"] as! String).toDate()!,
                          kind: MessageKind.text(""))
     }
     
-    private func map(user: [String: String]) -> User {
-        return User(email: user["email"]!,
-                     name: user["name"]!,
+    private func map(user: [String: Any]) -> User {
+        return User(email: user["email"] as! String,
+                     name: user["name"] as! String,
                  password: nil,
-                       id: user["id"]!,
-                userToken: nil)
+                       id: user["id"] as? String ?? user["ownerId"] as! String,
+                userToken: nil,
+                 imageUrl: user["image"] as! String)
     }
     
     func createRequest(message: Message, toUser: User) -> [String: Any] {

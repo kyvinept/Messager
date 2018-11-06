@@ -13,11 +13,13 @@ struct ImageCellViewModel {
     var imageSize: CGSize
     var downloaded: Bool
     var date: String
+    var userImageUrl: String
     
-    init(image: UIImage, imageSize: CGSize, date: Date, downloaded: Bool) {
+    init(image: UIImage, imageSize: CGSize, date: Date, downloaded: Bool, userImageUrl: String) {
         self.image = image
         self.imageSize = imageSize
         self.date = date.toString(dateFormat: "HH:mm")
         self.downloaded = downloaded
+        self.userImageUrl = userImageUrl
     }
 }

@@ -14,13 +14,36 @@ protocol SettingsViewControllerDelegate: class {
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet private weak var userImageView: UIImageView!
     weak var delegate: SettingsViewControllerDelegate?
+    private var currentUser: User?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func configure(currentUser: User) {
+        self.currentUser = currentUser
+        userImageView.downloadImage(from: currentUser.imageUrl)
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {
         delegate?.settingsViewController(viewController: self, didTouchLogoutButton: sender)
+    }
+    
+    @IBAction func changeImage(_ sender: Any) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        userImageView.image = image
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

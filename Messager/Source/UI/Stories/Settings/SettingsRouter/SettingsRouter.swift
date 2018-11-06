@@ -29,11 +29,15 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
     private func showSettingsViewController(from rootViewController: UINavigationController) {
         let vc = assembly.createSettingsViewController()
         vc.delegate = self
-        self.settingsViewController = vc
+        settingsViewController = vc
         action(with: vc,
                from: rootViewController,
                with: .push,
            animated: true)
+    }
+    
+    func configureSettingsViewController(with currentUser: User) {
+        settingsViewController?.configure(currentUser: currentUser)
     }
 }
 

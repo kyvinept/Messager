@@ -19,14 +19,21 @@ class KeychainManager {
     
     func getCurrentUser() -> User {
         let query = load()!
-        return User(email: query["email"]!, name: query["name"]!, password: nil, id: query["id"]!, userToken: nil)
+        return User(email: query["email"] as! String,
+                     name: query["name"] as! String,
+                 password: nil,
+                       id: query["id"] as! String,
+                userToken: nil,
+                 imageUrl: query["image"] as! String)
     }
     
-    func save(email: String, id: String, name: String) {
-        let saveData = ["email": email, "id": id, "name": name]
+    func save(email: String, id: String, name: String, imageUrl: String) {
+        delete()
+        let saveData = ["email": email, "id": id, "name": name, "image": imageUrl] as [String : Any]
         let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
         let getQuery: [String: Any] = query(with: data)
-        let status = SecItemAdd(getQuery as CFDictionary, nil)
+        let res = SecItemAdd(getQuery as CFDictionary, nil)
+        print(res)
     }
     
     func delete() {
@@ -36,7 +43,7 @@ class KeychainManager {
         SecItemDelete(getQuery as CFDictionary)
     }
     
-    func load() -> [String : String]? {
+    func load() -> [String : Any]? {
         let getquery: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                        kSecAttrAccount as String: key,
                                        kSecReturnData as String: kCFBooleanTrue,
@@ -45,7 +52,7 @@ class KeychainManager {
         let status = SecItemCopyMatching(getquery as CFDictionary, &item)
         guard status == errSecSuccess else { return nil }
         if let data = item as? Data {
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : String]
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as? [String : Any]
         }
         return nil
     }

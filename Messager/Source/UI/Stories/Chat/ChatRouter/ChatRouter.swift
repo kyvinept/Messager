@@ -168,9 +168,9 @@ extension ChatRouter: AddUserViewControllerDelegate {
                 sender.isEnabled = true
                 self.addUserViewController?.showError(text: "No user with this email.")
             }
-        }) { (error) in
+        }, errorBlock: { (error) in
             print("error")
-        }
+        })
     }
     
     func addUserViewController(viewController: AddUserViewController, didTouchCancelButton sender: UIButton) {

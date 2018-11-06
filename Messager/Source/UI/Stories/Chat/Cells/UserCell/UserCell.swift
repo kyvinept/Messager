@@ -15,7 +15,7 @@ class UserCell: UITableViewCell {
     @IBOutlet private weak var timeLabel: UILabel!
     
     func configure(model: UserCellViewModel) {
-        self.userImage.image = model.userImage
+        self.userImage.downloadImage(from: model.userImageUrl)
         self.nameLabel.text = model.userName
         self.lastMessageLabel.text = model.lastMessage
         self.timeLabel.text = model.lastMessageTime

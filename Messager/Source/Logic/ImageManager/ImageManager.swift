@@ -17,6 +17,15 @@ class ImageManager {
         cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!)
     }
     
+    func downloadImage(url: String, progress: @escaping (Double) -> (), completionHandler: @escaping (UIImage?) -> ()) {
+        cloudinary.createDownloader().fetchImage(url, { (progressDownload) in
+            progress(progressDownload.fractionCompleted)
+            print(progress)
+        }, completionHandler: { (image, error) in
+            completionHandler(image)
+        })
+    }
+    
     func downloadImage(url: String, progress: @escaping (Double) -> (), completionHandler: @escaping (MessageKind?) -> ()) {
         cloudinary.createDownloader().fetchImage(url, { (progressDownload) in
             progress(progressDownload.fractionCompleted)

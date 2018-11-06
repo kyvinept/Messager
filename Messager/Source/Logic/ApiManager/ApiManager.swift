@@ -94,20 +94,20 @@ class ApiManager {
                                                                 })
     }
     
-    func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+    func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> (), currentUserId: String = "") {
         dataStore = Backendless.sharedInstance()!.data.ofTable(Table.users.rawValue)
-        
-        let timer = Timer.scheduledTimer(withTimeInterval: timeIntervalForRequest, repeats: false) { timer in
-            errorBlock(nil)
+        let queryBuilder = DataQueryBuilder()
+        if !currentUserId.isEmpty {
+            queryBuilder?.setWhereClause("ownerId = '" + currentUserId + "'")
         }
         
-        dataStore?.find({ (users) in
-            timer.invalidate()
-            successBlock(self.mapper.mapAllUsers(users: users as! [[String : Any]]))
-        }, error: { (error) in
-            timer.invalidate()
-            errorBlock(error)
-        })
+        dataStore?.find(queryBuilder,
+                        response: { (users) in
+                                      successBlock(self.mapper.mapAllUsers(users: users as! [[String : Any]]))
+                                  },
+                           error: { (error) in
+                                      errorBlock(error)
+                                  })
     }
     
     func saveMessage(message: [String: Any]) {

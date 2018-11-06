@@ -13,7 +13,7 @@ enum MessageKind {
     case photo(MediaItem)
 }
 
-class Message {
+class Message: Equatable {
     
     var sender: User
     var messageId: String
@@ -25,5 +25,12 @@ class Message {
         self.messageId = messageId
         self.sentDate = sentDate
         self.kind = kind
+    }
+    
+    static func == (lhs: Message, rhs: Message) -> Bool {
+        if lhs.sender == rhs.sender && lhs.sentDate.toString() == rhs.sentDate.toString() {
+            return true
+        }
+        return false
     }
 }

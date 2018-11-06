@@ -57,15 +57,13 @@ class ChatViewController: UIViewController {
     }
 
     func showNewMessage(_ message: Message) {
-        if !self.messages.contains(where: { $0.messageId == message.messageId &&
-                                            $0.sentDate.toString() == message.sentDate.toString() } ) {
+        if !self.messages.contains(where: { $0 == message } ) {
             insertNewMessage(message)
         }
     }
     
     func update(message: Message) {
-        let oldMessage = messages.first { $0.messageId == message.messageId &&
-                                          $0.sentDate.toString() == message.sentDate.toString() }
+        let oldMessage = messages.first { $0 == message }
         if let oldMessage = oldMessage {
             switch oldMessage.kind {
             case .photo(let mediaItem):
@@ -280,12 +278,16 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             if messages[indexPath.row].sender == currentUser! {
                 tableView.register(UINib(nibName: "OutgoingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
                 let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingMessageCell", for: indexPath) as! OutgoingMessageCell
-                cell.configure(model: MessageCellViewModel(message: text, date: messages[indexPath.row].sentDate))
+                cell.configure(model: MessageCellViewModel(message: text,
+                                                              date: messages[indexPath.row].sentDate,
+                                                      userImageUrl: messages[indexPath.row].sender.imageUrl))
                 return cell
             } else {
                 tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessageCell", for: indexPath) as! IncomingMessageCell
-                cell.configure(model: MessageCellViewModel(message: text, date: messages[indexPath.row].sentDate))
+                cell.configure(model: MessageCellViewModel(message: text,
+                                                              date: messages[indexPath.row].sentDate,
+                                                      userImageUrl: messages[indexPath.row].sender.imageUrl))
                 return cell
             }
             
@@ -296,14 +298,16 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(model: ImageCellViewModel(image: mediaItem.image,
                                                      imageSize: mediaItem.size,
                                                           date: messages[indexPath.row].sentDate,
-                                                    downloaded: mediaItem.downloaded))
+                                                    downloaded: mediaItem.downloaded,
+                                                  userImageUrl: messages[indexPath.row].sender.imageUrl))
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as! IncomingImageCell
                 cell.configure(model: ImageCellViewModel(image: mediaItem.image,
                                                      imageSize: mediaItem.size,
                                                           date: messages[indexPath.row].sentDate,
-                                                    downloaded: true))
+                                                    downloaded: true,
+                                                  userImageUrl: messages[indexPath.row].sender.imageUrl))
                 return cell
             }
         }

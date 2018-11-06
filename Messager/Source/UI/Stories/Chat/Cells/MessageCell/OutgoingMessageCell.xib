@@ -77,6 +77,6 @@
     </objects>
     <resources>
         <image name="bubble1" width="64" height="63"/>
-        <image name="person" width="32" height="32"/>
+        <image name="person" width="128" height="128"/>
     </resources>
 </document>
