@@ -77,6 +77,7 @@ class ChatViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.tableView.scrollToBottom(animated: true)
         }
     }
     
@@ -140,7 +141,7 @@ extension ChatViewController {
     
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
-        messages.sort { $0.sentDate > $1.sentDate }
+        messages.sort { $0.sentDate < $1.sentDate }
         
         DispatchQueue.main.async {
             if !self.noMassageLabel.isHidden {

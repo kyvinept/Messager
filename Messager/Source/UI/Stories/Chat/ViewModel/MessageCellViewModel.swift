@@ -14,6 +14,6 @@ struct MessageCellViewModel {
     
     init(message: String, date: Date) {
         self.message = message
-        self.date = date.getTime()
+        self.date = date.toString(dateFormat: "HH:mm")
     }
 }

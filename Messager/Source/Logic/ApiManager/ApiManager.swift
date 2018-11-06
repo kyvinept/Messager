@@ -204,7 +204,7 @@ class ApiManager {
                 }
                 let message = Message(sender: dbMessage.ownerId == currentUser.id ? currentUser : toUser,
                                    messageId: dbMessage.messageId,
-                                    sentDate: dbMessage.sentDate.toDate(),
+                                    sentDate: dbMessage.sentDate.toDate()!,
                                         kind: messageKind)
                 self.databaseManager.save(message: message,
                                       currentUser: currentUser,

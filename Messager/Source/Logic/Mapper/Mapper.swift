@@ -35,7 +35,7 @@ class Mapper {
     func map(message: [String: Any]) -> Message {
         return Message(sender: map(user: message["sender"] as! [String: String]),
                     messageId: message["messageId"] as! String,
-                     sentDate: (message["sentDate"] as! String).toDate(),
+                 sentDate: (message["sentDate"] as! String).toDate()!,
                          kind: MessageKind.text(""))
     }
     

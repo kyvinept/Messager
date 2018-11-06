@@ -17,7 +17,7 @@ struct ImageCellViewModel {
     init(image: UIImage, imageSize: CGSize, date: Date, downloaded: Bool) {
         self.image = image
         self.imageSize = imageSize
-        self.date = date.getTime()
+        self.date = date.toString(dateFormat: "HH:mm")
         self.downloaded = downloaded
     }
 }
