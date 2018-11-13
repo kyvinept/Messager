@@ -12,6 +12,7 @@ protocol ChatViewControllerDelegate: class {
     
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController)
     func didTouchBackButton(viewController: ChatViewController)
+    func didTouchGetCurrentLocation(viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -104,9 +105,52 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func getFileButtonTapped(_ sender: Any) {
-        let items = [URL(string: "https://www.apple.com")!]
-        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        present(ac, animated: true)
+        let alert = UIAlertController(title: nil,
+                                    message: nil,
+                             preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Gallery",
+                                      style: .default,
+                                    handler: { _ in
+                                                 let gallary = UIImagePickerController()
+                                                 gallary.delegate = self
+                                                 gallary.sourceType = .photoLibrary
+                                                 self.present(gallary,
+                                                              animated: true,
+                                                              completion: nil)
+                                             }))
+        alert.addAction(UIAlertAction(title: "Location",
+                                      style: .default,
+                                    handler: { _ in
+                                                 self.getLocation()
+                                             }))
+        alert.addAction(UIAlertAction(title: "Cancel",
+                                      style: .cancel,
+                                    handler: nil))
+        self.present(alert,
+                     animated: true,
+                   completion: nil)
+    }
+    
+    private func getLocation() {
+        let alert = UIAlertController(title: nil,
+                                    message: nil,
+                             preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Current location",
+                                      style: .default,
+                                    handler: { _ in
+                                                 self.delegate?.didTouchGetCurrentLocation(viewController: self)
+                                             }))
+        alert.addAction(UIAlertAction(title: "Chose location",
+                                      style: .default,
+                                    handler: { _ in
+            
+                                             }))
+        alert.addAction(UIAlertAction(title: "Cancel",
+                                      style: .cancel,
+                                    handler: nil))
+        self.present(alert,
+                     animated: true,
+                   completion: nil)
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
@@ -309,6 +353,9 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                                                   userImageUrl: messages[indexPath.row].sender.imageUrl))
                 return cell
             }
+            
+        case .location(let location):
+            return UITableViewCell()
         }
     }
     

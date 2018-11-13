@@ -11,6 +11,7 @@ enum MessageKind {
 
     case text(String)
     case photo(MediaItem)
+    case location(CLLocationCoordinate2D)
 }
 
 class Message: Equatable {

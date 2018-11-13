@@ -79,6 +79,8 @@ class ApiManager {
                                                    self.sendMessage(message: request)
                                                })
             }
+        case .location(let location):
+            break
         }
     }
     

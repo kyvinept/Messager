@@ -12,6 +12,7 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     lazy var authorizationManager = self.createAuthorizationManager()
     lazy var apiManager = self.createApiManager()
     lazy var databaseManager = DatabaseManager(databaseMapper: databaseMapper)
+    lazy var locationManager = LocationManager()
     
     lazy private var imageManager = ImageManager()
     lazy private var mapper = Mapper()

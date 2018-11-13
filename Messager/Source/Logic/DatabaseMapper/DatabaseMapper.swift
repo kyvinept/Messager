@@ -32,6 +32,8 @@ class DatabaseMapper {
         case .photo(let mediaItem):
             messageEntity.type = MessageType.image.rawValue
             messageEntity.image = UIImageJPEGRepresentation(mediaItem.image, 1.0)
+        case .location(let location):
+            break
         }
     }
     

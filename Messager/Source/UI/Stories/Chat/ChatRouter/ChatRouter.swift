@@ -191,6 +191,16 @@ extension ChatRouter: AddUserViewControllerDelegate {
 
 extension ChatRouter: ChatViewControllerDelegate {
     
+    func didTouchGetCurrentLocation(viewController: ChatViewController) {
+        assembly.appAssembly.locationManager
+        .getCurrentLocation(successBlock: { coordinate in
+                                              print(coordinate)
+                                          },
+                              errorBlock: {
+                                              print("error")
+                                          })
+    }
+    
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController) {
         assembly.appAssembly.apiManager.publishMessage(message, toUser: toUser)
     }

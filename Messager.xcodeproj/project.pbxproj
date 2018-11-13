@@ -20,6 +20,7 @@
 		5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */; };
 		5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360964217E2F59008B46EB /* MainUIRouter.swift */; };
 		5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */; };
+		5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4237DF219B31E30042D836 /* LocationManager.swift */; };
 		5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B0218869EF006EF9F8 /* UITableView.swift */; };
 		5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */; };
 		5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */; };
@@ -91,6 +92,7 @@
 		5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B360964217E2F59008B46EB /* MainUIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouter.swift; sourceTree = "<group>"; };
 		5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouterProtocol.swift; sourceTree = "<group>"; };
+		5B4237DF219B31E30042D836 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5B65F8B0218869EF006EF9F8 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
 		5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
@@ -252,6 +254,14 @@
 				5B360962217E2F26008B46EB /* MainUIAssemblyProtocol.swift */,
 			);
 			path = MainUIAssembly;
+			sourceTree = "<group>";
+		};
+		5B4237DD219B31CA0042D836 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B4237DF219B31E30042D836 /* LocationManager.swift */,
+			);
+			path = LocationManager;
 			sourceTree = "<group>";
 		};
 		5B65F8AA218862F7006EF9F8 /* Extensions */ = {
@@ -422,6 +432,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B4237DD219B31CA0042D836 /* LocationManager */,
 				5B737D06218AF57800455FF8 /* DatabaseMapper */,
 				5B12F7A1218A10F00051DADC /* DatabaseManager */,
 				5B6765132189E9FC00239DCF /* ImageManager */,
@@ -903,6 +914,7 @@
 				5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */,
 				5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
+				5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
 				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
