@@ -9,7 +9,7 @@ import UIKit
 
 protocol AuthorizationRouterDelegate: class {
     
-    func authorizationStoryWasOver(from viewController: UIViewController)
+    func authorizationStoryWasOver(from viewController: UIViewController, currentUser: User)
 }
 
 class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
@@ -82,14 +82,14 @@ extension AuthorizationRouter: LoginViewControllerDelegate {
         assembly.appAssembly.authorizationManager.login(withEmail: email,
                                                                   password: password,
                                                               successBlock: { user in
-                                                                  self.delegate?.authorizationStoryWasOver(from: viewController)
-                                                              },
+                                                                                self.delegate?.authorizationStoryWasOver(from: viewController, currentUser: user!)
+                                                                            },
                                                                 errorBlock: { error in
-                                                                    self.showInfo(to: viewController,
-                                                                               title: "Error",
-                                                                             message: error!.detail)
-                                                                    sender.isEnabled = true
-                                                                })
+                                                                                self.showInfo(to: viewController,
+                                                                                           title: "Error",
+                                                                                         message: error!.detail)
+                                                                                sender.isEnabled = true
+                                                                            })
     }
 }
 
@@ -100,14 +100,15 @@ extension AuthorizationRouter: RegistrationViewControllerDelegate {
         assembly.appAssembly.authorizationManager.register(with: email,
                                                                     name: name,
                                                                 password: password,
-                                                            successBlock: { (_) in
-                                                                self.delegate?.authorizationStoryWasOver(from: viewController)
-                                                            }) { error in
-                                                                self.showInfo(to: viewController,
-                                                                           title: "Error",
-                                                                         message: error!.detail)
-                                                                sender.isEnabled = true
-                                                            }
+                                                            successBlock: { user in
+                                                                                self.delegate?.authorizationStoryWasOver(from: viewController, currentUser: user!)
+                                                                          },
+                                                              errorBlock: { error in
+                                                                                self.showInfo(to: viewController,
+                                                                                           title: "Error",
+                                                                                         message: error!.detail)
+                                                                                sender.isEnabled = true
+                                                                          })
     }
 }
 

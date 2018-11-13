@@ -11,5 +11,5 @@ protocol SettingsAssemblyProtocol {
     
     var appAssembly: ApplicationAssembly { get }
     
-    func createSettingsViewController() -> SettingsViewController
+    func createSettingsViewController(user: User?) -> SettingsViewController
 }

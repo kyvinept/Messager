@@ -15,8 +15,11 @@ class SettingsAssembly: SettingsAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func createSettingsViewController() -> SettingsViewController {
+    func createSettingsViewController(user: User?) -> SettingsViewController {
         let vc = createStoryboard().instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        if let user = user {
+            vc.configure(currentUser: user)
+        }
         vc.title = "Settings"
         return vc
     }

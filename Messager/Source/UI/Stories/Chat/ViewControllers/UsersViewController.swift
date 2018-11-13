@@ -12,6 +12,7 @@ protocol UsersViewControllerDelegate: class {
     
     func didSelectCell(with user: User, from viewController: UsersViewController)
     func didTouchAddUserButton(from viewController: UsersViewController)
+    func didRefreshUsers(from viewController: UsersViewController)
 }
 
 class UsersViewController: UIViewController {
@@ -60,6 +61,7 @@ class UsersViewController: UIViewController {
     func cancelRefresh() {
         DispatchQueue.main.async {
             self.progress?.dismiss()
+            self.refresh?.endRefreshing()
         }
     }
     
@@ -87,8 +89,8 @@ class UsersViewController: UIViewController {
     }
     
     @objc private func refreshTableView() {
-        tableView.reloadData()
-        refresh?.endRefreshing()
+        delegate?.didRefreshUsers(from: self)
+        //refresh?.endRefreshing()
     }
     
     @objc private func addUserButtonTapped() {

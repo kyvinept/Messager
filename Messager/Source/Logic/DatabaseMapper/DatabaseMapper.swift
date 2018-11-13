@@ -18,6 +18,7 @@ class DatabaseMapper {
         userEntity.email = user.email
         userEntity.id = user.id
         userEntity.name = user.name
+        userEntity.imageUrl = user.imageUrl
     }
     
     func map(to messageEntity: MessageEntity, from message: Message) {
@@ -60,7 +61,8 @@ class DatabaseMapper {
                      name: user.name!,
                  password: user.password,
                        id: user.id!,
-                userToken: user.userToken)
+                userToken: user.userToken,
+                 imageUrl: user.imageUrl!)
     }
     
     private func map(messageEntity: MessageEntity, currentUser: User, toUser: User) -> Message {

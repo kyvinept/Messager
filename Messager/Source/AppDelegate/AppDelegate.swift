@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.applicationAssembly = applicationAssembly
         self.applicationRouter = applicationRouter
-
     }
 
     private func setupWindow() {

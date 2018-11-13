@@ -10,7 +10,7 @@ import SDWebImage
 
 extension UIImageView {
     
-    func downloadImage(from url: String, placeholderImage: UIImage = UIImage(named: "person")!) {
+    func downloadImage(from url: String, placeholderImage: UIImage? = UIImage(named: "person")) {
         guard let imageUrl = URL(string: url) else { return }
         self.sd_setImage(with: imageUrl, placeholderImage: placeholderImage)
     }

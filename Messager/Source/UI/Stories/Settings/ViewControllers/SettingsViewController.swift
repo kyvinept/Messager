@@ -17,10 +17,19 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var userImageView: UIImageView!
     weak var delegate: SettingsViewControllerDelegate?
     private var currentUser: User?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let userImageView = userImageView, let currentUser = currentUser {
+            userImageView.downloadImage(from: currentUser.imageUrl)
+        }
+    }
 
     func configure(currentUser: User) {
         self.currentUser = currentUser
-        userImageView.downloadImage(from: currentUser.imageUrl)
+        if let userImageView = userImageView {
+            userImageView.downloadImage(from: currentUser.imageUrl)
+        }
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {

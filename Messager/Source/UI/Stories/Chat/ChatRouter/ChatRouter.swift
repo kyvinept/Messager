@@ -110,15 +110,25 @@ extension ChatRouter {
     private func checkNewUsers() {
         assembly.appAssembly.apiManager.getNewUsers(currentUser: currentUser!,
                                                    successBlock: { users in
-                                                                     self.usersViewController?.downloaded(users: users )
+                                                                     self.usersViewController?.downloaded(users: users)
                                                                  },
-                                                                 errorBlock: {
+                                                     errorBlock: {
                                                                      self.usersViewController?.cancelRefresh()
                                                                  })
     }
 }
 
 extension ChatRouter: UsersViewControllerDelegate {
+    
+    func didRefreshUsers(from viewController: UsersViewController) {
+        assembly.appAssembly.apiManager.getNewUsers(currentUser: currentUser!,
+                                                   successBlock: { users in
+                                                                     self.usersViewController?.downloaded(users: users)
+                                                                 },
+                                                     errorBlock: {
+                                                                     self.usersViewController?.cancelRefresh()
+                                                                 })
+    }
     
     func didTouchAddUserButton(from viewController: UsersViewController) {
         let vc = assembly.createAddUserViewController()

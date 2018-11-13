@@ -27,7 +27,7 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
     }
     
     private func showSettingsViewController(from rootViewController: UINavigationController) {
-        let vc = assembly.createSettingsViewController()
+        let vc = assembly.createSettingsViewController(user: assembly.appAssembly.authorizationManager.currentUser)
         vc.delegate = self
         settingsViewController = vc
         action(with: vc,

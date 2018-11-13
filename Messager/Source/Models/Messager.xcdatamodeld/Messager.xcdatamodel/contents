@@ -12,6 +12,7 @@
     <entity name="UserEntity" representedClassName="UserEntity" syncable="YES" codeGenerationType="class">
         <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userToken" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,6 +20,6 @@
     </entity>
     <elements>
         <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="150"/>
-        <element name="UserEntity" positionX="-113.75390625" positionY="-56.24609375" width="128" height="135"/>
+        <element name="UserEntity" positionX="-113.75390625" positionY="-56.24609375" width="128" height="150"/>
     </elements>
 </model>

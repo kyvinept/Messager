@@ -18,7 +18,7 @@ class AuthorizationManager {
     private var databaseManager: DatabaseManager
     private var imageManager: ImageManager
     private var apiManager: ApiManager
-    var currentUser: User {
+    var currentUser: User? {
         return keychainManager.getCurrentUser()
     }
     
@@ -42,9 +42,9 @@ class AuthorizationManager {
                                       password: password,
                                       response: { (user) in
                                                     self.checkCurrentUser(user: user,
-                                                                          successBlock: { user in
-                                                                            successBlock(user)
-                                                    })
+                                                                  successBlock: { user in
+                                                                                     successBlock(user)
+                                                                                })
                                                 },
                                          error: { (error) in
                                                     errorBlock(error)
@@ -55,9 +55,10 @@ class AuthorizationManager {
         let newUser = BackendlessUser(properties: ["email" : email, "name" : name, "password" : password])
         backendless.userService.register(newUser,
                                          response: { (user) in
-                                                        self.checkCurrentUser(user: user, successBlock: { user in
-                                                            successBlock(user)
-                                                        })
+                                                        self.checkCurrentUser(user: user,
+                                                                      successBlock: { user in
+                                                                                        successBlock(user)
+                                                                                    })
                                                    },
                                            error: { (error) in
                                                         errorBlock(error)

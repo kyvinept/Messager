@@ -104,10 +104,9 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func getFileButtonTapped(_ sender: Any) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true, completion: nil)
+        let items = [URL(string: "https://www.apple.com")!]
+        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(ac, animated: true)
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {

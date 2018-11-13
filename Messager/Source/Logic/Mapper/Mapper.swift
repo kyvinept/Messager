@@ -51,7 +51,8 @@ class Mapper {
                                       "toUserId": toUser.id,
                                         "sender": ["id": message.sender.id,
                                                 "email": message.sender.email,
-                                                 "name": message.sender.name]]
+                                                 "name": message.sender.name,
+                                                "image": message.sender.imageUrl]]
         return request
     }
     

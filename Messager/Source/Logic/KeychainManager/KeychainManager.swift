@@ -17,8 +17,8 @@ class KeychainManager {
                 kSecValueData as String: email]
     }
     
-    func getCurrentUser() -> User {
-        let query = load()!
+    func getCurrentUser() -> User? {
+        guard let query = load() else { return nil }
         return User(email: query["email"] as! String,
                      name: query["name"] as! String,
                  password: nil,

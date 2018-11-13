@@ -78,10 +78,9 @@ class MainUIRouter: BaseRouter, MainUIRouterProtocol {
 
 extension MainUIRouter: AuthorizationRouterDelegate {
     
-    func authorizationStoryWasOver(from viewController: UIViewController) {
+    func authorizationStoryWasOver(from viewController: UIViewController, currentUser: User) {
         authorizationRouter = nil
         chatViewController.tabBarController?.tabBar.isHidden = false
-        let currentUser = assembly.appAssembly.authorizationManager.currentUser
         settingsRouter?.configureSettingsViewController(with: currentUser)
         showChatStory()
     }
