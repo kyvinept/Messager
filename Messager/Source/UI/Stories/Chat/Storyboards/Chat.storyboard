@@ -343,13 +343,35 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hNB-Kh-FPD">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-Yz-0ct">
+                                <rect key="frame" x="299" y="587" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.50980392159999999" green="0.75294117650000003" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="ONq-sc-JeE"/>
+                                    <constraint firstAttribute="height" constant="60" id="Vbu-AC-4vw"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mylocation" translatesAutoresizingMaskIntoConstraints="NO" id="ac4-Aa-zCw">
+                                <rect key="frame" x="309" y="597" width="40" height="40"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7PN-Ul-iIF" firstAttribute="trailing" secondItem="hNB-Kh-FPD" secondAttribute="trailing" id="0l5-ED-eCD"/>
                             <constraint firstItem="hNB-Kh-FPD" firstAttribute="leading" secondItem="7PN-Ul-iIF" secondAttribute="leading" id="Dfa-DW-RUN"/>
+                            <constraint firstItem="7PN-Ul-iIF" firstAttribute="trailing" secondItem="GzF-Yz-0ct" secondAttribute="trailing" constant="16" id="JVA-SN-qOf"/>
+                            <constraint firstItem="7PN-Ul-iIF" firstAttribute="bottom" secondItem="GzF-Yz-0ct" secondAttribute="bottom" constant="20" id="Ncq-sK-gMO"/>
                             <constraint firstItem="7PN-Ul-iIF" firstAttribute="bottom" secondItem="hNB-Kh-FPD" secondAttribute="bottom" id="YNr-ZM-fe8"/>
                             <constraint firstItem="hNB-Kh-FPD" firstAttribute="top" secondItem="vTx-IC-hxJ" secondAttribute="top" id="Zyj-o4-B0s"/>
+                            <constraint firstItem="ac4-Aa-zCw" firstAttribute="bottom" secondItem="GzF-Yz-0ct" secondAttribute="bottom" constant="-10" id="dDA-pJ-5x6"/>
+                            <constraint firstItem="ac4-Aa-zCw" firstAttribute="top" secondItem="GzF-Yz-0ct" secondAttribute="top" constant="10" id="eKr-OM-sIA"/>
+                            <constraint firstItem="ac4-Aa-zCw" firstAttribute="trailing" secondItem="GzF-Yz-0ct" secondAttribute="trailing" constant="-10" id="gM4-Z9-Ppz"/>
+                            <constraint firstItem="ac4-Aa-zCw" firstAttribute="leading" secondItem="GzF-Yz-0ct" secondAttribute="leading" constant="10" id="qdv-cN-6qi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7PN-Ul-iIF"/>
                     </view>
@@ -359,11 +381,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MrW-tj-WHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2914" y="137"/>
+            <point key="canvasLocation" x="2912.8000000000002" y="136.28185907046478"/>
         </scene>
     </scenes>
     <resources>
         <image name="happiness" width="24" height="24"/>
+        <image name="mylocation" width="64" height="64"/>
         <image name="paper-clip" width="24" height="24"/>
         <image name="photo-camera" width="24" height="24"/>
         <image name="send-button" width="24" height="24"/>

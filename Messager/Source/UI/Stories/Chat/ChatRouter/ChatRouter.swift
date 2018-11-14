@@ -192,6 +192,15 @@ extension ChatRouter: AddUserViewControllerDelegate {
 
 extension ChatRouter: ChatViewControllerDelegate {
     
+    func didTouchChoseLocation(viewController: ChatViewController) {
+        let vc = assembly.createMapViewController()
+        self.mapViewController = vc
+        action(with: vc,
+               from: viewController.navigationController!,
+               with: .push,
+           animated: true)
+    }
+    
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController) {
         let vc = assembly.createMapViewController(withLocation: location)
         self.mapViewController = vc

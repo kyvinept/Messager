@@ -34,10 +34,20 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
-    func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController {
+    private func mapViewController(withLocation location: CLLocationCoordinate2D? = nil) -> MapViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-        vc.configure(location: location)
+        if let location = location {
+            vc.configure(location: location)
+        }
         return vc
+    }
+    
+    func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController {
+        return mapViewController(withLocation: location)
+    }
+    
+    func createMapViewController() -> MapViewController {
+        return mapViewController()
     }
     
     private func getStoryboard() -> UIStoryboard {

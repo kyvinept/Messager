@@ -14,6 +14,7 @@ protocol ChatViewControllerDelegate: class {
     func didTouchBackButton(viewController: ChatViewController)
     func didTouchGetCurrentLocation(viewController: ChatViewController)
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController)
+    func didTouchChoseLocation(viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -149,7 +150,7 @@ class ChatViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Chose location",
                                       style: .default,
                                     handler: { _ in
-            
+                                                 self.delegate?.didTouchChoseLocation(viewController: self)
                                              }))
         alert.addAction(UIAlertAction(title: "Cancel",
                                       style: .cancel,
