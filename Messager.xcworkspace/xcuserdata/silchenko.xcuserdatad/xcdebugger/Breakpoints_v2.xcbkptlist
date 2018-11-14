@@ -73,29 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Messager/Source/UI/Stories/Chat/ChatRouter/ChatRouter.swift"
-            timestampString = "563820077.177911"
+            filePath = "Messager/Source/UI/Stories/Chat/Cells/LocationCell/Incoming/IncomingLocationCell.swift"
+            timestampString = "563878984.921885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "didTouchGetCurrentLocation(viewController:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Messager/Source/UI/Stories/Chat/ChatRouter/ChatRouter.swift"
-            timestampString = "563820077.178442"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "didTouchGetCurrentLocation(viewController:)"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "didTappedCell()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

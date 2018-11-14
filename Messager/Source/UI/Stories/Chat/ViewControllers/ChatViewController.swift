@@ -13,6 +13,7 @@ protocol ChatViewControllerDelegate: class {
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController)
     func didTouchBackButton(viewController: ChatViewController)
     func didTouchGetCurrentLocation(viewController: ChatViewController)
+    func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -61,6 +62,11 @@ class ChatViewController: UIViewController {
         if !self.messages.contains(where: { $0 == message } ) {
             insertNewMessage(message)
         }
+    }
+    
+    func newMessage(withLocation location: CLLocationCoordinate2D) {
+        let message = Message(sender: currentUser, messageId: String(messages.count+1), sentDate: Date(), kind: .location(location))
+        insertNewMessage(message)
     }
     
     func update(message: Message) {
@@ -355,8 +361,31 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
         case .location(let location):
-            return UITableViewCell()
+            
+            if messages[indexPath.row].sender == currentUser! {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingLocationCell", for: indexPath) as! OutgoingLocationCell
+                cell.configure(model: LocationCellViewModel(date: messages[indexPath.row].sentDate,
+                                                    userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                        location: location,
+                                                         tapCell: { [weak self] coordinate in
+                                                                      self?.didTappedCell(location: coordinate)
+                                                                  }))
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingLocationCell", for: indexPath) as! IncomingLocationCell
+                cell.configure(model: LocationCellViewModel(date: messages[indexPath.row].sentDate,
+                                                    userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                        location: location,
+                                                         tapCell: { [weak self] coordinate in
+                                                                      self?.didTappedCell(location: coordinate)
+                                                                  }))
+                return cell
+            }
         }
+    }
+    
+    private func didTappedCell(location: CLLocationCoordinate2D) {
+        delegate?.didTappedLocationCell(withLocation: location, viewController: self)
     }
     
     private func registerCell() {
@@ -364,5 +393,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "IncomingMessageCell")
         tableView.register(UINib(nibName: "OutgoingImageCell", bundle: nil), forCellReuseIdentifier: "OutgoingImageCell")
         tableView.register(UINib(nibName: "IncomingImageCell", bundle: nil), forCellReuseIdentifier: "IncomingImageCell")
+        tableView.register(UINib(nibName: "OutgoingLocationCell", bundle: nil), forCellReuseIdentifier: "OutgoingLocationCell")
+        tableView.register(UINib(nibName: "IncomingLocationCell", bundle: nil), forCellReuseIdentifier: "IncomingLocationCell")
     }
 }

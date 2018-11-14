@@ -14,4 +14,5 @@ protocol ChatAssemblyProtocol {
     func createChatViewController(currentUser: User, toUser: User, messages: [Message]) -> ChatViewController
     func createUsersViewController(with users: [User]) -> UsersViewController
     func createAddUserViewController() -> AddUserViewController
+    func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController
 }

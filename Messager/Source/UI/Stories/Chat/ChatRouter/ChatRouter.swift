@@ -13,6 +13,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var chatViewController: ChatViewController?
     private var usersViewController: UsersViewController?
     private var addUserViewController: AddUserViewController?
+    private var mapViewController: MapViewController?
     lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
@@ -191,10 +192,19 @@ extension ChatRouter: AddUserViewControllerDelegate {
 
 extension ChatRouter: ChatViewControllerDelegate {
     
+    func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController) {
+        let vc = assembly.createMapViewController(withLocation: location)
+        self.mapViewController = vc
+        action(with: vc,
+               from: viewController.navigationController!,
+               with: .push,
+           animated: true)
+    }
+    
     func didTouchGetCurrentLocation(viewController: ChatViewController) {
         assembly.appAssembly.locationManager
         .getCurrentLocation(successBlock: { coordinate in
-                                              print(coordinate)
+                                              viewController.newMessage(withLocation: coordinate)
                                           },
                               errorBlock: {
                                               print("error")

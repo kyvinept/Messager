@@ -39,6 +39,12 @@
 		5B737D0A218B047000455FF8 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D09218B047000455FF8 /* AddUserViewController.swift */; };
 		5B737D0C218B306A00455FF8 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D0B218B306A00455FF8 /* Date.swift */; };
 		5B737D0E218B311700455FF8 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737D0D218B311700455FF8 /* String.swift */; };
+		5B7439B9219C0D3B00D64EFB /* IncomingLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7439B7219C0D3B00D64EFB /* IncomingLocationCell.swift */; };
+		5B7439BA219C0D3B00D64EFB /* IncomingLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7439B8219C0D3B00D64EFB /* IncomingLocationCell.xib */; };
+		5B7439BF219C0D7300D64EFB /* OutgoingLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7439BD219C0D7300D64EFB /* OutgoingLocationCell.swift */; };
+		5B7439C0219C0D7300D64EFB /* OutgoingLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7439BE219C0D7300D64EFB /* OutgoingLocationCell.xib */; };
+		5B7439C2219C104800D64EFB /* LocationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */; };
+		5B7439C4219C17AF00D64EFB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7439C3219C17AF00D64EFB /* MapViewController.swift */; };
 		5B76B5012180982E003B5351 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5002180982E003B5351 /* Message.swift */; };
 		5B76B5042180BB71003B5351 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76B5032180BB71003B5351 /* KeychainManager.swift */; };
 		5B7828FA21874DE800059F6B /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828F821874DE800059F6B /* UserCell.swift */; };
@@ -111,6 +117,12 @@
 		5B737D09218B047000455FF8 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		5B737D0B218B306A00455FF8 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5B737D0D218B311700455FF8 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5B7439B7219C0D3B00D64EFB /* IncomingLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingLocationCell.swift; sourceTree = "<group>"; };
+		5B7439B8219C0D3B00D64EFB /* IncomingLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingLocationCell.xib; sourceTree = "<group>"; };
+		5B7439BD219C0D7300D64EFB /* OutgoingLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingLocationCell.swift; sourceTree = "<group>"; };
+		5B7439BE219C0D7300D64EFB /* OutgoingLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingLocationCell.xib; sourceTree = "<group>"; };
+		5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCellViewModel.swift; sourceTree = "<group>"; };
+		5B7439C3219C17AF00D64EFB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5B76B5002180982E003B5351 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5B76B5032180BB71003B5351 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		5B7828F821874DE800059F6B /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -371,6 +383,33 @@
 			path = DatabaseMapper;
 			sourceTree = "<group>";
 		};
+		5B7439B4219C0CF200D64EFB /* LocationCell */ = {
+			isa = PBXGroup;
+			children = (
+				5B7439B6219C0D0A00D64EFB /* Incoming */,
+				5B7439B5219C0D0100D64EFB /* Outgoing */,
+			);
+			path = LocationCell;
+			sourceTree = "<group>";
+		};
+		5B7439B5219C0D0100D64EFB /* Outgoing */ = {
+			isa = PBXGroup;
+			children = (
+				5B7439BD219C0D7300D64EFB /* OutgoingLocationCell.swift */,
+				5B7439BE219C0D7300D64EFB /* OutgoingLocationCell.xib */,
+			);
+			path = Outgoing;
+			sourceTree = "<group>";
+		};
+		5B7439B6219C0D0A00D64EFB /* Incoming */ = {
+			isa = PBXGroup;
+			children = (
+				5B7439B7219C0D3B00D64EFB /* IncomingLocationCell.swift */,
+				5B7439B8219C0D3B00D64EFB /* IncomingLocationCell.xib */,
+			);
+			path = Incoming;
+			sourceTree = "<group>";
+		};
 		5B76B5022180BB11003B5351 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +421,7 @@
 		5B7828F721874DBF00059F6B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5B7439B4219C0CF200D64EFB /* LocationCell */,
 				5BB514DA2188A051003D2C04 /* ImageCell */,
 				5B65F8B321886D9A006EF9F8 /* MessageCell */,
 				5B65F8B221886D8F006EF9F8 /* UserCell */,
@@ -395,6 +435,7 @@
 				5B7828FD2187502B00059F6B /* UserCellViewModel.swift */,
 				5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */,
 				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
+				5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -669,6 +710,7 @@
 				5BD3EBE5217F688600FD3D83 /* UsersViewController.swift */,
 				5BD3EBE3217F687A00FD3D83 /* ChatViewController.swift */,
 				5B737D09218B047000455FF8 /* AddUserViewController.swift */,
+				5B7439C3219C17AF00D64EFB /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -769,8 +811,10 @@
 				0F22E1B61E8407D1004B722A /* Assets.xcassets in Resources */,
 				5BD3EBE2217F683000FD3D83 /* Chat.storyboard in Resources */,
 				5BB514E22188A0AB003D2C04 /* OutgoingImageCell.xib in Resources */,
+				5B7439BA219C0D3B00D64EFB /* IncomingLocationCell.xib in Resources */,
 				0F22E1B41E8407D1004B722A /* Authorization.storyboard in Resources */,
 				5B7828FB21874DE800059F6B /* UserCell.xib in Resources */,
+				5B7439C0219C0D7300D64EFB /* OutgoingLocationCell.xib in Resources */,
 				5B6765022189AD1000239DCF /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -882,6 +926,7 @@
 				5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */,
 				5B7828FA21874DE800059F6B /* UserCell.swift in Sources */,
 				5B737D0E218B311700455FF8 /* String.swift in Sources */,
+				5B7439C2219C104800D64EFB /* LocationCellViewModel.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
 				5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */,
@@ -889,10 +934,12 @@
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */,
 				5B12F7A6218A11C60051DADC /* Messager.xcdatamodeld in Sources */,
+				5B7439BF219C0D7300D64EFB /* OutgoingLocationCell.swift in Sources */,
 				5B6765122189E5FF00239DCF /* SettingsAssemblyProtocol.swift in Sources */,
 				5B6765082189B5A400239DCF /* Mapper.swift in Sources */,
 				5BD3EBEA217F68BA00FD3D83 /* ChatAssemblyProtocol.swift in Sources */,
 				5B737D08218AF58700455FF8 /* DatabaseMapper.swift in Sources */,
+				5B7439B9219C0D3B00D64EFB /* IncomingLocationCell.swift in Sources */,
 				5B737D0A218B047000455FF8 /* AddUserViewController.swift in Sources */,
 				5B69DF5D2181E55F0072E76E /* ApiManager.swift in Sources */,
 				5B797C5F2191F97800D109D6 /* UIImageView.swift in Sources */,
@@ -902,6 +949,7 @@
 				5B801BC1218C536F004033D3 /* DatabaseMessage.swift in Sources */,
 				5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */,
 				5BB514EC2188C049003D2C04 /* UIImage.swift in Sources */,
+				5B7439C4219C17AF00D64EFB /* MapViewController.swift in Sources */,
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
 				5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */,

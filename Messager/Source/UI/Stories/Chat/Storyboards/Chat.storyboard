@@ -169,6 +169,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OutgoingLocationCell" id="zi7-Ov-hRB" customClass="OutgoingImageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="204" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zi7-Ov-hRB" id="P1p-bF-pOi">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="IncomingLocationCell" id="YkK-tP-rW8" customClass="OutgoingImageCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="248" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YkK-tP-rW8" id="aBE-gW-ztX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="25m-C8-Uid" id="ScD-ee-pm7"/>
@@ -315,6 +331,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEZ-ae-rB9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2162.4000000000001" y="131.78410794602701"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="6fR-W9-mym">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="Ebd-50-pgB" customClass="MapViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vTx-IC-hxJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hNB-Kh-FPD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7PN-Ul-iIF" firstAttribute="trailing" secondItem="hNB-Kh-FPD" secondAttribute="trailing" id="0l5-ED-eCD"/>
+                            <constraint firstItem="hNB-Kh-FPD" firstAttribute="leading" secondItem="7PN-Ul-iIF" secondAttribute="leading" id="Dfa-DW-RUN"/>
+                            <constraint firstItem="7PN-Ul-iIF" firstAttribute="bottom" secondItem="hNB-Kh-FPD" secondAttribute="bottom" id="YNr-ZM-fe8"/>
+                            <constraint firstItem="hNB-Kh-FPD" firstAttribute="top" secondItem="vTx-IC-hxJ" secondAttribute="top" id="Zyj-o4-B0s"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7PN-Ul-iIF"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapKit" destination="hNB-Kh-FPD" id="duz-Gj-B4d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MrW-tj-WHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2914" y="137"/>
         </scene>
     </scenes>
     <resources>

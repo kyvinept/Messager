@@ -34,6 +34,12 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
+    func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        vc.configure(location: location)
+        return vc
+    }
+    
     private func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Chat", bundle: nil)
     }
