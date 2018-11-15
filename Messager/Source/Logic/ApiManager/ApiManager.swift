@@ -49,6 +49,7 @@ class ApiManager {
             let message = self.mapper.map(message: dictionary)
             self.getMessageKind(text: dictionary[MessageType.text.rawValue] as! String?,
                                image: dictionary[MessageType.image.rawValue] as! String?,
+                            location: dictionary[MessageType.location.rawValue] as! String?,
                         successBlock: { messageKind in
                                            if let messageKind = messageKind {
                                                message.kind = messageKind
@@ -80,7 +81,8 @@ class ApiManager {
                                                })
             }
         case .location(let location):
-            break
+            request[MessageType.location.rawValue] = "\(location.latitude),\(location.longitude)"
+            sendMessage(message: request)
         }
     }
     
@@ -89,7 +91,7 @@ class ApiManager {
                                                        message: message,
                                                       response: { messageStatus in
                                                                     print("downloaded to real time chat")
-                                                                    self.saveMessage(message: message)
+                                                                    //self.saveMessage(message: message)
                                                                 },
                                                          error: { error in
                                                                     print("error")
@@ -199,7 +201,7 @@ class ApiManager {
     
     private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
         for dbMessage in dbMessages {
-            getMessageKind(text: dbMessage.text, image: dbMessage.image) { messageKind in
+            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location) { messageKind in
                 guard let messageKind = messageKind else {
                     errorBlock()
                     return
@@ -212,13 +214,13 @@ class ApiManager {
                                       currentUser: currentUser,
                                            toUser: toUser,
                                             block: {
-                                                        successBlock(message)
+                                                       successBlock(message)
                                                    })
             }
         }
     }
     
-    private func getMessageKind(text: String?, image: String?, successBlock: @escaping (MessageKind?) -> ()) {
+    private func getMessageKind(text: String?, image: String?, location: String?, successBlock: @escaping (MessageKind?) -> ()) {
         if let text = text {
             successBlock(MessageKind.text(text))
         } else if let url = image {
@@ -229,6 +231,11 @@ class ApiManager {
                               completionHandler: { messageKind in
                                                       successBlock(messageKind)
                                                  })
+        } else if let location = location {
+            let locationSplit = location.split(separator: ",")
+            guard let latitude = Double(locationSplit[0]),
+                  let longitude = Double(locationSplit[1]) else { return }
+            successBlock(MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
         }
     }
 }

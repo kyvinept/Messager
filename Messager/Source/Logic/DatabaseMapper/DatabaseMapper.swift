@@ -10,6 +10,7 @@ import UIKit
 enum MessageType: String {
     case text
     case image
+    case location
 }
 
 class DatabaseMapper {

@@ -67,6 +67,7 @@ class ChatViewController: UIViewController {
     
     func newMessage(withLocation location: CLLocationCoordinate2D) {
         let message = Message(sender: currentUser, messageId: String(messages.count+1), sentDate: Date(), kind: .location(location))
+        delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
         insertNewMessage(message)
     }
     

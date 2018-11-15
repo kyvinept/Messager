@@ -70,6 +70,7 @@ class Mapper {
                                 ownerId: message["ownerId"] as! String,
                                toUserId: message["toUserId"] as! String,
                                    text: message["text"] as! String?,
-                                  image: message["image"] as! String?)
+                                  image: message["image"] as! String?,
+                               location: message["location"] as! String?)
     }
 }
