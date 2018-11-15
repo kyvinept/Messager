@@ -194,6 +194,7 @@ extension ChatRouter: ChatViewControllerDelegate {
     
     func didTouchChoseLocation(viewController: ChatViewController) {
         let vc = assembly.createMapViewController()
+        vc.delegate = self
         self.mapViewController = vc
         action(with: vc,
                from: viewController.navigationController!,
@@ -227,5 +228,22 @@ extension ChatRouter: ChatViewControllerDelegate {
     func didTouchBackButton(viewController: ChatViewController) {
         viewController.navigationController?.popViewController(animated: true)
         viewController.tabBarController?.tabBar.isHidden = false
+    }
+}
+
+extension ChatRouter: MapViewControllerDelegate {
+   
+    func didChoseCustomLocation(withLocation location: CLLocationCoordinate2D, viewController: MapViewController) {
+        viewController.navigationController?.popViewController(animated: true)
+        chatViewController?.newMessage(withLocation: location)
+    }
+    
+    func didGetCurrentLocationButtonTapped(viewController: MapViewController) {
+        assembly.appAssembly.locationManager.getCurrentLocation(successBlock: { location in
+                                                                                  viewController.set(myLocation: location)
+                                                                              },
+                                                                  errorBlock: {
+                                                                                  print("error get location")
+                                                                              })
     }
 }
