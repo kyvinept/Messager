@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
-            timestampString = "563964952.436896"
+            timestampString = "563968996.3965679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
-            timestampString = "563964952.437382"
+            timestampString = "563968996.3967021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -64,6 +64,22 @@
             startingLineNumber = "32"
             endingLineNumber = "32"
             landmarkName = "didTappedCell()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/UI/Stories/Chat/ChatRouter/ChatRouter.swift"
+            timestampString = "563968996.396886"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "showChatViewController(from:currentUser:toUser:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

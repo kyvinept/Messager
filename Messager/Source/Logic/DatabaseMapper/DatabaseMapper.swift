@@ -34,7 +34,8 @@ class DatabaseMapper {
             messageEntity.type = MessageType.image.rawValue
             messageEntity.image = UIImageJPEGRepresentation(mediaItem.image, 1.0)
         case .location(let location):
-            break
+            messageEntity.type = MessageType.location.rawValue
+            messageEntity.location = "\(location.latitude),\(location.longitude)"
         }
     }
     
@@ -77,6 +78,11 @@ class DatabaseMapper {
             }
         case MessageType.text.rawValue:
             messageKind = MessageKind.text(messageEntity.text!)
+        case MessageType.location.rawValue:
+            let locationSplit = messageEntity.location!.split(separator: ",")
+            let latitude = Double(locationSplit[0])!
+            let longitude = Double(locationSplit[1])!
+            messageKind = MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         default:
             break
         }

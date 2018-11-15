@@ -91,7 +91,7 @@ class ApiManager {
                                                        message: message,
                                                       response: { messageStatus in
                                                                     print("downloaded to real time chat")
-                                                                    //self.saveMessage(message: message)
+                                                                    self.saveMessage(message: message)
                                                                 },
                                                          error: { error in
                                                                     print("error")

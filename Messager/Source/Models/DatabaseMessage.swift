@@ -24,5 +24,6 @@ class DatabaseMessage {
         self.toUserId = toUserId
         self.text = text
         self.image = image
+        self.location = location
     }
 }

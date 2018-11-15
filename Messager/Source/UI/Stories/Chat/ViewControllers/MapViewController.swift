@@ -53,9 +53,10 @@ class MapViewController: UIViewController {
     }
     
     private func setChoseLocationButton() {
-        let choseLocationButton = UIBarButtonItem(barButtonSystemItem: .action,
-                                                               target: self,
-                                                               action: #selector(MapViewController.choseLocationButtonTapped))
+        let choseLocationButton = UIBarButtonItem(title: "Chose",
+                                                  style: .done,
+                                                 target: self,
+                                                 action: #selector(MapViewController.choseLocationButtonTapped))
         self.navigationItem.rightBarButtonItem = choseLocationButton
     }
     
