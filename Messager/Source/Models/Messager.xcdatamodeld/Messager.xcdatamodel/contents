@@ -8,6 +8,7 @@
         <attribute name="sentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="messages" inverseEntity="UserEntity" syncable="YES"/>
     </entity>
     <entity name="UserEntity" representedClassName="UserEntity" syncable="YES" codeGenerationType="class">
@@ -20,7 +21,7 @@
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="165"/>
+        <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="180"/>
         <element name="UserEntity" positionX="-113.75390625" positionY="-56.24609375" width="128" height="150"/>
     </elements>
 </model>

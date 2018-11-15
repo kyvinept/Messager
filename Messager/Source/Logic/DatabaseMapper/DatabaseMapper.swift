@@ -10,6 +10,7 @@ import UIKit
 enum MessageType: String {
     case text
     case image
+    case video
     case location
 }
 
@@ -36,6 +37,9 @@ class DatabaseMapper {
         case .location(let location):
             messageEntity.type = MessageType.location.rawValue
             messageEntity.location = "\(location.latitude),\(location.longitude)"
+        case .video(let videoItem):
+            messageEntity.type = MessageType.video.rawValue
+            messageEntity.video = videoItem.videoUrl.absoluteString
         }
     }
     
@@ -83,6 +87,8 @@ class DatabaseMapper {
             let latitude = Double(locationSplit[0])!
             let longitude = Double(locationSplit[1])!
             messageKind = MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        case MessageType.video.rawValue:
+            messageKind = MessageKind.video(VideoItem(videoUrl: URL(string: messageEntity.video!)!, downloaded: true))
         default:
             break
         }

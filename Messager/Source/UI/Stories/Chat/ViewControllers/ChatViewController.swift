@@ -7,6 +7,7 @@
 
 import UIKit
 import JGProgressHUD
+import AVFoundation
 
 protocol ChatViewControllerDelegate: class {
     
@@ -116,12 +117,24 @@ class ChatViewController: UIViewController {
         let alert = UIAlertController(title: nil,
                                     message: nil,
                              preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Video",
+                                      style: .default,
+                                    handler: { _ in
+                                                 let video = UIImagePickerController()
+                                                 video.delegate = self
+                                                 video.sourceType = .photoLibrary
+                                                 video.mediaTypes = ["public.movie"]
+                                                 self.present(video,
+                                                              animated: true,
+                                                            completion: nil)
+                                             }))
         alert.addAction(UIAlertAction(title: "Gallery",
                                       style: .default,
                                     handler: { _ in
                                                  let gallary = UIImagePickerController()
                                                  gallary.delegate = self
                                                  gallary.sourceType = .photoLibrary
+                                                 gallary.mediaTypes = ["public.image"]
                                                  self.present(gallary,
                                                               animated: true,
                                                               completion: nil)
@@ -289,22 +302,32 @@ extension ChatViewController: UITextViewDelegate {
 }
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         self.dismiss(animated: true, completion: nil)
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let size = image.getSizeForMessage()
-        
-        let message = Message(sender: currentUser!,
-                           messageId: String(messages.count+1),
-                            sentDate: Date(),
-                                kind: MessageKind.photo(MediaItem(image: image,
-                                                                   size: size,
-                                                             downloaded: false)))
-        insertNewMessage(message)
-        delegate?.didTouchSendMessageButton(with: message,
-                                          toUser: toUser,
-                                  viewController: self)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            let size = image.getSizeForMessage()
+            
+            let message = Message(sender: currentUser!,
+                               messageId: String(messages.count+1),
+                                sentDate: Date(),
+                                    kind: MessageKind.photo(MediaItem(image: image,
+                                                                       size: size,
+                                                                 downloaded: false)))
+            insertNewMessage(message)
+            delegate?.didTouchSendMessageButton(with: message,
+                                              toUser: toUser,
+                                      viewController: self)
+        } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? URL {
+            let message = Message(sender: currentUser!,
+                               messageId: String(messages.count+1),
+                                sentDate: Date(),
+                                    kind: MessageKind.video(VideoItem(videoUrl: videoUrl, downloaded: false)))
+            insertNewMessage(message)
+            delegate?.didTouchSendMessageButton(with: message,
+                                              toUser: toUser,
+                                      viewController: self)
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -383,6 +406,24 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                                                                   }))
                 return cell
             }
+            
+        case .video(let videoItem):
+            
+            if messages[indexPath.row].sender == currentUser! {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCell", for: indexPath) as! OutgoingVideoCell
+                cell.configure(model: VideoCellViewModel(date: messages[indexPath.row].sentDate,
+                                                 userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                        video: videoItem.videoUrl,
+                                                   downloaded: videoItem.downloaded))
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCell", for: indexPath) as! IncomingVideoCell
+                cell.configure(model: VideoCellViewModel(date: messages[indexPath.row].sentDate,
+                                                 userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                        video: videoItem.videoUrl,
+                                                   downloaded: true))
+                return cell
+            }
         }
     }
     
@@ -397,5 +438,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(UINib(nibName: "IncomingImageCell", bundle: nil), forCellReuseIdentifier: "IncomingImageCell")
         tableView.register(UINib(nibName: "OutgoingLocationCell", bundle: nil), forCellReuseIdentifier: "OutgoingLocationCell")
         tableView.register(UINib(nibName: "IncomingLocationCell", bundle: nil), forCellReuseIdentifier: "IncomingLocationCell")
+        tableView.register(UINib(nibName: "OutgoingVideoCell", bundle: nil), forCellReuseIdentifier: "OutgoingVideoCell")
+        tableView.register(UINib(nibName: "IncomingVideoCell", bundle: nil), forCellReuseIdentifier: "IncomingVideoCell")
     }
 }

@@ -8,13 +8,14 @@
 import UIKit
 import Cloudinary
 
-class ImageManager {
+class MediaManager {
     
     private let cloudinaryUrl = "cloudinary://335865959162651:a6r9CrEp64WEkIHihFWGJccYlAA@dfneucqih"
-    private var cloudinary: CLDCloudinary!
+    private var cloudinary: CLDCloudinary
 
     init() {
         cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudinaryUrl: cloudinaryUrl)!)
+
     }
     
     func downloadImage(url: String, progress: @escaping (Double) -> (), completionHandler: @escaping (UIImage?) -> ()) {
@@ -49,5 +50,18 @@ class ImageManager {
                                     completionHandler(url)
                                 }
                             })
+    }
+    
+    func uploadVideo(url: URL, chunkSize: Int, progress: @escaping (Double) -> (), completionHandler: @escaping (String?) -> ()) {
+        cloudinary.createUploader().signedUpload(url: url,
+                                              params: CLDUploadRequestParams().setResourceType("video") as! CLDUploadRequestParams,
+                                            progress: { prog in
+                                                           progress(prog.fractionCompleted)
+                                                      },
+                                   completionHandler: { result, error in
+                                                           if let url = result?.url {
+                                                               completionHandler(url)
+                                                           }
+                                                      })
     }
 }

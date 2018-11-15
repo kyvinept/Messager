@@ -14,16 +14,16 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     lazy var databaseManager = DatabaseManager(databaseMapper: databaseMapper)
     lazy var locationManager = LocationManager()
     
-    lazy private var imageManager = ImageManager()
+    lazy private var mediaManager = MediaManager()
     lazy private var mapper = Mapper()
     lazy private var databaseMapper = DatabaseMapper()
     
     private func createAuthorizationManager() -> AuthorizationManager {
         let keychain = KeychainManager()
-        return AuthorizationManager(with: keychain, mapper: mapper, databaseManager: databaseManager, imageManager: imageManager, apiManager: apiManager)
+        return AuthorizationManager(with: keychain, mapper: mapper, databaseManager: databaseManager, imageManager: mediaManager, apiManager: apiManager)
     }
     
     private func createApiManager() -> ApiManager {
-        return ApiManager(mapper: mapper, imageManager: imageManager, databaseManager: databaseManager)
+        return ApiManager(mapper: mapper, mediaManager: mediaManager, databaseManager: databaseManager)
     }
 }

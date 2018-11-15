@@ -11,6 +11,7 @@ enum MessageKind {
 
     case text(String)
     case photo(MediaItem)
+    case video(VideoItem)
     case location(CLLocationCoordinate2D)
 }
 

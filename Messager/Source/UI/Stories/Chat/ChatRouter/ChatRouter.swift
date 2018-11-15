@@ -47,7 +47,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                       self.checkNewMessages(currentUser: currentUser, toUser: toUser)
                                   },
                       errorBlock: { error in
-                                        print("error")
+                                      print("error")
                                   })
         realtimeChat(currentUser: currentUser, toUser: toUser)
     }

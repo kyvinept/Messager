@@ -19,13 +19,13 @@ class ApiManager {
     private var dataStore: IDataStore?
     private let tableName = "Message"
     private var channel: Channel?
-    private var imageManager: ImageManager
+    private var mediaManager: MediaManager
     private let timeIntervalForRequest = 5.0
     private var databaseManager: DatabaseManager
     
-    init(mapper: Mapper, imageManager: ImageManager, databaseManager: DatabaseManager) {
+    init(mapper: Mapper, mediaManager: MediaManager, databaseManager: DatabaseManager) {
         self.mapper = mapper
-        self.imageManager = imageManager
+        self.mediaManager = mediaManager
         self.databaseManager = databaseManager
     }
     
@@ -50,6 +50,7 @@ class ApiManager {
             self.getMessageKind(text: dictionary[MessageType.text.rawValue] as! String?,
                                image: dictionary[MessageType.image.rawValue] as! String?,
                             location: dictionary[MessageType.location.rawValue] as! String?,
+                               video: dictionary[MessageType.video.rawValue] as! String?,
                         successBlock: { messageKind in
                                            if let messageKind = messageKind {
                                                message.kind = messageKind
@@ -70,7 +71,7 @@ class ApiManager {
             self.sendMessage(message: request)
         case .photo(let mediaItem):
             if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
-                imageManager.uploadImage(data: data,
+                mediaManager.uploadImage(data: data,
                                      progress: { (progress) in
                                                    print(progress)
                                                },
@@ -83,6 +84,17 @@ class ApiManager {
         case .location(let location):
             request[MessageType.location.rawValue] = "\(location.latitude),\(location.longitude)"
             sendMessage(message: request)
+        case .video(let videoItem):
+            mediaManager.uploadVideo(url: videoItem.videoUrl,
+                               chunkSize: videoItem.bytes,
+                                progress: { progress in
+                                               print(progress)
+                                          },
+                       completionHandler: { url in
+                                               guard let url = url else { return }
+                                               request[MessageType.video.rawValue] = url
+                                               self.sendMessage(message: request)
+                                          })
         }
     }
     
@@ -201,7 +213,7 @@ class ApiManager {
     
     private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
         for dbMessage in dbMessages {
-            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location) { messageKind in
+            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video) { messageKind in
                 guard let messageKind = messageKind else {
                     errorBlock()
                     return
@@ -220,11 +232,11 @@ class ApiManager {
         }
     }
     
-    private func getMessageKind(text: String?, image: String?, location: String?, successBlock: @escaping (MessageKind?) -> ()) {
+    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, successBlock: @escaping (MessageKind?) -> ()) {
         if let text = text {
             successBlock(MessageKind.text(text))
         } else if let url = image {
-            self.imageManager.downloadImage(url: url,
+            self.mediaManager.downloadImage(url: url,
                                        progress: { (progress) in
                                                       print(progress)
                                                  },
@@ -236,6 +248,8 @@ class ApiManager {
             guard let latitude = Double(locationSplit[0]),
                   let longitude = Double(locationSplit[1]) else { return }
             successBlock(MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
+        } else if let video = video {
+            successBlock(MessageKind.video(VideoItem(videoUrl: URL(string: video)!, downloaded: true)))
         }
     }
 }

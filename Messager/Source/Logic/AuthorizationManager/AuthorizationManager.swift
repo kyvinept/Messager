@@ -16,13 +16,13 @@ class AuthorizationManager {
     private var keychainManager: KeychainManager
     private var mapper: Mapper
     private var databaseManager: DatabaseManager
-    private var imageManager: ImageManager
+    private var imageManager: MediaManager
     private var apiManager: ApiManager
     var currentUser: User? {
         return keychainManager.getCurrentUser()
     }
     
-    init(with keychainManager: KeychainManager, mapper: Mapper, databaseManager: DatabaseManager, imageManager: ImageManager, apiManager: ApiManager) {
+    init(with keychainManager: KeychainManager, mapper: Mapper, databaseManager: DatabaseManager, imageManager: MediaManager, apiManager: ApiManager) {
         Backendless.sharedInstance().hostURL = SERVER_URL
         Backendless.sharedInstance().initApp(APPLICATION_ID, apiKey: API_KEY)
         

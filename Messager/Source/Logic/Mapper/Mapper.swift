@@ -71,6 +71,7 @@ class Mapper {
                                toUserId: message["toUserId"] as! String,
                                    text: message["text"] as! String?,
                                   image: message["image"] as! String?,
-                               location: message["location"] as! String?)
+                               location: message["location"] as! String?,
+                                  video: message["video"] as! String?)
     }
 }

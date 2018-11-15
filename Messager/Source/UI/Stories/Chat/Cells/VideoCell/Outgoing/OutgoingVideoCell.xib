@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="213" id="KGk-i7-Jjw" customClass="OutgoingVideoCell" customModule="Messager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="427" height="213"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="427" height="212.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="Sfp-lO-NL9">
+                        <rect key="frame" x="369" y="154.5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="Tpa-3k-e95"/>
+                            <constraint firstAttribute="width" constant="50" id="eQg-UA-GC4"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSv-US-l6b">
+                        <rect key="frame" x="74" y="8" width="287" height="200"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="oVw-Lm-YBR">
+                                <rect key="frame" x="113.5" y="70" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="GP5-TX-pY2"/>
+                                    <constraint firstAttribute="width" constant="60" id="O8K-Cm-6dg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59215686270000001" green="0.76651557550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="Gcl-6G-76P"/>
+                            <constraint firstItem="oVw-Lm-YBR" firstAttribute="centerY" secondItem="gSv-US-l6b" secondAttribute="centerY" id="Mqv-pk-rt9"/>
+                            <constraint firstItem="oVw-Lm-YBR" firstAttribute="centerX" secondItem="gSv-US-l6b" secondAttribute="centerX" id="sjo-uo-foh"/>
+                            <constraint firstAttribute="width" constant="287" id="sk3-EI-kbF"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Sfp-lO-NL9" firstAttribute="leading" secondItem="gSv-US-l6b" secondAttribute="trailing" constant="8" id="4Vg-qY-80I"/>
+                    <constraint firstItem="gSv-US-l6b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="B3r-Tr-Hyg"/>
+                    <constraint firstAttribute="trailing" secondItem="Sfp-lO-NL9" secondAttribute="trailing" constant="8" id="F8p-4m-OYU"/>
+                    <constraint firstAttribute="bottom" secondItem="gSv-US-l6b" secondAttribute="bottom" constant="8" id="bc7-SC-uWV"/>
+                    <constraint firstAttribute="bottom" secondItem="Sfp-lO-NL9" secondAttribute="bottom" constant="8" id="pal-Le-fzM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="heightVideoViewConstraint" destination="Gcl-6G-76P" id="VHs-tV-dgK"/>
+                <outlet property="playButton" destination="oVw-Lm-YBR" id="l9L-Ld-0uX"/>
+                <outlet property="userImage" destination="Sfp-lO-NL9" id="SA4-ds-BFC"/>
+                <outlet property="videoView" destination="gSv-US-l6b" id="1Kd-k2-vBb"/>
+                <outlet property="widthVideoViewConstraint" destination="sk3-EI-kbF" id="nT3-0s-4wS"/>
+            </connections>
+            <point key="canvasLocation" x="-194.40000000000001" y="108.39580209895054"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="person" width="128" height="128"/>
+        <image name="play" width="32" height="32"/>
+    </resources>
+</document>
