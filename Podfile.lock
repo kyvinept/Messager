@@ -7,6 +7,7 @@ PODS:
     - Chatto
   - Cloudinary (2.4.0):
     - Alamofire (~> 4.7.2)
+  - GiphyCoreSDK (1.4.0)
   - JGProgressHUD (2.0.3)
   - MessageKit (1.0.0)
   - SDWebImage (4.4.2):
@@ -15,6 +16,7 @@ PODS:
   - Socket.IO-Client-Swift (13.3.1):
     - Starscream (~> 3.0.2)
   - Starscream (3.0.6)
+  - SwiftGifOrigin (1.6.1)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
@@ -22,9 +24,11 @@ DEPENDENCIES:
   - Chatto (= 3.3.1)
   - ChattoAdditions (= 3.3.1)
   - Cloudinary (~> 2.0)
+  - GiphyCoreSDK
   - JGProgressHUD
   - MessageKit (~> 1.0.0)
   - SDWebImage
+  - SwiftGifOrigin
   - SwiftyJSON
 
 SPEC REPOS:
@@ -34,11 +38,13 @@ SPEC REPOS:
     - Chatto
     - ChattoAdditions
     - Cloudinary
+    - GiphyCoreSDK
     - JGProgressHUD
     - MessageKit
     - SDWebImage
     - Socket.IO-Client-Swift
     - Starscream
+    - SwiftGifOrigin
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -47,13 +53,15 @@ SPEC CHECKSUMS:
   Chatto: 24a6c9b0c91b08130466888b8b61563b90191c6f
   ChattoAdditions: cc74cd3dd371aa3f70e5ab8568a4f383f0c0eb8c
   Cloudinary: d87b545d6a5d00c4022bec964839fdaf359d7c53
+  GiphyCoreSDK: 1fe401c5fc65f182e7aa8b7fb2c9005f2a523374
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   MessageKit: 16160036b16476b04bd0e9f2c7ce67e662e503e4
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Socket.IO-Client-Swift: 79f8f85fa44881838175a20f9bd2c32bef2c9d37
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: a4c17dc1409d9e2628bdc511df340ec6cf1b4557
+PODFILE CHECKSUM: 6f36b7c74638b7ddd58330ba44b882e807054460
 
 COCOAPODS: 1.5.3

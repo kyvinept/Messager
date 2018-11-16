@@ -16,6 +16,7 @@ protocol ChatViewControllerDelegate: class {
     func didTouchGetCurrentLocation(viewController: ChatViewController)
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController)
     func didTouchChoseLocation(viewController: ChatViewController)
+    func didTappedGiphyButton(viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -28,7 +29,11 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var sendMessageButtonLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var noMassageLabel: UILabel!
+    @IBOutlet private weak var giphyView: UIView!
+    @IBOutlet private weak var bottomGiphyViewConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var giphyViewHeight: NSLayoutConstraint!
     
+    private var giphyViewController: GiphyViewController!
     private var progress: JGProgressHUD?
     private var messages = [Message]()
     private var currentUser: User!
@@ -44,6 +49,7 @@ class ChatViewController: UIViewController {
         addGesture()
         setBaseUIComponents()
         setActivityIndicator()
+        addGiphyViewController(giphyViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,10 +60,11 @@ class ChatViewController: UIViewController {
         }
     }
 
-    func configure(with currentUser: User, toUser: User, messages: [Message]) {
+    func configure(with currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) {
         self.currentUser = currentUser
         self.toUser = toUser
         self.messages = messages
+        self.giphyViewController = giphyViewController
     }
 
     func showNewMessage(_ message: Message) {
@@ -71,7 +78,7 @@ class ChatViewController: UIViewController {
         delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
         insertNewMessage(message)
     }
-    
+        
     func update(message: Message) {
         let oldMessage = messages.first { $0 == message }
         if let oldMessage = oldMessage {
@@ -93,6 +100,19 @@ class ChatViewController: UIViewController {
         progress?.dismiss()
     }
     
+    @IBAction func giphyButtonTapped(_ sender: Any) {
+        delegate?.didTappedGiphyButton(viewController: self)
+        removeNotification()
+        self.view.endEditing(true)
+        bottomGiphyViewConstraint.constant = 0
+        textViewBottomConstraint.constant = -giphyViewHeight.constant
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+            self.tableView.scrollToBottom(animated: true)
+        }
+        addNotification()
+    }
+    
     private func setBaseUIComponents() {
         sendMessageButton.alpha = 0
         textView.isScrollEnabled = false
@@ -102,6 +122,16 @@ class ChatViewController: UIViewController {
     private func setActivityIndicator() {
         progress = JGProgressHUD(style: .dark)
         progress?.show(in: self.view)
+    }
+    
+    private func addGiphyViewController(_ viewController: GiphyViewController) {
+        self.addChildViewController(viewController)
+        giphyView.addSubview(viewController.view)
+        
+        giphyView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .bottom, relatedBy: .equal, toItem: giphyView, attribute: .bottom, multiplier: 1, constant: 0))
+        giphyView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .left, relatedBy: .equal, toItem: giphyView, attribute: .left, multiplier: 1, constant: 0))
+        giphyView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .right, relatedBy: .equal, toItem: giphyView, attribute: .right, multiplier: 1, constant: 0))
+        giphyView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .top, relatedBy: .equal, toItem: giphyView, attribute: .top, multiplier: 1, constant: 0))
     }
     
     private func createBackButton() {
@@ -224,6 +254,11 @@ extension ChatViewController {
     
     @objc func viewWasTapped(_ gesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
+        bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
+        textViewBottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
@@ -240,8 +275,14 @@ extension ChatViewController {
                                                object: nil)
     }
     
+    private func removeNotification() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            giphyViewHeight.constant = (keyboardSize.height - self.view.safeAreaInsets.bottom)
+            bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
             textViewBottomConstraint.constant = -(keyboardSize.height - self.view.safeAreaInsets.bottom)
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()

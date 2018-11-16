@@ -55,11 +55,17 @@
 		5B774AFA219DA85D00D201D6 /* OutgoingVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B774AF8219DA85D00D201D6 /* OutgoingVideoCell.xib */; };
 		5B774AFC219DA89600D201D6 /* VideoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B774AFB219DA89600D201D6 /* VideoCellViewModel.swift */; };
 		5B774AFE219DB46C00D201D6 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B774AFD219DB46C00D201D6 /* URL.swift */; };
+		5B774B01219DCD2A00D201D6 /* GiphyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B774B00219DCD2A00D201D6 /* GiphyManager.swift */; };
 		5B7828FA21874DE800059F6B /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828F821874DE800059F6B /* UserCell.swift */; };
 		5B7828FB21874DE800059F6B /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B7828F921874DE800059F6B /* UserCell.xib */; };
 		5B7828FE2187502B00059F6B /* UserCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7828FD2187502B00059F6B /* UserCellViewModel.swift */; };
 		5B797C5F2191F97800D109D6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B797C5E2191F97800D109D6 /* UIImageView.swift */; };
 		5B801BC1218C536F004033D3 /* DatabaseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B801BC0218C536F004033D3 /* DatabaseMessage.swift */; };
+		5B972A3A219EB43100DAD8FB /* GiphyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B972A39219EB43100DAD8FB /* GiphyViewController.swift */; };
+		5B972A3C219EB58800DAD8FB /* Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B972A3B219EB58800DAD8FB /* Giphy.swift */; };
+		5B972A3E219F12F900DAD8FB /* GiphyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B972A3D219F12F900DAD8FB /* GiphyCellViewModel.swift */; };
+		5B972A43219F139B00DAD8FB /* OutgoingGiphyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B972A41219F139B00DAD8FB /* OutgoingGiphyCell.swift */; };
+		5B972A44219F139B00DAD8FB /* OutgoingGiphyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B972A42219F139B00DAD8FB /* OutgoingGiphyCell.xib */; };
 		5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */; };
 		5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E2181217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift */; };
 		5B9E2184217DC4F400884A96 /* ApplicationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E2183217DC4F400884A96 /* ApplicationRouter.swift */; };
@@ -141,11 +147,17 @@
 		5B774AF8219DA85D00D201D6 /* OutgoingVideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingVideoCell.xib; sourceTree = "<group>"; };
 		5B774AFB219DA89600D201D6 /* VideoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCellViewModel.swift; sourceTree = "<group>"; };
 		5B774AFD219DB46C00D201D6 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		5B774B00219DCD2A00D201D6 /* GiphyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyManager.swift; sourceTree = "<group>"; };
 		5B7828F821874DE800059F6B /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		5B7828F921874DE800059F6B /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		5B7828FD2187502B00059F6B /* UserCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellViewModel.swift; sourceTree = "<group>"; };
 		5B797C5E2191F97800D109D6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		5B801BC0218C536F004033D3 /* DatabaseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessage.swift; sourceTree = "<group>"; };
+		5B972A39219EB43100DAD8FB /* GiphyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyViewController.swift; sourceTree = "<group>"; };
+		5B972A3B219EB58800DAD8FB /* Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giphy.swift; sourceTree = "<group>"; };
+		5B972A3D219F12F900DAD8FB /* GiphyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyCellViewModel.swift; sourceTree = "<group>"; };
+		5B972A41219F139B00DAD8FB /* OutgoingGiphyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingGiphyCell.swift; sourceTree = "<group>"; };
+		5B972A42219F139B00DAD8FB /* OutgoingGiphyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingGiphyCell.xib; sourceTree = "<group>"; };
 		5B9E217F217DC4CC00884A96 /* ApplicationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssembly.swift; sourceTree = "<group>"; };
 		5B9E2181217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B9E2183217DC4F400884A96 /* ApplicationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationRouter.swift; sourceTree = "<group>"; };
@@ -463,9 +475,18 @@
 			path = Outgoing;
 			sourceTree = "<group>";
 		};
+		5B774AFF219DCD0300D201D6 /* GiphyManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B774B00219DCD2A00D201D6 /* GiphyManager.swift */,
+			);
+			path = GiphyManager;
+			sourceTree = "<group>";
+		};
 		5B7828F721874DBF00059F6B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5B972A3F219F136900DAD8FB /* GiphyCell */,
 				5B774AEE219DA7FA00D201D6 /* VideoCell */,
 				5B7439B4219C0CF200D64EFB /* LocationCell */,
 				5BB514DA2188A051003D2C04 /* ImageCell */,
@@ -483,8 +504,26 @@
 				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
 				5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */,
 				5B774AFB219DA89600D201D6 /* VideoCellViewModel.swift */,
+				5B972A3D219F12F900DAD8FB /* GiphyCellViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5B972A3F219F136900DAD8FB /* GiphyCell */ = {
+			isa = PBXGroup;
+			children = (
+				5B972A40219F137400DAD8FB /* Outgoing */,
+			);
+			path = GiphyCell;
+			sourceTree = "<group>";
+		};
+		5B972A40219F137400DAD8FB /* Outgoing */ = {
+			isa = PBXGroup;
+			children = (
+				5B972A41219F139B00DAD8FB /* OutgoingGiphyCell.swift */,
+				5B972A42219F139B00DAD8FB /* OutgoingGiphyCell.xib */,
+			);
+			path = Outgoing;
 			sourceTree = "<group>";
 		};
 		5B9E2171217DC34900884A96 /* AppDelegate */ = {
@@ -520,6 +559,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B774AFF219DCD0300D201D6 /* GiphyManager */,
 				5B4237DD219B31CA0042D836 /* LocationManager */,
 				5B737D06218AF57800455FF8 /* DatabaseMapper */,
 				5B12F7A1218A10F00051DADC /* DatabaseManager */,
@@ -552,6 +592,7 @@
 				5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */,
 				5B801BC0218C536F004033D3 /* DatabaseMessage.swift */,
 				5B774AEC219DA1BC00D201D6 /* VideoItem.swift */,
+				5B972A3B219EB58800DAD8FB /* Giphy.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -734,8 +775,6 @@
 		5BD3EBDC217F67FD00FD3D83 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				5B7828FC2187501D00059F6B /* ViewModel */,
-				5B7828F721874DBF00059F6B /* Cells */,
 				5BD3EBE0217F682100FD3D83 /* ChatAssembly */,
 				5BD3EBDF217F681A00FD3D83 /* ChatRouter */,
 				5BD3EBDE217F681300FD3D83 /* ViewControllers */,
@@ -755,10 +794,13 @@
 		5BD3EBDE217F681300FD3D83 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5B7828F721874DBF00059F6B /* Cells */,
+				5B7828FC2187501D00059F6B /* ViewModel */,
 				5BD3EBE5217F688600FD3D83 /* UsersViewController.swift */,
 				5BD3EBE3217F687A00FD3D83 /* ChatViewController.swift */,
 				5B737D09218B047000455FF8 /* AddUserViewController.swift */,
 				5B7439C3219C17AF00D64EFB /* MapViewController.swift */,
+				5B972A39219EB43100DAD8FB /* GiphyViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -866,6 +908,7 @@
 				5B7828FB21874DE800059F6B /* UserCell.xib in Resources */,
 				5B7439C0219C0D7300D64EFB /* OutgoingLocationCell.xib in Resources */,
 				5B6765022189AD1000239DCF /* Settings.storyboard in Resources */,
+				5B972A44219F139B00DAD8FB /* OutgoingGiphyCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,10 +950,12 @@
 				"${BUILT_PRODUCTS_DIR}/Chatto/Chatto.framework",
 				"${BUILT_PRODUCTS_DIR}/ChattoAdditions/ChattoAdditions.framework",
 				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
+				"${BUILT_PRODUCTS_DIR}/GiphyCoreSDK/GiphyCoreSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftGifOrigin/SwiftGifOrigin.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -921,10 +966,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Chatto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChattoAdditions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GiphyCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGifOrigin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -964,6 +1011,7 @@
 				0F22E1B11E8407D1004B722A /* LoginViewController.swift in Sources */,
 				5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */,
 				5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */,
+				5B972A3E219F12F900DAD8FB /* GiphyCellViewModel.swift in Sources */,
 				5B67650C2189E59800239DCF /* SettingsRouter.swift in Sources */,
 				5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */,
 				5B774AFE219DB46C00D201D6 /* URL.swift in Sources */,
@@ -1008,6 +1056,7 @@
 				5BCE2849217F086F00A2B6A4 /* AuthorizationManager.swift in Sources */,
 				5B69DF5A2181BE5D0072E76E /* MediaItem.swift in Sources */,
 				5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */,
+				5B972A3C219EB58800DAD8FB /* Giphy.swift in Sources */,
 				5B6765152189EA0900239DCF /* ImageManager.swift in Sources */,
 				5BB514EA2188A2F0003D2C04 /* ImageCellViewModel.swift in Sources */,
 				5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */,
@@ -1016,10 +1065,13 @@
 				5B737D0C218B306A00455FF8 /* Date.swift in Sources */,
 				5B9E2182217DC4DB00884A96 /* ApplicationAssemblyProtocol.swift in Sources */,
 				5BCE2846217F031600A2B6A4 /* PasswordRecoveryViewController.swift in Sources */,
+				5B972A43219F139B00DAD8FB /* OutgoingGiphyCell.swift in Sources */,
+				5B972A3A219EB43100DAD8FB /* GiphyViewController.swift in Sources */,
 				5B774AFC219DA89600D201D6 /* VideoCellViewModel.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
 				5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
+				5B774B01219DCD2A00D201D6 /* GiphyManager.swift in Sources */,
 				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,

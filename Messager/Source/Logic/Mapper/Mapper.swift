@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import GiphyCoreSDK
+
+protocol GiphyMapperProtocol {
+    func map(serverGiphy: [GPHMedia]) -> [Giphy]
+}
 
 class Mapper {
     
@@ -73,5 +78,16 @@ class Mapper {
                                   image: message["image"] as! String?,
                                location: message["location"] as! String?,
                                   video: message["video"] as! String?)
+    }
+}
+
+extension Mapper: GiphyMapperProtocol {
+    
+    func map(serverGiphy: [GPHMedia]) -> [Giphy] {
+        var giphy = [Giphy]()
+        for giphyElement in serverGiphy {
+            giphy.append(Giphy(id: giphyElement.id, url: giphyElement.url))
+        }
+        return giphy
     }
 }

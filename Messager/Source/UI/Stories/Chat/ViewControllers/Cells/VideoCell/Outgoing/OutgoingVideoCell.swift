@@ -40,7 +40,7 @@ class OutgoingVideoCell: UITableViewCell {
     
     private func setTapGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(OutgoingVideoCell.videoViewTapped))
-        self.addGestureRecognizer(tap)
+        videoView.addGestureRecognizer(tap)
     }
     
     @objc private func videoViewTapped(_ gesture: UITapGestureRecognizer) {

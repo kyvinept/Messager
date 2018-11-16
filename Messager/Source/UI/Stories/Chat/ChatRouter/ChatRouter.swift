@@ -32,9 +32,12 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                           toUser: toUser,
                     successBlock: { messages in
                                       guard let messages = messages else { return }
+                                      let giphy = self.assembly.createGiphyViewController()
+                                      giphy.delegate = self
                                       let vc = self.assembly.createChatViewController(currentUser: currentUser,
                                                                                            toUser: toUser,
-                                                                                         messages: messages)
+                                                                                         messages: messages,
+                                                                              giphyViewController: giphy)
                                       vc.delegate = self
                                       self.chatViewController = vc
                                       DispatchQueue.main.async {
@@ -192,6 +195,10 @@ extension ChatRouter: AddUserViewControllerDelegate {
 
 extension ChatRouter: ChatViewControllerDelegate {
     
+    func didTappedGiphyButton(viewController: ChatViewController) {
+        
+    }
+    
     func didTouchChoseLocation(viewController: ChatViewController) {
         let vc = assembly.createMapViewController()
         vc.delegate = self
@@ -245,5 +252,17 @@ extension ChatRouter: MapViewControllerDelegate {
                                                                   errorBlock: {
                                                                                   print("error get location")
                                                                               })
+    }
+}
+
+extension ChatRouter: GiphyViewControllerDelegate {
+    
+    func didTappedGetTrendingGiphy(successBlock: @escaping ([Giphy]) -> (), viewController: GiphyViewController) {
+        assembly.appAssembly.giphyManager.getTrendingGiphy(successBlock: { giphy in
+                                                                              successBlock(giphy)
+                                                                         },
+                                                             errorBlock: { error in
+                                                                              print("error")
+                                                                         })
     }
 }

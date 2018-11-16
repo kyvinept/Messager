@@ -62,6 +62,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfL-Jq-GG6">
+                                <rect key="frame" x="0.0" y="867" width="375" height="200"/>
+                                <color key="backgroundColor" red="0.59215686270000001" green="0.76651557550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="EWP-yy-qSC"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0z-wf-lAl">
                                 <rect key="frame" x="0.0" y="625" width="375" height="42"/>
                                 <subviews>
@@ -101,6 +108,9 @@
                                             <constraint firstAttribute="width" constant="24" id="cRR-VV-hTE"/>
                                         </constraints>
                                         <state key="normal" image="happiness"/>
+                                        <connections>
+                                            <action selector="giphyButtonTapped:" destination="25m-C8-Uid" eventType="touchUpInside" id="4bc-Fq-CKH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lx-Fd-s4y">
                                         <rect key="frame" x="305" y="9" width="24" height="24"/>
@@ -226,6 +236,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="mfL-Jq-GG6" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="23d-Wa-Li9"/>
                             <constraint firstItem="f5b-0U-vLQ" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="7HF-wO-xaG"/>
                             <constraint firstItem="Ypj-Hx-JV6" firstAttribute="trailing" secondItem="f5b-0U-vLQ" secondAttribute="trailing" id="7yg-0e-kle"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="leading" secondItem="Ypj-Hx-JV6" secondAttribute="leading" id="AJt-7F-6XP"/>
@@ -235,12 +246,17 @@
                             <constraint firstItem="f5b-0U-vLQ" firstAttribute="top" secondItem="uK8-pG-7dQ" secondAttribute="top" id="YZ7-XH-Cqy"/>
                             <constraint firstItem="s0z-wf-lAl" firstAttribute="bottom" secondItem="Ypj-Hx-JV6" secondAttribute="bottom" id="hsH-MQ-08w"/>
                             <constraint firstItem="e3v-BY-HoY" firstAttribute="centerY" secondItem="uK8-pG-7dQ" secondAttribute="centerY" id="rTn-6S-fFB"/>
+                            <constraint firstItem="Ypj-Hx-JV6" firstAttribute="bottom" secondItem="mfL-Jq-GG6" secondAttribute="bottom" constant="-400" id="zcE-rL-fiw"/>
+                            <constraint firstItem="Ypj-Hx-JV6" firstAttribute="trailing" secondItem="mfL-Jq-GG6" secondAttribute="trailing" id="zlK-Ts-pZA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ypj-Hx-JV6"/>
                     </view>
                     <connections>
+                        <outlet property="bottomGiphyViewConstraint" destination="zcE-rL-fiw" id="z8g-0k-znM"/>
                         <outlet property="cameraButton" destination="lNE-tE-qAd" id="BKn-QT-iq0"/>
                         <outlet property="getFileButton" destination="2Lx-Fd-s4y" id="A8e-ba-zNO"/>
+                        <outlet property="giphyView" destination="mfL-Jq-GG6" id="g1x-iW-Jnb"/>
+                        <outlet property="giphyViewHeight" destination="EWP-yy-qSC" id="ahO-WZ-Ela"/>
                         <outlet property="noMassageLabel" destination="e3v-BY-HoY" id="X2H-Gd-8lY"/>
                         <outlet property="sendMessageButton" destination="8eR-pC-0by" id="VeM-NH-pd6"/>
                         <outlet property="sendMessageButtonLeftConstraint" destination="OVQ-n6-qaM" id="knp-mO-9k7"/>
@@ -401,6 +417,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MrW-tj-WHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2912.8000000000002" y="136.28185907046478"/>
+        </scene>
+        <!--Giphy View Controller-->
+        <scene sceneID="Rjc-U8-5wW">
+            <objects>
+                <viewController storyboardIdentifier="GiphyViewController" id="7mo-tY-Y3a" customClass="GiphyViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mlr-dN-Abz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lHb-D3-4y2">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b0v-Kb-Tw4">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="HTe-7d-00g" customClass="OutgoingGiphyCell" customModule="Messager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="7mo-tY-Y3a" id="npe-9t-eEl"/>
+                                    <outlet property="delegate" destination="7mo-tY-Y3a" id="pEA-Lh-HQG"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="r4Z-jX-Iji" firstAttribute="trailing" secondItem="lHb-D3-4y2" secondAttribute="trailing" id="GdY-Rt-9y3"/>
+                            <constraint firstItem="lHb-D3-4y2" firstAttribute="top" secondItem="r4Z-jX-Iji" secondAttribute="top" id="nvW-wj-j6M"/>
+                            <constraint firstItem="r4Z-jX-Iji" firstAttribute="bottom" secondItem="lHb-D3-4y2" secondAttribute="bottom" id="tQ3-18-0iN"/>
+                            <constraint firstItem="lHb-D3-4y2" firstAttribute="leading" secondItem="r4Z-jX-Iji" secondAttribute="leading" id="tnI-Ij-bJZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r4Z-jX-Iji"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="lHb-D3-4y2" id="7oc-9h-Y1p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ww9-TX-nau" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3660" y="135"/>
         </scene>
     </scenes>
     <resources>

@@ -15,10 +15,10 @@ class ChatAssembly: ChatAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
-    func createChatViewController(currentUser: User, toUser: User, messages: [Message]) -> ChatViewController {
+    func createChatViewController(currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) -> ChatViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         vc.title = "Chats"
-        vc.configure(with: currentUser, toUser: toUser, messages: messages)
+        vc.configure(with: currentUser, toUser: toUser, messages: messages, giphyViewController: giphyViewController)
         return vc
     }
     
@@ -48,6 +48,11 @@ class ChatAssembly: ChatAssemblyProtocol {
     
     func createMapViewController() -> MapViewController {
         return mapViewController()
+    }
+    
+    func createGiphyViewController() -> GiphyViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "GiphyViewController") as! GiphyViewController
+        return vc
     }
     
     private func getStoryboard() -> UIStoryboard {

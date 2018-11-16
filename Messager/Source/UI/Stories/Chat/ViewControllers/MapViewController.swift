@@ -21,7 +21,7 @@ class MapViewController: UIViewController {
     private var annotation: MKPointAnnotation?
     private var progress: JGProgressHUD?
     private var choseLocation: CLLocationCoordinate2D?
-    var delegate: MapViewControllerDelegate?
+    weak var delegate: MapViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
