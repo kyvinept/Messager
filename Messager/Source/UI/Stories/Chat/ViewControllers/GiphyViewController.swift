@@ -26,7 +26,7 @@ class GiphyViewController: UIViewController {
     }
 }
 
-extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return giphy.count
@@ -37,6 +37,10 @@ extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.configure(model: GiphyCellViewModel(id: giphy[indexPath.row].id,
                                                 url: giphy[indexPath.row].url))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width/4, height: self.view.frame.width/4)
     }
 }
 
