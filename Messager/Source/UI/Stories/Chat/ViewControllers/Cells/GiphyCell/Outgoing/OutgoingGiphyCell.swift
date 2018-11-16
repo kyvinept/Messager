@@ -12,16 +12,17 @@ import JGProgressHUD
 
 class OutgoingGiphyCell: UICollectionViewCell {
 
-    @IBOutlet weak var giphyView: UIImageView!
+    @IBOutlet private weak var giphyView: UIImageView!
+    private var progress: UIActivityIndicatorView!
     
     func configure(model: GiphyCellViewModel) {
         downloadGiphy(id: model.id)
     }
     
     private func downloadGiphy(id: String) {
-        let progress = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        progress = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         self.addSubview(progress)
-        progress.center = self.center
+        progress.center = giphyView.center
         progress.startAnimating()
         DispatchQueue(label: "com.giphy", attributes: .concurrent).async {
             guard let bundleURL = URL(string: "https://media.giphy.com/media/\(id)/giphy.gif") else {
@@ -32,7 +33,7 @@ class OutgoingGiphyCell: UICollectionViewCell {
             }
             let image = UIImage.sd_animatedGIF(with: imageData)
             DispatchQueue.main.async {
-                progress.removeFromSuperview()
+                self.progress.removeFromSuperview()
                 self.giphyView.image = image
             }
         }
