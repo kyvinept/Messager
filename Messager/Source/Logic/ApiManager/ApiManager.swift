@@ -51,6 +51,7 @@ class ApiManager {
                                image: dictionary[MessageType.image.rawValue] as! String?,
                             location: dictionary[MessageType.location.rawValue] as! String?,
                                video: dictionary[MessageType.video.rawValue] as! String?,
+                               giphy: dictionary[MessageType.giphy.rawValue] as! String?,
                         successBlock: { messageKind in
                                            if let messageKind = messageKind {
                                                message.kind = messageKind
@@ -95,6 +96,9 @@ class ApiManager {
                                                request[MessageType.video.rawValue] = url
                                                self.sendMessage(message: request)
                                           })
+        case .giphy(let giphy):
+            request[MessageType.giphy.rawValue] = giphy.url
+            sendMessage(message: request)
         }
     }
     
@@ -136,7 +140,11 @@ class ApiManager {
                                                 })
     }
     
-    func getNewUsers(currentUser: User, successBlock: @escaping ([User]) -> (), errorBlock: @escaping () -> ()) {
+    func getNewUsers(currentUser: User, successBlock: @escaping ([User]) -> (), errorBlock: @escaping (String?) -> ()) {
+        let timer = Timer(timeInterval: timeIntervalForRequest, repeats: false) { timer in
+            errorBlock("Check your internet connection")
+        }
+        
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         let queryBuilder = DataQueryBuilder()
         queryBuilder?.setWhereClause("ownerId = '" + currentUser.id + "' || toUserId = '" + currentUser.id + "'")
@@ -149,7 +157,8 @@ class ApiManager {
                 let queryBuilder = DataQueryBuilder()
                 
                 guard let whereClause = self.getStringToSearchUser(currentUser: currentUser, messages: databaseMessage) else {
-                    errorBlock()
+                    timer.invalidate()
+                    errorBlock(nil)
                     return
                 }
                 queryBuilder?.setWhereClause(whereClause)
@@ -157,13 +166,16 @@ class ApiManager {
                 self.dataStore?.find(queryBuilder, response: { databaseUser in
                     let users = self.mapper.mapAllUsers(users: databaseUser as! [[String : Any]])
                     self.databaseManager.save(users: users)
+                    timer.invalidate()
                     successBlock(users)
                 }, error: { error in
-                    print(error)
+                    timer.invalidate()
+                    errorBlock(error?.detail)
                 })
             }
         }, error: { error in
-            print(error)
+            timer.invalidate()
+            errorBlock(error?.detail)
         })
     }
     
@@ -213,7 +225,7 @@ class ApiManager {
     
     private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
         for dbMessage in dbMessages {
-            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video) { messageKind in
+            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video, giphy: dbMessage.giphy) { messageKind in
                 guard let messageKind = messageKind else {
                     errorBlock()
                     return
@@ -232,7 +244,7 @@ class ApiManager {
         }
     }
     
-    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, successBlock: @escaping (MessageKind?) -> ()) {
+    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, giphy: String?, successBlock: @escaping (MessageKind?) -> ()) {
         if let text = text {
             successBlock(MessageKind.text(text))
         } else if let url = image {
@@ -250,6 +262,8 @@ class ApiManager {
             successBlock(MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
         } else if let video = video {
             successBlock(MessageKind.video(VideoItem(videoUrl: URL(string: video)!, downloaded: true)))
+        } else if let giphy = giphy {
+            successBlock(MessageKind.giphy(Giphy(id: String(giphy.split(separator: "/")[4]), url: giphy)))
         }
     }
 }

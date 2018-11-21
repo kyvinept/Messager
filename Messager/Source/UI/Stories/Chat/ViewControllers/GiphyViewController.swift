@@ -15,14 +15,22 @@ protocol GiphyViewControllerDelegate: class {
 class GiphyViewController: UIViewController {
     
     weak var delegate: GiphyViewControllerDelegate?
+    var choseGiphy: ((String, String) -> ())?
     private var giphy = [Giphy]()
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getTrendingGiphy()
+        collectionView.register(UINib(nibName: "GiphyCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
         collectionView.reloadData()
-        collectionView.register(UINib(nibName: "OutgoingGiphyCell", bundle: nil), forCellWithReuseIdentifier: "Cell")
+    }
+    
+    func configure(giphy: [Giphy]) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.giphy = giphy
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -33,9 +41,12 @@ extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! OutgoingGiphyCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! GiphyCell
         cell.configure(model: GiphyCellViewModel(id: giphy[indexPath.row].id,
-                                                url: giphy[indexPath.row].url))
+                                                url: giphy[indexPath.row].url,
+                                         choseGiphy: { id, url in
+                                                         self.choseGiphy?(url, id)
+                                                     }))
         return cell
     }
     
@@ -46,7 +57,7 @@ extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 private extension GiphyViewController {
     
-    private func getTrendingGiphy() {
+    func getTrendingGiphy() {
         delegate?.didTappedGetTrendingGiphy(successBlock: { giphy in
                                                               self.giphy = giphy
                                                               DispatchQueue.main.async {

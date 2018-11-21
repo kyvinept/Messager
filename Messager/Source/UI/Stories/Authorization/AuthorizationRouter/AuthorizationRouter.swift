@@ -28,14 +28,6 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
         showLoginVC(from: viewController)
     }
     
-    private func showInfo(to viewController: UIViewController, title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        viewController.present(alert,
-                               animated: true,
-                             completion: nil)
-    }
-    
     private func showRegistrationVC(from viewController: UIViewController) {
         let registerVC = assembly.createRegistrationViewController()
         registerVC.delegate = self

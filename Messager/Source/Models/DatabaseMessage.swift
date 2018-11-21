@@ -17,8 +17,9 @@ class DatabaseMessage {
     var image: String?
     var location: String?
     var video: String?
+    var giphy: String?
     
-    init(sentDate: String, messageId: String, ownerId:String, toUserId:String, text: String?, image: String?, location: String?, video: String?) {
+    init(sentDate: String, messageId: String, ownerId:String, toUserId:String, text: String?, image: String?, location: String?, video: String?, giphy: String?) {
         self.sentDate = sentDate
         self.messageId = messageId
         self.ownerId = ownerId
@@ -27,5 +28,6 @@ class DatabaseMessage {
         self.image = image
         self.location = location
         self.video = video
+        self.giphy = giphy
     }
 }

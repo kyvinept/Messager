@@ -10,13 +10,19 @@ import AVFoundation
 import SDWebImage
 import JGProgressHUD
 
-class OutgoingGiphyCell: UICollectionViewCell {
+class GiphyCell: UICollectionViewCell {
 
     @IBOutlet private weak var giphyView: UIImageView!
     private var progress: UIActivityIndicatorView!
+    private var choseGiphy: ((String, String) -> ())?
+    private var url: String?
+    private var id: String!
     
     func configure(model: GiphyCellViewModel) {
+        addGesture()
         downloadGiphy(id: model.id)
+        self.choseGiphy = model.choseGiphy
+        self.id = model.id
     }
     
     private func downloadGiphy(id: String) {
@@ -25,9 +31,10 @@ class OutgoingGiphyCell: UICollectionViewCell {
         progress.center = giphyView.center
         progress.startAnimating()
         DispatchQueue(label: "com.giphy", attributes: .concurrent).async {
-            guard let bundleURL = URL(string: "https://media.giphy.com/media/\(id)/giphy.gif") else {
+            guard let bundleURL = URL(string: "https://media.giphy.com/media/\(id)/200w_d.gif") else {
                 return
             }
+            self.url = bundleURL.absoluteString
             guard let imageData = try? Data(contentsOf: bundleURL) else {
                 return
             }
@@ -36,6 +43,17 @@ class OutgoingGiphyCell: UICollectionViewCell {
                 self.progress.removeFromSuperview()
                 self.giphyView.image = image
             }
+        }
+    }
+    
+    private func addGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(GiphyCell.viewWasTapped))
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc private func viewWasTapped() {
+        if let url = url {
+            choseGiphy?(id, url)
         }
     }
 }

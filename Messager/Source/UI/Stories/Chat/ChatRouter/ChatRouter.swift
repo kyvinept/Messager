@@ -116,7 +116,8 @@ extension ChatRouter {
                                                    successBlock: { users in
                                                                      self.usersViewController?.downloaded(users: users)
                                                                  },
-                                                     errorBlock: {
+                                                     errorBlock: { error in
+                                                                     self.showInfo(to: self.usersViewController!, title: "Error", message: error ?? "Unknowed error")
                                                                      self.usersViewController?.cancelRefresh()
                                                                  })
     }
@@ -129,7 +130,8 @@ extension ChatRouter: UsersViewControllerDelegate {
                                                    successBlock: { users in
                                                                      self.usersViewController?.downloaded(users: users)
                                                                  },
-                                                     errorBlock: {
+                                                     errorBlock: { error in
+                                                                     self.showInfo(to: self.usersViewController!, title: "Error", message: error ?? "Unknowed error")
                                                                      self.usersViewController?.cancelRefresh()
                                                                  })
     }
@@ -194,9 +196,15 @@ extension ChatRouter: AddUserViewControllerDelegate {
 }
 
 extension ChatRouter: ChatViewControllerDelegate {
-    
-    func didTappedGiphyButton(viewController: ChatViewController) {
-        
+   
+    func didTappedSearchGiphyButton(search: String, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ()) {
+        assembly.appAssembly.giphyManager.getGiphy(withQuery: search,
+                                                successBlock: { giphy in
+                                                                  successBlock(giphy)
+                                                              },
+                                                  errorBlock: { error in
+                                                                  print("error")
+                                                              })
     }
     
     func didTouchChoseLocation(viewController: ChatViewController) {

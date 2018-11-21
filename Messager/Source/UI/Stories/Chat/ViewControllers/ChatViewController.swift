@@ -16,7 +16,7 @@ protocol ChatViewControllerDelegate: class {
     func didTouchGetCurrentLocation(viewController: ChatViewController)
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController)
     func didTouchChoseLocation(viewController: ChatViewController)
-    func didTappedGiphyButton(viewController: ChatViewController)
+    func didTappedSearchGiphyButton(search: String, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ())
 }
 
 class ChatViewController: UIViewController {
@@ -32,7 +32,11 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var giphyView: UIView!
     @IBOutlet private weak var bottomGiphyViewConstraint: NSLayoutConstraint!
     @IBOutlet private weak var giphyViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var giphyButton: UIButton!
+    @IBOutlet private weak var searchGiphyButtonLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var searchGiphyButton: UIButton!
     
+    private var isGiphyInput = false
     private var giphyViewController: GiphyViewController!
     private var progress: JGProgressHUD?
     private var messages = [Message]()
@@ -65,6 +69,18 @@ class ChatViewController: UIViewController {
         self.toUser = toUser
         self.messages = messages
         self.giphyViewController = giphyViewController
+        giphyViewController.choseGiphy = {[weak self] url, id in
+            if let self = self {
+                let message = Message(sender: self.currentUser,
+                                   messageId: String(self.messages.count+1),
+                                    sentDate: Date(),
+                                        kind: MessageKind.giphy(Giphy(id: id, url: url)))
+                self.delegate?.didTouchSendMessageButton(with: message,
+                                                       toUser: toUser,
+                                               viewController: self)
+                self.insertNewMessage(message)
+            }
+        }
     }
 
     func showNewMessage(_ message: Message) {
@@ -101,16 +117,29 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func giphyButtonTapped(_ sender: Any) {
-        delegate?.didTappedGiphyButton(viewController: self)
-        removeNotification()
-        self.view.endEditing(true)
-        bottomGiphyViewConstraint.constant = 0
-        textViewBottomConstraint.constant = -giphyViewHeight.constant
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-            self.tableView.scrollToBottom(animated: true)
+        view.endEditing(true)
+        if isGiphyInput {
+            isGiphyInput.toggle()
+            textView.text = "Input text..."
+            giphyButton.setImage(UIImage(named: "happiness"), for: .normal)
+            bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
+            textViewBottomConstraint.constant = 0
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            textView.text = "Search giphy..."
+            giphyButton.setImage(UIImage(named: "smiling"), for: .normal)
+            isGiphyInput.toggle()
+            removeNotification()
+            bottomGiphyViewConstraint.constant = 0
+            textViewBottomConstraint.constant = -giphyViewHeight.constant
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+                self.tableView.scrollToBottom(animated: true)
+            }
+            addNotification()
         }
-        addNotification()
     }
     
     private func setBaseUIComponents() {
@@ -225,7 +254,22 @@ class ChatViewController: UIViewController {
                                           toUser: toUser,
                                   viewController: self)
         textView.text = ""
+        bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
+        textViewBottomConstraint.constant = 0
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
         self.view.endEditing(true)
+    }
+    
+    @IBAction func searchGiphyButtonTapped(_ sender: UIButton) {
+        view.endEditing(true)
+        delegate?.didTappedSearchGiphyButton(search: textView.text!,
+                                     viewController: self,
+                                       successBlock: { giphy in
+                                                          self.bottomGiphyViewConstraint.constant = 0
+                                                          self.giphyViewController.configure(giphy: giphy)
+                                                     })
     }
 }
 
@@ -254,6 +298,11 @@ extension ChatViewController {
     
     @objc func viewWasTapped(_ gesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
+        if isGiphyInput {
+            isGiphyInput.toggle()
+            textView.text = "Input text..."
+            giphyButton.setImage(UIImage(named: "happiness"), for: .normal)
+        }
         bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
         textViewBottomConstraint.constant = 0
         UIView.animate(withDuration: 0.5) {
@@ -268,10 +317,6 @@ extension ChatViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: NSNotification.Name.UIKeyboardWillShow,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
     }
     
@@ -290,14 +335,6 @@ extension ChatViewController {
             }
         }
     }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        textViewBottomConstraint.constant = 0
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-            self.tableView.scrollToBottom(animated: true)
-        }
-    }
 }
 
 extension ChatViewController: UITextViewDelegate {
@@ -308,7 +345,11 @@ extension ChatViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        textView.text = "Input text..."
+        if isGiphyInput {
+            textView.text = "Search giphy..."
+        } else {
+            textView.text = "Input text..."
+        }
         textView.textColor = UIColor.lightGray
         textViewNoText()
     }
@@ -323,20 +364,27 @@ extension ChatViewController: UITextViewDelegate {
     
     private func textViewNoText() {
         sendMessageButtonLeftConstraint.constant = 48
+        searchGiphyButtonLeftConstraint.constant = 48
         UIView.animate(withDuration: 0.4) {
             self.cameraButton.alpha = 1
             self.getFileButton.alpha = 1
             self.sendMessageButton.alpha = 0
+            self.searchGiphyButton.alpha = 0
             self.view.layoutIfNeeded()
         }
     }
     
     private func newTextInTextView() {
         sendMessageButtonLeftConstraint.constant = 12
+        searchGiphyButtonLeftConstraint.constant = 12
         UIView.animate(withDuration: 0.4) {
             self.cameraButton.alpha = 0
             self.getFileButton.alpha = 0
-            self.sendMessageButton.alpha = 1
+            if self.isGiphyInput {
+                self.searchGiphyButton.alpha = 1
+            } else {
+                self.sendMessageButton.alpha = 1
+            }
             self.view.layoutIfNeeded()
         }
     }
@@ -465,6 +513,24 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                                                    downloaded: true))
                 return cell
             }
+            
+        case .giphy(let giphy):
+            
+            if messages[indexPath.row].sender == currentUser! {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingGiphyCell", for: indexPath) as! OutgoingGiphyCell
+                cell.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
+                                                     userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                               id: giphy.id,
+                                                              url: giphy.url))
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingGiphyCell", for: indexPath) as! IncomingGiphyCell
+                cell.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
+                                                     userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                               id: giphy.id,
+                                                              url: giphy.url))
+                return cell
+            }
         }
     }
     
@@ -481,5 +547,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(UINib(nibName: "IncomingLocationCell", bundle: nil), forCellReuseIdentifier: "IncomingLocationCell")
         tableView.register(UINib(nibName: "OutgoingVideoCell", bundle: nil), forCellReuseIdentifier: "OutgoingVideoCell")
         tableView.register(UINib(nibName: "IncomingVideoCell", bundle: nil), forCellReuseIdentifier: "IncomingVideoCell")
+        tableView.register(UINib(nibName: "OutgoingGiphyCell", bundle: nil), forCellReuseIdentifier: "OutgoingGiphyCell")
+        tableView.register(UINib(nibName: "IncomingGiphyCell", bundle: nil), forCellReuseIdentifier: "IncomingGiphyCell")
     }
 }

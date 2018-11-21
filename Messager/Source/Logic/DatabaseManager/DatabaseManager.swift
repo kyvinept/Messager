@@ -24,6 +24,7 @@ class DatabaseManager {
     private let databaseName = "Messager"
     private let queue = DispatchQueue(label: "com.Messager.DatabaseManager")
     private var databaseMapper: DatabaseMapper
+    private let waitTimeInterval = 5
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: databaseName)

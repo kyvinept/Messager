@@ -77,7 +77,8 @@ class Mapper {
                                    text: message["text"] as! String?,
                                   image: message["image"] as! String?,
                                location: message["location"] as! String?,
-                                  video: message["video"] as! String?)
+                                  video: message["video"] as! String?,
+                                  giphy: message["giphy"] as! String?)
     }
 }
 

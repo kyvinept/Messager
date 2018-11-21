@@ -12,6 +12,7 @@ enum MessageType: String {
     case image
     case video
     case location
+    case giphy
 }
 
 class DatabaseMapper {
@@ -40,6 +41,9 @@ class DatabaseMapper {
         case .video(let videoItem):
             messageEntity.type = MessageType.video.rawValue
             messageEntity.video = videoItem.videoUrl.absoluteString
+        case .giphy(let giphy):
+            messageEntity.type = MessageType.giphy.rawValue
+            messageEntity.giphy = giphy.url
         }
     }
     
@@ -89,6 +93,8 @@ class DatabaseMapper {
             messageKind = MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         case MessageType.video.rawValue:
             messageKind = MessageKind.video(VideoItem(videoUrl: URL(string: messageEntity.video!)!, downloaded: true))
+        case MessageType.giphy.rawValue:
+            messageKind = MessageKind.giphy(Giphy(id: String(messageEntity.giphy!.split(separator: "/")[4]), url: messageEntity.giphy!))
         default:
             break
         }

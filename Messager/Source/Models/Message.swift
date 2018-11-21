@@ -13,6 +13,7 @@ enum MessageKind {
     case photo(MediaItem)
     case video(VideoItem)
     case location(CLLocationCoordinate2D)
+    case giphy(Giphy)
 }
 
 class Message: Equatable {

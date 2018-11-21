@@ -21,9 +21,18 @@ class GiphyManager {
     func getTrendingGiphy(successBlock: @escaping ([Giphy]) -> (), errorBlock: @escaping (Error?) -> ()) {
         GiphyCore.shared.trending { responce, error in
             if let responce = responce {
-                let data = responce.data
                 successBlock(self.mapper.map(serverGiphy: responce.data!))
             } else {
+                errorBlock(error)
+            }
+        }
+    }
+    
+    func getGiphy(withQuery query: String, successBlock: @escaping ([Giphy]) -> (), errorBlock: @escaping (Error?) -> ()) {
+        GiphyCore.shared.search(query) { responce, error in
+            if let responce = responce {
+                successBlock(self.mapper.map(serverGiphy: responce.data!))
+            } else if let error = error {
                 errorBlock(error)
             }
         }
