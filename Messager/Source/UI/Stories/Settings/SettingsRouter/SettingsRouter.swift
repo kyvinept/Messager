@@ -43,6 +43,34 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 
 extension SettingsRouter: SettingsViewControllerDelegate {
     
+    func didTouchSaveButton(viewController: SettingsViewController, name: String?, email: String?, password: String?, currentUser: User) {
+        let progress = showProgress(toViewController: viewController)
+        assembly.appAssembly.apiManager.updateField(name: name,
+                                                   email: email,
+                                                password: password,
+                                                    user: currentUser,
+                                            successBlock: { user in
+                                                              progress.dismiss(animated: true)
+                                                              self.assembly.appAssembly.keychainManager.save(user: user)
+                                                              self.showInfo(to: viewController,
+                                                                         title: "Success",
+                                                                       message: "Data saved!")
+                                                          })
+    }
+    
+    func settingsViewController(viewController: SettingsViewController, didChoseNewUserImage image: UIImage, currentUser: User, successBlock: @escaping (User) -> ()) {
+        let progress = showProgress(toViewController: viewController)
+        assembly.appAssembly.apiManager.updateImage(image: image, user: currentUser) { url in
+            if let user = self.assembly.appAssembly.keychainManager.updateImage(image: url) {
+                successBlock(user)
+                progress.dismiss(animated: true)
+                self.showInfo(to: viewController,
+                           title: "Success",
+                         message: "Image saved!")
+            }
+        }
+    }
+    
     func settingsViewController(viewController: SettingsViewController, didTouchLogoutButton sender: UIButton) {
         delegate?.logoutButtonWasTapped()
     }

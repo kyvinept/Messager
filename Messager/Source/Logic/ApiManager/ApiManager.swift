@@ -29,6 +29,38 @@ class ApiManager {
         self.databaseManager = databaseManager
     }
     
+    func updateImage(image: UIImage, user: User, successBlock: @escaping (String) -> ()) {
+        if let data = UIImageJPEGRepresentation(image, 0.1) {
+            mediaManager.uploadImage(data: data,
+                                 progress: { progress in
+                                               print(progress)
+                                           },
+                        completionHandler: { url in
+                                               if let url = url {
+                                                   self.updateUserField(name: nil,
+                                                                       email: nil,
+                                                                    password: nil,
+                                                                    imageUrl: url,
+                                                                      userId: user.id,
+                                                                successBlock: { _ in
+                                                                                  successBlock(url)
+                                                                              })
+                                               }
+                                           })
+        }
+    }
+    
+    func updateField(name: String?, email: String?, password: String?, user: User, successBlock: @escaping (User) -> ()) {
+        self.updateUserField(name: name,
+                            email: email,
+                         password: password,
+                         imageUrl: nil,
+                           userId: user.id,
+                     successBlock: { backendlessUser in
+                                       successBlock(self.mapper.mapUser(fromBackendlessUser: backendlessUser))
+                                   })
+    }
+    
     func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
         var users = [fromUser.id, toUser.id]
         users.sort()
@@ -265,5 +297,44 @@ class ApiManager {
         } else if let giphy = giphy {
             successBlock(MessageKind.giphy(Giphy(id: String(giphy.split(separator: "/")[4]), url: giphy)))
         }
+    }
+}
+
+private extension ApiManager {
+    
+    func updateUserField(name: String?, email: String?, password: String?, imageUrl: String?, userId: String, successBlock: @escaping (BackendlessUser) -> ()) {
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.users.rawValue)
+        let queryBuilder = DataQueryBuilder()
+        queryBuilder?.setWhereClause("ownerId = '" + userId + "'")
+        
+        dataStore?.find(queryBuilder, response: { findUser in
+            if let currentUser = findUser as? [[String: Any]] {
+                let backendlessUser = BackendlessUser(properties: currentUser[0])
+                
+                if let name = name {
+                    backendlessUser?.updateProperties(["name" : name])
+                }
+                if let email = email {
+                    backendlessUser?.updateProperties(["email" : email])
+                }
+                if let password = password {
+                    backendlessUser?.updateProperties(["password" : password])
+                }
+                if let imageUrl = imageUrl {
+                    backendlessUser?.updateProperties(["image" : imageUrl])
+                }
+                Backendless.sharedInstance()?.userService.update(backendlessUser,
+                                                                 response: { updateUser in
+                                                                                if let updateUser = updateUser {
+                                                                                    successBlock(updateUser)
+                                                                                }
+                                                                           },
+                                                                    error: { error in
+                                                                                print("Error update image in database")
+                                                                           })
+            }
+        }, error: { error in
+            print(error)
+        })
     }
 }

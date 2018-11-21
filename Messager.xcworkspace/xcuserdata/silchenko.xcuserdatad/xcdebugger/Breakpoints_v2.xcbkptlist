@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
-            timestampString = "564496924.3432961"
+            timestampString = "564503773.89904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -105,28 +105,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/ChatViewController.swift"
-            timestampString = "564496924.343379"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
-            timestampString = "564496924.3438309"
+            timestampString = "564503773.899128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "getMessages(currentUser:toUser:successBlock:)"
             landmarkType = "7">
          </BreakpointContent>

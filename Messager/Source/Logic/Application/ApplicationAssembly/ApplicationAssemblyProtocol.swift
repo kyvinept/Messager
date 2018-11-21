@@ -14,4 +14,5 @@ protocol ApplicationAssemblyProtocol {
     var giphyManager: GiphyManager { get }
     var databaseManager: DatabaseManager { get }
     var locationManager: LocationManager { get }
+    var keychainManager: KeychainManager { get }
 }

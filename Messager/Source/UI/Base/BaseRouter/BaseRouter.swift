@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class BaseRouter {
     
@@ -35,5 +36,11 @@ class BaseRouter {
         viewController.present(alert,
                                animated: true,
                                completion: nil)
+    }
+    
+    func showProgress(toViewController viewController: UIViewController) -> JGProgressHUD {
+        let progress = JGProgressHUD(style: .dark)
+        progress.show(in: viewController.view)
+        return progress
     }
 }

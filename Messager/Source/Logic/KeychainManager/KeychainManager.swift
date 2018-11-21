@@ -17,6 +17,13 @@ class KeychainManager {
                 kSecValueData as String: email]
     }
     
+    func updateImage(image: String) -> User? {
+        guard var query = load() else { return nil }
+        query["image"] = image
+        save(saveData: query)
+        return getCurrentUser()
+    }
+    
     func getCurrentUser() -> User? {
         guard let query = load() else { return nil }
         return User(email: query["email"] as! String,
@@ -30,6 +37,23 @@ class KeychainManager {
     func save(email: String, id: String, name: String, imageUrl: String) {
         delete()
         let saveData = ["email": email, "id": id, "name": name, "image": imageUrl] as [String : Any]
+        let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
+        let getQuery: [String: Any] = query(with: data)
+        let res = SecItemAdd(getQuery as CFDictionary, nil)
+        print(res)
+    }
+    
+    func save(saveData: [String: Any]) {
+        delete()
+        let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
+        let getQuery: [String: Any] = query(with: data)
+        let res = SecItemAdd(getQuery as CFDictionary, nil)
+        print(res)
+    }
+    
+    func save(user: User) {
+        delete()
+        let saveData = ["email": user.email, "id": user.id, "name": user.name, "image": user.imageUrl] as [String : Any]
         let data = NSKeyedArchiver.archivedData(withRootObject: saveData)
         let getQuery: [String: Any] = query(with: data)
         let res = SecItemAdd(getQuery as CFDictionary, nil)
