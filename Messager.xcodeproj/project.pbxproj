@@ -21,6 +21,8 @@
 		5B360965217E2F59008B46EB /* MainUIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360964217E2F59008B46EB /* MainUIRouter.swift */; };
 		5B360967217E2F7D008B46EB /* MainUIRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */; };
 		5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4237DF219B31E30042D836 /* LocationManager.swift */; };
+		5B5BA9B621AC2D4000509B38 /* RefreshCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BA9B421AC2D4000509B38 /* RefreshCell.swift */; };
+		5B5BA9B721AC2D4000509B38 /* RefreshCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5BA9B521AC2D4000509B38 /* RefreshCell.xib */; };
 		5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B0218869EF006EF9F8 /* UITableView.swift */; };
 		5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */; };
 		5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */; };
@@ -118,6 +120,8 @@
 		5B360964217E2F59008B46EB /* MainUIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouter.swift; sourceTree = "<group>"; };
 		5B360966217E2F7D008B46EB /* MainUIRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIRouterProtocol.swift; sourceTree = "<group>"; };
 		5B4237DF219B31E30042D836 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5B5BA9B421AC2D4000509B38 /* RefreshCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCell.swift; sourceTree = "<group>"; };
+		5B5BA9B521AC2D4000509B38 /* RefreshCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshCell.xib; sourceTree = "<group>"; };
 		5B65F8B0218869EF006EF9F8 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellViewModel.swift; sourceTree = "<group>"; };
 		5B65F8BA218892A5006EF9F8 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
@@ -525,6 +529,8 @@
 			children = (
 				5B972A41219F139B00DAD8FB /* GiphyCell.swift */,
 				5B972A42219F139B00DAD8FB /* GiphyCell.xib */,
+				5B5BA9B421AC2D4000509B38 /* RefreshCell.swift */,
+				5B5BA9B521AC2D4000509B38 /* RefreshCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -934,6 +940,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BB514E82188A0CD003D2C04 /* IncomingImageCell.xib in Resources */,
+				5B5BA9B721AC2D4000509B38 /* RefreshCell.xib in Resources */,
 				0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */,
 				5BB514D321889D82003D2C04 /* OutgoingMessageCell.xib in Resources */,
 				5B65F8BD218892A5006EF9F8 /* IncomingMessageCell.xib in Resources */,
@@ -1116,6 +1123,7 @@
 				5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
 				5B774B01219DCD2A00D201D6 /* GiphyManager.swift in Sources */,
+				5B5BA9B621AC2D4000509B38 /* RefreshCell.swift in Sources */,
 				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,

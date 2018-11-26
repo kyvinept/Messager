@@ -60,6 +60,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dateLabel" destination="DQI-MX-wcE" id="atK-Rn-ohd"/>
+                <outlet property="locationImageView" destination="JLv-G5-x7U" id="rmW-CI-lzn"/>
                 <outlet property="userImage" destination="OL4-ki-K81" id="mDG-NV-xMj"/>
             </connections>
             <point key="canvasLocation" x="36.799999999999997" y="262.66866566716647"/>

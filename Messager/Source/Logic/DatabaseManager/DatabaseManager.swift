@@ -176,12 +176,62 @@ extension DatabaseManager {
                                     })
     }
     
+    func remove(message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        queue.async {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.user.rawValue)
+            fetchRequest.returnsObjectsAsFaults = false
+            let context = self.persistentContainer.viewContext
+            
+            do {
+                let users = try context.fetch(fetchRequest) as? [UserEntity]
+                if let user = users?.first(where: { $0.email == toUser.email &&
+                                                    $0.id == toUser.id &&
+                                                    $0.name == toUser.name }) {
+                    let messages = user.messages?.allObjects as! [MessageEntity]
+                    if let deleteMessage = messages.first (where: { $0.sentDate == message.sentDate && $0.messageId == message.messageId }) {
+                        context.delete(deleteMessage)
+                        print("Success delete from local db")
+                    }
+                }
+            } catch {
+                print("error")
+            }
+        }
+    }
+    
+    func edit(message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        queue.async {
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: Entity.user.rawValue)
+            fetchRequest.returnsObjectsAsFaults = false
+            let context = self.persistentContainer.viewContext
+            
+            do {
+                let users = try context.fetch(fetchRequest) as? [UserEntity]
+                if let user = users?.first(where: { $0.email == toUser.email &&
+                    $0.id == toUser.id &&
+                    $0.name == toUser.name }) {
+                    let messages = user.messages?.allObjects as! [MessageEntity]
+                    if let editMessage = messages.first (where: { $0.sentDate == message.sentDate && $0.messageId == message.messageId }) {
+                        switch message.kind {
+                        case .text(let text):
+                            editMessage.text = text
+                        default:
+                            break
+                        }
+                    }
+                }
+            } catch {
+                print("error")
+            }
+        }
+    }
+    
     func getMessages(currentUser: User, toUser: User, successBlock: @escaping ([Message]?) -> (), errorBlock: @escaping (Error) -> ()) {
         getUserEntity(successBlock: { users in
             if let user = users?.first(where: { $0.email == toUser.email &&
                                                 $0.id == toUser.id &&
                                                 $0.name == toUser.name }) {
-                var messages = user.messages?.allObjects as! [MessageEntity]
+                let messages = user.messages?.allObjects as! [MessageEntity]
                 successBlock(self.databaseMapper.map(messagesEntity: messages,
                                                         currentUser: currentUser,
                                                              toUser: toUser))

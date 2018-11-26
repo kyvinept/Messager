@@ -146,6 +146,33 @@ class ApiManager {
                                                                 })
     }
     
+    func remove(message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
+        let whereClause = "sentDate = '\(message.sentDate.toString())' && messageId = '\(message.messageId)' && toUserId = '\(toUser.id)'"
+        dataStore?.removeBulk(whereClause,
+                              response: { number in
+                                            successBlock()
+                                            self.databaseManager.remove(message: message,
+                                                                         toUser: toUser,
+                                                                   successBlock: {},
+                                                                     errorBlock: {})
+                                        },
+                                 error: { error in
+            
+                                        })
+    }
+    
+    func edit(message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        remove(message: message,
+                toUser: toUser,
+          successBlock: {
+                            self.publishMessage(message, toUser: toUser)
+                        },
+            errorBlock: {
+            
+                        })
+    }
+    
     func getUsers(successBlock: @escaping ([User]?) -> (), errorBlock: @escaping (Fault?) -> (), currentUserId: String = "") {
         dataStore = Backendless.sharedInstance()!.data.ofTable(Table.users.rawValue)
         let queryBuilder = DataQueryBuilder()

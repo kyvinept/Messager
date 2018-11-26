@@ -16,7 +16,9 @@ protocol ChatViewControllerDelegate: class {
     func didTouchGetCurrentLocation(viewController: ChatViewController)
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController)
     func didTouchChoseLocation(viewController: ChatViewController)
-    func didTappedSearchGiphyButton(search: String, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ())
+    func didTappedSearchGiphyButton(search: String, pageNumber: Int, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ())
+    func didTappedRemoveMessageButton(message: Message, toUser: User, viewController: ChatViewController)
+    func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -42,6 +44,7 @@ class ChatViewController: UIViewController {
     private var messages = [Message]()
     private var currentUser: User!
     private var toUser: User!
+    private var editingMessage: Message?
     
     weak var delegate: ChatViewControllerDelegate?
 
@@ -50,7 +53,6 @@ class ChatViewController: UIViewController {
         createBackButton()
         registerCell()
         addNotification()
-        addGesture()
         setBaseUIComponents()
         setActivityIndicator()
         addGiphyViewController(giphyViewController)
@@ -245,15 +247,27 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
-        let message = Message(sender: currentUser,
-                             messageId: String(messages.count+1),
-                             sentDate: Date(),
-                             kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
-        insertNewMessage(message)
-        delegate?.didTouchSendMessageButton(with: message,
-                                          toUser: toUser,
-                                  viewController: self)
-        textView.text = ""
+        if let editingMessage = editingMessage {
+            editingMessage.kind = .text(textView.text)
+            delegate?.didEditTextMessage(message: editingMessage, toUser: toUser, viewController: self)
+            self.editingMessage = nil
+            hideKeyboard()
+            tableView.reloadData()
+        }
+        else {
+            let message = Message(sender: currentUser,
+                               messageId: String(messages.count+1),
+                                sentDate: Date(),
+                                    kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+            insertNewMessage(message)
+            delegate?.didTouchSendMessageButton(with: message,
+                                                toUser: toUser,
+                                                viewController: self)
+            hideKeyboard()
+        }
+    }
+    
+    private func hideKeyboard() {
         bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
         textViewBottomConstraint.constant = 0
         UIView.animate(withDuration: 0.5) {
@@ -263,8 +277,10 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func searchGiphyButtonTapped(_ sender: UIButton) {
+        let text = textView.text!
         view.endEditing(true)
-        delegate?.didTappedSearchGiphyButton(search: textView.text!,
+        delegate?.didTappedSearchGiphyButton(search: text,
+                                         pageNumber: giphyViewController.pageNumber,
                                      viewController: self,
                                        successBlock: { giphy in
                                                           self.bottomGiphyViewConstraint.constant = 0
@@ -273,9 +289,9 @@ class ChatViewController: UIViewController {
     }
 }
 
-extension ChatViewController {
+private extension ChatViewController {
     
-    private func insertNewMessage(_ message: Message) {
+    func insertNewMessage(_ message: Message) {
         messages.append(message)
         messages.sort { $0.sentDate < $1.sentDate }
         
@@ -291,12 +307,12 @@ extension ChatViewController {
 
 extension ChatViewController {
     
-    func addGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped(_:)))
-        self.view.addGestureRecognizer(tap)
-    }
-    
-    @objc func viewWasTapped(_ gesture: UITapGestureRecognizer) {
+//    func addGesture() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped(_:)))
+//        self.view.addGestureRecognizer(tap)
+//    }
+//
+    @objc func viewWasTapped() {
         self.view.endEditing(true)
         if isGiphyInput {
             isGiphyInput.toggle()
@@ -432,6 +448,39 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewWasTapped()
+        tableView.deselectRow(at: indexPath, animated: true)
+        showAlert(forIndexPath: indexPath)
+    }
+    
+    private func showAlert(forIndexPath indexPath: IndexPath) {
+        guard messages[indexPath.row].sender == currentUser else { return }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        switch messages[indexPath.row].kind {
+        case .text(let text):
+            alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
+                self.textView.becomeFirstResponder()
+                self.textView.text = text
+                self.editingMessage = self.messages[indexPath.row]
+            }))
+        default:
+            break
+        }
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            self.delegate?.didTappedRemoveMessageButton(message: self.messages[indexPath.row],
+                                                         toUser: self.toUser,
+                                                 viewController: self)
+            self.messages.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

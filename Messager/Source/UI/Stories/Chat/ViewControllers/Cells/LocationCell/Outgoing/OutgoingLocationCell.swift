@@ -11,6 +11,7 @@ class OutgoingLocationCell: UITableViewCell {
 
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var locationImageView: UIImageView!
     private var tapCell: ((CLLocationCoordinate2D) -> ())?
     private var location: CLLocationCoordinate2D!
     
@@ -25,7 +26,7 @@ class OutgoingLocationCell: UITableViewCell {
     
     private func addTapGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(OutgoingLocationCell.didTappedCell))
-        self.addGestureRecognizer(gesture)
+        locationImageView.addGestureRecognizer(gesture)
     }
     
     @objc private func didTappedCell() {

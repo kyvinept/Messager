@@ -12,6 +12,8 @@
     
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet weak var eyeButton: UIButton!
+
     weak var delegate: LoginViewControllerDelegate?
     
     @IBAction func registrationButtonTapped(_ sender: UIButton) {
@@ -27,6 +29,15 @@
     
     @IBAction func forgotPasswordButtonTapped(_ sender: UIButton) {
         delegate?.loginViewController(viewController: self, didTouchPasswordRecoveryButton: sender)
+    }
+    
+    @IBAction func sequreButtonTapped(_ sender: Any) {
+        if passwordTextField.isSecureTextEntry {
+            eyeButton.imageView?.image = UIImage(named: "eye")
+        } else {
+            eyeButton.imageView?.image = UIImage(named: "eye-1")
+        }
+        passwordTextField.isSecureTextEntry.toggle()
     }
  }
                 

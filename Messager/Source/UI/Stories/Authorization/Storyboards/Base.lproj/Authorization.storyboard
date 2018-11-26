@@ -39,7 +39,7 @@
                                 <rect key="frame" x="56" y="186" width="263" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLB-Ku-J82">
                                 <rect key="frame" x="277" y="232" width="42" height="30"/>
@@ -56,6 +56,13 @@
                                     <action selector="registrationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xs5-Hi-d2T"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEq-8y-ble">
+                                <rect key="frame" x="298" y="190" width="16" height="22"/>
+                                <state key="normal" image="eye-1"/>
+                                <connections>
+                                    <action selector="sequreButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3hO-7A-fRW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -65,16 +72,19 @@
                             <constraint firstAttribute="trailingMargin" secondItem="SLB-Ku-J82" secondAttribute="trailing" constant="40" id="H5T-d4-2ih"/>
                             <constraint firstItem="oaG-aC-5ml" firstAttribute="top" secondItem="lAk-9A-IoB" secondAttribute="bottom" constant="78" id="Qm6-Ca-GSd"/>
                             <constraint firstItem="lAk-9A-IoB" firstAttribute="top" secondItem="AVh-64-BZH" secondAttribute="bottom" constant="16" id="Ttr-zG-Rgq"/>
+                            <constraint firstItem="eEq-8y-ble" firstAttribute="centerY" secondItem="lAk-9A-IoB" secondAttribute="centerY" id="bFQ-Xh-wCS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lAk-9A-IoB" secondAttribute="trailing" constant="40" id="hdL-FB-WHl"/>
                             <constraint firstItem="AVh-64-BZH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="120" id="kuq-8V-HyD"/>
                             <constraint firstItem="huw-n9-Neq" firstAttribute="top" secondItem="lAk-9A-IoB" secondAttribute="bottom" constant="78" id="oac-Bs-HCc"/>
                             <constraint firstItem="oaG-aC-5ml" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="qax-f2-LGM"/>
                             <constraint firstItem="lAk-9A-IoB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="qez-ZP-Id8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="huw-n9-Neq" secondAttribute="trailing" constant="40" id="vz3-GM-5C1"/>
+                            <constraint firstItem="eEq-8y-ble" firstAttribute="trailing" secondItem="lAk-9A-IoB" secondAttribute="trailing" constant="-5" id="yPC-EU-471"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="AVh-64-BZH" id="I6K-Xy-D7b"/>
+                        <outlet property="eyeButton" destination="eEq-8y-ble" id="hCW-Fc-Yye"/>
                         <outlet property="passwordTextField" destination="lAk-9A-IoB" id="fxC-0z-cZn"/>
                     </connections>
                 </viewController>
@@ -191,4 +201,7 @@
             <point key="canvasLocation" x="1550" y="27"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="eye-1" width="16" height="16"/>
+    </resources>
 </document>

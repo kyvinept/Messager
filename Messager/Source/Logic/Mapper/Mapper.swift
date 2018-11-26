@@ -7,9 +7,11 @@
 
 import UIKit
 import GiphyCoreSDK
+import SwiftyJSON
 
 protocol GiphyMapperProtocol {
     func map(serverGiphy: [GPHMedia]) -> [Giphy]
+    func map(jsonGiphy: JSON) -> [Giphy]
 }
 
 class Mapper {
@@ -88,6 +90,19 @@ extension Mapper: GiphyMapperProtocol {
         var giphy = [Giphy]()
         for giphyElement in serverGiphy {
             giphy.append(Giphy(id: giphyElement.id, url: giphyElement.url))
+        }
+        return giphy
+    }
+    
+    func map(jsonGiphy json: JSON) -> [Giphy] {
+        var giphy = [Giphy]()
+        var index = 0
+        var object = json["data"][index]
+        while object != JSON.null {
+            giphy.append(Giphy(id: object["id"].string!,
+                              url: object["url"].string!))
+            index+=1
+            object = json["data"][index]
         }
         return giphy
     }

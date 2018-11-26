@@ -196,9 +196,35 @@ extension ChatRouter: AddUserViewControllerDelegate {
 }
 
 extension ChatRouter: ChatViewControllerDelegate {
+    
+    func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController) {
+        let progress = showProgress(toViewController: viewController)
+        assembly.appAssembly.apiManager.edit(message: message,
+                                              toUser: toUser,
+                                        successBlock: {
+                                                          progress.dismiss()
+                                                      },
+                                          errorBlock: {
+                                                          progress.dismiss()
+                                                      })
+    }
+    
+    func didTappedRemoveMessageButton(message: Message, toUser: User, viewController: ChatViewController) {
+        let progress = showProgress(toViewController: viewController)
+        assembly.appAssembly.apiManager.remove(message: message,
+                                                toUser: toUser,
+                                          successBlock: {
+                                                            print("Success delete")
+                                                            progress.dismiss()
+                                                        },
+                                            errorBlock: {
+                                                            progress.dismiss()
+                                                        })
+    }
    
-    func didTappedSearchGiphyButton(search: String, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ()) {
+    func didTappedSearchGiphyButton(search: String, pageNumber: Int, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ()) {
         assembly.appAssembly.giphyManager.getGiphy(withQuery: search,
+                                                  pageNumber: pageNumber,
                                                 successBlock: { giphy in
                                                                   successBlock(giphy)
                                                               },
@@ -265,12 +291,22 @@ extension ChatRouter: MapViewControllerDelegate {
 
 extension ChatRouter: GiphyViewControllerDelegate {
     
-    func didTappedGetTrendingGiphy(successBlock: @escaping ([Giphy]) -> (), viewController: GiphyViewController) {
-        assembly.appAssembly.giphyManager.getTrendingGiphy(successBlock: { giphy in
-                                                                              successBlock(giphy)
-                                                                         },
-                                                             errorBlock: { error in
-                                                                              print("error")
-                                                                         })
+    func didShowActivityIndicator(viewController: GiphyViewController, successBlock: @escaping ([Giphy]) -> (), errorBlock: @escaping (Error?) -> ()) {
+        assembly.appAssembly.giphyManager.getNewItemFromLastRequest(successBlock: { giphy in
+                                                                                      successBlock(giphy)
+                                                                                  },
+                                                                      errorBlock: { error in
+                                                                                      errorBlock(error)
+                                                                                  })
+    }
+    
+    func didTappedGetTrendingGiphy(pageNumber: Int, successBlock: @escaping ([Giphy]) -> (), viewController: GiphyViewController) {
+        assembly.appAssembly.giphyManager.getTrendingGiphy(pageNumber: pageNumber,
+                                                         successBlock: { giphy in
+                                                                            successBlock(giphy)
+                                                                       },
+                                                           errorBlock: { error in
+                                                                            print("error")
+                                                                       })
     }
 }

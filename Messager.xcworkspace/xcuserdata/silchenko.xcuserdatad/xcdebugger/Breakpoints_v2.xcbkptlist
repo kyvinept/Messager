@@ -89,13 +89,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
-            timestampString = "564503773.89904"
+            filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
+            timestampString = "564943636.349984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "getMessages(currentUser:toUser:successBlock:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +105,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
-            timestampString = "564503773.899128"
+            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
+            timestampString = "564943636.350076"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "getMessages(currentUser:toUser:successBlock:)"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -53,9 +53,10 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Sfp-lO-NL9" secondAttribute="bottom" constant="8" id="3l6-zi-eGM"/>
                     <constraint firstItem="Sfp-lO-NL9" firstAttribute="leading" secondItem="gSv-US-l6b" secondAttribute="trailing" constant="8" id="4Vg-qY-80I"/>
                     <constraint firstItem="gSv-US-l6b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="B3r-Tr-Hyg"/>
-                    <constraint firstAttribute="trailing" secondItem="Sfp-lO-NL9" secondAttribute="trailing" constant="8" id="F8p-4m-OYU"/>
+                    <constraint firstAttribute="trailing" secondItem="Sfp-lO-NL9" secondAttribute="trailing" constant="8" id="Q6l-IU-9Y8"/>
                     <constraint firstAttribute="bottom" secondItem="gSv-US-l6b" secondAttribute="bottom" constant="8" id="bc7-SC-uWV"/>
                     <constraint firstAttribute="bottom" secondItem="Sfp-lO-NL9" secondAttribute="bottom" constant="8" id="pal-Le-fzM"/>
                 </constraints>
