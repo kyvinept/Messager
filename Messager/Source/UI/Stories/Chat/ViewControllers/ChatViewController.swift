@@ -465,6 +465,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
                 self.textView.becomeFirstResponder()
                 self.textView.text = text
+                self.newTextInTextView()
                 self.editingMessage = self.messages[indexPath.row]
             }))
         default:

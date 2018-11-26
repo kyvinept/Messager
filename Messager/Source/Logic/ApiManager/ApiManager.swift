@@ -95,13 +95,13 @@ class ApiManager {
         })
     }
     
-    func publishMessage(_ message: Message, toUser: User) {
+    func publishMessage(_ message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         var request: [String: Any] = self.mapper.createRequest(message: message, toUser: toUser)
         
         switch message.kind {
         case .text(let text):
             request[MessageType.text.rawValue] = text
-            self.sendMessage(message: request)
+            self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         case .photo(let mediaItem):
             if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
                 mediaManager.uploadImage(data: data,
@@ -111,12 +111,12 @@ class ApiManager {
                             completionHandler: { (url) in
                                                    guard let url = url else { return }
                                                    request[MessageType.image.rawValue] = url
-                                                   self.sendMessage(message: request)
+                                                   self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
                                                })
             }
         case .location(let location):
             request[MessageType.location.rawValue] = "\(location.latitude),\(location.longitude)"
-            sendMessage(message: request)
+            sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         case .video(let videoItem):
             mediaManager.uploadVideo(url: videoItem.videoUrl,
                                chunkSize: videoItem.bytes,
@@ -126,20 +126,26 @@ class ApiManager {
                        completionHandler: { url in
                                                guard let url = url else { return }
                                                request[MessageType.video.rawValue] = url
-                                               self.sendMessage(message: request)
+                                               self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
                                           })
         case .giphy(let giphy):
             request[MessageType.giphy.rawValue] = giphy.url
-            sendMessage(message: request)
+            sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         }
     }
     
-    private func sendMessage(message: [String: Any]) {
+    private func sendMessage(message: [String: Any], successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         Backendless.sharedInstance().messaging.publish(channel?.channelName,
                                                        message: message,
                                                       response: { messageStatus in
                                                                     print("downloaded to real time chat")
-                                                                    self.saveMessage(message: message)
+                                                                    self.saveMessage(message: message,
+                                                                                successBlock: {
+                                                                                                  successBlock()
+                                                                                              },
+                                                                                  errorBlock: {
+                                                                                                  errorBlock()
+                                                                                              })
                                                                 },
                                                          error: { error in
                                                                     print("error")
@@ -166,10 +172,10 @@ class ApiManager {
         remove(message: message,
                 toUser: toUser,
           successBlock: {
-                            self.publishMessage(message, toUser: toUser)
+                            self.publishMessage(message, toUser: toUser, successBlock: successBlock, errorBlock: errorBlock)
                         },
             errorBlock: {
-            
+                            errorBlock()
                         })
     }
     
@@ -189,12 +195,14 @@ class ApiManager {
                                   })
     }
     
-    func saveMessage(message: [String: Any]) {
+    func saveMessage(message: [String: Any], successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         self.dataStore?.save(message, response: { savedMessage in
+                                                    successBlock()
                                                     print("success")
                                                 },
                                          error: { fault in
+                                                    errorBlock()
                                                     print("error")
                                                 })
     }

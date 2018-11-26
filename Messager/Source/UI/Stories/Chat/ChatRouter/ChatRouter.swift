@@ -263,7 +263,14 @@ extension ChatRouter: ChatViewControllerDelegate {
     }
     
     func didTouchSendMessageButton(with message: Message, toUser: User, viewController: ChatViewController) {
-        assembly.appAssembly.apiManager.publishMessage(message, toUser: toUser)
+        assembly.appAssembly.apiManager.publishMessage(message,
+                                                       toUser: toUser,
+                                                 successBlock: {
+                                                                   print("Success publish")
+                                                               },
+                                                   errorBlock: {
+                                                                    print("Error publish")
+                                                               })
     }
     
     func didTouchBackButton(viewController: ChatViewController) {
