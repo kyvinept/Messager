@@ -33,9 +33,9 @@
     
     @IBAction func sequreButtonTapped(_ sender: Any) {
         if passwordTextField.isSecureTextEntry {
-            eyeButton.imageView?.image = UIImage(named: "eye")
+            eyeButton.setImage(UIImage(named: "eyeBlue"), for: .normal)
         } else {
-            eyeButton.imageView?.image = UIImage(named: "eye-1")
+            eyeButton.setImage(UIImage(named: "eyeBlack"), for: .normal)
         }
         passwordTextField.isSecureTextEntry.toggle()
     }

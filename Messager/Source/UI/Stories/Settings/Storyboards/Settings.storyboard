@@ -129,6 +129,8 @@
                         <outlet property="idTextField" destination="YCh-pb-mXV" id="gxl-RW-5NQ"/>
                         <outlet property="nameTextField" destination="szt-eY-CfQ" id="OtE-q3-jHL"/>
                         <outlet property="passwordTextField" destination="ZHM-FR-fHR" id="ha9-ag-Uhk"/>
+                        <outlet property="saveButton" destination="Dsj-A3-hOo" id="apE-gz-45h"/>
+                        <outlet property="scrollView" destination="2Qo-1Y-HfI" id="Xdx-A0-CHd"/>
                         <outlet property="userImageView" destination="LAH-vV-5Gk" id="GDx-BH-sTg"/>
                     </connections>
                 </viewController>

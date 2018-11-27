@@ -57,8 +57,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEq-8y-ble">
-                                <rect key="frame" x="298" y="190" width="16" height="22"/>
-                                <state key="normal" image="eye-1"/>
+                                <rect key="frame" x="298" y="193" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="Wb9-FM-bvt"/>
+                                    <constraint firstAttribute="height" constant="16" id="yAx-Ne-18f"/>
+                                </constraints>
+                                <state key="normal" image="eyeBlack"/>
                                 <connections>
                                     <action selector="sequreButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3hO-7A-fRW"/>
                                 </connections>
@@ -120,7 +124,7 @@
                                 <rect key="frame" x="56" y="177" width="263" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-gA-Xan">
                                 <rect key="frame" x="262" y="223" width="57" height="30"/>
@@ -129,15 +133,29 @@
                                     <action selector="registerButtonTapped:" destination="btV-nz-O9a" eventType="touchUpInside" id="RhL-x3-dKu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Foa-pE-CSD">
+                                <rect key="frame" x="298" y="184" width="16" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="INO-9a-Xel"/>
+                                    <constraint firstAttribute="height" constant="16" id="qRd-QF-evu"/>
+                                </constraints>
+                                <state key="normal" image="eyeBlack"/>
+                                <connections>
+                                    <action selector="sequreButtonTapped:" destination="btV-nz-O9a" eventType="touchUpInside" id="5i3-At-ZWX"/>
+                                    <action selector="sequreButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uns-qx-Zdj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Foa-pE-CSD" firstAttribute="centerY" secondItem="Hve-yn-xoI" secondAttribute="centerY" id="4KH-Y7-Q3g"/>
                             <constraint firstItem="Sua-gA-Xan" firstAttribute="top" secondItem="Hve-yn-xoI" secondAttribute="bottom" constant="16" id="JWJ-VG-ibR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="j2W-c5-o6u" secondAttribute="trailing" constant="40" id="RHv-Qr-cy8"/>
                             <constraint firstItem="Hve-yn-xoI" firstAttribute="top" secondItem="bBG-ui-LpX" secondAttribute="bottom" constant="16" id="SoI-Pt-lwm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bBG-ui-LpX" secondAttribute="trailing" constant="40" id="Y5M-vI-8CM"/>
                             <constraint firstItem="bBG-ui-LpX" firstAttribute="leading" secondItem="uq1-xt-HoL" secondAttribute="leadingMargin" constant="40" id="aDa-2a-PbG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hve-yn-xoI" secondAttribute="trailing" constant="40" id="cy8-BK-BOu"/>
+                            <constraint firstItem="Foa-pE-CSD" firstAttribute="trailing" secondItem="Hve-yn-xoI" secondAttribute="trailing" constant="-5" id="eaI-hb-Rav"/>
                             <constraint firstItem="bBG-ui-LpX" firstAttribute="top" secondItem="j2W-c5-o6u" secondAttribute="bottom" constant="16" id="ghq-Vh-xhD"/>
                             <constraint firstItem="Hve-yn-xoI" firstAttribute="leading" secondItem="uq1-xt-HoL" secondAttribute="leadingMargin" constant="40" id="mCi-aM-Pvx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Sua-gA-Xan" secondAttribute="trailing" constant="40" id="oWR-Ab-RdG"/>
@@ -147,6 +165,7 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="j2W-c5-o6u" id="mha-fy-d8E"/>
+                        <outlet property="eyeButton" destination="Foa-pE-CSD" id="G5O-Ge-AEx"/>
                         <outlet property="nameTextField" destination="bBG-ui-LpX" id="OfY-A1-IjT"/>
                         <outlet property="passwordTextField" destination="Hve-yn-xoI" id="v7o-23-cLU"/>
                     </connections>
@@ -202,6 +221,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="eye-1" width="16" height="16"/>
+        <image name="eyeBlack" width="32" height="32"/>
     </resources>
 </document>

@@ -21,12 +21,17 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
-    weak var delegate: SettingsViewControllerDelegate?
+    @IBOutlet private weak var saveButton: UIButton!
+    @IBOutlet private weak var scrollView: UIScrollView!
     private var currentUser: User?
+    private let bottomOffset: CGFloat = 10
+    
+    weak var delegate: SettingsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setGesture()
+        setNotificationKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +103,22 @@ extension SettingsViewController: UIImagePickerControllerDelegate & UINavigation
 }
 
 private extension SettingsViewController {
+    
+    func setNotificationKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let y = self.view.frame.height - saveButton.frame.origin.y - keyboardSize.height - self.navigationController!.navigationBar.frame.size.height + saveButton.frame.height + bottomOffset
+            scrollView.setContentOffset(CGPoint(x: 0, y: y), animated: true)
+        }
+    }
+    
+    @objc func keyboardWillHide() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
     
     func setTextInTextFields() {
         if let currentUser = currentUser {
