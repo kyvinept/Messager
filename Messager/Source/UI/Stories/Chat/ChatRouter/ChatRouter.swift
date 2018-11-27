@@ -39,6 +39,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                                                                          messages: messages,
                                                                               giphyViewController: giphy)
                                       vc.delegate = self
+                                      self.realtimeChat(currentUser: currentUser, toUser: toUser, viewController: vc)
                                       self.chatViewController = vc
                                       DispatchQueue.main.async {
                                           self.action(with: vc,
@@ -52,7 +53,6 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                       errorBlock: { error in
                                       print("error")
                                   })
-        realtimeChat(currentUser: currentUser, toUser: toUser)
     }
     
     private func checkNewMessages(currentUser: User, toUser: User) {
@@ -61,7 +61,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
         }
     }
     
-    private func realtimeChat(currentUser: User, toUser: User) {
+    private func realtimeChat(currentUser: User, toUser: User, viewController: UIViewController) {
         assembly.appAssembly.apiManager
             .startRealtimeChat(fromUser: currentUser,
                                  toUser: toUser,
@@ -87,7 +87,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                              })
                                          },
                              errorBlock: { error in
-                                             print("error")
+                                             self.showInfo(to: viewController, title: "Error", message: error?.detail ?? "")
                                          })
     }
 }
