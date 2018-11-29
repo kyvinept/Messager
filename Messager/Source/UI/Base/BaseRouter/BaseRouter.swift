@@ -30,7 +30,7 @@ class BaseRouter {
         }
     }
     
-    func showInfo(to viewController: UIViewController, title: String, message: String, completion: @escaping (() -> ())? = nil) {
+    func showInfo(to viewController: UIViewController, title: String, message: String, completion: (() -> ())? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         viewController.present(alert,

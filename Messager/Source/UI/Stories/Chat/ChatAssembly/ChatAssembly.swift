@@ -15,6 +15,11 @@ class ChatAssembly: ChatAssemblyProtocol {
         self.appAssembly = appAssembly
     }
     
+    func createCalendarViewController() -> CalendarViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "CalendarViewController") as! CalendarViewController
+        return vc
+    }
+    
     func createChatViewController(currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) -> ChatViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         vc.title = "Chats"

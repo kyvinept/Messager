@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SearchView" customModule="Messager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search text..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xxh-bF-PE7">
+                    <rect key="frame" x="45" y="6.5" width="240" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbP-0t-sgx">
+                    <rect key="frame" x="340" y="9" width="25" height="25"/>
+                    <color key="backgroundColor" red="0.59215686270000001" green="0.76651557550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="MtH-tQ-hIx"/>
+                        <constraint firstAttribute="height" constant="25" id="wDZ-Q6-US3"/>
+                    </constraints>
+                    <state key="normal" image="down">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="downButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="BxV-3R-rd4"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ac-IW-mgz">
+                    <rect key="frame" x="305" y="9" width="25" height="25"/>
+                    <color key="backgroundColor" red="0.59215686274509804" green="0.76470588235294112" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="j7t-u6-7Gd"/>
+                        <constraint firstAttribute="height" constant="25" id="res-Qr-CJk"/>
+                    </constraints>
+                    <state key="normal" image="top">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="upButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="gPQ-Fz-kpu"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKf-P8-ARc">
+                    <rect key="frame" x="295" y="21.5" width="0.0" height="0.0"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Gv-ex-u6D">
+                    <rect key="frame" x="10" y="9" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="RFq-px-lIu"/>
+                        <constraint firstAttribute="height" constant="25" id="gxW-r4-O70"/>
+                    </constraints>
+                    <state key="normal" image="calendar"/>
+                    <connections>
+                        <action selector="calendarButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="0Ad-qp-gKn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xxh-bF-PE7" firstAttribute="leading" secondItem="8Gv-ex-u6D" secondAttribute="trailing" constant="10" id="1rx-fo-yvQ"/>
+                <constraint firstItem="xxh-bF-PE7" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5cJ-Oq-zvb"/>
+                <constraint firstItem="2ac-IW-mgz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="CW2-AG-sSz"/>
+                <constraint firstItem="8Gv-ex-u6D" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="EnW-Sc-unY"/>
+                <constraint firstItem="8Gv-ex-u6D" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="JxD-wo-g9r"/>
+                <constraint firstItem="eKf-P8-ARc" firstAttribute="leading" secondItem="xxh-bF-PE7" secondAttribute="trailing" constant="10" id="KIe-S1-auH"/>
+                <constraint firstItem="eKf-P8-ARc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Laj-4P-a3P"/>
+                <constraint firstItem="kbP-0t-sgx" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="co8-eV-WGN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kbP-0t-sgx" secondAttribute="trailing" constant="10" id="dyG-EO-QFq"/>
+                <constraint firstItem="kbP-0t-sgx" firstAttribute="leading" secondItem="2ac-IW-mgz" secondAttribute="trailing" constant="10" id="jmF-g4-dGm"/>
+                <constraint firstItem="2ac-IW-mgz" firstAttribute="leading" secondItem="eKf-P8-ARc" secondAttribute="trailing" constant="10" id="xzA-Sw-9T6"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="calendarButton" destination="8Gv-ex-u6D" id="D1e-6R-laD"/>
+                <outlet property="downButton" destination="kbP-0t-sgx" id="hWc-dz-FXQ"/>
+                <outlet property="elementLabel" destination="eKf-P8-ARc" id="jBy-hb-ZW8"/>
+                <outlet property="searchTextField" destination="xxh-bF-PE7" id="B9e-PZ-N1r"/>
+                <outlet property="upButton" destination="2ac-IW-mgz" id="0nu-kK-gZS"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="-136.28185907046478"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="calendar" width="32" height="32"/>
+        <image name="down" width="32" height="32"/>
+        <image name="top" width="32" height="32"/>
+    </resources>
+</document>

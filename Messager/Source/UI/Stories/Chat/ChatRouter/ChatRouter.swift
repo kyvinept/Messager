@@ -14,6 +14,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var usersViewController: UsersViewController?
     private var addUserViewController: AddUserViewController?
     private var mapViewController: MapViewController?
+    private var calendarViewController: CalendarViewController?
     lazy var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
@@ -196,6 +197,17 @@ extension ChatRouter: AddUserViewControllerDelegate {
 }
 
 extension ChatRouter: ChatViewControllerDelegate {
+   
+    func didTappedCalendarButton(viewController: ChatViewController) {
+        let vc = assembly.createCalendarViewController()
+        self.calendarViewController = vc
+        vc.delegate = self
+        vc.modalPresentationStyle = .overCurrentContext
+        self.action(with: vc,
+                    from: viewController.navigationController!,
+                    with: .present,
+                animated: false)
+    }
     
     func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController) {
         let progress = showProgress(toViewController: viewController)
@@ -315,5 +327,12 @@ extension ChatRouter: GiphyViewControllerDelegate {
                                                            errorBlock: { error in
                                                                             print("error")
                                                                        })
+    }
+}
+
+extension ChatRouter: CalendarViewControllerDelegate {
+    
+    func didTappedCancelButton(viewController: CalendarViewController) {
+        viewController.dismiss(animated: false, completion: nil)
     }
 }

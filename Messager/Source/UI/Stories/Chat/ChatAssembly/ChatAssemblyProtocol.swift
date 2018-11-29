@@ -17,4 +17,5 @@ protocol ChatAssemblyProtocol {
     func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController
     func createMapViewController() -> MapViewController
     func createGiphyViewController() -> GiphyViewController
+    func createCalendarViewController() -> CalendarViewController
 }

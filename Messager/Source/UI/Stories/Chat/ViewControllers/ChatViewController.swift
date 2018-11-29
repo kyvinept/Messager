@@ -19,10 +19,12 @@ protocol ChatViewControllerDelegate: class {
     func didTappedSearchGiphyButton(search: String, pageNumber: Int, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ())
     func didTappedRemoveMessageButton(message: Message, toUser: User, viewController: ChatViewController)
     func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController)
+    func didTappedCalendarButton(viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
 
+    @IBOutlet private weak var bottomView: UIView!
     @IBOutlet private weak var sendMessageButton: UIButton!
     @IBOutlet private weak var cameraButton: UIButton!
     @IBOutlet private weak var textView: UITextView!
@@ -38,6 +40,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var searchGiphyButtonLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var searchGiphyButton: UIButton!
     
+    private var searchView: SearchView?
     private var isGiphyInput = false
     private var giphyViewController: GiphyViewController!
     private var progress: JGProgressHUD?
@@ -45,6 +48,7 @@ class ChatViewController: UIViewController {
     private var currentUser: User!
     private var toUser: User!
     private var editingMessage: Message?
+    private var searchMessageIndex: Int?
     
     weak var delegate: ChatViewControllerDelegate?
 
@@ -56,6 +60,8 @@ class ChatViewController: UIViewController {
         setBaseUIComponents()
         setActivityIndicator()
         addGiphyViewController(giphyViewController)
+        addSearchButton()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -291,6 +297,80 @@ class ChatViewController: UIViewController {
 
 private extension ChatViewController {
     
+    func addSearchButton() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search,
+                                                        target: self,
+                                                        action: #selector(ChatViewController.searchButtonTapped))
+        
+        self.navigationItem.rightBarButtonItem = searchButton
+    }
+    
+    func addCancelSearchButton() {
+        let cancelSearchButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                              target: self,
+                                                              action: #selector(ChatViewController.cancelSearchButtonTapped))
+        
+        self.navigationItem.rightBarButtonItem = cancelSearchButton
+    }
+    
+    @objc func cancelSearchButtonTapped() {
+        addSearchButton()
+        searchView?.removeFromSuperview()
+        searchView = nil
+        if let searchMessageIndex = searchMessageIndex {
+            tableView.cellForRow(at: IndexPath(row: searchMessageIndex, section: 0))?.backgroundColor = UIColor.clear
+            self.searchMessageIndex = nil
+        }
+    }
+    
+    @objc func searchButtonTapped() {
+        view.endEditing(true)
+        addCancelSearchButton()
+        let searchView = UINib(nibName: "SearchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SearchView
+        searchView.configure(model: SearchViewViewModel(endInput: { [weak self] text in
+                                                                      let searchText = text.lowercased()
+                                                                      let textMessages = self?.messages.filter {
+                                                                          switch $0.kind {
+                                                                          case .text(let text):
+                                                                              if text.lowercased().contains(searchText) {
+                                                                                  return true
+                                                                              }
+                                                                          default:
+                                                                              return false
+                                                                          }
+                                                                          return false
+                                                                      }
+                                                                      if let textMessages = textMessages {
+                                                                          return textMessages.reversed()
+                                                                      }
+                                                                      return [Message]()
+                                                                  },
+                                                     showMessage: { message in
+                                                                      guard let index = self.messages.firstIndex(of: message) else { return }
+                                                                      self.searchMessageIndex = index
+                                                                      self.tableView.scrollToRow(at: IndexPath(row: index, section: 0),
+                                                                                                 at: .middle,
+                                                                                           animated: true)
+                                                                      self.tableView.cellForRow(at: IndexPath(row: index, section: 0))?.backgroundColor = UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1)
+                                                                  },
+                                               willChangeMessage: { message in
+                                                                      guard let index = self.messages.firstIndex(of: message) else { return }
+                                                                      self.searchMessageIndex = index
+                                                                      self.tableView.cellForRow(at: IndexPath(row: index, section: 0))?.backgroundColor = UIColor.clear
+                                                                  },
+                                                    showCalendar: {
+                                                                      self.delegate?.didTappedCalendarButton(viewController: self)
+                                                                  }))
+        //searchView.frame = bottomView.frame
+        self.view.addSubview(searchView)
+        self.searchView = searchView
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.topAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+        searchView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor).isActive = true
+        searchView.leftAnchor.constraint(equalTo: bottomView.leftAnchor).isActive = true
+        searchView.rightAnchor.constraint(equalTo: bottomView.rightAnchor).isActive = true
+    }
+    
     func insertNewMessage(_ message: Message) {
         messages.append(message)
         messages.sort { $0.sentDate < $1.sentDate }
@@ -480,7 +560,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-         
+        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -494,6 +574,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(model: MessageCellViewModel(message: text,
                                                               date: messages[indexPath.row].sentDate,
                                                       userImageUrl: messages[indexPath.row].sender.imageUrl))
+                cell.backgroundColor = searchMessageIndex == indexPath.row ? UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1) : UIColor.clear
                 return cell
             } else {
                 tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "TextCell")
@@ -501,6 +582,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(model: MessageCellViewModel(message: text,
                                                               date: messages[indexPath.row].sentDate,
                                                       userImageUrl: messages[indexPath.row].sender.imageUrl))
+                cell.backgroundColor = searchMessageIndex == indexPath.row ? UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1) : UIColor.clear
                 return cell
             }
             

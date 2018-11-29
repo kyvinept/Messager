@@ -1,0 +1,86 @@
+//
+//  SearchView.swift
+//  Messager
+//
+//  Created by Silchenko on 28.11.2018.
+//
+
+import UIKit
+
+class SearchView: UIView {
+
+    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet private weak var elementLabel: UILabel!
+    @IBOutlet private weak var upButton: UIButton!
+    @IBOutlet private weak var downButton: UIButton!
+    @IBOutlet private weak var calendarButton: UIButton!
+    
+    private var endInput: ((String) -> ([Message]))?
+    private var showMessage: ((Message) -> ())?
+    private var willChangeMessage: ((Message) -> ())?
+    private var showCalendar: (() -> ())?
+    
+    private var foundMessages = [Message]()
+    private var currentMessageIndex = 0
+    
+    override func awakeFromNib() {
+        searchTextField.delegate = self
+    }
+    
+    func configure(model: SearchViewViewModel) {
+        self.endInput = model.endInput
+        self.showMessage = model.showMessage
+        self.willChangeMessage = model.willChangeMessage
+        self.showCalendar = model.showCalendar
+    }
+    
+    @IBAction private func upButtonTapped(_ sender: Any) {
+        willChangeMessage?(foundMessages[currentMessageIndex])
+        currentMessageIndex += 1
+        if currentMessageIndex >= foundMessages.count {
+            currentMessageIndex = 0
+        }
+        updateUI()
+        showMessage?(foundMessages[currentMessageIndex])
+    }
+    
+    @IBAction private func downButtonTapped(_ sender: Any) {
+        willChangeMessage?(foundMessages[currentMessageIndex])
+        currentMessageIndex -= 1
+        if currentMessageIndex < 0 {
+            currentMessageIndex = foundMessages.count - 1
+        }
+        updateUI()
+        showMessage?(foundMessages[currentMessageIndex])
+    }
+    
+    @IBAction func calendarButtonTapped(_ sender: Any) {
+        showCalendar?()
+    }
+    
+    func updateUI() {
+        if foundMessages.count > 0 {
+            upButton.isEnabled = true
+            downButton.isEnabled = true
+            elementLabel.text = "\(currentMessageIndex+1) of \(foundMessages.count)"
+        } else {
+            elementLabel.text = ""
+            upButton.isEnabled = false
+            downButton.isEnabled = false
+        }
+    }
+}
+
+extension SearchView: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let messages = endInput?(textField.text ?? "") {
+            foundMessages = messages
+            if foundMessages.count > 0 {
+                showMessage?(foundMessages[currentMessageIndex])
+            }
+            updateUI()
+        }
+        return true
+    }
+}
