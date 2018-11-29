@@ -71,6 +71,11 @@ class ChatViewController: UIViewController {
             self.noMassageLabel.isHidden = true
         }
     }
+    
+    func searchMessages(byDate date: Date) {
+        let messagesForDay = messages.filter { date.toString(dateFormat: "yyyy-MM-dd") == $0.sentDate.toString(dateFormat: "yyyy-MM-dd") }
+        searchView?.set(messages: messagesForDay)
+    }
 
     func configure(with currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) {
         self.currentUser = currentUser

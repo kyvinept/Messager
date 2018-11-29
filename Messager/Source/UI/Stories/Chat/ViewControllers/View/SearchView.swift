@@ -27,6 +27,14 @@ class SearchView: UIView {
         searchTextField.delegate = self
     }
     
+    func set(messages: [Message]) {
+        self.foundMessages = messages
+        updateUI()
+        if foundMessages.count > 0 {
+            showMessage?(foundMessages[currentMessageIndex])
+        }
+    }
+    
     func configure(model: SearchViewViewModel) {
         self.endInput = model.endInput
         self.showMessage = model.showMessage
@@ -54,7 +62,7 @@ class SearchView: UIView {
         showMessage?(foundMessages[currentMessageIndex])
     }
     
-    @IBAction func calendarButtonTapped(_ sender: Any) {
+    @IBAction private func calendarButtonTapped(_ sender: Any) {
         showCalendar?()
     }
     

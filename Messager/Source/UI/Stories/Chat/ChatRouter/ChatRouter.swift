@@ -332,7 +332,14 @@ extension ChatRouter: GiphyViewControllerDelegate {
 
 extension ChatRouter: CalendarViewControllerDelegate {
     
+    func didChoseDate(_ date: Date, viewController: CalendarViewController) {
+        viewController.dismiss(animated: false, completion: nil)
+        calendarViewController = nil
+        chatViewController?.searchMessages(byDate: date)
+    }
+    
     func didTappedCancelButton(viewController: CalendarViewController) {
         viewController.dismiss(animated: false, completion: nil)
+        calendarViewController = nil
     }
 }

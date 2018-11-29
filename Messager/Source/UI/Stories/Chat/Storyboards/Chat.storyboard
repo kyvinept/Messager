@@ -451,17 +451,17 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lhk-Ga-UqP">
-                                        <rect key="frame" x="30" y="100" width="180" height="240"/>
+                                        <rect key="frame" x="20" y="100" width="200" height="240"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="owA-CC-vs0">
                                             <size key="itemSize" width="50" height="50"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="headerReferenceSize" width="50" height="50"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="kqY-83-gnw">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="50" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -469,6 +469,10 @@
                                                 </view>
                                             </collectionViewCell>
                                         </cells>
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="bmw-A1-ADl">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="zmj-1e-t0t" id="Iqt-lH-8T9"/>
                                             <outlet property="delegate" destination="zmj-1e-t0t" id="NaP-6L-Y1T"/>
@@ -480,8 +484,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lhk-Ga-UqP" secondAttribute="trailing" constant="30" id="1db-Ec-lsl"/>
-                                    <constraint firstItem="lhk-Ga-UqP" firstAttribute="leading" secondItem="neR-tq-9hi" secondAttribute="leading" constant="30" id="IyL-Vk-alA"/>
+                                    <constraint firstAttribute="trailing" secondItem="lhk-Ga-UqP" secondAttribute="trailing" constant="20" id="1db-Ec-lsl"/>
+                                    <constraint firstItem="lhk-Ga-UqP" firstAttribute="leading" secondItem="neR-tq-9hi" secondAttribute="leading" constant="20" id="IyL-Vk-alA"/>
                                     <constraint firstItem="lhk-Ga-UqP" firstAttribute="top" secondItem="aN2-Py-BPG" secondAttribute="bottom" id="S0f-sx-kWT"/>
                                     <constraint firstItem="aN2-Py-BPG" firstAttribute="leading" secondItem="neR-tq-9hi" secondAttribute="leading" id="YfU-sd-294"/>
                                     <constraint firstAttribute="trailing" secondItem="aN2-Py-BPG" secondAttribute="trailing" id="ZyF-LT-HKb"/>
