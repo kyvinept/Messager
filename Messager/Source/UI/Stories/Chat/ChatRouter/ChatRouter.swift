@@ -28,32 +28,25 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
-        assembly.appAssembly.databaseManager
-        .getMessages(currentUser: currentUser,
-                          toUser: toUser,
-                    successBlock: { messages in
-                                      guard let messages = messages else { return }
-                                      let giphy = self.assembly.createGiphyViewController()
-                                      giphy.delegate = self
-                                      let vc = self.assembly.createChatViewController(currentUser: currentUser,
-                                                                                           toUser: toUser,
-                                                                                         messages: messages,
-                                                                              giphyViewController: giphy)
-                                      vc.delegate = self
-                                      self.realtimeChat(currentUser: currentUser, toUser: toUser, viewController: vc)
-                                      self.chatViewController = vc
-                                      DispatchQueue.main.async {
-                                          self.action(with: vc,
-                                                      from: viewController.navigationController!,
-                                                      with: .push,
-                                                  animated: true)
-                                          viewController.tabBarController?.tabBar.isHidden = true
-                                      }
-                                      self.checkNewMessages(currentUser: currentUser, toUser: toUser)
-                                  },
-                      errorBlock: { error in
-                                      print("error")
-                                  })
+        let giphy = self.assembly.createGiphyViewController()
+        giphy.delegate = self
+        let vc = self.assembly.createChatViewController(currentUser: currentUser,
+                                                             toUser: toUser,
+                                                           messages: toUser.messages,
+                                                giphyViewController: giphy)
+        vc.delegate = self
+        self.realtimeChat(currentUser: currentUser,
+                               toUser: toUser,
+                       viewController: vc)
+        self.chatViewController = vc
+        DispatchQueue.main.async {
+            self.action(with: vc,
+                        from: viewController.navigationController!,
+                        with: .push,
+                    animated: true)
+            viewController.tabBarController?.tabBar.isHidden = true
+        }
+        self.checkNewMessages(currentUser: currentUser, toUser: toUser)
     }
     
     private func checkNewMessages(currentUser: User, toUser: User) {
@@ -63,11 +56,12 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     private func realtimeChat(currentUser: User, toUser: User, viewController: UIViewController) {
+        let refresh = showProgress(toViewController: viewController)
         assembly.appAssembly.apiManager
             .startRealtimeChat(fromUser: currentUser,
                                  toUser: toUser,
                            successBlock: {
-                                             self.chatViewController?.stopActivityIndicator()
+                                             refresh.dismiss()
                                              self.assembly.appAssembly.apiManager
                                              .addMessageListener(successBlock: { message in
                                                  if let message = message {
@@ -88,6 +82,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                              })
                                          },
                              errorBlock: { error in
+                                             refresh.dismiss()
                                              self.showInfo(to: viewController, title: "Error", message: error?.detail ?? "")
                                          })
     }
@@ -97,6 +92,7 @@ extension ChatRouter {
     
     private func showUsersViewController(from rootViewController: UIViewController) {
         assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
+            self.getMessages(forUsers: users)
             let vc = self.assembly.createUsersViewController(with: users ?? [User]())
             vc.delegate = self
             self.usersViewController = vc
@@ -112,10 +108,35 @@ extension ChatRouter {
         }
     }
     
+    private func getMessages(forUsers users: [User]?) {
+        guard let users = users else { return }
+        for user in users {
+            assembly.appAssembly.databaseManager.getMessages(currentUser: currentUser!,
+                                                                  toUser: user,
+                                                            successBlock: { messages in
+                                                                              user.messages = messages ?? [Message]()
+                                                                              self.checkNewMessagesForUser(currentUser: self.currentUser!, toUser: user)
+                                                                          },
+                                                              errorBlock: { error in
+                                                                              print("Error get local messages")
+                                                                          })
+        }
+    }
+    
+    private func checkNewMessagesForUser(currentUser: User, toUser: User) {
+        self.assembly.appAssembly.apiManager.getMessages(currentUser: currentUser, toUser: toUser) { message in
+            if !toUser.messages.contains(where: { $0 == message } ) {
+                toUser.messages.append(message)
+                self.usersViewController?.refreshData()
+            }
+        }
+    }
+    
     private func checkNewUsers() {
         assembly.appAssembly.apiManager.getNewUsers(currentUser: currentUser!,
                                                    successBlock: { users in
                                                                      self.usersViewController?.downloaded(users: users)
+                                                                     self.getMessages(forUsers: users)
                                                                  },
                                                      errorBlock: { error in
                                                                      self.showInfo(to: self.usersViewController!, title: "Error", message: error ?? "Unknowed error")

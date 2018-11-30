@@ -16,9 +16,9 @@ class CalendarViewController: UIViewController {
 
     weak var delegate: CalendarViewControllerDelegate?
     
-    @IBOutlet private weak var currentNumber: UILabel!
-    @IBOutlet private weak var currentMounth: UILabel!
-    @IBOutlet private weak var currentYear: UILabel!
+    @IBOutlet private weak var currentNumberLabel: UILabel!
+    @IBOutlet private weak var currentMounthLabel: UILabel!
+    @IBOutlet private weak var currentYearLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var backgroundView: UIView!
     
@@ -34,6 +34,12 @@ class CalendarViewController: UIViewController {
         return month.month!
     }
     
+    private var currentYear: Int {
+        let calendar = Calendar.current
+        let year = calendar.dateComponents([.year], from: Date())
+        return year.year!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addGesture()
@@ -41,8 +47,9 @@ class CalendarViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        currentMounth.text = Date().toString(dateFormat: "MMMM")
-        currentNumber.text = String(currentDay)
+        currentMounthLabel.text = Date().toString(dateFormat: "MMMM")
+        currentNumberLabel.text = String(currentDay)
+        currentYearLabel.text = String(currentYear)
         collectionView.scrollToItem(at: IndexPath(row: currentDay - 1 + 7, section: currentMonth - 1), at: .bottom, animated: false)
     }
 }
@@ -62,7 +69,10 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             cell.backgroundView?.layer.cornerRadius = cell.frame.size.width/2
             cell.backgroundView?.backgroundColor = .gray
             
-            let dateComponents = DateComponents(year: 2018, month: indexPath.section + 1, day: indexPath.row - 6, hour: 12)
+            let dateComponents = DateComponents(year: currentYear,
+                                               month: indexPath.section + 1,
+                                                 day: indexPath.row - 6 - getIndexDay(name: getFirstDayInMouth(mouth: indexPath.section + 1)),
+                                                hour: 12)
             let calendar = Calendar.current
             let date = calendar.date(from: dateComponents)!
             
@@ -71,17 +81,12 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let dateComponents = DateComponents(year: 2018, month: section + 1)
+        let dateComponents = DateComponents(year: currentYear, month: section + 1)
         let calendar = Calendar.current
         let date = calendar.date(from: dateComponents)!
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays = range.count
-        
-        let dateComponentsDay = DateComponents(year: 2018, month: section + 1, day: 1)
-        let dateDay = calendar.date(from: dateComponentsDay)!
-        let dayInWeek = dateDay.toString(dateFormat: "EE")
-        
-        return numDays + 7 + getIndexDay(name: dayInWeek)
+        return numDays + 7 + getIndexDay(name: getFirstDayInMouth(mouth: section + 1))
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -93,8 +98,37 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         return headerView
     }
     
-    private func createHeaderView(forCell cell: UICollectionReusableView, with indexPath: IndexPath) -> UIView {
-        let dateComponents = DateComponents(year: 2018, month: indexPath.section + 1)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: IndexPath(row: indexPath.row, section: indexPath.section))
+        cell.backgroundView = getDaysView(forCell: cell, with: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width/7, height: collectionView.frame.width/7)
+    }
+}
+
+private extension CalendarViewController {
+    
+    func getFirstDayInMouth(mouth: Int) -> String {
+        let calendar = Calendar.current
+        let dateComponentsDay = DateComponents(year: currentYear, month: mouth, day: 1)
+        let dateDay = calendar.date(from: dateComponentsDay)!
+        return dateDay.toString(dateFormat: "EE")
+    }
+    
+    func addGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CalendarViewController.backgroundViewTapped))
+        backgroundView.addGestureRecognizer(tap)
+    }
+    
+    @objc func backgroundViewTapped() {
+        delegate?.didTappedCancelButton(viewController: self)
+    }
+    
+    func createHeaderView(forCell cell: UICollectionReusableView, with indexPath: IndexPath) -> UIView {
+        let dateComponents = DateComponents(year: currentYear, month: indexPath.section + 1)
         let calendar = Calendar.current
         let date = calendar.date(from: dateComponents)!
         
@@ -108,13 +142,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         return view
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: IndexPath(row: indexPath.row, section: indexPath.section))
-        cell.backgroundView = getDaysView(forCell: cell, with: indexPath)
-        return cell
-    }
-    
-    private func getNameOfDay(index: Int) -> String {
+    func getNameOfDay(index: Int) -> String {
         switch index {
         case 0:
             return "SUN"
@@ -136,7 +164,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         return ""
     }
     
-    private func getIndexDay(name: String) -> Int {
+    func getIndexDay(name: String) -> Int {
         switch name {
         case "Sun":
             return 0
@@ -158,11 +186,8 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         return 0
     }
     
-    private func getDaysView(forCell cell: UICollectionViewCell, with indexPath: IndexPath) -> UIView {
-        let calendar = Calendar.current
-        let dateComponentsDay = DateComponents(year: 2018, month: indexPath.section + 1, day: 1)
-        let dateDay = calendar.date(from: dateComponentsDay)!
-        let dayInWeek = dateDay.toString(dateFormat: "EE")
+    func getDaysView(forCell cell: UICollectionViewCell, with indexPath: IndexPath) -> UIView {
+        let indexDayInMouth = getIndexDay(name: getFirstDayInMouth(mouth: indexPath.section + 1))
         
         let view = UIView()
         let label = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: cell.frame.size))
@@ -171,14 +196,14 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             label.font = UIFont.systemFont(ofSize: 10, weight: .bold)
             label.text = getNameOfDay(index: indexPath.row)
         } else {
-            if indexPath.row < 7 + getIndexDay(name: dayInWeek) {
+            if indexPath.row < 7 + indexDayInMouth {
                 return collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: IndexPath(row: indexPath.row, section: indexPath.section))
             }
             
             label.font = UIFont.systemFont(ofSize: 12)
-            label.text = String(indexPath.row - 6 - getIndexDay(name: dayInWeek))
+            label.text = String(indexPath.row - 6 - indexDayInMouth)
         }
-        if currentMonth == indexPath.section + 1 && currentDay == indexPath.row - 6 - getIndexDay(name: dayInWeek) {
+        if currentMonth == indexPath.section + 1 && currentDay == indexPath.row - 6 - indexDayInMouth {
             view.backgroundColor = .blue
             view.layer.cornerRadius = label.frame.size.width/2
             label.textColor = .white
@@ -188,21 +213,5 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         view.addSubview(label)
         return view
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/7, height: collectionView.frame.width/7)
-    }
-}
-
-private extension CalendarViewController {
-    
-    func addGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(CalendarViewController.backgroundViewTapped))
-        backgroundView.addGestureRecognizer(tap)
-    }
-    
-    @objc func backgroundViewTapped() {
-        delegate?.didTappedCancelButton(viewController: self)
     }
 }

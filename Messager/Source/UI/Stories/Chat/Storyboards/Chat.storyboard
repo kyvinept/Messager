@@ -510,9 +510,9 @@
                     <connections>
                         <outlet property="backgroundView" destination="RpR-6h-izq" id="7jt-Z5-rO4"/>
                         <outlet property="collectionView" destination="lhk-Ga-UqP" id="kBG-F8-ws4"/>
-                        <outlet property="currentMounth" destination="4uR-sy-7J6" id="nVb-xH-ulE"/>
-                        <outlet property="currentNumber" destination="3sB-jY-Kl1" id="1tv-cs-vRP"/>
-                        <outlet property="currentYear" destination="ZVA-1z-jAN" id="CsK-Sk-NAk"/>
+                        <outlet property="currentMounthLabel" destination="4uR-sy-7J6" id="5zx-jj-0er"/>
+                        <outlet property="currentNumberLabel" destination="3sB-jY-Kl1" id="32A-KA-3SU"/>
+                        <outlet property="currentYearLabel" destination="ZVA-1z-jAN" id="VUR-2f-kTk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GqA-KD-it5" userLabel="First Responder" sceneMemberID="firstResponder"/>

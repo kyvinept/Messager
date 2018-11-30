@@ -35,6 +35,13 @@ class UsersViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.isUserInteractionEnabled = true
+        tableView.reloadData()
+    }
+    
+    func refreshData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     func configure(users: [User]) {
@@ -90,7 +97,6 @@ class UsersViewController: UIViewController {
     
     @objc private func refreshTableView() {
         delegate?.didRefreshUsers(from: self)
-        //refresh?.endRefreshing()
     }
     
     @objc private func addUserButtonTapped() {
@@ -107,7 +113,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UserCell
         cell.configure(model: UserCellViewModel(userName: users[indexPath.row].name,
-                                             lastMessage: nil,
+                                            lastMessage: users[indexPath.row].messages.sorted{}.last,
                                          lastMessageTime: nil,
                                             userImageUrl: users[indexPath.row].imageUrl))
         return cell

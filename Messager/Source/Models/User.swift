@@ -15,6 +15,7 @@ class User: Equatable {
     var id: String
     var userToken: String?
     var imageUrl: String
+    var messages = [Message]()
     
     init (email: String, name: String, password: String?, id: String, userToken: String?, imageUrl: String = ""){
         self.email = email
@@ -23,6 +24,16 @@ class User: Equatable {
         self.id = id
         self.userToken = userToken
         self.imageUrl = imageUrl
+    }
+    
+    init (email: String, name: String, password: String?, id: String, userToken: String?, imageUrl: String, messages: [Message]){
+        self.email = email
+        self.name = name
+        self.password = password
+        self.id = id
+        self.userToken = userToken
+        self.imageUrl = imageUrl
+        self.messages = messages
     }
 
     static func == (lhs: User, rhs: User) -> Bool {

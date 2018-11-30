@@ -43,7 +43,6 @@ class ChatViewController: UIViewController {
     private var searchView: SearchView?
     private var isGiphyInput = false
     private var giphyViewController: GiphyViewController!
-    private var progress: JGProgressHUD?
     private var messages = [Message]()
     private var currentUser: User!
     private var toUser: User!
@@ -58,7 +57,6 @@ class ChatViewController: UIViewController {
         registerCell()
         addNotification()
         setBaseUIComponents()
-        setActivityIndicator()
         addGiphyViewController(giphyViewController)
         addSearchButton()
         
@@ -99,6 +97,7 @@ class ChatViewController: UIViewController {
     func showNewMessage(_ message: Message) {
         if !self.messages.contains(where: { $0 == message } ) {
             insertNewMessage(message)
+            toUser.messages.append(message)
         }
     }
     
@@ -123,10 +122,6 @@ class ChatViewController: UIViewController {
             self.tableView.reloadData()
             self.tableView.scrollToBottom(animated: true)
         }
-    }
-    
-    func stopActivityIndicator() {
-        progress?.dismiss()
     }
     
     @IBAction func giphyButtonTapped(_ sender: Any) {
@@ -159,11 +154,6 @@ class ChatViewController: UIViewController {
         sendMessageButton.alpha = 0
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setActivityIndicator() {
-        progress = JGProgressHUD(style: .dark)
-        progress?.show(in: self.view)
     }
     
     private func addGiphyViewController(_ viewController: GiphyViewController) {
@@ -322,6 +312,7 @@ private extension ChatViewController {
         addSearchButton()
         searchView?.removeFromSuperview()
         searchView = nil
+        hideKeyboard()
         if let searchMessageIndex = searchMessageIndex {
             tableView.cellForRow(at: IndexPath(row: searchMessageIndex, section: 0))?.backgroundColor = UIColor.clear
             self.searchMessageIndex = nil
@@ -331,6 +322,7 @@ private extension ChatViewController {
     @objc func searchButtonTapped() {
         view.endEditing(true)
         addCancelSearchButton()
+        hideKeyboard()
         let searchView = UINib(nibName: "SearchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SearchView
         searchView.configure(model: SearchViewViewModel(endInput: { [weak self] text in
                                                                       let searchText = text.lowercased()
@@ -366,7 +358,6 @@ private extension ChatViewController {
                                                     showCalendar: {
                                                                       self.delegate?.didTappedCalendarButton(viewController: self)
                                                                   }))
-        //searchView.frame = bottomView.frame
         self.view.addSubview(searchView)
         self.searchView = searchView
         searchView.translatesAutoresizingMaskIntoConstraints = false
@@ -391,12 +382,7 @@ private extension ChatViewController {
 }
 
 extension ChatViewController {
-    
-//    func addGesture() {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(viewWasTapped(_:)))
-//        self.view.addGestureRecognizer(tap)
-//    }
-//
+
     @objc func viewWasTapped() {
         self.view.endEditing(true)
         if isGiphyInput {
@@ -529,6 +515,10 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        hideKeyboard()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
