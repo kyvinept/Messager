@@ -585,7 +585,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="ymw-CX-B4B"/>
+                                    <constraint firstAttribute="height" constant="200" id="Nhv-ik-i3J"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="b0v-Kb-Tw4">
                                     <size key="itemSize" width="174" height="154"/>
@@ -624,15 +624,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="r4Z-jX-Iji" firstAttribute="trailing" secondItem="lHb-D3-4y2" secondAttribute="trailing" id="GdY-Rt-9y3"/>
-                            <constraint firstItem="lHb-D3-4y2" firstAttribute="top" secondItem="r4Z-jX-Iji" secondAttribute="top" id="nvW-wj-j6M"/>
-                            <constraint firstItem="lHb-D3-4y2" firstAttribute="leading" secondItem="r4Z-jX-Iji" secondAttribute="leading" id="tnI-Ij-bJZ"/>
+                            <constraint firstItem="lHb-D3-4y2" firstAttribute="top" secondItem="r4Z-jX-Iji" secondAttribute="top" id="Cpe-bK-KVF"/>
+                            <constraint firstItem="lHb-D3-4y2" firstAttribute="leading" secondItem="r4Z-jX-Iji" secondAttribute="leading" id="QfR-ax-NQW"/>
+                            <constraint firstItem="lHb-D3-4y2" firstAttribute="trailing" secondItem="r4Z-jX-Iji" secondAttribute="trailing" id="X2Q-Kd-hFh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r4Z-jX-Iji"/>
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
                     <connections>
                         <outlet property="collectionView" destination="lHb-D3-4y2" id="7oc-9h-Y1p"/>
+                        <outlet property="collectionViewHeight" destination="Nhv-ik-i3J" id="ZpH-Pz-7GD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ww9-TX-nau" userLabel="First Responder" sceneMemberID="firstResponder"/>

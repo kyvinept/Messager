@@ -113,7 +113,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! UserCell
         cell.configure(model: UserCellViewModel(userName: users[indexPath.row].name,
-                                            lastMessage: users[indexPath.row].messages.sorted{}.last,
+                                             lastMessage: users[indexPath.row].messages.sorted { $0.sentDate < $1.sentDate }.last,
                                          lastMessageTime: nil,
                                             userImageUrl: users[indexPath.row].imageUrl))
         return cell

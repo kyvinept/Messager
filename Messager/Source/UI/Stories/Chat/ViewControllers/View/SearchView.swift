@@ -84,7 +84,10 @@ extension SearchView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let messages = endInput?(textField.text ?? "") {
             foundMessages = messages
-            if foundMessages.count > 0 {
+            if foundMessages.count > 0 && currentMessageIndex < foundMessages.count {
+                showMessage?(foundMessages[currentMessageIndex])
+            } else if currentMessageIndex >= foundMessages.count && foundMessages.count > 0 {
+                currentMessageIndex = 0
                 showMessage?(foundMessages[currentMessageIndex])
             }
             updateUI()

@@ -20,6 +20,7 @@ class GiphyViewController: UIViewController {
     var choseGiphy: ((String, String) -> ())?
     private var giphy = [Giphy]()
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
     private(set) var pageNumber = 0
     
     override func viewDidLoad() {
@@ -40,6 +41,10 @@ class GiphyViewController: UIViewController {
                 collectionView.reloadData()
             }
         }
+    }
+    
+    func changeCollectionViewHeight(height: CGFloat) {
+        collectionViewHeight.constant = height
     }
     
     func addNewGiphy(giphy: [Giphy]) {

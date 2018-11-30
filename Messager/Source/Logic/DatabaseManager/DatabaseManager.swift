@@ -190,6 +190,7 @@ extension DatabaseManager {
                     let messages = user.messages?.allObjects as! [MessageEntity]
                     if let deleteMessage = messages.first (where: { $0.sentDate == message.sentDate && $0.messageId == message.messageId }) {
                         context.delete(deleteMessage)
+                        self.saveContext()
                         print("Success delete from local db")
                     }
                 }
@@ -220,6 +221,7 @@ extension DatabaseManager {
                         }
                     }
                 }
+                self.saveContext()
             } catch {
                 print("error")
             }

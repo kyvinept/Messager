@@ -78,7 +78,7 @@ class ChatViewController: UIViewController {
     func configure(with currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) {
         self.currentUser = currentUser
         self.toUser = toUser
-        self.messages = messages
+        self.messages = messages.sorted { $0.sentDate < $1.sentDate }
         self.giphyViewController = giphyViewController
         giphyViewController.choseGiphy = {[weak self] url, id in
             if let self = self {
@@ -313,6 +313,10 @@ private extension ChatViewController {
         searchView?.removeFromSuperview()
         searchView = nil
         hideKeyboard()
+        searchMessageChangeColor()
+    }
+    
+    func searchMessageChangeColor() {
         if let searchMessageIndex = searchMessageIndex {
             tableView.cellForRow(at: IndexPath(row: searchMessageIndex, section: 0))?.backgroundColor = UIColor.clear
             self.searchMessageIndex = nil
@@ -325,6 +329,7 @@ private extension ChatViewController {
         hideKeyboard()
         let searchView = UINib(nibName: "SearchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SearchView
         searchView.configure(model: SearchViewViewModel(endInput: { [weak self] text in
+                                                                      self?.searchMessageChangeColor()
                                                                       let searchText = text.lowercased()
                                                                       let textMessages = self?.messages.filter {
                                                                           switch $0.kind {
@@ -356,6 +361,8 @@ private extension ChatViewController {
                                                                       self.tableView.cellForRow(at: IndexPath(row: index, section: 0))?.backgroundColor = UIColor.clear
                                                                   },
                                                     showCalendar: {
+                                                                      self.hideKeyboard()
+                                                                      self.searchMessageChangeColor()
                                                                       self.delegate?.didTappedCalendarButton(viewController: self)
                                                                   }))
         self.view.addSubview(searchView)
@@ -414,6 +421,7 @@ extension ChatViewController {
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             giphyViewHeight.constant = (keyboardSize.height - self.view.safeAreaInsets.bottom)
+            giphyViewController.changeCollectionViewHeight(height: giphyViewHeight.constant)
             bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
             textViewBottomConstraint.constant = -(keyboardSize.height - self.view.safeAreaInsets.bottom)
             UIView.animate(withDuration: 0.5) {
@@ -526,6 +534,9 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let _ = searchMessageIndex {
+            cancelSearchButtonTapped()
+        }
         viewWasTapped()
         tableView.deselectRow(at: indexPath, animated: true)
         showAlert(forIndexPath: indexPath)
