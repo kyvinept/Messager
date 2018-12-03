@@ -81,6 +81,7 @@
 		5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */; };
 		5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */; };
 		5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */; };
+		5BB11F7B21B5909C00A58CAB /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB11F7A21B5909C00A58CAB /* UICollectionView.swift */; };
 		5BB514D221889D82003D2C04 /* OutgoingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514D021889D82003D2C04 /* OutgoingMessageCell.swift */; };
 		5BB514D321889D82003D2C04 /* OutgoingMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BB514D121889D82003D2C04 /* OutgoingMessageCell.xib */; };
 		5BB514E12188A0AB003D2C04 /* OutgoingImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB514DF2188A0AB003D2C04 /* OutgoingImageCell.swift */; };
@@ -184,6 +185,7 @@
 		5B9E21A3217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationAssemblyProtocol.swift; sourceTree = "<group>"; };
 		5B9E21A5217DD8EF00884A96 /* AuthorizationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouter.swift; sourceTree = "<group>"; };
 		5B9E21A7217DD8F900884A96 /* AuthorizationRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRouterProtocol.swift; sourceTree = "<group>"; };
+		5BB11F7A21B5909C00A58CAB /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		5BB514D021889D82003D2C04 /* OutgoingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageCell.swift; sourceTree = "<group>"; };
 		5BB514D121889D82003D2C04 /* OutgoingMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutgoingMessageCell.xib; sourceTree = "<group>"; };
 		5BB514DF2188A0AB003D2C04 /* OutgoingImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingImageCell.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				5B797C5E2191F97800D109D6 /* UIImageView.swift */,
 				5B774AEA219D9F8500D201D6 /* AVURLAsset.swift */,
 				5B774AFD219DB46C00D201D6 /* URL.swift */,
+				5BB11F7A21B5909C00A58CAB /* UICollectionView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				5B972A3E219F12F900DAD8FB /* GiphyCellViewModel.swift in Sources */,
 				5B67650C2189E59800239DCF /* SettingsRouter.swift in Sources */,
 				5BB514E72188A0CD003D2C04 /* IncomingImageCell.swift in Sources */,
+				5BB11F7B21B5909C00A58CAB /* UICollectionView.swift in Sources */,
 				5B774AFE219DB46C00D201D6 /* URL.swift in Sources */,
 				5B939F4B21A553D300EFDDF8 /* OutgoingGiphyCell.swift in Sources */,
 				5B9E2184217DC4F400884A96 /* ApplicationRouter.swift in Sources */,

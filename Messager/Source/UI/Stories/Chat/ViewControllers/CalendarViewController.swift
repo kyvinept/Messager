@@ -50,7 +50,7 @@ class CalendarViewController: UIViewController {
         currentMounthLabel.text = Date().toString(dateFormat: "MMMM")
         currentNumberLabel.text = String(currentDay)
         currentYearLabel.text = String(currentYear)
-        collectionView.scrollToItem(at: IndexPath(row: currentDay - 1 + 7, section: currentMonth - 1), at: .bottom, animated: false)
+        collectionView.scrollToLastItem()
     }
 }
 
