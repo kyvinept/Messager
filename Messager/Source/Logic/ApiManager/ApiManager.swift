@@ -22,11 +22,13 @@ class ApiManager {
     private var mediaManager: MediaManager
     private let timeIntervalForRequest = 5.0
     private var databaseManager: DatabaseManager
+    private var notificationManager: NotificationManager
     
-    init(mapper: Mapper, mediaManager: MediaManager, databaseManager: DatabaseManager) {
+    init(mapper: Mapper, mediaManager: MediaManager, databaseManager: DatabaseManager, notificationManager: NotificationManager) {
         self.mapper = mapper
         self.mediaManager = mediaManager
         self.databaseManager = databaseManager
+        self.notificationManager = notificationManager
     }
     
     func updateImage(image: UIImage, user: User, successBlock: @escaping (String) -> ()) {
@@ -199,6 +201,7 @@ class ApiManager {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         self.dataStore?.save(message, response: { savedMessage in
                                                     successBlock()
+                                                    self.notificationManager.publishMessage(message: "New message")
                                                     print("success")
                                                 },
                                          error: { fault in

@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.applicationAssembly = applicationAssembly
         self.applicationRouter = applicationRouter
+        
+        applicationAssembly.notificationManager.startNotifications()
     }
 
     private func setupWindow() {
@@ -25,10 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         setupWindow()
-        
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        applicationAssembly.notificationManager.register(deviceForRemoteNotification: deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        applicationAssembly.notificationManager.errorRegisterDevice()
     }
 }
 

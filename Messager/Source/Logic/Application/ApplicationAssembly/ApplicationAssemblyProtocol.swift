@@ -15,4 +15,5 @@ protocol ApplicationAssemblyProtocol {
     var databaseManager: DatabaseManager { get }
     var locationManager: LocationManager { get }
     var keychainManager: KeychainManager { get }
+    var notificationManager: NotificationManager { get }
 }

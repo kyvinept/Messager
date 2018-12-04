@@ -12,6 +12,6 @@ extension UICollectionView {
         let lastSection = self.numberOfSections - 1
         let lastRow = self.numberOfItems(inSection: lastSection)
         let indexPath = IndexPath(row: lastRow - 1, section: lastSection)
-        self.scrollToItem(at: indexPath, at: .right, animated: true)
+        self.scrollToItem(at: indexPath, at: .bottom, animated: false)
     }
 }

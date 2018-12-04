@@ -15,6 +15,7 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     lazy var locationManager = LocationManager()
     lazy var giphyManager = GiphyManager(mapper: mapper)
     lazy var keychainManager = KeychainManager()
+    lazy var notificationManager = NotificationManager()
     
     lazy private var mediaManager = MediaManager()
     lazy private var mapper = Mapper()
@@ -25,6 +26,9 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     }
     
     private func createApiManager() -> ApiManager {
-        return ApiManager(mapper: mapper, mediaManager: mediaManager, databaseManager: databaseManager)
+        return ApiManager(mapper: mapper,
+                    mediaManager: mediaManager,
+                 databaseManager: databaseManager,
+             notificationManager: notificationManager)
     }
 }
