@@ -22,7 +22,11 @@ class BaseRouter {
         case .present:
             viewController.present(newViewController, animated: animated, completion: nil)
         case .push:
-            (viewController as! UINavigationController).pushViewController(newViewController, animated: animated)
+            if let navigationController = viewController as? UINavigationController {
+                navigationController.pushViewController(newViewController, animated: animated)
+            } else if let navigationController = viewController.navigationController {
+                navigationController.pushViewController(newViewController, animated: animated)
+            }
         case .dismiss:
             break
         case .pop:

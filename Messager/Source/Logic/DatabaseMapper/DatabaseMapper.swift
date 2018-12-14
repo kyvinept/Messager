@@ -13,6 +13,8 @@ enum MessageType: String {
     case video
     case location
     case giphy
+    
+    case push
 }
 
 class DatabaseMapper {

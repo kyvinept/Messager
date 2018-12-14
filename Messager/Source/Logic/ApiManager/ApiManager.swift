@@ -63,7 +63,11 @@ class ApiManager {
                                    })
     }
     
-    func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {
+    func startRealtimeChat(fromUser: User, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        let timer = Timer(timeInterval: timeIntervalForRequest, repeats: false) { timer in
+            errorBlock()
+        }
+        
         var users = [fromUser.id, toUser.id]
         users.sort()
         users[0].removeSubrange(String.Index(encodedOffset: 22)...String.Index(encodedOffset: users[0].count-1))
@@ -71,9 +75,11 @@ class ApiManager {
         let idChat = users[0] + users[1]
         channel = Backendless.sharedInstance().messaging.subscribe(idChat)
         channel?.addJoinListener({
+            timer.invalidate()
             successBlock()
-        }, error: { error in
-            errorBlock(error)
+        }, error: { _ in
+            timer.invalidate()
+            errorBlock()
         })
     }
     
@@ -103,6 +109,7 @@ class ApiManager {
         switch message.kind {
         case .text(let text):
             request[MessageType.text.rawValue] = text
+            request[MessageType.push.rawValue] = text
             self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         case .photo(let mediaItem):
             if let data = UIImageJPEGRepresentation(mediaItem.image, 0.1) {
@@ -113,11 +120,13 @@ class ApiManager {
                             completionHandler: { (url) in
                                                    guard let url = url else { return }
                                                    request[MessageType.image.rawValue] = url
+                                                   request[MessageType.push.rawValue] = "[photo]"
                                                    self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
                                                })
             }
         case .location(let location):
             request[MessageType.location.rawValue] = "\(location.latitude),\(location.longitude)"
+            request[MessageType.push.rawValue] = "[location]"
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         case .video(let videoItem):
             mediaManager.uploadVideo(url: videoItem.videoUrl,
@@ -128,10 +137,12 @@ class ApiManager {
                        completionHandler: { url in
                                                guard let url = url else { return }
                                                request[MessageType.video.rawValue] = url
+                                               request[MessageType.push.rawValue] = "[video]"
                                                self.sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
                                           })
         case .giphy(let giphy):
             request[MessageType.giphy.rawValue] = giphy.url
+            request[MessageType.push.rawValue] = "[giphy]"
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         }
     }
@@ -201,7 +212,8 @@ class ApiManager {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         self.dataStore?.save(message, response: { savedMessage in
                                                     successBlock()
-                                                    self.notificationManager.publishMessage(message: "New message")
+                                                    self.notificationManager.publishMessage(message: message[MessageType.push.rawValue] as! String,
+                                                                                        channelName: self.channel!.channelName)
                                                     print("success")
                                                 },
                                          error: { fault in
@@ -290,6 +302,37 @@ class ApiManager {
             }
         }, error: { error in
             print(error)
+        })
+    }
+    
+    func getNewMessage(toUser user: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
+        let queryBuilder = DataQueryBuilder()
+        queryBuilder?.setWhereClause("toUserId = '\(user.id)'")
+        queryBuilder?.setPageSize(1)
+        
+        dataStore?.find(queryBuilder, response: { [weak self] databaseMessage in
+            if let message = databaseMessage as? [[String: Any]] {
+                let databaseMessage = self?.mapper.mapAllMessages(messages: message)
+                self?.databaseManager.getUsers(successBlock: { [weak self] users in
+                                                                  guard let databaseMessage = databaseMessage?.first,
+                                                                        let owner = users?.first(where: { $0.id == databaseMessage.ownerId }) else { return }
+                                                                  self?.convert(from: [databaseMessage],
+                                                                                with: owner,
+                                                                              toUser: user,
+                                                                        successBlock: { message in
+                                                                                          successBlock(message)
+                                                                                      },
+                                                                          errorBlock: {
+                                                                                          errorBlock()
+                                                                                      })
+                                                             },
+                                                 errorBlock: { error in
+                                                                  errorBlock()
+                                                             })
+            }
+        }, error: { error in
+            errorBlock()
         })
     }
     

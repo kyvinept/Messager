@@ -15,16 +15,45 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var addUserViewController: AddUserViewController?
     private var mapViewController: MapViewController?
     private var calendarViewController: CalendarViewController?
-    lazy var currentUser: User? = {
+    private var rootViewController: UIViewController!
+    lazy private var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
     }()
     
     init(assembly: ChatAssemblyProtocol) {
         self.assembly = assembly
+        super.init()
+        initForNotification()
+        assembly.appAssembly.notificationManager.currentUser = currentUser
     }
     
     func showInitialVC(from rootViewController: UIViewController) {
         showUsersViewController(from: rootViewController)
+        self.rootViewController = rootViewController
+    }
+    
+    private func initForNotification() {
+        assembly.appAssembly.notificationManager.newNotificationMessage = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.assembly.appAssembly.apiManager
+            .getNewMessage(toUser: strongSelf.currentUser!,
+                     successBlock: { [weak self] message in
+                                       guard let strongSelf = self else { return }
+                                       if strongSelf.chatViewController != nil {
+                                           strongSelf.checkNewMessages(currentUser: strongSelf.currentUser!,
+                                                                            toUser: message.sender)
+                                           return
+                                       }
+                                       DispatchQueue.main.async {
+                                           strongSelf.showChatViewController(from: strongSelf.rootViewController,
+                                                                      currentUser: strongSelf.currentUser!,
+                                                                           toUser: message.sender)
+                                       }
+                                   },
+                       errorBlock: {
+                                       print("Error load new message")
+                                   })
+        }
     }
     
     private func showChatViewController(from viewController: UIViewController, currentUser: User, toUser: User) {
@@ -41,7 +70,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
         self.chatViewController = vc
         DispatchQueue.main.async {
             self.action(with: vc,
-                        from: viewController.navigationController!,
+                        from: viewController,
                         with: .push,
                     animated: true)
             viewController.tabBarController?.tabBar.isHidden = true
@@ -81,9 +110,9 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                                  print("error")
                                              })
                                          },
-                             errorBlock: { error in
+                             errorBlock: {
                                              refresh.dismiss()
-                                             self.showInfo(to: viewController, title: "Error", message: error?.detail ?? "")
+                                             //self.showInfo(to: viewController, title: "Error", message: error?.detail ?? "")
                                          })
     }
 }
@@ -139,7 +168,9 @@ extension ChatRouter {
                                                                      self.getMessages(forUsers: users)
                                                                  },
                                                      errorBlock: { error in
-                                                                     self.showInfo(to: self.usersViewController!, title: "Error", message: error ?? "Unknowed error")
+                                                                     self.showInfo(to: self.usersViewController!,
+                                                                                title: "Error",
+                                                                              message: error ?? "Unknowed error")
                                                                      self.usersViewController?.cancelRefresh()
                                                                  })
     }
@@ -153,7 +184,9 @@ extension ChatRouter: UsersViewControllerDelegate {
                                                                      self.usersViewController?.downloaded(users: users)
                                                                  },
                                                      errorBlock: { error in
-                                                                     self.showInfo(to: self.usersViewController!, title: "Error", message: error ?? "Unknowed error")
+                                                                     self.showInfo(to: self.usersViewController!,
+                                                                                title: "Error",
+                                                                              message: error ?? "Unknowed error")
                                                                      self.usersViewController?.cancelRefresh()
                                                                  })
     }
@@ -309,6 +342,7 @@ extension ChatRouter: ChatViewControllerDelegate {
     func didTouchBackButton(viewController: ChatViewController) {
         viewController.navigationController?.popViewController(animated: true)
         viewController.tabBarController?.tabBar.isHidden = false
+        chatViewController = nil
     }
 }
 

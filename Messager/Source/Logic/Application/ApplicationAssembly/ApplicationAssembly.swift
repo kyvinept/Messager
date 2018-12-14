@@ -15,7 +15,7 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     lazy var locationManager = LocationManager()
     lazy var giphyManager = GiphyManager(mapper: mapper)
     lazy var keychainManager = KeychainManager()
-    lazy var notificationManager = NotificationManager()
+    lazy var notificationManager = NotificationManager(databaseManager: databaseManager)
     
     lazy private var mediaManager = MediaManager()
     lazy private var mapper = Mapper()

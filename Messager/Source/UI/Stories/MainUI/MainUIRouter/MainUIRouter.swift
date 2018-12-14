@@ -90,6 +90,7 @@ extension MainUIRouter: SettingsRouterDelegate {
     
     func logoutButtonWasTapped() {
         chatRouter = nil
+        assembly.appAssembly.notificationManager.unregisterDevice()
         assembly.appAssembly.authorizationManager.logout()
         self.chatViewController.tabBarController?.selectedIndex = 0
         self.chatViewController.tabBarController?.tabBar.isHidden = true
