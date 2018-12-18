@@ -23,6 +23,7 @@ class ApiManager {
     private let timeIntervalForRequest = 5.0
     private var databaseManager: DatabaseManager
     private var notificationManager: NotificationManager
+    private var lastMessage: Message?
     
     init(mapper: Mapper, mediaManager: MediaManager, databaseManager: DatabaseManager, notificationManager: NotificationManager) {
         self.mapper = mapper
@@ -84,20 +85,22 @@ class ApiManager {
     }
     
     func addMessageListener(successBlock: @escaping (Message?) -> (), errorBlock: @escaping (Fault?) -> ()) {
-        channel?.addMessageListenerDictionary({ dictionary in
+        channel?.addMessageListenerDictionary({ [weak self] dictionary in
             guard let dictionary = dictionary as? [String: Any] else { return }
-            let message = self.mapper.map(message: dictionary)
-            self.getMessageKind(text: dictionary[MessageType.text.rawValue] as! String?,
-                               image: dictionary[MessageType.image.rawValue] as! String?,
-                            location: dictionary[MessageType.location.rawValue] as! String?,
-                               video: dictionary[MessageType.video.rawValue] as! String?,
-                               giphy: dictionary[MessageType.giphy.rawValue] as! String?,
-                        successBlock: { messageKind in
-                                           if let messageKind = messageKind {
-                                               message.kind = messageKind
-                                               successBlock(message)
-                                           }
-                                      })
+            let message = self?.mapper.map(message: dictionary)
+            self?.lastMessage = message
+            guard let lastMessage = self?.lastMessage, let newMessage = message, lastMessage.messageId != newMessage.messageId else { return }
+            self?.getMessageKind(text: dictionary[MessageType.text.rawValue] as! String?,
+                                image: dictionary[MessageType.image.rawValue] as! String?,
+                             location: dictionary[MessageType.location.rawValue] as! String?,
+                                video: dictionary[MessageType.video.rawValue] as! String?,
+                                giphy: dictionary[MessageType.giphy.rawValue] as! String?,
+                         successBlock: { messageKind in
+                                            if let messageKind = messageKind {
+                                                newMessage.kind = messageKind
+                                                successBlock(newMessage)
+                                            }
+                                       })
         }, error: { error in
             print("error")
         })
@@ -167,17 +170,18 @@ class ApiManager {
     
     func remove(message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
-        let whereClause = "sentDate = '\(message.sentDate.toString())' && messageId = '\(message.messageId)' && toUserId = '\(toUser.id)'"
+        let whereClause = "(sentDate = '\(message.sentDate.toString())' AND messageId = '\(message.messageId)' AND toUserId = '\(toUser.id)')"
         dataStore?.removeBulk(whereClause,
-                              response: { number in
+                              response: { [weak self] number in
                                             successBlock()
-                                            self.databaseManager.remove(message: message,
-                                                                         toUser: toUser,
-                                                                   successBlock: {},
-                                                                     errorBlock: {})
+                                            self?.databaseManager.remove(message: message,
+                                                                          toUser: toUser,
+                                                                    successBlock: {},
+                                                                      errorBlock: {})
                                         },
                                  error: { error in
-            
+                                            print(error)
+                                            errorBlock()
                                         })
     }
     
@@ -212,8 +216,8 @@ class ApiManager {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         self.dataStore?.save(message, response: { savedMessage in
                                                     successBlock()
-                                                    self.notificationManager.publishMessage(message: message[MessageType.push.rawValue] as! String,
-                                                                                        channelName: self.channel!.channelName)
+//                                                    self.notificationManager.publishMessage(message: message[MessageType.push.rawValue] as! String,
+//                                                                                        channelName: self.channel!.channelName)
                                                     print("success")
                                                 },
                                          error: { fault in
@@ -229,7 +233,7 @@ class ApiManager {
         
         dataStore = Backendless.sharedInstance().data.ofTable(Table.message.rawValue)
         let queryBuilder = DataQueryBuilder()
-        queryBuilder?.setWhereClause("ownerId = '" + currentUser.id + "' || toUserId = '" + currentUser.id + "'")
+        queryBuilder?.setWhereClause("(ownerId = '" + currentUser.id + "' OR toUserId = '" + currentUser.id + "')")
         
         dataStore?.find(queryBuilder, response: { databaseMessage in
             if let message = databaseMessage as? [[String: Any]] {

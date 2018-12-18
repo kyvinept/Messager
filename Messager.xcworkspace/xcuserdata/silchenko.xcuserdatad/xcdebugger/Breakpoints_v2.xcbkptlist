@@ -89,13 +89,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Messager/Source/Logic/ApiManager/ApiManager.swift"
-            timestampString = "566487580.173943"
+            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/Cells/GiphyCell/MessageCell/Incoming/IncomingGiphyCell.swift"
+            timestampString = "566817345.43829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "startRealtimeChat(fromUser:toUser:successBlock:errorBlock:)"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "downloadGiphy(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/Mapper/Mapper.swift"
+            timestampString = "566818480.712245"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "map(serverGiphy:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -18,6 +18,8 @@ class GiphyViewController: UIViewController {
     
     weak var delegate: GiphyViewControllerDelegate?
     var choseGiphy: ((String, String) -> ())?
+    var previewGiphy: ((String) -> ())?
+    var endPreviewGiphy: (() -> ())?
     private var giphy = [Giphy]()
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
@@ -71,7 +73,13 @@ extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell.configure(model: GiphyCellViewModel(id: giphy[indexPath.row].id,
                                                     url: giphy[indexPath.row].url,
                                              choseGiphy: { id, url in
-                                                             self.choseGiphy?(url, id)
+                                                             self.choseGiphy?(id, url)
+                                                         },
+                                           previewGiphy: { [weak self] url in
+                                                             self?.previewGiphy?(url)
+                                                         },
+                                        endPreviewGiphy: { [weak self] in
+                                                             self?.endPreviewGiphy?()
                                                          }))
             return cell
         }

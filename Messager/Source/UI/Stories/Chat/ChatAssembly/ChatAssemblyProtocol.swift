@@ -18,4 +18,5 @@ protocol ChatAssemblyProtocol {
     func createMapViewController() -> MapViewController
     func createGiphyViewController() -> GiphyViewController
     func createCalendarViewController() -> CalendarViewController
+    func createGiphyPreviewViewController(giphyUrl: String) -> GiphyPreviewViewController
 }

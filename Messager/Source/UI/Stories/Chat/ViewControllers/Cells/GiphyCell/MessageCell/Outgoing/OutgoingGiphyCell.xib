@@ -32,7 +32,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M7L-J4-ZTC">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M7L-J4-ZTC">
                         <rect key="frame" x="183" y="16" width="150" height="150"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="150" id="2xg-gg-g6z"/>
@@ -61,6 +61,8 @@
             <connections>
                 <outlet property="dateLabel" destination="aTM-RJ-qhO" id="lj5-P6-hD6"/>
                 <outlet property="giphyView" destination="M7L-J4-ZTC" id="Q6N-0s-KdY"/>
+                <outlet property="imageViewHeightConstraint" destination="2xg-gg-g6z" id="4fa-ro-qaf"/>
+                <outlet property="imageViewWidthConstraint" destination="L7c-1J-Wz8" id="oJB-Y4-kzq"/>
                 <outlet property="userImage" destination="0g1-Pr-heV" id="7hd-w5-UbC"/>
             </connections>
             <point key="canvasLocation" x="196" y="231.63418290854574"/>

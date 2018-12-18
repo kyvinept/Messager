@@ -15,6 +15,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var addUserViewController: AddUserViewController?
     private var mapViewController: MapViewController?
     private var calendarViewController: CalendarViewController?
+    private var giphyPreviewViewController: GiphyPreviewViewController?
     private var rootViewController: UIViewController!
     lazy private var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
@@ -209,6 +210,17 @@ extension ChatRouter: UsersViewControllerDelegate {
     func didSelectCell(with user: User, from viewController: UsersViewController) {
         showChatViewController(from: viewController, currentUser: currentUser!, toUser: user)
     }
+    
+    private func updateUsers() {
+        assembly.appAssembly.databaseManager.getUsers(successBlock: { users in
+            self.getMessages(forUsers: users)
+            DispatchQueue.main.async {
+                self.usersViewController?.configure(users: users ?? [User]())
+            }
+        }) { error in
+            print(error)
+        }
+    }
 }
 
 extension ChatRouter: AddUserViewControllerDelegate {
@@ -251,6 +263,21 @@ extension ChatRouter: AddUserViewControllerDelegate {
 }
 
 extension ChatRouter: ChatViewControllerDelegate {
+    
+    func didTouchEndPreviewGiphy(viewController: ChatViewController) {
+        giphyPreviewViewController?.dismiss(animated: true, completion: nil)
+        giphyPreviewViewController = nil
+    }
+   
+    func didTouchPreviewGiphy(url: String, viewController: ChatViewController) {
+        let vc = assembly.createGiphyPreviewViewController(giphyUrl: url)
+        giphyPreviewViewController = vc
+        vc.modalPresentationStyle = .overCurrentContext
+        self.action(with: vc,
+                    from: viewController,
+                    with: .present,
+                animated: true)
+    }
    
     func didTappedCalendarButton(viewController: ChatViewController) {
         let vc = assembly.createCalendarViewController()
@@ -258,7 +285,7 @@ extension ChatRouter: ChatViewControllerDelegate {
         vc.delegate = self
         vc.modalPresentationStyle = .overCurrentContext
         self.action(with: vc,
-                    from: viewController.navigationController!,
+                    from: viewController,
                     with: .present,
                 animated: false)
     }
@@ -343,6 +370,7 @@ extension ChatRouter: ChatViewControllerDelegate {
         viewController.navigationController?.popViewController(animated: true)
         viewController.tabBarController?.tabBar.isHidden = false
         chatViewController = nil
+        updateUsers()
     }
 }
 

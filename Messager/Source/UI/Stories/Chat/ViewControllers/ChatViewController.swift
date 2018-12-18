@@ -18,6 +18,8 @@ protocol ChatViewControllerDelegate: class {
     func didTouchChoseLocation(viewController: ChatViewController)
     func didTappedSearchGiphyButton(search: String, pageNumber: Int, viewController: ChatViewController, successBlock: @escaping ([Giphy]) -> ())
     func didTappedRemoveMessageButton(message: Message, toUser: User, viewController: ChatViewController)
+    func didTouchPreviewGiphy(url: String, viewController: ChatViewController)
+    func didTouchEndPreviewGiphy(viewController: ChatViewController)
     func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController)
     func didTappedCalendarButton(viewController: ChatViewController)
 }
@@ -65,9 +67,6 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.scrollToBottom(animated: false)
-        if !messages.isEmpty {
-            self.noMassageLabel.isHidden = true
-        }
     }
     
     func searchMessages(byDate date: Date) {
@@ -80,10 +79,11 @@ class ChatViewController: UIViewController {
         self.toUser = toUser
         self.messages = messages.sorted { $0.sentDate < $1.sentDate }
         self.giphyViewController = giphyViewController
-        giphyViewController.choseGiphy = {[weak self] url, id in
+        
+        giphyViewController.choseGiphy = {[weak self] id, url in
             if let self = self {
                 let message = Message(sender: self.currentUser,
-                                   messageId: String(self.messages.count+1),
+                                   messageId: UUID().uuidString,
                                     sentDate: Date(),
                                         kind: MessageKind.giphy(Giphy(id: id, url: url)))
                 self.delegate?.didTouchSendMessageButton(with: message,
@@ -91,6 +91,14 @@ class ChatViewController: UIViewController {
                                                viewController: self)
                 self.insertNewMessage(message)
             }
+        }
+        giphyViewController.previewGiphy = { [weak self] url in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.didTouchPreviewGiphy(url: url, viewController: strongSelf)
+        }
+        giphyViewController.endPreviewGiphy = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.didTouchEndPreviewGiphy(viewController: strongSelf)
         }
     }
 
@@ -102,7 +110,7 @@ class ChatViewController: UIViewController {
     }
     
     func newMessage(withLocation location: CLLocationCoordinate2D) {
-        let message = Message(sender: currentUser, messageId: String(messages.count+1), sentDate: Date(), kind: .location(location))
+        let message = Message(sender: currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .location(location))
         delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
         insertNewMessage(message)
     }
@@ -257,7 +265,7 @@ class ChatViewController: UIViewController {
         }
         else {
             let message = Message(sender: currentUser,
-                               messageId: String(messages.count+1),
+                               messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
             insertNewMessage(message)
@@ -493,7 +501,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             let size = image.getSizeForMessage()
             
             let message = Message(sender: currentUser!,
-                               messageId: String(messages.count+1),
+                               messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.photo(MediaItem(image: image,
                                                                        size: size,
@@ -504,7 +512,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                                       viewController: self)
         } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? URL {
             let message = Message(sender: currentUser!,
-                               messageId: String(messages.count+1),
+                               messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.video(VideoItem(videoUrl: videoUrl, downloaded: false)))
             insertNewMessage(message)
@@ -530,8 +538,21 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !messages.isEmpty {
+            self.noMassageLabel.isHidden = true
+        } else {
+            self.noMassageLabel.isHidden = false
+        }
         return messages.count
     }
+//    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let cell = cell as? IncomingGiphyCell {
+//            cell.updateImage()
+//        } else if let cell = cell as? OutgoingGiphyCell {
+//            cell.updateImage()
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = searchMessageIndex {
@@ -564,6 +585,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                                                  viewController: self)
             self.messages.remove(at: indexPath.row)
             self.tableView.reloadData()
+            self.tableView.scrollToBottom(animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         

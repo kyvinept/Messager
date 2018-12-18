@@ -14,7 +14,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     var currentUser: User? {
         didSet {
             guard let deviceToken = deviceToken else { return }
-            register(deviceForRemoteNotification: deviceToken)
+            //register(deviceForRemoteNotification: deviceToken)
         }
     }
     
@@ -41,7 +41,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         self.deviceToken = deviceToken
         createChannelNames(successBlock: { names in
                                             guard let names = names else { return }
-                                            Backendless.sharedInstance().messaging.
+                                            Backendless.sharedInstance().messaging
                                             .registerDevice(deviceToken,
                                                             channels: names,
                                                             response: { [weak self] result in

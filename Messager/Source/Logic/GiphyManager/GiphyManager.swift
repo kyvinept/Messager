@@ -34,9 +34,7 @@ class GiphyManager {
             return
         }
         var dictionary = lastRequest.1
-        print(dictionary["offset"])
         dictionary["offset"] = dictionary["offset"]! as! Int + limit
-        print(dictionary["offset"])
         Alamofire.request(lastRequest.0, method: .get, parameters: dictionary, encoding: URLEncoding.queryString, headers: nil).responseJSON { responce in
             self.lastRequest = (lastRequest.0, dictionary)
             do {

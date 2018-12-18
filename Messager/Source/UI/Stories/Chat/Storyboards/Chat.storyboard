@@ -640,6 +640,45 @@
             </objects>
             <point key="canvasLocation" x="3660" y="134.48275862068968"/>
         </scene>
+        <!--Giphy Preview View Controller-->
+        <scene sceneID="TcV-R6-X8e">
+            <objects>
+                <viewController storyboardIdentifier="GiphyPreviewViewController" id="Nfr-cm-Ibm" customClass="GiphyPreviewViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O5e-BV-PdX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZZ-hx-9ha">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RxG-ZG-wVw">
+                                <rect key="frame" x="10" y="30" width="355" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="sGm-rr-SWM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tZZ-hx-9ha" firstAttribute="trailing" secondItem="fPk-kM-5Fy" secondAttribute="trailing" id="7Vb-6Z-csJ"/>
+                            <constraint firstItem="RxG-ZG-wVw" firstAttribute="top" secondItem="fPk-kM-5Fy" secondAttribute="top" constant="10" id="CyQ-Oo-x3f"/>
+                            <constraint firstItem="tZZ-hx-9ha" firstAttribute="bottom" secondItem="fPk-kM-5Fy" secondAttribute="bottom" id="EOQ-sR-c2v"/>
+                            <constraint firstItem="tZZ-hx-9ha" firstAttribute="top" secondItem="O5e-BV-PdX" secondAttribute="top" id="R2W-Lh-nQT"/>
+                            <constraint firstItem="tZZ-hx-9ha" firstAttribute="leading" secondItem="fPk-kM-5Fy" secondAttribute="leading" id="bIH-Mc-7s7"/>
+                            <constraint firstItem="RxG-ZG-wVw" firstAttribute="leading" secondItem="fPk-kM-5Fy" secondAttribute="leading" constant="10" id="cTQ-Cy-1c5"/>
+                            <constraint firstItem="fPk-kM-5Fy" firstAttribute="trailing" secondItem="RxG-ZG-wVw" secondAttribute="trailing" constant="10" id="n4J-fG-Lzb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fPk-kM-5Fy"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="RxG-ZG-wVw" id="c2R-hO-SGr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qFb-1C-cdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2913" y="845"/>
+        </scene>
     </scenes>
     <resources>
         <image name="happiness" width="24" height="24"/>

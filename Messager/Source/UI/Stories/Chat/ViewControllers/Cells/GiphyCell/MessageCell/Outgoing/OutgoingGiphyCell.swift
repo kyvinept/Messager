@@ -13,6 +13,19 @@ class OutgoingGiphyCell: UITableViewCell {
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var dateLabel: UILabel!
     private var progress: UIActivityIndicatorView!
+    private var size: CGSize?
+    private var displayImage: UIImage?
+    @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+//        if let size = size {
+//            imageViewHeightConstraint.constant = size.height * 0.6
+//            imageViewWidthConstraint.constant = size.width * 0.6
+//        }
+//        giphyView.image = displayImage
+    }
     
     func configure(model: GiphyChatCellViewModel) {
         userImage.downloadImage(from: model.userImageUrl)
@@ -33,9 +46,15 @@ class OutgoingGiphyCell: UITableViewCell {
                 return
             }
             let image = UIImage.sd_animatedGIF(with: imageData)
+            self.displayImage = image
             DispatchQueue.main.async {
                 self.progress.removeFromSuperview()
                 self.giphyView.image = image
+                if let size = self.giphyView.image?.getSizeForMessage() {
+                    self.size = size
+                    self.imageViewWidthConstraint.constant = size.width*0.6
+                    self.imageViewHeightConstraint.constant = size.height * 0.6
+                }
             }
         }
     }

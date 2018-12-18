@@ -39,6 +39,12 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
+    func createGiphyPreviewViewController(giphyUrl: String) -> GiphyPreviewViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "GiphyPreviewViewController") as! GiphyPreviewViewController
+        vc.configure(url: giphyUrl)
+        return vc
+    }
+    
     private func mapViewController(withLocation location: CLLocationCoordinate2D? = nil) -> MapViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
         if let location = location {

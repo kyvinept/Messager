@@ -15,6 +15,8 @@ class GiphyCell: UICollectionViewCell {
     @IBOutlet private weak var giphyView: UIImageView!
     private var progress: UIActivityIndicatorView!
     private var choseGiphy: ((String, String) -> ())?
+    private var previewGiphy: ((String) -> ())?
+    private var endPreviewGiphy: (() -> ())?
     private var url: String?
     private var id: String!
     
@@ -23,6 +25,8 @@ class GiphyCell: UICollectionViewCell {
         downloadGiphy(id: model.id)
         self.choseGiphy = model.choseGiphy
         self.id = model.id
+        self.previewGiphy = model.previewGiphy
+        self.endPreviewGiphy = model.endPreviewGiphy
     }
     
     private func downloadGiphy(id: String) {
@@ -48,12 +52,27 @@ class GiphyCell: UICollectionViewCell {
     
     private func addGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(GiphyCell.viewWasTapped))
+        let press = UILongPressGestureRecognizer(target: self, action: #selector(GiphyCell.viewWasPressed))
+        press.minimumPressDuration = 0.5
         self.addGestureRecognizer(tap)
+        self.addGestureRecognizer(press)
     }
     
     @objc private func viewWasTapped() {
         if let url = url {
             choseGiphy?(id, url)
+        }
+    }
+    
+    @objc private func viewWasPressed(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            if let url = url {
+                previewGiphy?(url)
+            }
+        }
+        
+        if gesture.state == .ended {
+            endPreviewGiphy?()
         }
     }
 }
