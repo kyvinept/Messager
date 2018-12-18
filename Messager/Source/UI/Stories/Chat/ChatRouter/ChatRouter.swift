@@ -76,7 +76,14 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                     animated: true)
             viewController.tabBarController?.tabBar.isHidden = true
         }
+        
+        self.checkBackground(forViewController: vc)
         self.checkNewMessages(currentUser: currentUser, toUser: toUser)
+    }
+    
+    private func checkBackground(forViewController viewController: ChatViewController) {
+        guard let image = assembly.appAssembly.userDefaultsManager.get(key: .backgroundImage) else { return }
+        viewController.setBackground(image: image)
     }
     
     private func checkNewMessages(currentUser: User, toUser: User) {

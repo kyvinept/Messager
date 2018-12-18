@@ -426,7 +426,7 @@
                   moduleName = "Messager"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-                  timestampString = "566836114.418142"
+                  timestampString = "566846169.094561"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "204"
@@ -441,7 +441,7 @@
                   moduleName = "Messager"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-                  timestampString = "566836114.420755"
+                  timestampString = "566846169.096904"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "205"
@@ -570,28 +570,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
-            timestampString = "566836113.9739389"
+            timestampString = "566843773.36067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
             endingLineNumber = "69"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Messager/Source/Logic/Mapper/Mapper.swift"
-            timestampString = "566836113.974053"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "map(images:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

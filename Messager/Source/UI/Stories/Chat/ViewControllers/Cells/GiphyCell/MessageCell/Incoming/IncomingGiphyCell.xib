@@ -47,6 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="LeD-Ui-wxh" firstAttribute="bottom" secondItem="klN-ml-zXS" secondAttribute="bottom" constant="-5" id="4j9-Am-xnD"/>
                     <constraint firstAttribute="bottom" secondItem="klN-ml-zXS" secondAttribute="bottom" constant="8.5" id="A4l-cx-hpu"/>
@@ -61,6 +62,8 @@
             <connections>
                 <outlet property="dateLabel" destination="LeD-Ui-wxh" id="a0j-WG-WnE"/>
                 <outlet property="giphyView" destination="klN-ml-zXS" id="EJX-gZ-97C"/>
+                <outlet property="imageViewHeightConstraint" destination="fba-Yo-Im2" id="ZUf-7A-DL9"/>
+                <outlet property="imageViewWidthConstraint" destination="3Kb-lR-kL1" id="7Dw-l1-WWk"/>
                 <outlet property="userImage" destination="PpI-kG-xR6" id="EmM-Ox-dFa"/>
             </connections>
             <point key="canvasLocation" x="100" y="119.1904047976012"/>

@@ -157,13 +157,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PwN-WD-RB3">
-                                <rect key="frame" x="50" y="138.5" width="275" height="350"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PwN-WD-RB3">
+                                <rect key="frame" x="50" y="113.5" width="275" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="wdr-ZH-RoL"/>
+                                    <constraint firstAttribute="height" constant="400" id="wdr-ZH-RoL"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Mvn-Wm-8Is">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Mvn-Wm-8Is">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -179,9 +179,16 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="g6n-gO-07T" id="cNj-Vn-l0i"/>
+                                    <outlet property="delegate" destination="g6n-gO-07T" id="Pbu-aj-yXP"/>
+                                    <outlet property="dragDelegate" destination="g6n-gO-07T" id="yKC-cE-lnx"/>
+                                    <outlet property="dropDelegate" destination="g6n-gO-07T" id="phQ-RS-m0F"/>
+                                    <outlet property="prefetchDataSource" destination="g6n-gO-07T" id="JGZ-q9-Jxi"/>
+                                </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ARS-Tq-L0A">
-                                <rect key="frame" x="50" y="488.5" width="275" height="37"/>
+                                <rect key="frame" x="50" y="513.5" width="275" height="37"/>
                                 <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="currentPageIndicatorTintColor" red="0.59215686270000001" green="0.76651557550000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>

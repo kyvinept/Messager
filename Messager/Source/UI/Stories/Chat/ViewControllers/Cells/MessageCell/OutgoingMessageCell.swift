@@ -14,6 +14,7 @@ class OutgoingMessageCell: CustomCell {
     @IBOutlet private weak var userImageView: UIImageView!
     
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? MessageCellViewModel else { return }
         
         messageLabel.text = model.message

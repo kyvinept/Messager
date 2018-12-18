@@ -27,7 +27,7 @@ class MediaManager {
         })
     }
     
-    func downloadImage(url: String, progress: @escaping (Double) -> (), completionHandler: @escaping (MessageKind?) -> ()) {
+    func downloadImageKind(url: String, progress: @escaping (Double) -> (), completionHandler: @escaping (MessageKind?) -> ()) {
         cloudinary.createDownloader().fetchImage(url, { (progressDownload) in
             progress(progressDownload.fractionCompleted)
             print(progress)

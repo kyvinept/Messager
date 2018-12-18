@@ -18,6 +18,7 @@ class OutgoingImageCell: CustomCell {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? ImageCellViewModel else { return }
         
         messageImage.image = model.image

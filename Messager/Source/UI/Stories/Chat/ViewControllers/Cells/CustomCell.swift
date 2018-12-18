@@ -14,6 +14,6 @@ protocol CustomCellProtocol {
 class CustomCell: UITableViewCell, CustomCellProtocol {
     
     func configure(model: CustomViewModel) {
-        
+        backgroundColor = .clear
     }
 }

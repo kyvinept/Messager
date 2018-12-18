@@ -83,8 +83,12 @@ class Mapper {
                               giphySize: message[MessageType.giphySize.rawValue] as! String?)
     }
     
-    func map(images: [[String: Any]]) -> [UIImage] {
-        return [UIImage]()
+    func map(images: [[String: Any]]) -> [String] {
+        var newImagesUrl = [String]()
+        for image in images {
+            newImagesUrl.append(image["url"] as! String)
+        }
+        return newImagesUrl
     }
 }
 

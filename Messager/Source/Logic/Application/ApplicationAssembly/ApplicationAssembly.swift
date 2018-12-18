@@ -9,13 +9,14 @@ import UIKit
 
 class ApplicationAssembly: ApplicationAssemblyProtocol {
     
-    lazy var authorizationManager = self.createAuthorizationManager()
-    lazy var apiManager = self.createApiManager()
+    lazy var authorizationManager = createAuthorizationManager()
+    lazy var apiManager = createApiManager()
     lazy var databaseManager = DatabaseManager(databaseMapper: databaseMapper)
     lazy var locationManager = LocationManager()
     lazy var giphyManager = GiphyManager(mapper: mapper)
     lazy var keychainManager = KeychainManager()
     lazy var notificationManager = NotificationManager(databaseManager: databaseManager)
+    lazy var userDefaultsManager = UserDefaultsManager()
     
     lazy private var mediaManager = MediaManager()
     lazy private var mapper = Mapper()

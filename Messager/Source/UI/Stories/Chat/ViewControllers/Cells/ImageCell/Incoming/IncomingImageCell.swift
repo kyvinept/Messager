@@ -16,6 +16,7 @@ class IncomingImageCell: CustomCell {
     @IBOutlet private weak var timeLabel: UILabel!
     
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? ImageCellViewModel else { return }
         
         messageImage.image = model.image

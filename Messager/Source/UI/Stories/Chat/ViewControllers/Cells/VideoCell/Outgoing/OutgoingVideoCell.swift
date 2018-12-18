@@ -23,6 +23,7 @@ class OutgoingVideoCell: CustomCell {
     private var player: AVPlayer!
     
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? VideoCellViewModel else { return }
         
         userImage.downloadImage(from: model.userImageUrl)

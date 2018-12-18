@@ -9,17 +9,22 @@ import UIKit
 
 class IncomingGiphyCell: CustomCell {
 
+    @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var giphyView: UIImageView!
     private var progress: UIActivityIndicatorView!
 
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? GiphyChatCellViewModel else { return }
         
         userImage.downloadImage(from: model.userImageUrl)
         downloadGiphy(url: model.giphy.url)
         dateLabel.text = model.date
+        self.imageViewWidthConstraint.constant = model.giphy.width
+        self.imageViewHeightConstraint.constant = model.giphy.height
     }
     
     private func downloadGiphy(url: String) {

@@ -368,13 +368,13 @@ class ApiManager {
         if let text = text {
             successBlock(MessageKind.text(text))
         } else if let url = image {
-            self.mediaManager.downloadImage(url: url,
-                                       progress: { (progress) in
-                                                      print(progress)
-                                                 },
-                              completionHandler: { messageKind in
-                                                      successBlock(messageKind)
-                                                 })
+            self.mediaManager.downloadImageKind(url: url,
+                                           progress: { (progress) in
+                                                          print(progress)
+                                                     },
+                                  completionHandler: { messageKind in
+                                                          successBlock(messageKind)
+                                                     })
         } else if let location = location {
             let locationSplit = location.split(separator: ",")
             guard let latitude = Double(locationSplit[0]),
@@ -433,15 +433,25 @@ private extension ApiManager {
 
 extension ApiManager {
     
-    func getImages(currentUser: User, successBlock: @escaping ([UIImage]) -> (), errorBlock: @escaping () -> ()) {
+    func getImages(currentUser: User, successBlock: @escaping (UIImage) -> (), errorBlock: @escaping () -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.image.rawValue)
         let queryBuilder = DataQueryBuilder()
-        queryBuilder?.setWhereClause("ownerId = '\(currentUser.id)' OR ownerId = ''")
+        //queryBuilder?.setWhereClause("ownerId = ' '")
         
         dataStore?.find(queryBuilder,
-                        response: { images in
-                                       if let images = images as? [[String: Any]] {
-                                           successBlock(self.mapper.map(images: images))
+                        response: { [weak self] images in
+                                       guard let images = images as? [[String: Any]],
+                                             let urls = self?.mapper.map(images: images) else { return }
+                            
+                                       for url in urls {
+                                           self?.mediaManager.downloadImage(url: url,
+                                                                       progress: { progress in
+                                                                                     print(progress)
+                                                                                 },
+                                                              completionHandler: { image in
+                                                                                     guard let image = image else { return }
+                                                                                     successBlock(image)
+                                                                                 })
                                        }
                                   },
                            error: { _ in

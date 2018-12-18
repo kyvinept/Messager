@@ -44,13 +44,22 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 
 extension SettingsRouter: SettingsViewControllerDelegate {
     
-    func didChangeChatBackground(viewController: SettingsViewController) {
+    func didChangeChatBackground(currentUser: User, viewController: SettingsViewController) {
         let vc = assembly.createBackgroundChangeViewController()
+        vc.delegate = self
         backgroundChangeViewController = vc
         action(with: vc,
                from: viewController,
                with: .present,
            animated: true)
+        
+        assembly.appAssembly.apiManager.getImages(currentUser: currentUser,
+                                                 successBlock: { image in
+                                                                    vc.addImage(image: image)
+                                                               },
+                                                   errorBlock: {
+                                                                    print("Error download image")
+                                                               })
     }
     
     func didTouchSaveButton(viewController: SettingsViewController, name: String?, email: String?, password: String?, currentUser: User) {
@@ -83,5 +92,17 @@ extension SettingsRouter: SettingsViewControllerDelegate {
     
     func settingsViewController(viewController: SettingsViewController, didTouchLogoutButton sender: UIButton) {
         delegate?.logoutButtonWasTapped()
+    }
+}
+
+extension SettingsRouter : BackgroundChangeViewControllerDelegate {
+    
+    func didTappedImage(_ image: UIImage, viewController: UIViewController) {
+        assembly.appAssembly.userDefaultsManager.save(backgroundImage: image)
+    }
+    
+    func didTappedCancelButton(viewController: UIViewController) {
+        backgroundChangeViewController = nil
+        viewController.dismiss(animated: true, completion: nil)
     }
 }

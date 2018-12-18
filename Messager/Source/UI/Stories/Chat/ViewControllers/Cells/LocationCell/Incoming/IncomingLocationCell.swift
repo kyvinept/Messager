@@ -16,6 +16,7 @@ class IncomingLocationCell: CustomCell {
     private var location: CLLocationCoordinate2D!
     
     override func configure(model: CustomViewModel) {
+        super.configure(model: model)
         guard let model = model as? LocationCellViewModel else { return }
         
         dateLabel.text = model.date
