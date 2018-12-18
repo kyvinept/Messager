@@ -15,13 +15,16 @@ class OutgoingGiphyCell: UITableViewCell {
     private var progress: UIActivityIndicatorView!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
-    private var updateCell: ((UITableViewCell) -> ())?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        giphyView.image = nil
+    }
 
     func configure(model: GiphyChatCellViewModel) {
         userImage.downloadImage(from: model.userImageUrl)
         downloadGiphy(url: model.url)
         dateLabel.text = model.date
-        updateCell = model.updatedCell
     }
     
     private func downloadGiphy(url: String) {

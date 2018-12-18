@@ -13,13 +13,11 @@ struct GiphyChatCellViewModel {
     var userImageUrl: String
     var id: String
     var url: String
-    var updatedCell: ((UITableViewCell) -> ())?
     
-    init(date: Date, userImageUrl: String, id: String, url: String, updatedCell: ((UITableViewCell) -> ())?) {
+    init(date: Date, userImageUrl: String, id: String, url: String) {
         self.date = date.toString(dateFormat: "HH:mm")
         self.userImageUrl = userImageUrl
         self.id = id
         self.url = url
-        self.updatedCell = updatedCell
     }
 }
