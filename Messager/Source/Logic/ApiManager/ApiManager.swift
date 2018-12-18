@@ -8,12 +8,13 @@
 import UIKit
 import SwiftyJSON
 
+enum Table: String {
+    case message = "Message"
+    case users = "Users"
+    case image = "Image"
+}
+
 class ApiManager {
-    
-    private enum Table: String {
-        case message = "Message"
-        case users = "Users"
-    }
     
     private var mapper: Mapper
     private var dataStore: IDataStore?
@@ -95,6 +96,7 @@ class ApiManager {
                              location: dictionary[MessageType.location.rawValue] as! String?,
                                 video: dictionary[MessageType.video.rawValue] as! String?,
                                 giphy: dictionary[MessageType.giphy.rawValue] as! String?,
+                            giphySize: dictionary[MessageType.giphySize.rawValue] as! String?,
                          successBlock: { messageKind in
                                             if let messageKind = messageKind {
                                                 newMessage.kind = messageKind
@@ -146,6 +148,7 @@ class ApiManager {
         case .giphy(let giphy):
             request[MessageType.giphy.rawValue] = giphy.url
             request[MessageType.push.rawValue] = "[giphy]"
+            request[MessageType.giphySize.rawValue] = "\(giphy.height),\(giphy.width)"
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         }
     }
@@ -342,7 +345,7 @@ class ApiManager {
     
     private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
         for dbMessage in dbMessages {
-            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video, giphy: dbMessage.giphy) { messageKind in
+            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video, giphy: dbMessage.giphy, giphySize: dbMessage.giphySize) { messageKind in
                 guard let messageKind = messageKind else {
                     errorBlock()
                     return
@@ -361,7 +364,7 @@ class ApiManager {
         }
     }
     
-    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, giphy: String?, successBlock: @escaping (MessageKind?) -> ()) {
+    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, giphy: String?, giphySize: String?, successBlock: @escaping (MessageKind?) -> ()) {
         if let text = text {
             successBlock(MessageKind.text(text))
         } else if let url = image {
@@ -379,8 +382,12 @@ class ApiManager {
             successBlock(MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
         } else if let video = video {
             successBlock(MessageKind.video(VideoItem(videoUrl: URL(string: video)!, downloaded: true)))
-        } else if let giphy = giphy {
-            successBlock(MessageKind.giphy(Giphy(id: String(giphy.split(separator: "/")[4]), url: giphy)))
+        } else if let giphy = giphy, let giphySize = giphySize {
+            let size = giphySize.split(separator: ",")
+            successBlock(MessageKind.giphy(Giphy(id: String(giphy.split(separator: "/")[4]),
+                                                url: giphy,
+                                             height: CGFloat(Double(size[0]) ?? 150),
+                                              width: CGFloat(Double(size[1]) ?? 150))))
         }
     }
 }
@@ -421,5 +428,24 @@ private extension ApiManager {
         }, error: { error in
             print(error)
         })
+    }
+}
+
+extension ApiManager {
+    
+    func getImages(currentUser: User, successBlock: @escaping ([UIImage]) -> (), errorBlock: @escaping () -> ()) {
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.image.rawValue)
+        let queryBuilder = DataQueryBuilder()
+        queryBuilder?.setWhereClause("ownerId = '\(currentUser.id)' OR ownerId = ''")
+        
+        dataStore?.find(queryBuilder,
+                        response: { images in
+                                       if let images = images as? [[String: Any]] {
+                                           successBlock(self.mapper.map(images: images))
+                                       }
+                                  },
+                           error: { _ in
+                                       errorBlock()
+                                  })
     }
 }

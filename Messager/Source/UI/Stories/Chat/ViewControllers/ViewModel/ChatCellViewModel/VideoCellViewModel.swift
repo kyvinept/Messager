@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct VideoCellViewModel {
+struct VideoCellViewModel: CustomViewModel {
     
     var date: String
     var userImageUrl: String

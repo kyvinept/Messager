@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OutgoingImageCell: UITableViewCell {
+class OutgoingImageCell: CustomCell {
 
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var messageImage: UIImageView!
@@ -17,7 +17,9 @@ class OutgoingImageCell: UITableViewCell {
     @IBOutlet private weak var loadingView: UIView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    func configure(model: ImageCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? ImageCellViewModel else { return }
+        
         messageImage.image = model.image
         userImage.downloadImage(from: model.userImageUrl)
         timeLabel.text = model.date

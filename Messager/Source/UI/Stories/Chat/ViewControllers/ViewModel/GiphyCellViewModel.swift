@@ -9,15 +9,13 @@ import UIKit
 
 struct GiphyCellViewModel {
 
-    var id: String
-    var url: String
-    var choseGiphy: ((String, String) -> ())?
+    var giphy: Giphy
+    var choseGiphy: ((Giphy) -> ())?
     var previewGiphy: ((String) -> ())?
     var endPreviewGiphy: (() -> ())?
     
-    init(id: String, url: String, choseGiphy: ((String, String) -> ())?, previewGiphy: ((String) -> ())?, endPreviewGiphy: @escaping (() -> ())) {
-        self.id = id
-        self.url = url
+    init(giphy: Giphy, choseGiphy: ((Giphy) -> ())?, previewGiphy: ((String) -> ())?, endPreviewGiphy: @escaping (() -> ())) {
+        self.giphy = giphy
         self.choseGiphy = choseGiphy
         self.previewGiphy = previewGiphy
         self.endPreviewGiphy = endPreviewGiphy

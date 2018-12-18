@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class OutgoingVideoCell: UITableViewCell {
+class OutgoingVideoCell: CustomCell {
 
     @IBOutlet private weak var playButton: UIImageView!
     @IBOutlet private weak var videoView: UIView!
@@ -22,7 +22,9 @@ class OutgoingVideoCell: UITableViewCell {
     }
     private var player: AVPlayer!
     
-    func configure(model: VideoCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? VideoCellViewModel else { return }
+        
         userImage.downloadImage(from: model.userImageUrl)
         playButton.layer.zPosition = 100000
         

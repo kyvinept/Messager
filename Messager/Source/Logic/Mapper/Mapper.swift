@@ -10,7 +10,6 @@ import GiphyCoreSDK
 import SwiftyJSON
 
 protocol GiphyMapperProtocol {
-    func map(serverGiphy: [GPHMedia]) -> [Giphy]
     func map(jsonGiphy: JSON) -> [Giphy]
 }
 
@@ -76,31 +75,34 @@ class Mapper {
                               messageId: message["messageId"] as! String,
                                 ownerId: message["ownerId"] as! String,
                                toUserId: message["toUserId"] as! String,
-                                   text: message["text"] as! String?,
-                                  image: message["image"] as! String?,
-                               location: message["location"] as! String?,
-                                  video: message["video"] as! String?,
-                                  giphy: message["giphy"] as! String?)
+                                   text: message[MessageType.text.rawValue] as! String?,
+                                  image: message[MessageType.image.rawValue] as! String?,
+                               location: message[MessageType.location.rawValue] as! String?,
+                                  video: message[MessageType.video.rawValue] as! String?,
+                                  giphy: message[MessageType.giphy.rawValue] as! String?,
+                              giphySize: message[MessageType.giphySize.rawValue] as! String?)
+    }
+    
+    func map(images: [[String: Any]]) -> [UIImage] {
+        return [UIImage]()
     }
 }
 
 extension Mapper: GiphyMapperProtocol {
     
-    func map(serverGiphy: [GPHMedia]) -> [Giphy] {
-        var giphy = [Giphy]()
-        for giphyElement in serverGiphy {
-            giphy.append(Giphy(id: giphyElement.id, url: giphyElement.url))
-        }
-        return giphy
-    }
-    
     func map(jsonGiphy json: JSON) -> [Giphy] {
         var giphy = [Giphy]()
         var index = 0
         var object = json["data"][index]
+        
         while object != JSON.null {
+            let height = object["images"]["fixed_width_small"]["height"].floatValue
+            let width = object["images"]["fixed_width_small"]["width"].floatValue
+            
             giphy.append(Giphy(id: object["id"].string!,
-                              url: object["url"].string!))
+                              url: object["url"].string!,
+                           height: CGFloat(height/width*150),
+                            width: 150))
             index+=1
             object = json["data"][index]
         }

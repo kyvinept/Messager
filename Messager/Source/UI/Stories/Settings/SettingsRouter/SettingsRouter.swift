@@ -17,6 +17,7 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
     weak var delegate: SettingsRouterDelegate?
     var assembly: SettingsAssemblyProtocol
     private var settingsViewController: SettingsViewController?
+    private var backgroundChangeViewController: BackgroundChangeViewController?
     
     init(assembly: SettingsAssemblyProtocol) {
         self.assembly = assembly
@@ -42,6 +43,15 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 }
 
 extension SettingsRouter: SettingsViewControllerDelegate {
+    
+    func didChangeChatBackground(viewController: SettingsViewController) {
+        let vc = assembly.createBackgroundChangeViewController()
+        backgroundChangeViewController = vc
+        action(with: vc,
+               from: viewController,
+               with: .present,
+           animated: true)
+    }
     
     func didTouchSaveButton(viewController: SettingsViewController, name: String?, email: String?, password: String?, currentUser: User) {
         let progress = showProgress(toViewController: viewController)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IncomingLocationCell: UITableViewCell {
+class IncomingLocationCell: CustomCell {
 
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
@@ -15,7 +15,9 @@ class IncomingLocationCell: UITableViewCell {
     private var tapCell: ((CLLocationCoordinate2D) -> ())?
     private var location: CLLocationCoordinate2D!
     
-    func configure(model: LocationCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? LocationCellViewModel else { return }
+        
         dateLabel.text = model.date
         userImage.downloadImage(from: model.userImageUrl)
         self.tapCell = model.tapCell

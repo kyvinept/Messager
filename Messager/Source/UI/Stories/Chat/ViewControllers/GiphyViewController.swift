@@ -17,13 +17,15 @@ protocol GiphyViewControllerDelegate: class {
 class GiphyViewController: UIViewController {
     
     weak var delegate: GiphyViewControllerDelegate?
-    var choseGiphy: ((String, String) -> ())?
+    var choseGiphy: ((Giphy) -> ())?
     var previewGiphy: ((String) -> ())?
     var endPreviewGiphy: (() -> ())?
+    
+    private(set) var pageNumber = 0
     private var giphy = [Giphy]()
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
-    private(set) var pageNumber = 0
+    @IBOutlet private weak var noGiphy: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,23 +66,27 @@ class GiphyViewController: UIViewController {
 extension GiphyViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if giphy.count > 0 {
+            noGiphy.isHidden = true
+        } else {
+            noGiphy.isHidden = false
+        }
         return giphy.count > 0 ? giphy.count+1 : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row < giphy.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! GiphyCell
-            cell.configure(model: GiphyCellViewModel(id: giphy[indexPath.row].id,
-                                                    url: giphy[indexPath.row].url,
-                                             choseGiphy: { id, url in
-                                                             self.choseGiphy?(id, url)
-                                                         },
-                                           previewGiphy: { [weak self] url in
-                                                             self?.previewGiphy?(url)
-                                                         },
-                                        endPreviewGiphy: { [weak self] in
-                                                             self?.endPreviewGiphy?()
-                                                         }))
+            cell.configure(model: GiphyCellViewModel(giphy: giphy[indexPath.row],
+                                                choseGiphy: { giphy in
+                                                                self.choseGiphy?(giphy)
+                                                            },
+                                              previewGiphy: { [weak self] url in
+                                                                self?.previewGiphy?(url)
+                                                            },
+                                           endPreviewGiphy: { [weak self] in
+                                                                self?.endPreviewGiphy?()
+                                                            }))
             return cell
         }
         else {

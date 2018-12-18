@@ -7,17 +7,15 @@
 
 import UIKit
 
-struct GiphyChatCellViewModel {
+struct GiphyChatCellViewModel: CustomViewModel {
     
     var date: String
     var userImageUrl: String
-    var id: String
-    var url: String
+    var giphy: Giphy
     
-    init(date: Date, userImageUrl: String, id: String, url: String) {
+    init(date: Date, userImageUrl: String, giphy: Giphy) {
         self.date = date.toString(dateFormat: "HH:mm")
         self.userImageUrl = userImageUrl
-        self.id = id
-        self.url = url
+        self.giphy = giphy
     }
 }

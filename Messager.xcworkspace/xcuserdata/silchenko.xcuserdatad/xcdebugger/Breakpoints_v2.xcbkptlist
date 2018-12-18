@@ -86,16 +86,512 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.81502"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "save(users:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.8154759"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "save(user:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.save(user: Messager.User) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.869334"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Messager.UserEntity) -&gt; () in Messager.DatabaseManager.save(user: Messager.User) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.872108"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.815779"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "getUsers(successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.getUsers(successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.User&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825301.981137"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;Messager.UserEntity&gt;&gt;) -&gt; () in Messager.DatabaseManager.getUsers(successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.User&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825301.984498"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.816074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "removeAddUsers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.816362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "save(user:successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.(save in _209344940E71DE9D20F7EFC32099C01F)(user: Messager.User, successBlock: (Messager.UserEntity) -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.883509"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;Messager.User&gt;&gt;) -&gt; () in Messager.DatabaseManager.(save in _209344940E71DE9D20F7EFC32099C01F)(user: Messager.User, successBlock: (Messager.UserEntity) -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.885956"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.81669"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "getUserEntity(successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.(getUserEntity in _209344940E71DE9D20F7EFC32099C01F)(successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.UserEntity&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825290.902719"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Messager.DatabaseManager.(getUserEntity in _209344940E71DE9D20F7EFC32099C01F)(successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.UserEntity&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825290.9062721"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.8170331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "save(message:currentUser:toUser:block:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.save(message: Messager.Message, currentUser: Messager.User, toUser: Messager.User, block: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825292.2852809"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "308">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;Messager.UserEntity&gt;&gt;) -&gt; () in Messager.DatabaseManager.save(message: Messager.Message, currentUser: Messager.User, toUser: Messager.User, block: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825292.288317"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "160">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.817337"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "remove(message:toUser:successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.remove(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.892207"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "180"
+                  endingLineNumber = "180"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Messager.DatabaseManager.remove(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.8948981"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.817634"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "edit(message:toUser:successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.edit(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566836114.418142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "204"
+                  endingLineNumber = "204"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Messager.DatabaseManager.edit(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566836114.420755"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.817935"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "getMessages(currentUser:toUser:successBlock:errorBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.getMessages(currentUser: Messager.User, toUser: Messager.User, successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.Message&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825296.601626"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;Messager.UserEntity&gt;&gt;) -&gt; () in Messager.DatabaseManager.getMessages(currentUser: Messager.User, toUser: Messager.User, successBlock: (Swift.Optional&lt;Swift.Array&lt;Messager.Message&gt;&gt;) -&gt; (), errorBlock: (Swift.Error) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825296.605082"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.818225"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "checkMessage(currentUser:toUser:checkUser:message:successBlock:errorBlock:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+            timestampString = "566825264.818512"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "createMessageEntity(from:successBlock:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Messager.DatabaseManager.(createMessageEntity in _209344940E71DE9D20F7EFC32099C01F)(from: Messager.Message, successBlock: (Messager.MessageEntity) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.9103841"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "272"
+                  endingLineNumber = "272"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Messager.DatabaseManager.(createMessageEntity in _209344940E71DE9D20F7EFC32099C01F)(from: Messager.Message, successBlock: (Messager.MessageEntity) -&gt; ()) -&gt; ()"
+                  moduleName = "Messager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
+                  timestampString = "566825264.912869"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "273"
+                  endingLineNumber = "273"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
+            timestampString = "566836113.9739389"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/Mapper/Mapper.swift"
-            timestampString = "566818480.712245"
+            timestampString = "566836113.974053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "map(serverGiphy:)"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "map(images:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

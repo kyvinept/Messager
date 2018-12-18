@@ -7,16 +7,18 @@
 
 import UIKit
 
-class IncomingGiphyCell: UITableViewCell {
+class IncomingGiphyCell: CustomCell {
 
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var giphyView: UIImageView!
     private var progress: UIActivityIndicatorView!
 
-    func configure(model: GiphyChatCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? GiphyChatCellViewModel else { return }
+        
         userImage.downloadImage(from: model.userImageUrl)
-        downloadGiphy(url: model.url)
+        downloadGiphy(url: model.giphy.url)
         dateLabel.text = model.date
     }
     

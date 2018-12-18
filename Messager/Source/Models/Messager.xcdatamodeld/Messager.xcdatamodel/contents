@@ -3,6 +3,8 @@
     <entity name="MessageEntity" representedClassName="MessageEntity" syncable="YES" codeGenerationType="class">
         <attribute name="direction" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="giphy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="giphyHeight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="giphyWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,7 +24,7 @@
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="195"/>
+        <element name="MessageEntity" positionX="160.0703125" positionY="-14.29296875" width="128" height="225"/>
         <element name="UserEntity" positionX="-113.75390625" positionY="-56.24609375" width="128" height="150"/>
     </elements>
 </model>

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ImageCellViewModel {
+struct ImageCellViewModel: CustomViewModel {
     
     var image: UIImage
     var imageSize: CGSize

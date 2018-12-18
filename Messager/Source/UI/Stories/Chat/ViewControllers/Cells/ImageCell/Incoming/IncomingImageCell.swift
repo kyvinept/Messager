@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IncomingImageCell: UITableViewCell {
+class IncomingImageCell: CustomCell {
 
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var messageImage: UIImageView!
@@ -15,7 +15,9 @@ class IncomingImageCell: UITableViewCell {
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var timeLabel: UILabel!
     
-    func configure(model: ImageCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? ImageCellViewModel else { return }
+        
         messageImage.image = model.image
         timeLabel.text = model.date
         userImage.downloadImage(from: model.userImageUrl)

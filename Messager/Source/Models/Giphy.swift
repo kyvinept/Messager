@@ -10,4 +10,6 @@ import UIKit
 struct Giphy {
     var id: String
     var url: String
+    var height: CGFloat
+    var width: CGFloat
 }

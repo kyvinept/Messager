@@ -12,6 +12,7 @@ protocol SettingsViewControllerDelegate: class {
     func settingsViewController(viewController: SettingsViewController, didTouchLogoutButton sender: UIButton)
     func didTouchSaveButton(viewController: SettingsViewController, name: String?, email: String?, password: String?, currentUser: User)
     func settingsViewController(viewController: SettingsViewController, didChoseNewUserImage image: UIImage, currentUser: User, successBlock: @escaping (User) -> ())
+    func didChangeChatBackground(viewController: SettingsViewController)
 }
 
 class SettingsViewController: UIViewController {
@@ -48,6 +49,10 @@ class SettingsViewController: UIViewController {
             userImageView.downloadImage(from: currentUser.imageUrl)
             self.setTextInTextFields()
         }
+    }
+    
+    @IBAction func changeChatBackgroundButtonTapped(_ sender: Any) {
+        delegate?.didChangeChatBackground(viewController: self)
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {

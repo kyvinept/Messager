@@ -7,15 +7,19 @@
 
 import UIKit
 
-class IncomingMessageCell: UITableViewCell {
+class IncomingMessageCell: CustomCell {
     
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
     
-    func configure(model: MessageCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? MessageCellViewModel else { return }
+        
         messageLabel.text = model.message
         timeLabel.text = model.date
         userImage.downloadImage(from: model.userImageUrl)
+        
+        self.backgroundColor = model.backgroundColor
     }
 }

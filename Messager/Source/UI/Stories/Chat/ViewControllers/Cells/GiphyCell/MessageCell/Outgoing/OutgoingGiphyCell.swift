@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OutgoingGiphyCell: UITableViewCell {
+class OutgoingGiphyCell: CustomCell {
 
     @IBOutlet private weak var giphyView: UIImageView!
     @IBOutlet private weak var userImage: UIImageView!
@@ -21,10 +21,14 @@ class OutgoingGiphyCell: UITableViewCell {
         giphyView.image = nil
     }
 
-    func configure(model: GiphyChatCellViewModel) {
+    override func configure(model: CustomViewModel) {
+        guard let model = model as? GiphyChatCellViewModel else { return }
+        
         userImage.downloadImage(from: model.userImageUrl)
-        downloadGiphy(url: model.url)
+        downloadGiphy(url: model.giphy.url)
         dateLabel.text = model.date
+        self.imageViewWidthConstraint.constant = model.giphy.width
+        self.imageViewHeightConstraint.constant = model.giphy.height
     }
     
     private func downloadGiphy(url: String) {
@@ -44,10 +48,6 @@ class OutgoingGiphyCell: UITableViewCell {
             DispatchQueue.main.async {
                 self.progress.removeFromSuperview()
                 self.giphyView.image = image
-                if let size = image?.getSizeForMessage() {
-                    self.imageViewWidthConstraint.constant = size.width * 0.6
-                    self.imageViewHeightConstraint.constant = size.height * 0.6
-                }
             }
         }
     }

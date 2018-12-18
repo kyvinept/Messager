@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct LocationCellViewModel {
+struct LocationCellViewModel: CustomViewModel {
     
     var date: String
     var userImageUrl: String
