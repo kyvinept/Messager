@@ -681,14 +681,20 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
                                                      userImageUrl: messages[indexPath.row].sender.imageUrl,
                                                                id: giphy.id,
-                                                              url: giphy.url))
+                                                              url: giphy.url,
+                                                      updatedCell: { cell in
+                                                                       //self.tableView.reloadData()
+                                                                   }))
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingGiphyCell", for: indexPath) as! IncomingGiphyCell
                 cell.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
                                                      userImageUrl: messages[indexPath.row].sender.imageUrl,
                                                                id: giphy.id,
-                                                              url: giphy.url))
+                                                              url: giphy.url,
+                                                      updatedCell: { cell in
+                                                                       //self.tableView.reloadData()
+                                                                   }))
                 return cell
             }
         }
