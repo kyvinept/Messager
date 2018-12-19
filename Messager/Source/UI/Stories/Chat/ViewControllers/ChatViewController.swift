@@ -63,7 +63,6 @@ class ChatViewController: UIViewController {
         setBaseUIComponents()
         addGiphyViewController(giphyViewController)
         addSearchButton()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +85,7 @@ class ChatViewController: UIViewController {
     func configure(with currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) {
         self.currentUser = currentUser
         self.toUser = toUser
-        self.messages = messages.sorted { $0.sentDate < $1.sentDate }
+        self.messages = messages.sorted { $0.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss") < $1.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss") }
         self.giphyViewController = giphyViewController
         
         giphyViewController.choseGiphy = {[weak self] giphy in
@@ -393,7 +392,7 @@ private extension ChatViewController {
     
     func insertNewMessage(_ message: Message) {
         messages.append(message)
-        messages.sort { $0.sentDate < $1.sentDate }
+        messages.sort { $0.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss") < $1.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss")  }
         
         DispatchQueue.main.async {
             if !self.noMassageLabel.isHidden {
