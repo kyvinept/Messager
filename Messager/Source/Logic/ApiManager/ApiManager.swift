@@ -433,29 +433,54 @@ private extension ApiManager {
 
 extension ApiManager {
     
-    func getImages(currentUser: User, successBlock: @escaping (UIImage) -> (), errorBlock: @escaping () -> ()) {
+    func getImages(currentUser: User, successBlock: @escaping (Image) -> (), errorBlock: @escaping () -> ()) {
         dataStore = Backendless.sharedInstance().data.ofTable(Table.image.rawValue)
         let queryBuilder = DataQueryBuilder()
-        //queryBuilder?.setWhereClause("ownerId = ' '")
+        queryBuilder?.setWhereClause("ownerId = '\(currentUser.id)' OR ownerId is null")
         
         dataStore?.find(queryBuilder,
                         response: { [weak self] images in
                                        guard let images = images as? [[String: Any]],
-                                             let urls = self?.mapper.map(images: images) else { return }
+                                             let imageModels = self?.mapper.map(images: images) else { return }
                             
-                                       for url in urls {
+                                       for imageModel in imageModels {
+                                           guard let url = imageModel.url else { return }
                                            self?.mediaManager.downloadImage(url: url,
                                                                        progress: { progress in
                                                                                      print(progress)
                                                                                  },
                                                               completionHandler: { image in
                                                                                      guard let image = image else { return }
-                                                                                     successBlock(image)
+                                                                                     successBlock(Image(imageModel: imageModel,
+                                                                                                             image: image))
                                                                                  })
                                        }
                                   },
                            error: { _ in
                                        errorBlock()
                                   })
+    }
+    
+    func set(backgroundImage image: UIImage, toCurrentUser user: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        guard let data = UIImageJPEGRepresentation(image, 1.0) else { return }
+        dataStore = Backendless.sharedInstance().data.ofTable(Table.image.rawValue)
+        
+        mediaManager.uploadImage(data: data,
+                             progress: { progress in
+                                           print(progress)
+                                       },
+                    completionHandler: { url in
+                                           guard let url = url else { return }
+                                           self.dataStore?.save(["url" : url, "ownerId" : user.id],
+                                                                response: { savedMessage in
+                                                                              successBlock()
+                                                                              print("success")
+                                                                          },
+                                                                   error: { fault in
+                                                                              errorBlock()
+                                                                              print("Fail to save image")
+                                                                          })
+                                
+        })
     }
 }

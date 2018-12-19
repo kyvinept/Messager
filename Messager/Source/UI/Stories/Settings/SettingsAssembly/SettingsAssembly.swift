@@ -24,8 +24,11 @@ class SettingsAssembly: SettingsAssemblyProtocol {
         return vc
     }
     
-    func createBackgroundChangeViewController() -> BackgroundChangeViewController {
+    func createBackgroundChangeViewController(user: User?) -> BackgroundChangeViewController {
         let vc = createStoryboard().instantiateViewController(withIdentifier: "BackgroundChangeViewController") as! BackgroundChangeViewController
+        if let user = user {
+            vc.configure(currentUser: user)
+        }
         vc.title = "Backgound for chat"
         return vc
     }

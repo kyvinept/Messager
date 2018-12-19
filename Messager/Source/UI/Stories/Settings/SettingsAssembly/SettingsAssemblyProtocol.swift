@@ -12,5 +12,5 @@ protocol SettingsAssemblyProtocol {
     var appAssembly: ApplicationAssembly { get }
     
     func createSettingsViewController(user: User?) -> SettingsViewController
-    func createBackgroundChangeViewController() -> BackgroundChangeViewController
+    func createBackgroundChangeViewController(user: User?) -> BackgroundChangeViewController
 }

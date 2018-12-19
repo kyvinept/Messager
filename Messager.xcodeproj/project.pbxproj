@@ -65,6 +65,7 @@
 		5B797C5F2191F97800D109D6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B797C5E2191F97800D109D6 /* UIImageView.swift */; };
 		5B801BC1218C536F004033D3 /* DatabaseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B801BC0218C536F004033D3 /* DatabaseMessage.swift */; };
 		5B81E6A121C3FE9100EDE463 /* GiphyPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */; };
+		5B8655D221CA3B69005DE017 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8655D121CA3B68005DE017 /* Image.swift */; };
 		5B939F4721A553BE00EFDDF8 /* IncomingGiphyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B939F4521A553BE00EFDDF8 /* IncomingGiphyCell.swift */; };
 		5B939F4821A553BE00EFDDF8 /* IncomingGiphyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B939F4621A553BE00EFDDF8 /* IncomingGiphyCell.xib */; };
 		5B939F4B21A553D300EFDDF8 /* OutgoingGiphyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B939F4921A553D300EFDDF8 /* OutgoingGiphyCell.swift */; };
@@ -176,6 +177,7 @@
 		5B797C5E2191F97800D109D6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		5B801BC0218C536F004033D3 /* DatabaseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessage.swift; sourceTree = "<group>"; };
 		5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyPreviewViewController.swift; sourceTree = "<group>"; };
+		5B8655D121CA3B68005DE017 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		5B939F4521A553BE00EFDDF8 /* IncomingGiphyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingGiphyCell.swift; sourceTree = "<group>"; };
 		5B939F4621A553BE00EFDDF8 /* IncomingGiphyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingGiphyCell.xib; sourceTree = "<group>"; };
 		5B939F4921A553D300EFDDF8 /* OutgoingGiphyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingGiphyCell.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				5B801BC0218C536F004033D3 /* DatabaseMessage.swift */,
 				5B774AEC219DA1BC00D201D6 /* VideoItem.swift */,
 				5B972A3B219EB58800DAD8FB /* Giphy.swift */,
+				5B8655D121CA3B68005DE017 /* Image.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1208,6 +1211,7 @@
 				5B5BA9B621AC2D4000509B38 /* RefreshCell.swift in Sources */,
 				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
+				5B8655D221CA3B69005DE017 /* Image.swift in Sources */,
 				5BA3B62621C93A98008B4A2D /* BackgroundChangeViewController.swift in Sources */,
 				5B9E2186217DC50200884A96 /* ApplicationRouterProtocol.swift in Sources */,
 				5BD3EBE4217F687A00FD3D83 /* ChatViewController.swift in Sources */,

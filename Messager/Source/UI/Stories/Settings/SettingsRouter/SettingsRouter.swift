@@ -45,7 +45,7 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 extension SettingsRouter: SettingsViewControllerDelegate {
     
     func didChangeChatBackground(currentUser: User, viewController: SettingsViewController) {
-        let vc = assembly.createBackgroundChangeViewController()
+        let vc = assembly.createBackgroundChangeViewController(user: currentUser)
         vc.delegate = self
         backgroundChangeViewController = vc
         action(with: vc,
@@ -54,8 +54,8 @@ extension SettingsRouter: SettingsViewControllerDelegate {
            animated: true)
         
         assembly.appAssembly.apiManager.getImages(currentUser: currentUser,
-                                                 successBlock: { image in
-                                                                    vc.addImage(image: image)
+                                                 successBlock: { imageModel in
+                                                                    vc.addImage(image: imageModel)
                                                                },
                                                    errorBlock: {
                                                                     print("Error download image")
@@ -96,6 +96,18 @@ extension SettingsRouter: SettingsViewControllerDelegate {
 }
 
 extension SettingsRouter : BackgroundChangeViewControllerDelegate {
+    
+    func didAddNewImage(_ image: UIImage, currentUser: User, viewController: UIViewController) {
+        let refresh = showProgress(toViewController: viewController)
+        assembly.appAssembly.apiManager.set(backgroundImage: image,
+                                              toCurrentUser: currentUser,
+                                               successBlock: {
+                                                                 refresh.dismiss()
+                                                             },
+                                                 errorBlock: {
+                                                                 refresh.dismiss()
+                                                             })
+    }
     
     func didTappedImage(_ image: UIImage, viewController: UIViewController) {
         assembly.appAssembly.userDefaultsManager.save(backgroundImage: image)

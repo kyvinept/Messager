@@ -208,13 +208,26 @@
                                     <action selector="addYourImagesButtonTapped:" destination="g6n-gO-07T" eventType="touchUpInside" id="3bT-QR-4Wm"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HBZ-1a-S0W">
+                                <rect key="frame" x="50" y="609" width="275" height="29"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Only my image"/>
+                                </segments>
+                                <connections>
+                                    <action selector="optionShowImageValueChanged:" destination="g6n-gO-07T" eventType="valueChanged" id="IL2-So-1VA"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="HBZ-1a-S0W" firstAttribute="leading" secondItem="OSU-uY-gXo" secondAttribute="leading" constant="50" id="0rr-i5-WAE"/>
+                            <constraint firstItem="OSU-uY-gXo" firstAttribute="bottom" secondItem="HBZ-1a-S0W" secondAttribute="bottom" constant="30" id="7I1-0S-RAO"/>
                             <constraint firstItem="Gyn-79-wMy" firstAttribute="leading" secondItem="OSU-uY-gXo" secondAttribute="leading" constant="50" id="LgQ-ns-97g"/>
                             <constraint firstItem="Gyn-79-wMy" firstAttribute="top" secondItem="OSU-uY-gXo" secondAttribute="top" constant="20" id="Mbc-sb-Qc0"/>
                             <constraint firstItem="OSU-uY-gXo" firstAttribute="trailing" secondItem="ARS-Tq-L0A" secondAttribute="trailing" constant="50" id="O4x-eT-EAP"/>
                             <constraint firstItem="PwN-WD-RB3" firstAttribute="leading" secondItem="OSU-uY-gXo" secondAttribute="leading" constant="50" id="QFy-uO-Uce"/>
+                            <constraint firstItem="OSU-uY-gXo" firstAttribute="trailing" secondItem="HBZ-1a-S0W" secondAttribute="trailing" constant="50" id="Rdx-C0-YIP"/>
                             <constraint firstItem="OSU-uY-gXo" firstAttribute="trailing" secondItem="PwN-WD-RB3" secondAttribute="trailing" constant="50" id="Zxx-xF-JNr"/>
                             <constraint firstItem="dsW-MW-qr3" firstAttribute="top" secondItem="OSU-uY-gXo" secondAttribute="top" constant="20" id="a5H-Er-Ur2"/>
                             <constraint firstItem="ARS-Tq-L0A" firstAttribute="leading" secondItem="OSU-uY-gXo" secondAttribute="leading" constant="50" id="c9r-vx-apD"/>
@@ -227,6 +240,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="PwN-WD-RB3" id="FbW-Tt-OdE"/>
+                        <outlet property="optionShowImage" destination="HBZ-1a-S0W" id="G0t-qq-S4E"/>
                         <outlet property="pageControl" destination="ARS-Tq-L0A" id="Rhu-Hj-qab"/>
                     </connections>
                 </viewController>
