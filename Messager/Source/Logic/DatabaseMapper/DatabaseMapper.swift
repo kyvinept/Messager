@@ -9,6 +9,7 @@ import UIKit
 
 enum MessageType: String {
     case text
+    case answer
     case image
     case video
     case location
@@ -50,6 +51,9 @@ class DatabaseMapper {
             messageEntity.giphy = giphy.url
             messageEntity.giphyWidth = Float(giphy.width)
             messageEntity.giphyHeight = Float(giphy.height)
+        case .answer(let text):
+            messageEntity.type = MessageType.answer.rawValue
+            messageEntity.answer = text
         }
     }
     
@@ -104,6 +108,8 @@ class DatabaseMapper {
                                                  url: messageEntity.giphy!,
                                               height: CGFloat(messageEntity.giphyHeight),
                                                width: CGFloat(messageEntity.giphyWidth)))
+        case MessageType.answer.rawValue:
+            messageKind = MessageKind.answer(messageEntity.answer!)
         default:
             break
         }
@@ -119,6 +125,7 @@ class DatabaseMapper {
         }
         
         return Message(sender: user,
+                       answer: messageEntity.answer,
                     messageId: messageEntity.messageId!,
                      sentDate: messageEntity.sentDate!,
                          kind: messageKind)

@@ -43,6 +43,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var searchGiphyButton: UIButton!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var backgroundViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var answerView: AnswerView!
     
     private var searchView: SearchView?
     private var isGiphyInput = false
@@ -52,6 +53,11 @@ class ChatViewController: UIViewController {
     private var toUser: User!
     private var editingMessage: Message?
     private var searchMessageIndex: Int?
+    private var isAnswer = false {
+        didSet {
+            answerView.isHidden = !isAnswer
+        }
+    }
     
     weak var delegate: ChatViewControllerDelegate?
 
@@ -91,12 +97,10 @@ class ChatViewController: UIViewController {
         giphyViewController.choseGiphy = {[weak self] giphy in
             if let self = self {
                 let message = Message(sender: self.currentUser,
+                                      answer: nil,
                                    messageId: UUID().uuidString,
                                     sentDate: Date(),
                                         kind: MessageKind.giphy(giphy))
-                self.delegate?.didTouchSendMessageButton(with: message,
-                                                       toUser: toUser,
-                                               viewController: self)
                 self.insertNewMessage(message)
             }
         }
@@ -118,8 +122,11 @@ class ChatViewController: UIViewController {
     }
     
     func newMessage(withLocation location: CLLocationCoordinate2D) {
-        let message = Message(sender: currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .location(location))
-        delegate?.didTouchSendMessageButton(with: message, toUser: toUser, viewController: self)
+        let message = Message(sender: currentUser,
+                              answer: nil,
+                           messageId: UUID().uuidString,
+                            sentDate: Date(),
+                                kind: .location(location))
         insertNewMessage(message)
     }
         
@@ -170,6 +177,7 @@ class ChatViewController: UIViewController {
         sendMessageButton.alpha = 0
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+        isAnswer = false
     }
     
     private func addGiphyViewController(_ viewController: GiphyViewController) {
@@ -273,13 +281,11 @@ class ChatViewController: UIViewController {
         }
         else {
             let message = Message(sender: currentUser,
+                                  answer: nil,
                                messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.text(textView.text.trimmingCharacters(in: .whitespacesAndNewlines)))
             insertNewMessage(message)
-            delegate?.didTouchSendMessageButton(with: message,
-                                                toUser: toUser,
-                                                viewController: self)
             hideKeyboard()
         }
     }
@@ -391,7 +397,17 @@ private extension ChatViewController {
     }
     
     func insertNewMessage(_ message: Message) {
+        if isAnswer {
+            if let answerMessageId = answerView.message?.messageId {
+                message.answer = answerMessageId
+            }
+            isAnswer = false
+        }
+        
         messages.append(message)
+        delegate?.didTouchSendMessageButton(with: message,
+                                          toUser: toUser,
+                                  viewController: self)
         messages.sort { $0.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss") < $1.sentDate.toString(dateFormat: "yyyy-MM-dd hh:mm:ss")  }
         
         DispatchQueue.main.async {
@@ -510,24 +526,20 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             let size = image.getSizeForMessage()
             
             let message = Message(sender: currentUser!,
+                                  answer: nil,
                                messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.photo(MediaItem(image: image,
                                                                        size: size,
                                                                  downloaded: false)))
             insertNewMessage(message)
-            delegate?.didTouchSendMessageButton(with: message,
-                                              toUser: toUser,
-                                      viewController: self)
         } else if let videoUrl = info[UIImagePickerControllerMediaURL] as? URL {
             let message = Message(sender: currentUser!,
+                                  answer: nil,
                                messageId: UUID().uuidString,
                                 sentDate: Date(),
                                     kind: MessageKind.video(VideoItem(videoUrl: videoUrl, downloaded: false)))
             insertNewMessage(message)
-            delegate?.didTouchSendMessageButton(with: message,
-                                              toUser: toUser,
-                                      viewController: self)
         }
     }
     
@@ -547,21 +559,10 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !messages.isEmpty {
-            self.noMassageLabel.isHidden = true
-        } else {
-            self.noMassageLabel.isHidden = false
-        }
+        addAnswerMessage()
+        noMassageLabel.isHidden = !messages.isEmpty
         return messages.count
     }
-//    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if let cell = cell as? IncomingGiphyCell {
-//            cell.updateImage()
-//        } else if let cell = cell as? OutgoingGiphyCell {
-//            cell.updateImage()
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = searchMessageIndex {
@@ -573,7 +574,10 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func showAlert(forIndexPath indexPath: IndexPath) {
-        guard messages[indexPath.row].sender == currentUser else { return }
+        guard messages[indexPath.row].sender == currentUser else {
+            answer(forMessage: messages[indexPath.row])
+            return
+        }
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         switch messages[indexPath.row].kind {
@@ -601,6 +605,45 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
+    private func addAnswerMessage() {
+        messages.removeAll(where: {
+            switch $0.kind {
+            case .answer(_):
+                return true
+            default:
+                return false
+            }
+        })
+        
+        for index in 0..<messages.count {
+            if let answerId = messages[index].answer,
+               let answerMessage = messages.first(where: { $0.messageId == answerId }) {
+                messages.insert(Message(sender: currentUser,
+                                        answer: nil,
+                                     messageId: UUID().uuidString,
+                                      sentDate: answerMessage.sentDate,
+                                          kind: .answer("Text")),
+                                at: index)
+            }
+        }
+    }
+    
+    private func answer(forMessage message: Message) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Answer",
+                                      style: .default,
+                                    handler: { [weak self] _ in
+                                                  guard let strongSelf = self else { return }
+                                                  strongSelf.isAnswer = true
+                                                  strongSelf.answerView.configure(model: AnswerViewViewModel(answerMessage: message,
+                                                                                                                 closeView: { [weak self] in
+                                                                                                                                self?.isAnswer = false
+                                                                                                                            }))
+                                             }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch messages[indexPath.row].kind {
         case .text(let text):
@@ -617,6 +660,9 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .giphy(let giphy):
             return createCell(withMessage: messages[indexPath.row], withGiphy: giphy, for: indexPath)
+            
+        case .answer(let text):
+            return createCell(withMessage: messages[indexPath.row], withAnswerText: text, for: indexPath)
         }
     }
 
@@ -635,6 +681,8 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.register(UINib(nibName: "IncomingVideoCell", bundle: nil), forCellReuseIdentifier: "IncomingVideoCell")
         tableView.register(UINib(nibName: "OutgoingGiphyCell", bundle: nil), forCellReuseIdentifier: "OutgoingGiphyCell")
         tableView.register(UINib(nibName: "IncomingGiphyCell", bundle: nil), forCellReuseIdentifier: "IncomingGiphyCell")
+        tableView.register(UINib(nibName: "OutgoingAnswerCell", bundle: nil), forCellReuseIdentifier: "OutgoingAnswerCell")
+        tableView.register(UINib(nibName: "IncomingAnswerCell", bundle: nil), forCellReuseIdentifier: "IncomingAnswerCell")
     }
 }
 
@@ -717,4 +765,17 @@ private extension ChatViewController {
         return cell ?? UITableViewCell()
     }
     
+    func createCell(withMessage message: Message, withAnswerText text: String, for indexPath: IndexPath) -> UITableViewCell {
+        var cell: CustomCell?
+        if message.sender == currentUser! {
+            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAnswerCell", for: indexPath) as! OutgoingAnswerCell
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAnswerCell", for: indexPath) as! IncomingAnswerCell
+        }
+        
+        cell?.configure(model: AnswerCellViewModel(text: text,
+                                                message: message,
+                                        backgroundColor: .clear))
+        return cell ?? UITableViewCell()
+    }
 }

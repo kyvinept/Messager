@@ -37,6 +37,8 @@ struct UserCellViewModel {
             self.lastMessage = "[location]"
         case .video(_):
             self.lastMessage = "[video]"
+        case .answer(let text):
+            self.lastMessage = text
         }
         self.lastMessageTime = lastMessage.sentDate.toString(dateFormat: "HH:mm")
     }

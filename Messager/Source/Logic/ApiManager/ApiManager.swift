@@ -90,19 +90,16 @@ class ApiManager {
             guard let dictionary = dictionary as? [String: Any] else { return }
             let message = self?.mapper.map(message: dictionary)
             self?.lastMessage = message
-            guard let lastMessage = self?.lastMessage, let newMessage = message, lastMessage.messageId != newMessage.messageId else { return }
-            self?.getMessageKind(text: dictionary[MessageType.text.rawValue] as! String?,
-                                image: dictionary[MessageType.image.rawValue] as! String?,
-                             location: dictionary[MessageType.location.rawValue] as! String?,
-                                video: dictionary[MessageType.video.rawValue] as! String?,
-                                giphy: dictionary[MessageType.giphy.rawValue] as! String?,
-                            giphySize: dictionary[MessageType.giphySize.rawValue] as! String?,
-                         successBlock: { messageKind in
-                                            if let messageKind = messageKind {
-                                                newMessage.kind = messageKind
-                                                successBlock(newMessage)
-                                            }
-                                       })
+            guard let lastMessage = self?.lastMessage, let newMessage = message, lastMessage.messageId != newMessage.messageId,
+                  let dbMessage = self?.mapper.mapAllMessages(messages: [dictionary]).first else { return }
+            
+            self?.getMessageKind(databaseMessage: dbMessage,
+                                    successBlock: { messageKind in
+                                                      if let messageKind = messageKind {
+                                                          newMessage.kind = messageKind
+                                                          successBlock(newMessage)
+                                                      }
+                                                  })
         }, error: { error in
             print("error")
         })
@@ -149,6 +146,10 @@ class ApiManager {
             request[MessageType.giphy.rawValue] = giphy.url
             request[MessageType.push.rawValue] = "[giphy]"
             request[MessageType.giphySize.rawValue] = "\(giphy.height),\(giphy.width)"
+            sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
+        case .answer(let text):
+            request[MessageType.answer.rawValue] = text
+            request[MessageType.push.rawValue] = text
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
         }
     }
@@ -345,12 +346,13 @@ class ApiManager {
     
     private func convert(from dbMessages: [DatabaseMessage], with currentUser: User, toUser: User, successBlock: @escaping (Message) -> (), errorBlock: @escaping () -> ()) {
         for dbMessage in dbMessages {
-            getMessageKind(text: dbMessage.text, image: dbMessage.image, location: dbMessage.location, video: dbMessage.video, giphy: dbMessage.giphy, giphySize: dbMessage.giphySize) { messageKind in
+            getMessageKind(databaseMessage: dbMessage) { messageKind in
                 guard let messageKind = messageKind else {
                     errorBlock()
                     return
                 }
                 let message = Message(sender: dbMessage.ownerId == currentUser.id ? currentUser : toUser,
+                                      answer: dbMessage.answer,
                                    messageId: dbMessage.messageId,
                                     sentDate: dbMessage.sentDate.toDate()!,
                                         kind: messageKind)
@@ -364,10 +366,10 @@ class ApiManager {
         }
     }
     
-    private func getMessageKind(text: String?, image: String?, location: String?, video: String?, giphy: String?, giphySize: String?, successBlock: @escaping (MessageKind?) -> ()) {
-        if let text = text {
+    private func getMessageKind(databaseMessage: DatabaseMessage, successBlock: @escaping (MessageKind?) -> ()) {
+        if let text = databaseMessage.text {
             successBlock(MessageKind.text(text))
-        } else if let url = image {
+        } else if let url = databaseMessage.image {
             self.mediaManager.downloadImageKind(url: url,
                                            progress: { (progress) in
                                                           print(progress)
@@ -375,19 +377,21 @@ class ApiManager {
                                   completionHandler: { messageKind in
                                                           successBlock(messageKind)
                                                      })
-        } else if let location = location {
+        } else if let location = databaseMessage.location {
             let locationSplit = location.split(separator: ",")
             guard let latitude = Double(locationSplit[0]),
                   let longitude = Double(locationSplit[1]) else { return }
             successBlock(MessageKind.location(CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
-        } else if let video = video {
+        } else if let video = databaseMessage.video {
             successBlock(MessageKind.video(VideoItem(videoUrl: URL(string: video)!, downloaded: true)))
-        } else if let giphy = giphy, let giphySize = giphySize {
+        } else if let giphy = databaseMessage.giphy, let giphySize = databaseMessage.giphySize {
             let size = giphySize.split(separator: ",")
             successBlock(MessageKind.giphy(Giphy(id: String(giphy.split(separator: "/")[4]),
                                                 url: giphy,
                                              height: CGFloat(Double(size[0]) ?? 150),
                                               width: CGFloat(Double(size[1]) ?? 150))))
+        } else if let answer = databaseMessage.answer {
+            successBlock(MessageKind.answer(answer))
         }
     }
 }

@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.81502"
+            timestampString = "566910626.649316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.8154759"
+            timestampString = "566910626.64982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.815779"
+            timestampString = "566910626.650159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.816074"
+            timestampString = "566910626.650503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.816362"
+            timestampString = "566910626.6508009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
@@ -266,7 +266,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.81669"
+            timestampString = "566910626.651096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.8170331"
+            timestampString = "566910626.651389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
@@ -362,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.817337"
+            timestampString = "566910626.65168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "180"
@@ -406,59 +406,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.817634"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "edit(message:toUser:successBlock:errorBlock:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Messager.DatabaseManager.edit(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
-                  moduleName = "Messager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-                  timestampString = "566905198.4835761"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "204"
-                  endingLineNumber = "204"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Messager.DatabaseManager.edit(message: Messager.Message, toUser: Messager.User, successBlock: () -&gt; (), errorBlock: () -&gt; ()) -&gt; ()"
-                  moduleName = "Messager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/silchenko/Desktop/iMessager/Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-                  timestampString = "566905198.4860491"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.817935"
+            timestampString = "566910626.651974"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "232"
@@ -506,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.818225"
+            timestampString = "566910626.652262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
@@ -522,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/Logic/DatabaseManager/DatabaseManager.swift"
-            timestampString = "566825264.818512"
+            timestampString = "566910626.652553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "272"
@@ -570,12 +522,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/GiphyViewController.swift"
-            timestampString = "566843773.36067"
+            timestampString = "566911633.10261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
             endingLineNumber = "69"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Messager/Source/UI/Stories/Chat/ViewControllers/ChatViewController/ChatViewController.swift"
+            timestampString = "566920306.43345"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "621"
+            endingLineNumber = "621"
+            landmarkName = "addAnswerMessage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

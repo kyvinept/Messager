@@ -17,11 +17,12 @@ class DatabaseMessage {
     var image: String?
     var location: String?
     var video: String?
+    var answer: String?
     
     var giphy: String?
     var giphySize: String?
     
-    init(sentDate: String, messageId: String, ownerId:String, toUserId:String, text: String?, image: String?, location: String?, video: String?, giphy: String?, giphySize: String?) {
+    init(sentDate: String, messageId: String, ownerId:String, toUserId:String, text: String?, image: String?, location: String?, video: String?, giphy: String?, giphySize: String?, answer: String?) {
         self.sentDate = sentDate
         self.messageId = messageId
         self.ownerId = ownerId
@@ -32,5 +33,6 @@ class DatabaseMessage {
         self.video = video
         self.giphy = giphy
         self.giphySize = giphySize
+        self.answer = answer
     }
 }

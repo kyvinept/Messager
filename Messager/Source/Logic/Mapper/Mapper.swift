@@ -36,6 +36,7 @@ class Mapper {
     
     func map(message: [String: Any]) -> Message {
         return Message(sender: map(user: message["sender"] as! [String: String]),
+                       answer: message["answer"] as? String,
                     messageId: message["messageId"] as! String,
                      sentDate: (message["sentDate"] as! String).toDate()!,
                          kind: MessageKind.text(""))
@@ -80,7 +81,8 @@ class Mapper {
                                location: message[MessageType.location.rawValue] as! String?,
                                   video: message[MessageType.video.rawValue] as! String?,
                                   giphy: message[MessageType.giphy.rawValue] as! String?,
-                              giphySize: message[MessageType.giphySize.rawValue] as! String?)
+                              giphySize: message[MessageType.giphySize.rawValue] as! String?,
+                                 answer: message[MessageType.answer.rawValue] as! String?)
     }
     
     func map(images: [[String: Any]]) -> [Image] {

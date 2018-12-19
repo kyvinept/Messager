@@ -10,6 +10,7 @@ import UIKit
 enum MessageKind {
 
     case text(String)
+    case answer(String)
     case photo(MediaItem)
     case video(VideoItem)
     case location(CLLocationCoordinate2D)
@@ -19,12 +20,14 @@ enum MessageKind {
 class Message: Equatable {
     
     var sender: User
+    var answer: String?
     var messageId: String
     var sentDate: Date
     var kind: MessageKind
     
-    init(sender: User, messageId: String, sentDate: Date, kind: MessageKind) {
+    init(sender: User, answer: String?, messageId: String, sentDate: Date, kind: MessageKind) {
         self.sender = sender
+        self.answer = answer
         self.messageId = messageId
         self.sentDate = sentDate
         self.kind = kind
