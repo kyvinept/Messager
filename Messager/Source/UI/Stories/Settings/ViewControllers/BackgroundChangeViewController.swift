@@ -17,6 +17,7 @@ class BackgroundChangeViewController: UIViewController {
 
     @IBOutlet private weak var optionShowImage: UISegmentedControl!
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var noImagesLabel: UILabel!
     @IBOutlet private weak var pageControl: UIPageControl!
     private var images = [Image]()
     private var allImages = [Image]()
@@ -26,10 +27,10 @@ class BackgroundChangeViewController: UIViewController {
     
     func addImage(image: Image) {
         guard !allImages.contains(where: { $0.image == image.image }) else { return }
-        allImages.append(image)
-        images = allImages
         
         DispatchQueue.main.async {
+            self.allImages.append(image)
+            self.images.append(image)
             self.collectionView.reloadData()
         }
     }
@@ -55,6 +56,9 @@ class BackgroundChangeViewController: UIViewController {
     }
     
     @IBAction func optionShowImageValueChanged(_ sender: Any) {
+        if images.count > 0 {
+            scrollToFirstItem()
+        }
         switch optionShowImage.selectedSegmentIndex {
         case 0:
             images = allImages
@@ -63,9 +67,6 @@ class BackgroundChangeViewController: UIViewController {
             images.removeAll(where: { !$0.isMyImage })
         default:
             break
-        }
-        if images.count > 0 {
-            scrollToFirstItem()
         }
         collectionView.reloadData()
     }
@@ -109,6 +110,7 @@ extension BackgroundChangeViewController: UIImagePickerControllerDelegate & UINa
 extension BackgroundChangeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        noImagesLabel.isHidden = images.count > 0
         pageControl.numberOfPages = images.count
         return images.count
     }

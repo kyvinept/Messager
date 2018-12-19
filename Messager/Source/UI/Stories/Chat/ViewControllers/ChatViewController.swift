@@ -157,8 +157,8 @@ class ChatViewController: UIViewController {
             giphyButton.setImage(UIImage(named: "smiling"), for: .normal)
             isGiphyInput.toggle()
             removeNotification()
-            bottomGiphyViewConstraint.constant = 0
-            textViewBottomConstraint.constant = -giphyViewHeight.constant
+            bottomGiphyViewConstraint.constant = -view.safeAreaInsets.bottom
+            textViewBottomConstraint.constant = -giphyViewHeight.constant + view.safeAreaInsets.bottom
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()
                 self.tableView.scrollToBottom(animated: true)
@@ -437,7 +437,8 @@ extension ChatViewController {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            giphyViewHeight.constant = (keyboardSize.height - self.view.safeAreaInsets.bottom)
+            print(view.safeAreaInsets.bottom)
+            giphyViewHeight.constant = keyboardSize.height + view.safeAreaInsets.bottom
             giphyViewController.changeCollectionViewHeight(height: giphyViewHeight.constant)
             bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
             textViewBottomConstraint.constant = -(keyboardSize.height - self.view.safeAreaInsets.bottom)
