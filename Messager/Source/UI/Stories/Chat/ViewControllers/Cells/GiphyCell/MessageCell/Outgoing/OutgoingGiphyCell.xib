@@ -46,12 +46,39 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7d-dM-4yk">
+                        <rect key="frame" x="10" y="16" width="75" height="51"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hH-N8-rLQ" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
+                                <rect key="frame" x="5" y="5" width="65" height="41"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="QDM-3V-NHw"/>
+                                    <constraint firstAttribute="width" constant="65" id="bib-04-xxd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1hH-N8-rLQ" firstAttribute="leading" secondItem="p7d-dM-4yk" secondAttribute="leading" constant="5" id="1Uu-Qy-xNU"/>
+                            <constraint firstItem="1hH-N8-rLQ" firstAttribute="top" secondItem="p7d-dM-4yk" secondAttribute="top" constant="5" id="gL0-le-aai"/>
+                            <constraint firstAttribute="bottom" secondItem="1hH-N8-rLQ" secondAttribute="bottom" constant="5" id="lQs-Qt-QF8"/>
+                            <constraint firstAttribute="trailing" secondItem="1hH-N8-rLQ" secondAttribute="trailing" constant="5" id="xec-jb-6ED"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="aTM-RJ-qhO" firstAttribute="bottom" secondItem="M7L-J4-ZTC" secondAttribute="bottom" constant="-5" id="4Gk-Oq-d77"/>
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="4cc-e1-esF"/>
+                    <constraint firstItem="M7L-J4-ZTC" firstAttribute="top" secondItem="p7d-dM-4yk" secondAttribute="top" id="BQl-Ia-Sgb"/>
                     <constraint firstItem="0g1-Pr-heV" firstAttribute="leading" secondItem="M7L-J4-ZTC" secondAttribute="trailing" constant="8" id="TEX-Ym-7Wl"/>
+                    <constraint firstItem="p7d-dM-4yk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UIo-dK-P9Z"/>
                     <constraint firstItem="aTM-RJ-qhO" firstAttribute="leading" secondItem="M7L-J4-ZTC" secondAttribute="leading" constant="5" id="Y0q-sS-9jO"/>
                     <constraint firstAttribute="trailing" secondItem="0g1-Pr-heV" secondAttribute="trailing" constant="8" id="Yeq-UZ-Fgp"/>
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="eb0-rS-irZ"/>
@@ -60,6 +87,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="answerView" destination="1hH-N8-rLQ" id="jPK-Rn-lFM"/>
+                <outlet property="containAnswerView" destination="p7d-dM-4yk" id="hKp-4M-s1K"/>
                 <outlet property="dateLabel" destination="aTM-RJ-qhO" id="lj5-P6-hD6"/>
                 <outlet property="giphyView" destination="M7L-J4-ZTC" id="Q6N-0s-KdY"/>
                 <outlet property="imageViewHeightConstraint" destination="2xg-gg-g6z" id="4fa-ro-qaf"/>

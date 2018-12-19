@@ -629,9 +629,13 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
             answerModel = AnswerViewForCellViewModel(answerMessage: message,
                                             answerMessageWasTapped: { [weak self] answerMessage in
                                                                         guard let messageIndex = self?.messages.firstIndex(of: message) else { return }
-                                                                        tableView.selectRow(at: IndexPath(row: messageIndex, section: 0),
+                                                                        let indexPath = IndexPath(row: messageIndex, section: 0)
+                                                                        tableView.selectRow(at: indexPath,
                                                                                       animated: true,
                                                                                 scrollPosition: .middle)
+                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                                                                            tableView.deselectRow(at: indexPath, animated: true)
+                                                                        })
                                                                     })
         }
         

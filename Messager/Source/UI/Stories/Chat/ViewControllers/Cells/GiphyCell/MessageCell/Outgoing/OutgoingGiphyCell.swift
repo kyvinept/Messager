@@ -15,6 +15,8 @@ class OutgoingGiphyCell: CustomCell {
     private var progress: UIActivityIndicatorView!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var answerView: AnswerViewForCell!
+    @IBOutlet private weak var containAnswerView: UIView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -30,6 +32,15 @@ class OutgoingGiphyCell: CustomCell {
         dateLabel.text = model.date
         self.imageViewWidthConstraint.constant = model.giphy.width
         self.imageViewHeightConstraint.constant = model.giphy.height
+        
+        guard let answerModel = answerModel else {
+            answerView.isHidden = true
+            containAnswerView.isHidden = true
+            return
+        }
+        answerView.isHidden = false
+        containAnswerView.isHidden = false
+        answerView.configure(model: answerModel)
     }
     
     private func downloadGiphy(url: String) {

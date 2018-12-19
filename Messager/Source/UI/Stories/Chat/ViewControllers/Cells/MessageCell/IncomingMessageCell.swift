@@ -12,6 +12,8 @@ class IncomingMessageCell: CustomCell {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
+    @IBOutlet private weak var answerView: AnswerViewForCell!
+    @IBOutlet private weak var answerViewTopConstraint: NSLayoutConstraint!
     
     override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
         super.configure(model: model, answerModel: answerModel)
@@ -22,5 +24,12 @@ class IncomingMessageCell: CustomCell {
         userImage.downloadImage(from: model.userImageUrl)
         
         self.backgroundColor = model.backgroundColor
+        
+        answerViewTopConstraint.constant = -answerView.frame.height
+        answerView.isHidden = true
+        guard let answerModel = answerModel else { return }
+        answerView.configure(model: answerModel)
+        answerViewTopConstraint.constant = 4
+        answerView.isHidden = false
     }
 }

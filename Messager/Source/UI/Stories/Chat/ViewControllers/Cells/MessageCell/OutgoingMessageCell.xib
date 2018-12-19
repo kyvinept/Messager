@@ -76,6 +76,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="answerView" destination="9hv-9P-Zea" id="bTG-UP-eT9"/>
+                <outlet property="answerViewTopConstraint" destination="Q9x-Sb-DnE" id="BJb-0Q-TIP"/>
                 <outlet property="messageLabel" destination="I87-vd-j12" id="5Gj-iU-srL"/>
                 <outlet property="timeLabel" destination="7Na-DZ-vFu" id="ZiM-9s-vfu"/>
                 <outlet property="userImageView" destination="ks8-Yf-nG9" id="tmw-bM-jjM"/>

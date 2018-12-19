@@ -46,6 +46,31 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebS-T0-CQc">
+                        <rect key="frame" x="310" y="8" width="75" height="51"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEa-0P-JPq" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
+                                <rect key="frame" x="5" y="5" width="65" height="41"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="gK6-XC-1A3"/>
+                                    <constraint firstAttribute="height" constant="41" id="rQr-yP-Cva"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JEa-0P-JPq" firstAttribute="top" secondItem="ebS-T0-CQc" secondAttribute="top" constant="5" id="X7D-dO-Tgh"/>
+                            <constraint firstItem="JEa-0P-JPq" firstAttribute="leading" secondItem="ebS-T0-CQc" secondAttribute="leading" constant="5" id="hh4-vD-xLU"/>
+                            <constraint firstAttribute="bottom" secondItem="JEa-0P-JPq" secondAttribute="bottom" constant="5" id="jQL-uR-CNB"/>
+                            <constraint firstAttribute="trailing" secondItem="JEa-0P-JPq" secondAttribute="trailing" constant="5" id="kDa-fM-Xa1"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -55,11 +80,15 @@
                     <constraint firstAttribute="bottom" secondItem="PpI-kG-xR6" secondAttribute="bottom" constant="8" id="UTM-yg-e5Y"/>
                     <constraint firstItem="LeD-Ui-wxh" firstAttribute="trailing" secondItem="klN-ml-zXS" secondAttribute="trailing" constant="-5" id="f1S-Am-RaR"/>
                     <constraint firstItem="klN-ml-zXS" firstAttribute="leading" secondItem="PpI-kG-xR6" secondAttribute="trailing" constant="8" id="gYR-Nk-C7o"/>
+                    <constraint firstAttribute="trailing" secondItem="ebS-T0-CQc" secondAttribute="trailing" constant="10" id="pAc-eD-95J"/>
+                    <constraint firstItem="ebS-T0-CQc" firstAttribute="top" secondItem="klN-ml-zXS" secondAttribute="top" id="pvi-0j-ELh"/>
                     <constraint firstItem="klN-ml-zXS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="so6-Ow-oD8"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="answerView" destination="JEa-0P-JPq" id="KLv-YO-Cad"/>
+                <outlet property="containAnswerView" destination="ebS-T0-CQc" id="DB1-dW-fdu"/>
                 <outlet property="dateLabel" destination="LeD-Ui-wxh" id="a0j-WG-WnE"/>
                 <outlet property="giphyView" destination="klN-ml-zXS" id="EJX-gZ-97C"/>
                 <outlet property="imageViewHeightConstraint" destination="fba-Yo-Im2" id="ZUf-7A-DL9"/>

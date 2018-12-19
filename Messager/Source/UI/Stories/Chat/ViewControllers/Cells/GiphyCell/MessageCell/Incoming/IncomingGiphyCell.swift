@@ -9,11 +9,13 @@ import UIKit
 
 class IncomingGiphyCell: CustomCell {
 
+    @IBOutlet private weak var containAnswerView: UIView!
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var giphyView: UIImageView!
+    @IBOutlet private weak var answerView: AnswerViewForCell!
     private var progress: UIActivityIndicatorView!
 
     override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
@@ -25,6 +27,15 @@ class IncomingGiphyCell: CustomCell {
         dateLabel.text = model.date
         self.imageViewWidthConstraint.constant = model.giphy.width
         self.imageViewHeightConstraint.constant = model.giphy.height
+        
+        guard let answerModel = answerModel else {
+            answerView.isHidden = true
+            containAnswerView.isHidden = true
+            return
+        }
+        answerView.isHidden = false
+        containAnswerView.isHidden = false
+        answerView.configure(model: answerModel)
     }
     
     private func downloadGiphy(url: String) {

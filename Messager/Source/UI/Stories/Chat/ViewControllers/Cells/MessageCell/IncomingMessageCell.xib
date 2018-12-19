@@ -12,24 +12,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="KGk-i7-Jjw" customClass="IncomingMessageCell" customModule="Messager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="511" height="72"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="116" id="KGk-i7-Jjw" customClass="IncomingMessageCell" customModule="Messager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="511" height="116"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="511" height="71.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="511" height="115.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble" translatesAutoresizingMaskIntoConstraints="NO" id="VU7-S7-Vnj">
-                        <rect key="frame" x="66" y="8" width="64" height="56"/>
+                        <rect key="frame" x="66" y="8" width="64" height="100"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="La" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I87-vd-j12">
-                        <rect key="frame" x="70" y="12" width="56" height="32"/>
+                        <rect key="frame" x="70" y="67.5" width="56" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="ks8-Yf-nG9">
-                        <rect key="frame" x="8" y="13.5" width="50" height="50"/>
+                        <rect key="frame" x="8" y="57.5" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="D4X-Os-Xep"/>
                             <constraint firstAttribute="height" constant="50" id="ExH-JK-xam"/>
@@ -42,7 +42,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Na-DZ-vFu">
-                        <rect key="frame" x="86" y="49" width="40" height="15"/>
+                        <rect key="frame" x="86" y="93" width="40" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="s0z-Mv-YdO"/>
                         </constraints>
@@ -50,29 +50,38 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04Z-t6-hs7" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
+                        <rect key="frame" x="70" y="12" width="56" height="52"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="04Z-t6-hs7" firstAttribute="leading" secondItem="VU7-S7-Vnj" secondAttribute="leading" constant="4" id="1cU-cH-Kmj"/>
                     <constraint firstItem="I87-vd-j12" firstAttribute="trailing" secondItem="VU7-S7-Vnj" secondAttribute="trailing" constant="-4" id="1kU-2x-PtB"/>
                     <constraint firstAttribute="bottom" secondItem="ks8-Yf-nG9" secondAttribute="bottom" constant="8" id="A4a-hr-Tl5"/>
                     <constraint firstItem="I87-vd-j12" firstAttribute="bottom" secondItem="VU7-S7-Vnj" secondAttribute="bottom" constant="-20" id="Ej8-OJ-sdU"/>
                     <constraint firstItem="7Na-DZ-vFu" firstAttribute="bottom" secondItem="VU7-S7-Vnj" secondAttribute="bottom" id="I0h-Yq-LFo"/>
                     <constraint firstItem="VU7-S7-Vnj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ITk-Mg-xzY"/>
-                    <constraint firstItem="I87-vd-j12" firstAttribute="top" secondItem="VU7-S7-Vnj" secondAttribute="top" constant="4" id="NWJ-hj-MtC"/>
+                    <constraint firstItem="I87-vd-j12" firstAttribute="top" secondItem="04Z-t6-hs7" secondAttribute="bottom" constant="3.5" id="Ku7-XS-3Fq"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VU7-S7-Vnj" secondAttribute="trailing" constant="40" id="QBN-b3-duU"/>
+                    <constraint firstItem="04Z-t6-hs7" firstAttribute="top" secondItem="VU7-S7-Vnj" secondAttribute="top" constant="4" id="cFF-iY-mfG"/>
                     <constraint firstAttribute="bottom" secondItem="VU7-S7-Vnj" secondAttribute="bottom" constant="7.5" id="iAg-hk-Bpw"/>
                     <constraint firstItem="ks8-Yf-nG9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="iPd-W5-9tv"/>
                     <constraint firstItem="I87-vd-j12" firstAttribute="leading" secondItem="VU7-S7-Vnj" secondAttribute="leading" constant="4" id="lSb-Yd-32a"/>
                     <constraint firstItem="VU7-S7-Vnj" firstAttribute="leading" secondItem="ks8-Yf-nG9" secondAttribute="trailing" constant="8" id="tOY-s5-006"/>
                     <constraint firstItem="7Na-DZ-vFu" firstAttribute="trailing" secondItem="VU7-S7-Vnj" secondAttribute="trailing" constant="-4" id="x45-RP-6OH"/>
+                    <constraint firstItem="04Z-t6-hs7" firstAttribute="trailing" secondItem="VU7-S7-Vnj" secondAttribute="trailing" constant="-4" id="yY3-wa-R09"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="answerView" destination="04Z-t6-hs7" id="O0D-Nt-PFW"/>
+                <outlet property="answerViewTopConstraint" destination="cFF-iY-mfG" id="WbB-ZX-WnI"/>
                 <outlet property="messageLabel" destination="I87-vd-j12" id="lmL-8G-ZkE"/>
                 <outlet property="timeLabel" destination="7Na-DZ-vFu" id="glo-Sm-eR2"/>
                 <outlet property="userImage" destination="ks8-Yf-nG9" id="1gn-Ze-CNV"/>
             </connections>
-            <point key="canvasLocation" x="-175" y="190"/>
+            <point key="canvasLocation" x="-175.19999999999999" y="170.01499250374815"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -13,6 +13,7 @@ class OutgoingMessageCell: CustomCell {
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImageView: UIImageView!
     @IBOutlet private weak var answerView: AnswerViewForCell!
+    @IBOutlet private weak var answerViewTopConstraint: NSLayoutConstraint!
     
     override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
         super.configure(model: model, answerModel: answerModel)
@@ -24,7 +25,11 @@ class OutgoingMessageCell: CustomCell {
 
         self.backgroundColor = model.backgroundColor
         
+        answerViewTopConstraint.constant = -answerView.frame.height
+        answerView.isHidden = true
         guard let answerModel = answerModel else { return }
         answerView.configure(model: answerModel)
+        answerViewTopConstraint.constant = 4
+        answerView.isHidden = false
     }
 }
