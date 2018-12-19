@@ -47,13 +47,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebS-T0-CQc">
-                        <rect key="frame" x="310" y="8" width="75" height="51"/>
+                        <rect key="frame" x="226" y="8" width="159" height="51"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEa-0P-JPq" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
-                                <rect key="frame" x="5" y="5" width="65" height="41"/>
+                                <rect key="frame" x="5" y="5" width="149" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="65" id="gK6-XC-1A3"/>
                                     <constraint firstAttribute="height" constant="41" id="rQr-yP-Cva"/>
                                 </constraints>
                             </view>
@@ -83,6 +82,7 @@
                     <constraint firstAttribute="trailing" secondItem="ebS-T0-CQc" secondAttribute="trailing" constant="10" id="pAc-eD-95J"/>
                     <constraint firstItem="ebS-T0-CQc" firstAttribute="top" secondItem="klN-ml-zXS" secondAttribute="top" id="pvi-0j-ELh"/>
                     <constraint firstItem="klN-ml-zXS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="so6-Ow-oD8"/>
+                    <constraint firstItem="ebS-T0-CQc" firstAttribute="leading" secondItem="klN-ml-zXS" secondAttribute="trailing" constant="10" id="ukg-hj-fum"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

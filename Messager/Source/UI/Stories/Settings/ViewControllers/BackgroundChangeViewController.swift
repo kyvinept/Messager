@@ -119,7 +119,7 @@ extension BackgroundChangeViewController: UICollectionViewDelegate, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
         let image = UIImageView(frame: cell.frame)
         image.image = images[indexPath.row].image
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
         cell.backgroundView = image
         return cell
     }
