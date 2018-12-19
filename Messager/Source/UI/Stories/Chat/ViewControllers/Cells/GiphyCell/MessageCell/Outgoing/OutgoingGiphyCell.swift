@@ -21,8 +21,8 @@ class OutgoingGiphyCell: CustomCell {
         giphyView.image = nil
     }
 
-    override func configure(model: CustomViewModel) {
-        super.configure(model: model)
+    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, answerModel: answerModel)
         guard let model = model as? GiphyChatCellViewModel else { return }
         
         userImage.downloadImage(from: model.userImageUrl)

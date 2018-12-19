@@ -15,8 +15,8 @@ class IncomingImageCell: CustomCell {
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var timeLabel: UILabel!
     
-    override func configure(model: CustomViewModel) {
-        super.configure(model: model)
+    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, answerModel: answerModel)
         guard let model = model as? ImageCellViewModel else { return }
         
         messageImage.image = model.image

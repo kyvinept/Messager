@@ -559,7 +559,6 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        addAnswerMessage()
         noMassageLabel.isHidden = !messages.isEmpty
         return messages.count
     }
@@ -588,6 +587,8 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
                 self.newTextInTextView()
                 self.editingMessage = self.messages[indexPath.row]
             }))
+        case .answer(_):
+            return
         default:
             break
         }
@@ -603,29 +604,6 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    private func addAnswerMessage() {
-        messages.removeAll(where: {
-            switch $0.kind {
-            case .answer(_):
-                return true
-            default:
-                return false
-            }
-        })
-        
-        for index in 0..<messages.count {
-            if let answerId = messages[index].answer,
-               let answerMessage = messages.first(where: { $0.messageId == answerId }) {
-                messages.insert(Message(sender: currentUser,
-                                        answer: nil,
-                                     messageId: UUID().uuidString,
-                                      sentDate: answerMessage.sentDate,
-                                          kind: .answer("Text")),
-                                at: index)
-            }
-        }
     }
     
     private func answer(forMessage message: Message) {
@@ -645,24 +623,39 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var answerModel: AnswerViewForCellViewModel? = nil
+        if let messageAnswerId = messages[indexPath.row].answer,
+           let message = messages.first(where: { $0.messageId == messageAnswerId }) {
+            answerModel = AnswerViewForCellViewModel(answerMessage: message,
+                                            answerMessageWasTapped: { [weak self] answerMessage in
+                                                                        guard let messageIndex = self?.messages.firstIndex(of: message) else { return }
+                                                                        tableView.selectRow(at: IndexPath(row: messageIndex, section: 0),
+                                                                                      animated: true,
+                                                                                scrollPosition: .middle)
+                                                                    })
+        }
+        
         switch messages[indexPath.row].kind {
         case .text(let text):
-            return createCell(withMessage: messages[indexPath.row], withText: text, for: indexPath)
+            return createCell(withMessage: messages[indexPath.row], withText: text, for: indexPath, answerModel: answerModel)
             
         case .photo(let mediaItem):
-            return createCell(withMessage: messages[indexPath.row], withMediaItem: mediaItem, for: indexPath)
+            return createCell(withMessage: messages[indexPath.row], withMediaItem: mediaItem, for: indexPath, answerModel: answerModel)
             
         case .location(let location):
-            return createCell(withMessage: messages[indexPath.row], withLocation: location, for: indexPath)
+            return createCell(withMessage: messages[indexPath.row], withLocation: location, for: indexPath, answerModel: answerModel)
             
         case .video(let videoItem):
-            return createCell(withMessage: messages[indexPath.row], withVideoItem: videoItem, for: indexPath)
+            return createCell(withMessage: messages[indexPath.row], withVideoItem: videoItem, for: indexPath, answerModel: answerModel)
             
         case .giphy(let giphy):
-            return createCell(withMessage: messages[indexPath.row], withGiphy: giphy, for: indexPath)
+            return createCell(withMessage: messages[indexPath.row], withGiphy: giphy, for: indexPath, answerModel: answerModel)
             
         case .answer(let text):
-            return createCell(withMessage: messages[indexPath.row], withAnswerText: text, for: indexPath)
+            guard let message = messages.first(where: { $0.messageId == text }) else {
+                return UITableViewCell()
+            }
+            return createCell(withMessage: messages[indexPath.row], forOwnerMessage: message, withAnswerText: message.kind.rawValue, for: indexPath)
         }
     }
 
@@ -688,7 +681,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 
 private extension ChatViewController {
     
-    func createCell(withMessage message: Message, withText text: String, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, withText text: String, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingMessageCell", for: indexPath) as! OutgoingMessageCell
@@ -699,11 +692,12 @@ private extension ChatViewController {
         cell?.configure(model: MessageCellViewModel(message: text,
                                                        date: messages[indexPath.row].sentDate,
                                                userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                            backgroundColor: searchMessageIndex == indexPath.row ? UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1) : UIColor.clear))
+                                            backgroundColor: searchMessageIndex == indexPath.row ? UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1) : UIColor.clear),
+                  answerModel: answerModel)
         return cell ?? UITableViewCell()
     }
     
-    func createCell(withMessage message: Message, withMediaItem mediaItem: MediaItem, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, withMediaItem mediaItem: MediaItem, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as! OutgoingImageCell
@@ -715,11 +709,12 @@ private extension ChatViewController {
                                               imageSize: mediaItem.size,
                                                    date: messages[indexPath.row].sentDate,
                                              downloaded: message.sender == currentUser! ? mediaItem.downloaded : true,
-                                           userImageUrl: messages[indexPath.row].sender.imageUrl))
+                                           userImageUrl: messages[indexPath.row].sender.imageUrl),
+                  answerModel: answerModel)
         return cell ?? UITableViewCell()
     }
     
-    func createCell(withMessage message: Message, withLocation location: CLLocationCoordinate2D, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, withLocation location: CLLocationCoordinate2D, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingLocationCell", for: indexPath) as! OutgoingLocationCell
@@ -728,15 +723,16 @@ private extension ChatViewController {
         }
         
         cell?.configure(model: LocationCellViewModel(date: messages[indexPath.row].sentDate,
-                                                     userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                                     location: location,
-                                                     tapCell: { [weak self] coordinate in
-                                                                  self?.didTappedCell(location: coordinate)
-                                                              }))
+                                             userImageUrl: messages[indexPath.row].sender.imageUrl,
+                                                 location: location,
+                                                  tapCell: { [weak self] coordinate in
+                                                                self?.didTappedCell(location: coordinate)
+                                                           }),
+                  answerModel: answerModel)
         return cell ?? UITableViewCell()
     }
     
-    func createCell(withMessage message: Message, withVideoItem videoItem: VideoItem, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, withVideoItem videoItem: VideoItem, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCell", for: indexPath) as! OutgoingVideoCell
@@ -747,11 +743,12 @@ private extension ChatViewController {
         cell?.configure(model: VideoCellViewModel(date: messages[indexPath.row].sentDate,
                                           userImageUrl: messages[indexPath.row].sender.imageUrl,
                                                  video: videoItem.videoUrl,
-                                            downloaded: message.sender == currentUser! ? videoItem.downloaded : true))
+                                            downloaded: message.sender == currentUser! ? videoItem.downloaded : true),
+                  answerModel: answerModel)
         return cell ?? UITableViewCell()
     }
     
-    func createCell(withMessage message: Message, withGiphy giphy: Giphy, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, withGiphy giphy: Giphy, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingGiphyCell", for: indexPath) as! OutgoingGiphyCell
@@ -761,11 +758,12 @@ private extension ChatViewController {
         
         cell?.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
                                               userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                                     giphy: giphy))
+                                                     giphy: giphy),
+                  answerModel: answerModel)
         return cell ?? UITableViewCell()
     }
     
-    func createCell(withMessage message: Message, withAnswerText text: String, for indexPath: IndexPath) -> UITableViewCell {
+    func createCell(withMessage message: Message, forOwnerMessage ownerMessage: Message, withAnswerText text: String, for indexPath: IndexPath) -> UITableViewCell {
         var cell: CustomCell?
         if message.sender == currentUser! {
             cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAnswerCell", for: indexPath) as! OutgoingAnswerCell
@@ -773,9 +771,11 @@ private extension ChatViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAnswerCell", for: indexPath) as! IncomingAnswerCell
         }
         
+        cell?.selectionStyle = UITableViewCellSelectionStyle.none;
         cell?.configure(model: AnswerCellViewModel(text: text,
-                                                message: message,
-                                        backgroundColor: .clear))
+                                                message: ownerMessage,
+                                        backgroundColor: .clear),
+                  answerModel: nil)
         return cell ?? UITableViewCell()
     }
 }

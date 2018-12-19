@@ -107,7 +107,8 @@ class ApiManager {
     
     func publishMessage(_ message: Message, toUser: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
         var request: [String: Any] = self.mapper.createRequest(message: message, toUser: toUser)
-        
+        request[MessageType.answer.rawValue] = message.answer
+
         switch message.kind {
         case .text(let text):
             request[MessageType.text.rawValue] = text
@@ -147,10 +148,8 @@ class ApiManager {
             request[MessageType.push.rawValue] = "[giphy]"
             request[MessageType.giphySize.rawValue] = "\(giphy.height),\(giphy.width)"
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
-        case .answer(let text):
-            request[MessageType.answer.rawValue] = text
-            request[MessageType.push.rawValue] = text
-            sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
+        case .answer(_):
+            break
         }
     }
     

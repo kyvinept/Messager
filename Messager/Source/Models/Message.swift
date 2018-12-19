@@ -8,13 +8,38 @@
 import UIKit
 
 enum MessageKind {
-
     case text(String)
     case answer(String)
     case photo(MediaItem)
     case video(VideoItem)
     case location(CLLocationCoordinate2D)
     case giphy(Giphy)
+}
+
+extension MessageKind: RawRepresentable {
+    
+    public typealias RawValue = String
+    
+    public init?(rawValue: RawValue) {
+        return nil
+    }
+    
+    public var rawValue: RawValue {
+        switch self {
+        case .text(let text):
+            return text
+        case .answer(let text):
+            return text
+        case .photo(_):
+            return "[photo]"
+        case .video(_):
+            return "[video]"
+        case .giphy(_):
+            return "[giphy]"
+        case .location(_):
+            return "[location]"
+        }
+    }
 }
 
 class Message: Equatable {

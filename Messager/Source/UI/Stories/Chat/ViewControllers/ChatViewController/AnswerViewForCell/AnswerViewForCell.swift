@@ -1,5 +1,5 @@
 //
-//  AnswerView.swift
+//  AnswerViewForCell.swift
 //  Messager
 //
 //  Created by Silchenko on 19.12.2018.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-class AnswerView: UIView {
-    
+class AnswerViewForCell: UIView {
+
     @IBOutlet private weak var contentView: UIView!
-    @IBOutlet private weak var answerTextLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
-    private var closeView: (() -> ())?
-    private(set) var message: Message?
-    
+    @IBOutlet private weak var textLabel: UILabel!
+    private var answerMessageWasTapped: ((Message) -> ())?
+    private var message: Message?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,22 +26,26 @@ class AnswerView: UIView {
         contentView!.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         addSubview(contentView!)
     }
-        
+    
     func loadViewFromNib() -> UIView! {
         let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "AnswerView", bundle: bundle)
+        let nib = UINib(nibName: "AnswerViewForCell", bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
     
-    func configure(model: AnswerViewViewModel) {
-        closeView = model.closeView
-        answerTextLabel.text = model.answerMessage.kind.rawValue
+    func configure(model: AnswerViewForCellViewModel) {
         nameLabel.text = model.answerMessage.sender.name
+        textLabel.text = model.answerMessage.kind.rawValue
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        answerMessageWasTapped = model.answerMessageWasTapped
         message = model.answerMessage
     }
     
-    @IBAction private func choseButtonTapped(_ sender: Any) {
-        closeView?()
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let message = message {
+            answerMessageWasTapped?(message)
+        }
     }
 }

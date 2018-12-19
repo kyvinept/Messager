@@ -8,12 +8,12 @@
 import UIKit
 
 protocol CustomCellProtocol {
-    func configure(model: CustomViewModel)
+    func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?)
 }
 
 class CustomCell: UITableViewCell, CustomCellProtocol {
     
-    func configure(model: CustomViewModel) {
+    func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
         backgroundColor = .clear
     }
 }

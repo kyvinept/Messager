@@ -15,8 +15,8 @@ class OutgoingLocationCell: CustomCell {
     private var tapCell: ((CLLocationCoordinate2D) -> ())?
     private var location: CLLocationCoordinate2D!
     
-    override func configure(model: CustomViewModel) {
-        super.configure(model: model)
+    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, answerModel: answerModel)
         guard let model = model as? LocationCellViewModel else { return }
         
         dateLabel.text = model.date

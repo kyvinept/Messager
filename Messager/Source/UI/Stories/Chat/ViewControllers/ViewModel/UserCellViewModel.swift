@@ -26,20 +26,21 @@ struct UserCellViewModel {
             return
         }
         
-        switch lastMessage.kind {
-        case .text(let text):
-            self.lastMessage = text
-        case .photo(_):
-            self.lastMessage = "[photo]"
-        case .giphy(_):
-            self.lastMessage = "[giphy]"
-        case .location(_):
-            self.lastMessage = "[location]"
-        case .video(_):
-            self.lastMessage = "[video]"
-        case .answer(let text):
-            self.lastMessage = text
-        }
+        self.lastMessage = lastMessage.kind.rawValue
+//        switch lastMessage.kind {
+//        case .text(let text):
+//            self.lastMessage = text
+//        case .photo(_):
+//            self.lastMessage = "[photo]"
+//        case .giphy(_):
+//            self.lastMessage = "[giphy]"
+//        case .location(_):
+//            self.lastMessage = "[location]"
+//        case .video(_):
+//            self.lastMessage = "[video]"
+//        case .answer(let text):
+//            self.lastMessage = text
+//        }
         self.lastMessageTime = lastMessage.sentDate.toString(dateFormat: "HH:mm")
     }
 }

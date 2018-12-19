@@ -22,6 +22,9 @@
 		5B317B1A21CA686D004BC997 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1921CA686D004BC997 /* AnswerView.swift */; };
 		5B317B1C21CA6878004BC997 /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B1B21CA6878004BC997 /* AnswerView.xib */; };
 		5B317B1F21CA6960004BC997 /* AnswerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1E21CA6960004BC997 /* AnswerViewViewModel.swift */; };
+		5B317B2221CA9C25004BC997 /* AnswerViewForCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B2121CA9C25004BC997 /* AnswerViewForCellViewModel.swift */; };
+		5B317B2421CA9C86004BC997 /* AnswerViewForCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B2321CA9C86004BC997 /* AnswerViewForCell.swift */; };
+		5B317B2621CA9C90004BC997 /* AnswerViewForCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B2521CA9C90004BC997 /* AnswerViewForCell.xib */; };
 		5B360954217DEE46008B46EB /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360953217DEE46008B46EB /* RegistrationViewController.swift */; };
 		5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36095B217E1209008B46EB /* BaseRouter.swift */; };
 		5B360961217E2F0C008B46EB /* MainUIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B360960217E2F0C008B46EB /* MainUIAssembly.swift */; };
@@ -141,6 +144,9 @@
 		5B317B1921CA686D004BC997 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		5B317B1B21CA6878004BC997 /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
 		5B317B1E21CA6960004BC997 /* AnswerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewViewModel.swift; sourceTree = "<group>"; };
+		5B317B2121CA9C25004BC997 /* AnswerViewForCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewForCellViewModel.swift; sourceTree = "<group>"; };
+		5B317B2321CA9C86004BC997 /* AnswerViewForCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewForCell.swift; sourceTree = "<group>"; };
+		5B317B2521CA9C90004BC997 /* AnswerViewForCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerViewForCell.xib; sourceTree = "<group>"; };
 		5B360953217DEE46008B46EB /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		5B36095B217E1209008B46EB /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		5B360960217E2F0C008B46EB /* MainUIAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIAssembly.swift; sourceTree = "<group>"; };
@@ -330,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				5BD3EBE3217F687A00FD3D83 /* ChatViewController.swift */,
+				5B317B2021CA9BD9004BC997 /* AnswerViewForCell */,
 				5B317B1D21CA687B004BC997 /* AnswerView */,
 			);
 			path = ChatViewController;
@@ -343,6 +350,16 @@
 				5B317B1E21CA6960004BC997 /* AnswerViewViewModel.swift */,
 			);
 			path = AnswerView;
+			sourceTree = "<group>";
+		};
+		5B317B2021CA9BD9004BC997 /* AnswerViewForCell */ = {
+			isa = PBXGroup;
+			children = (
+				5B317B2121CA9C25004BC997 /* AnswerViewForCellViewModel.swift */,
+				5B317B2321CA9C86004BC997 /* AnswerViewForCell.swift */,
+				5B317B2521CA9C90004BC997 /* AnswerViewForCell.xib */,
+			);
+			path = AnswerViewForCell;
 			sourceTree = "<group>";
 		};
 		5B360957217DEF23008B46EB /* ViewControllers */ = {
@@ -1100,6 +1117,7 @@
 				5B7439C0219C0D7300D64EFB /* OutgoingLocationCell.xib in Resources */,
 				5B6765022189AD1000239DCF /* Settings.storyboard in Resources */,
 				5B972A44219F139B00DAD8FB /* GiphyCell.xib in Resources */,
+				5B317B2621CA9C90004BC997 /* AnswerViewForCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1277,11 +1295,13 @@
 				5BA3B61E21C922AC008B4A2D /* CustomViewModel.swift in Sources */,
 				5BA3B62121C923AC008B4A2D /* CustomCell.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
+				5B317B2221CA9C25004BC997 /* AnswerViewForCellViewModel.swift in Sources */,
 				5B4237E0219B31E30042D836 /* LocationManager.swift in Sources */,
 				5B360963217E2F26008B46EB /* MainUIAssemblyProtocol.swift in Sources */,
 				5B774B01219DCD2A00D201D6 /* GiphyManager.swift in Sources */,
 				5B5BA9B621AC2D4000509B38 /* RefreshCell.swift in Sources */,
 				5B6765102189E5DE00239DCF /* SettingsAssembly.swift in Sources */,
+				5B317B2421CA9C86004BC997 /* AnswerViewForCell.swift in Sources */,
 				5BD3EBEC217F68C400FD3D83 /* ChatRouter.swift in Sources */,
 				5B8655D221CA3B69005DE017 /* Image.swift in Sources */,
 				5BA3B62621C93A98008B4A2D /* BackgroundChangeViewController.swift in Sources */,

@@ -32,6 +32,7 @@ class DatabaseMapper {
     func map(to messageEntity: MessageEntity, from message: Message) {
         messageEntity.messageId = message.messageId
         messageEntity.sentDate = message.sentDate
+        messageEntity.answer = message.answer
         
         switch message.kind {
         case .text(let text):
@@ -51,9 +52,8 @@ class DatabaseMapper {
             messageEntity.giphy = giphy.url
             messageEntity.giphyWidth = Float(giphy.width)
             messageEntity.giphyHeight = Float(giphy.height)
-        case .answer(let text):
-            messageEntity.type = MessageType.answer.rawValue
-            messageEntity.answer = text
+        case .answer(_):
+            break
         }
     }
     
@@ -123,7 +123,7 @@ class DatabaseMapper {
         default:
             break
         }
-        
+
         return Message(sender: user,
                        answer: messageEntity.answer,
                     messageId: messageEntity.messageId!,

@@ -13,8 +13,8 @@ class IncomingMessageCell: CustomCell {
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
     
-    override func configure(model: CustomViewModel) {
-        super.configure(model: model)
+    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, answerModel: answerModel)
         guard let model = model as? MessageCellViewModel else { return }
         
         messageLabel.text = model.message
