@@ -455,7 +455,8 @@ extension ApiManager {
                                                               completionHandler: { image in
                                                                                      guard let image = image else { return }
                                                                                      successBlock(Image(imageModel: imageModel,
-                                                                                                             image: image))
+                                                                                                             image: image,
+                                                                                                                id: imageModel.id))
                                                                                  })
                                        }
                                   },
@@ -464,8 +465,8 @@ extension ApiManager {
                                   })
     }
     
-    func set(backgroundImage image: UIImage, toCurrentUser user: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
-        guard let data = UIImageJPEGRepresentation(image, 1.0) else { return }
+    func set(backgroundImage image: Image, toCurrentUser user: User, successBlock: @escaping () -> (), errorBlock: @escaping () -> ()) {
+        guard let uiimage = image.image, let data = UIImageJPEGRepresentation(uiimage, 1.0) else { return }
         dataStore = Backendless.sharedInstance().data.ofTable(Table.image.rawValue)
         
         mediaManager.uploadImage(data: data,
@@ -474,7 +475,7 @@ extension ApiManager {
                                        },
                     completionHandler: { url in
                                            guard let url = url else { return }
-                                           self.dataStore?.save(["url" : url, "ownerId" : user.id],
+                                           self.dataStore?.save(["url" : url, "ownerId" : user.id, "id" : image.id],
                                                                 response: { savedMessage in
                                                                               successBlock()
                                                                               print("success")

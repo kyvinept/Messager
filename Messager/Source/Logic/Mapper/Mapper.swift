@@ -89,7 +89,8 @@ class Mapper {
         var newImagesUrl = [Image]()
         for image in images {
             newImagesUrl.append(Image(url: image["url"] as! String,
-                                isMyImage: (image["ownerId"] as? String) == nil ? false : true))
+                                isMyImage: (image["ownerId"] as? String) == nil ? false : true,
+                                       id: image["id"] as! String))
         }
         return newImagesUrl
     }

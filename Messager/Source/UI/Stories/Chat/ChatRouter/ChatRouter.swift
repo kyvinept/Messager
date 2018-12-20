@@ -82,8 +82,9 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     }
     
     private func checkBackground(forViewController viewController: ChatViewController) {
-        guard let image = assembly.appAssembly.userDefaultsManager.get(key: .backgroundImage) else { return }
-        viewController.setBackground(image: image)
+        guard let image = assembly.appAssembly.userDefaultsManager.get(key: .backgroundImage),
+              let backgroundImage = image.image else { return }
+        viewController.setBackground(image: backgroundImage)
     }
     
     private func checkNewMessages(currentUser: User, toUser: User) {

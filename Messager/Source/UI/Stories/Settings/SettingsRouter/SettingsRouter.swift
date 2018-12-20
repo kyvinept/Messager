@@ -45,7 +45,8 @@ class SettingsRouter: BaseRouter, SettingsRouterProtocol {
 extension SettingsRouter: SettingsViewControllerDelegate {
     
     func didChangeChatBackground(currentUser: User, viewController: SettingsViewController) {
-        let vc = assembly.createBackgroundChangeViewController(user: currentUser)
+        let image = assembly.appAssembly.userDefaultsManager.get(key: .backgroundImage)
+        let vc = assembly.createBackgroundChangeViewController(user: currentUser, withImage: image)
         vc.delegate = self
         backgroundChangeViewController = vc
         action(with: vc,
@@ -97,7 +98,7 @@ extension SettingsRouter: SettingsViewControllerDelegate {
 
 extension SettingsRouter : BackgroundChangeViewControllerDelegate {
     
-    func didAddNewImage(_ image: UIImage, currentUser: User, viewController: UIViewController) {
+    func didAddNewImage(_ image: Image, currentUser: User, viewController: UIViewController) {
         let refresh = showProgress(toViewController: viewController)
         assembly.appAssembly.apiManager.set(backgroundImage: image,
                                               toCurrentUser: currentUser,
@@ -109,7 +110,7 @@ extension SettingsRouter : BackgroundChangeViewControllerDelegate {
                                                              })
     }
     
-    func didTappedImage(_ image: UIImage, viewController: UIViewController) {
+    func didTappedImage(_ image: Image, viewController: UIViewController) {
         assembly.appAssembly.userDefaultsManager.save(backgroundImage: image)
     }
     

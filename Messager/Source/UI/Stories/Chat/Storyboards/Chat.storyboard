@@ -178,7 +178,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="25m-C8-Uid" id="ScD-ee-pm7"/>
+                                    <outlet property="dataSource" destination="25m-C8-Uid" id="Ujd-Hk-Ni9"/>
                                     <outlet property="delegate" destination="25m-C8-Uid" id="jk5-ff-jj4"/>
                                 </connections>
                             </tableView>

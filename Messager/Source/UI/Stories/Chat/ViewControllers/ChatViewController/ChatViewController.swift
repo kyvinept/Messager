@@ -48,11 +48,19 @@ class ChatViewController: UIViewController {
     private var searchView: SearchView?
     private var isGiphyInput = false
     private var giphyViewController: GiphyViewController!
-    private var messages = [Message]()
+    private var messages = [Message]() {
+        didSet {
+            if let dataSource = dataSource {
+                dataSource.messages = messages
+            }
+        }
+    }
     private var currentUser: User!
     private var toUser: User!
     private var editingMessage: Message?
     private var searchMessageIndex: Int?
+    private var dataSource: ChatViewDataSource!
+    private var rowBuilder: ChatViewRowBuilder!
     private var isAnswer = false {
         didSet {
             answerView.isHidden = !isAnswer
@@ -64,16 +72,16 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createBackButton()
-        registerCell()
         addNotification()
         setBaseUIComponents()
         addGiphyViewController(giphyViewController)
         addSearchButton()
+        initTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.scrollToBottom(animated: false)
+        dataSource.scrollToBottom(animated: false, withReload: false)
     }
     
     func setBackground(image: UIImage) {
@@ -142,8 +150,7 @@ class ChatViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.tableView.scrollToBottom(animated: true)
+            self.dataSource.scrollToBottom(animated: true, withReload: true)
         }
     }
     
@@ -167,7 +174,7 @@ class ChatViewController: UIViewController {
             textViewBottomConstraint.constant = -giphyViewHeight.constant + view.safeAreaInsets.bottom
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()
-                self.tableView.scrollToBottom(animated: true)
+                self.dataSource.scrollToBottom(animated: true, withReload: false)
             }
             addNotification()
         }
@@ -277,7 +284,7 @@ class ChatViewController: UIViewController {
             delegate?.didEditTextMessage(message: editingMessage, toUser: toUser, viewController: self)
             self.editingMessage = nil
             hideKeyboard()
-            tableView.reloadData()
+            dataSource.reloadData()
         }
         else {
             let message = Message(sender: currentUser,
@@ -313,6 +320,23 @@ class ChatViewController: UIViewController {
 }
 
 private extension ChatViewController {
+    
+    func initTableView() {
+        rowBuilder = ChatViewRowBuilder(tableView: tableView)
+        dataSource = ChatViewDataSource(tableView: tableView, rowBuilder: rowBuilder)
+        dataSource.currentUser = currentUser
+        dataSource.messages = messages
+        dataSource.selectedRow = { [weak self] indexPath in
+            if let _ = self?.searchMessageIndex {
+                self?.cancelSearchButtonTapped()
+            }
+            self?.viewWasTapped()
+            self?.showAlert(forIndexPath: indexPath)
+        }
+        dataSource.showHideLabelCount = { [weak self] isShow in
+            self?.noMassageLabel.isHidden = isShow
+        }
+    }
     
     func addSearchButton() {
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search,
@@ -372,15 +396,15 @@ private extension ChatViewController {
                                                      showMessage: { message in
                                                                       guard let index = self.messages.firstIndex(of: message) else { return }
                                                                       self.searchMessageIndex = index
-                                                                      self.tableView.scrollToRow(at: IndexPath(row: index, section: 0),
-                                                                                                 at: .middle,
-                                                                                           animated: true)
-                                                                      self.tableView.cellForRow(at: IndexPath(row: index, section: 0))?.backgroundColor = UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1)
+                                                                      self.dataSource.scrollToRow(at: IndexPath(row: index, section: 0),
+                                                                                                  at: .middle,
+                                                                                            animated: true)
+                                                                      self.dataSource.changeBackground(forIndexPath: IndexPath(row: index, section: 0), isSearch: true)
                                                                   },
                                                willChangeMessage: { message in
                                                                       guard let index = self.messages.firstIndex(of: message) else { return }
                                                                       self.searchMessageIndex = index
-                                                                      self.tableView.cellForRow(at: IndexPath(row: index, section: 0))?.backgroundColor = UIColor.clear
+                                                                      self.dataSource.changeBackground(forIndexPath: IndexPath(row: index, section: 0), isSearch: false)
                                                                   },
                                                     showCalendar: {
                                                                       self.hideKeyboard()
@@ -548,28 +572,10 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
+extension ChatViewController {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         hideKeyboard()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        noMassageLabel.isHidden = !messages.isEmpty
-        return messages.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let _ = searchMessageIndex {
-            cancelSearchButtonTapped()
-        }
-        viewWasTapped()
-        tableView.deselectRow(at: indexPath, animated: true)
-        showAlert(forIndexPath: indexPath)
     }
     
     private func showAlert(forIndexPath indexPath: IndexPath) {
@@ -621,165 +627,8 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var answerModel: AnswerViewForCellViewModel? = nil
-        if let messageAnswerId = messages[indexPath.row].answer,
-           let message = messages.first(where: { $0.messageId == messageAnswerId }) {
-            answerModel = AnswerViewForCellViewModel(answerMessage: message,
-                                            answerMessageWasTapped: { [weak self] answerMessage in
-                                                                        guard let messageIndex = self?.messages.firstIndex(of: message) else { return }
-                                                                        let indexPath = IndexPath(row: messageIndex, section: 0)
-                                                                        tableView.selectRow(at: indexPath,
-                                                                                      animated: true,
-                                                                                scrollPosition: .middle)
-                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                                                                            tableView.deselectRow(at: indexPath, animated: true)
-                                                                        })
-                                                                    })
-        }
-        
-        switch messages[indexPath.row].kind {
-        case .text(let text):
-            return createCell(withMessage: messages[indexPath.row], withText: text, for: indexPath, answerModel: answerModel)
-            
-        case .photo(let mediaItem):
-            return createCell(withMessage: messages[indexPath.row], withMediaItem: mediaItem, for: indexPath, answerModel: answerModel)
-            
-        case .location(let location):
-            return createCell(withMessage: messages[indexPath.row], withLocation: location, for: indexPath, answerModel: answerModel)
-            
-        case .video(let videoItem):
-            return createCell(withMessage: messages[indexPath.row], withVideoItem: videoItem, for: indexPath, answerModel: answerModel)
-            
-        case .giphy(let giphy):
-            return createCell(withMessage: messages[indexPath.row], withGiphy: giphy, for: indexPath, answerModel: answerModel)
-            
-        case .answer(let text):
-            guard let message = messages.first(where: { $0.messageId == text }) else {
-                return UITableViewCell()
-            }
-            return createCell(withMessage: messages[indexPath.row], forOwnerMessage: message, withAnswerText: message.kind.rawValue, for: indexPath)
-        }
-    }
 
     private func didTappedCell(location: CLLocationCoordinate2D) {
         delegate?.didTappedLocationCell(withLocation: location, viewController: self)
-    }
-    
-    private func registerCell() {
-        tableView.register(UINib(nibName: "OutgoingMessageCell", bundle: nil), forCellReuseIdentifier: "OutgoingMessageCell")
-        tableView.register(UINib(nibName: "IncomingMessageCell", bundle: nil), forCellReuseIdentifier: "IncomingMessageCell")
-        tableView.register(UINib(nibName: "OutgoingImageCell", bundle: nil), forCellReuseIdentifier: "OutgoingImageCell")
-        tableView.register(UINib(nibName: "IncomingImageCell", bundle: nil), forCellReuseIdentifier: "IncomingImageCell")
-        tableView.register(UINib(nibName: "OutgoingLocationCell", bundle: nil), forCellReuseIdentifier: "OutgoingLocationCell")
-        tableView.register(UINib(nibName: "IncomingLocationCell", bundle: nil), forCellReuseIdentifier: "IncomingLocationCell")
-        tableView.register(UINib(nibName: "OutgoingVideoCell", bundle: nil), forCellReuseIdentifier: "OutgoingVideoCell")
-        tableView.register(UINib(nibName: "IncomingVideoCell", bundle: nil), forCellReuseIdentifier: "IncomingVideoCell")
-        tableView.register(UINib(nibName: "OutgoingGiphyCell", bundle: nil), forCellReuseIdentifier: "OutgoingGiphyCell")
-        tableView.register(UINib(nibName: "IncomingGiphyCell", bundle: nil), forCellReuseIdentifier: "IncomingGiphyCell")
-        tableView.register(UINib(nibName: "OutgoingAnswerCell", bundle: nil), forCellReuseIdentifier: "OutgoingAnswerCell")
-        tableView.register(UINib(nibName: "IncomingAnswerCell", bundle: nil), forCellReuseIdentifier: "IncomingAnswerCell")
-    }
-}
-
-private extension ChatViewController {
-    
-    func createCell(withMessage message: Message, withText text: String, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingMessageCell", for: indexPath) as! OutgoingMessageCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessageCell", for: indexPath) as! IncomingMessageCell
-        }
-        
-        cell?.configure(model: MessageCellViewModel(message: text,
-                                                       date: messages[indexPath.row].sentDate,
-                                               userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                            backgroundColor: searchMessageIndex == indexPath.row ? UIColor(red: 151.0/255.0, green: 195.0/255.0, blue: 255.0/255.0, alpha: 1) : UIColor.clear),
-                  answerModel: answerModel)
-        return cell ?? UITableViewCell()
-    }
-    
-    func createCell(withMessage message: Message, withMediaItem mediaItem: MediaItem, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingImageCell", for: indexPath) as! OutgoingImageCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingImageCell", for: indexPath) as! IncomingImageCell
-        }
-        
-        cell?.configure(model: ImageCellViewModel(image: mediaItem.image,
-                                              imageSize: mediaItem.size,
-                                                   date: messages[indexPath.row].sentDate,
-                                             downloaded: message.sender == currentUser! ? mediaItem.downloaded : true,
-                                           userImageUrl: messages[indexPath.row].sender.imageUrl),
-                  answerModel: answerModel)
-        return cell ?? UITableViewCell()
-    }
-    
-    func createCell(withMessage message: Message, withLocation location: CLLocationCoordinate2D, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingLocationCell", for: indexPath) as! OutgoingLocationCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingLocationCell", for: indexPath) as! IncomingLocationCell
-        }
-        
-        cell?.configure(model: LocationCellViewModel(date: messages[indexPath.row].sentDate,
-                                             userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                                 location: location,
-                                                  tapCell: { [weak self] coordinate in
-                                                                self?.didTappedCell(location: coordinate)
-                                                           }),
-                  answerModel: answerModel)
-        return cell ?? UITableViewCell()
-    }
-    
-    func createCell(withMessage message: Message, withVideoItem videoItem: VideoItem, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingVideoCell", for: indexPath) as! OutgoingVideoCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingVideoCell", for: indexPath) as! IncomingVideoCell
-        }
-        
-        cell?.configure(model: VideoCellViewModel(date: messages[indexPath.row].sentDate,
-                                          userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                                 video: videoItem.videoUrl,
-                                            downloaded: message.sender == currentUser! ? videoItem.downloaded : true),
-                  answerModel: answerModel)
-        return cell ?? UITableViewCell()
-    }
-    
-    func createCell(withMessage message: Message, withGiphy giphy: Giphy, for indexPath: IndexPath, answerModel: AnswerViewForCellViewModel?) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingGiphyCell", for: indexPath) as! OutgoingGiphyCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingGiphyCell", for: indexPath) as! IncomingGiphyCell
-        }
-        
-        cell?.configure(model: GiphyChatCellViewModel(date: messages[indexPath.row].sentDate,
-                                              userImageUrl: messages[indexPath.row].sender.imageUrl,
-                                                     giphy: giphy),
-                  answerModel: answerModel)
-        return cell ?? UITableViewCell()
-    }
-    
-    func createCell(withMessage message: Message, forOwnerMessage ownerMessage: Message, withAnswerText text: String, for indexPath: IndexPath) -> UITableViewCell {
-        var cell: CustomCell?
-        if message.sender == currentUser! {
-            cell = tableView.dequeueReusableCell(withIdentifier: "OutgoingAnswerCell", for: indexPath) as! OutgoingAnswerCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "IncomingAnswerCell", for: indexPath) as! IncomingAnswerCell
-        }
-        
-        cell?.selectionStyle = UITableViewCellSelectionStyle.none;
-        cell?.configure(model: AnswerCellViewModel(text: text,
-                                                message: ownerMessage,
-                                        backgroundColor: .clear),
-                  answerModel: nil)
-        return cell ?? UITableViewCell()
     }
 }

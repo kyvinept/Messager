@@ -77,11 +77,11 @@
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="4cc-e1-esF"/>
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="top" secondItem="p7d-dM-4yk" secondAttribute="top" id="BQl-Ia-Sgb"/>
                     <constraint firstItem="0g1-Pr-heV" firstAttribute="leading" secondItem="M7L-J4-ZTC" secondAttribute="trailing" constant="8" id="TEX-Ym-7Wl"/>
-                    <constraint firstItem="p7d-dM-4yk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UIo-dK-P9Z"/>
                     <constraint firstItem="aTM-RJ-qhO" firstAttribute="leading" secondItem="M7L-J4-ZTC" secondAttribute="leading" constant="5" id="Y0q-sS-9jO"/>
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="leading" secondItem="p7d-dM-4yk" secondAttribute="trailing" constant="10" id="Y9a-9E-Khq"/>
                     <constraint firstAttribute="trailing" secondItem="0g1-Pr-heV" secondAttribute="trailing" constant="8" id="Yeq-UZ-Fgp"/>
                     <constraint firstItem="M7L-J4-ZTC" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="eb0-rS-irZ"/>
+                    <constraint firstItem="p7d-dM-4yk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="oA3-Qi-ZGw"/>
                     <constraint firstAttribute="bottom" secondItem="0g1-Pr-heV" secondAttribute="bottom" constant="8" id="zh9-72-e5U"/>
                 </constraints>
             </tableViewCellContentView>

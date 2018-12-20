@@ -7,8 +7,10 @@
 
 import UIKit
 
-struct GiphyCellViewModel {
-
+struct GiphyCellViewModel: CustomViewModel {
+    
+    var userImageUrl: String
+    var date: String
     var giphy: Giphy
     var choseGiphy: ((Giphy) -> ())?
     var previewGiphy: ((String) -> ())?
@@ -19,5 +21,7 @@ struct GiphyCellViewModel {
         self.choseGiphy = choseGiphy
         self.previewGiphy = previewGiphy
         self.endPreviewGiphy = endPreviewGiphy
+        date = ""
+        userImageUrl = ""
     }
 }
