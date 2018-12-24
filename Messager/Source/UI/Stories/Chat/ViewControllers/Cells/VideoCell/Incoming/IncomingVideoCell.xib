@@ -65,6 +65,8 @@
                 <outlet property="heightVideoViewConstraint" destination="p76-hW-BDM" id="OqI-Uh-iVf"/>
                 <outlet property="playButton" destination="geg-zj-9Eq" id="cb8-JY-Pjs"/>
                 <outlet property="userImage" destination="sbX-DZ-z8B" id="fXE-5j-xuF"/>
+                <outlet property="userImageViewLeftConstraint" destination="6sx-WH-W9t" id="VT0-fZ-I5G"/>
+                <outlet property="userImageviewRightConstraint" destination="lJe-Ri-A0Z" id="2QZ-61-VhX"/>
                 <outlet property="videoView" destination="JoL-6y-rbe" id="ldO-p5-Gaf"/>
                 <outlet property="widthVideoViewConstraint" destination="RKA-ln-Fwv" id="J9u-zx-C5e"/>
             </connections>

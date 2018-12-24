@@ -654,7 +654,11 @@ extension ChatViewController: ChatViewControllerProtocol {
     }
     
     func change(font: UIFont) {
-        
+        rowBuilder.setMessageFont(font: font)
+    }
+    
+    func changeColorMessage(inputColor: UIColor, outputColor: UIColor) {
+        rowBuilder.setMessageColor(input: inputColor, output: outputColor)
     }
     
     func changeLocation(withImage image: UIImage, size: CGSize) {
@@ -679,10 +683,6 @@ extension ChatViewController: ChatViewControllerProtocol {
         searchToTopIcon = searchToTop
     }
     
-    func changeColorMessage(inputColor: UIColor, outputColor: UIColor) {
-        
-    }
-    
     func changePlaceHolder(forInputText text: String) {
         inputTextPlaceholder = text
     }
@@ -695,15 +695,13 @@ extension ChatViewController: ChatViewControllerProtocol {
         searchTextPlaceholder = text
     }
     
-    func changeBackgroundColorForAnswerMessage(_ color: UIColor) {
-        
+    func changeOffsetForUserIcon(toMessage: CGFloat, toBoard: CGFloat) {
+        rowBuilder.setDefaultOffsetForUserImage(toMessage: toMessage, toBoard: toBoard)
     }
     
-    func changeOffsetForUserIcon(left: CGFloat, right: CGFloat) {
-        
-    }
-    
-    func change(timeLabelColor color: UIColor, font: UIFont) {
-        
+    func changeTimeLabelColor(forMessage messageColor: UIColor, forMedia mediaColor: UIColor, font: UIFont) {
+        rowBuilder.setDefault(timeLabelFont: font,
+                   timeLabelColorForMessage: messageColor,
+                     timeLabelColorForMedia: mediaColor)
     }
 }

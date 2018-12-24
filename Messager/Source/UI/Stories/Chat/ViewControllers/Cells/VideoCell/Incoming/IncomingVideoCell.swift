@@ -10,6 +10,8 @@ import AVFoundation
 
 class IncomingVideoCell: CustomCell {
 
+    @IBOutlet private weak var userImageviewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var userImageViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var videoView: UIView!
     @IBOutlet private weak var playButton: UIImageView!
@@ -22,9 +24,11 @@ class IncomingVideoCell: CustomCell {
     }
     private var player: AVPlayer!
     
-    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
-        super.configure(model: model, answerModel: answerModel)
+    override func configure(model: CustomViewModel, defaultModel: DefaultViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, defaultModel: defaultModel, answerModel: answerModel)
         guard let model = model as? VideoCellViewModel else { return }
+        
+        setDefaultParameters(model: defaultModel)
         
         userImage.downloadImage(from: model.userImageUrl)
         playButton.layer.zPosition = 100000
@@ -39,6 +43,11 @@ class IncomingVideoCell: CustomCell {
         videoView.layer.addSublayer(videoLayer)
         
         setTapGesture()
+    }
+    
+    private func setDefaultParameters(model: DefaultViewModel) {
+        userImageViewLeftConstraint.constant = model.toBoard
+        userImageviewRightConstraint.constant = model.toMessage
     }
     
     private func setTapGesture() {

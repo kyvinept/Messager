@@ -8,8 +8,9 @@
 import UIKit
 
 struct DefaultViewModel {
-    var fontName: String
-    var leftOffsetForUserImage: CGFloat
-    var rightOffsetForUserImage: CGFloat
-    var timeLabelColor: UIColor
+    var toMessage: CGFloat
+    var toBoard: CGFloat
+    var timeLabelColorForMessage: UIColor
+    var timeLabelColorForMedia: UIColor
+    var timeLabelFont: UIFont
 }

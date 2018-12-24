@@ -12,12 +12,16 @@ class OutgoingLocationCell: CustomCell {
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var locationImageView: UIImageView!
+    @IBOutlet private weak var userImageViewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var userImageViewLeftConstraint: NSLayoutConstraint!
     private var tapCell: ((CLLocationCoordinate2D) -> ())?
     private var location: CLLocationCoordinate2D!
     
-    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
-        super.configure(model: model, answerModel: answerModel)
+    override func configure(model: CustomViewModel, defaultModel: DefaultViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, defaultModel: defaultModel, answerModel: answerModel)
         guard let model = model as? LocationCellViewModel else { return }
+        
+        setDefaultParameters(model: defaultModel)
         
         dateLabel.text = model.date
         userImage.downloadImage(from: model.userImageUrl)
@@ -27,6 +31,13 @@ class OutgoingLocationCell: CustomCell {
         locationImageView.image = model.locationImage
         
         addTapGesture()
+    }
+    
+    private func setDefaultParameters(model: DefaultViewModel) {
+        userImageViewLeftConstraint.constant = model.toMessage
+        userImageViewRightConstraint.constant = model.toBoard
+        dateLabel.textColor = model.timeLabelColorForMedia
+        dateLabel.font = model.timeLabelFont
     }
     
     private func addTapGesture() {

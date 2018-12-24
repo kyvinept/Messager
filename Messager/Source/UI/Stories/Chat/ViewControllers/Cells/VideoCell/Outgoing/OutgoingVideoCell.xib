@@ -53,7 +53,6 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Sfp-lO-NL9" secondAttribute="bottom" constant="8" id="3l6-zi-eGM"/>
                     <constraint firstItem="Sfp-lO-NL9" firstAttribute="leading" secondItem="gSv-US-l6b" secondAttribute="trailing" constant="8" id="4Vg-qY-80I"/>
                     <constraint firstItem="gSv-US-l6b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="B3r-Tr-Hyg"/>
                     <constraint firstAttribute="trailing" secondItem="Sfp-lO-NL9" secondAttribute="trailing" constant="8" id="Q6l-IU-9Y8"/>
@@ -66,6 +65,8 @@
                 <outlet property="heightVideoViewConstraint" destination="Gcl-6G-76P" id="VHs-tV-dgK"/>
                 <outlet property="playButton" destination="oVw-Lm-YBR" id="l9L-Ld-0uX"/>
                 <outlet property="userImage" destination="Sfp-lO-NL9" id="SA4-ds-BFC"/>
+                <outlet property="userImageViewLeftConstraint" destination="4Vg-qY-80I" id="I6K-4l-BcD"/>
+                <outlet property="userImageViewRightConstraint" destination="Q6l-IU-9Y8" id="ETr-wy-o5S"/>
                 <outlet property="videoView" destination="gSv-US-l6b" id="1Kd-k2-vBb"/>
                 <outlet property="widthVideoViewConstraint" destination="sk3-EI-kbF" id="nT3-0s-4wS"/>
             </connections>

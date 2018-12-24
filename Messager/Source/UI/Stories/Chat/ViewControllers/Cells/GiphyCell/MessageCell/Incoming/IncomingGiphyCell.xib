@@ -94,6 +94,8 @@
                 <outlet property="imageViewHeightConstraint" destination="fba-Yo-Im2" id="ZUf-7A-DL9"/>
                 <outlet property="imageViewWidthConstraint" destination="3Kb-lR-kL1" id="7Dw-l1-WWk"/>
                 <outlet property="userImage" destination="PpI-kG-xR6" id="EmM-Ox-dFa"/>
+                <outlet property="userImageViewLeftConstraint" destination="O7i-di-8WW" id="CB5-0F-twJ"/>
+                <outlet property="userImageViewRightConstraint" destination="gYR-Nk-C7o" id="97q-MR-3oW"/>
             </connections>
             <point key="canvasLocation" x="100" y="119.1904047976012"/>
         </tableViewCell>

@@ -84,11 +84,13 @@
                 <outlet property="messageImage" destination="bVT-Mg-EA7" id="I64-w5-Qjk"/>
                 <outlet property="timeLabel" destination="Ln8-jf-6EX" id="saZ-Yh-Pqh"/>
                 <outlet property="userImage" destination="TCU-2v-Unn" id="9K9-mW-gAO"/>
+                <outlet property="userImageViewLeftConstraint" destination="pBz-ux-QS4" id="oNe-Sz-eoa"/>
+                <outlet property="userImageViewRightConstraint" destination="pBz-ux-QS4" id="ChA-mA-Q6K"/>
             </connections>
             <point key="canvasLocation" x="112.8" y="83.208395802098963"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person" width="32" height="32"/>
+        <image name="person" width="128" height="128"/>
     </resources>
 </document>

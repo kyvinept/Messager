@@ -63,8 +63,10 @@
                 <outlet property="dateLabel" destination="qZs-Rf-7gW" id="0NO-ku-7S7"/>
                 <outlet property="locationImageView" destination="s07-Hk-msh" id="l13-qu-xdP"/>
                 <outlet property="userImage" destination="aeZ-8q-Il9" id="JE5-3b-Zwv"/>
+                <outlet property="userImageViewLeftConstraint" destination="TxI-Wy-xdF" id="NiN-S1-8qY"/>
+                <outlet property="userImageViewRightConstraint" destination="3Tm-FY-sR1" id="pho-Yi-ftI"/>
             </connections>
-            <point key="canvasLocation" x="234.40000000000001" y="256.37181409295357"/>
+            <point key="canvasLocation" x="-134" y="111"/>
         </tableViewCell>
     </objects>
     <resources>

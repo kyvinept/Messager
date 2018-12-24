@@ -81,6 +81,8 @@
                 <outlet property="messageLabel" destination="I87-vd-j12" id="5Gj-iU-srL"/>
                 <outlet property="timeLabel" destination="7Na-DZ-vFu" id="ZiM-9s-vfu"/>
                 <outlet property="userImageView" destination="ks8-Yf-nG9" id="tmw-bM-jjM"/>
+                <outlet property="userImageViewLeftConstraint" destination="wTC-ke-aCv" id="AOP-Gd-m0u"/>
+                <outlet property="userImageViewRightConstraint" destination="J7f-jC-xxE" id="SNK-Pf-t77"/>
             </connections>
             <point key="canvasLocation" x="-128.80000000000001" y="195.6521739130435"/>
         </tableViewCell>

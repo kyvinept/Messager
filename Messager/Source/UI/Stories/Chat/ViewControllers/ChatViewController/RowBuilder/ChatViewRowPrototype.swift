@@ -14,6 +14,9 @@ class ChatViewRowPrototype {
     private var locationImageSize = CGSize(width: 120, height: 57)
     private var inputBubble = UIImage(named: "bubble")
     private var outputBubble = UIImage(named: "bubble1")
+    private var inputMessageColor: UIColor = .black
+    private var outputMessageColor: UIColor = .black
+    private var messageFont = UIFont(name: "Times New Roman", size: 17)!
 }
 
 extension ChatViewRowPrototype {
@@ -26,6 +29,15 @@ extension ChatViewRowPrototype {
     func setDefaultBubbles(inputBubble input: UIImage, outputBubble output: UIImage) {
         inputBubble = input
         outputBubble = output
+    }
+    
+    func setMessageColor(input: UIColor, output: UIColor) {
+        inputMessageColor = input
+        outputMessageColor = output
+    }
+    
+    func setMessageFont(font: UIFont) {
+        messageFont = font
     }
 }
 
@@ -55,7 +67,10 @@ extension ChatViewRowPrototype {
                                                                     green: 195.0/255.0,
                                                                      blue: 255.0/255.0,
                                                                     alpha: 1)
-                                                            : UIColor.clear)
+                                                            : UIColor.clear,
+                                     inputColor: inputMessageColor,
+                                    outputColor: outputMessageColor,
+                                           font: messageFont)
     }
     
     func createGiphyModel(forMessage message: Message, withGiphy giphy: Giphy) -> GiphyChatCellViewModel {
@@ -88,5 +103,13 @@ extension ChatViewRowPrototype {
                                            tapCell: { location in
                                                         didTapLocation?(location)
                                                     })
+    }
+    
+    func createDefaultModel(toMessageOffset: CGFloat, toBoardOffset: CGFloat, timeLabelColorForMessage: UIColor, timeLabelColorForMedia: UIColor, timeLabelFont: UIFont) -> DefaultViewModel {
+        return DefaultViewModel(toMessage: toMessageOffset,
+                                  toBoard: toBoardOffset,
+                 timeLabelColorForMessage: timeLabelColorForMessage,
+                   timeLabelColorForMedia: timeLabelColorForMedia,
+                            timeLabelFont: timeLabelFont)
     }
 }

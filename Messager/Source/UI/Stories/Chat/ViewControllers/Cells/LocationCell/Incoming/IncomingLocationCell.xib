@@ -62,6 +62,8 @@
                 <outlet property="dateLabel" destination="DQI-MX-wcE" id="atK-Rn-ohd"/>
                 <outlet property="locationImageView" destination="JLv-G5-x7U" id="rmW-CI-lzn"/>
                 <outlet property="userImage" destination="OL4-ki-K81" id="mDG-NV-xMj"/>
+                <outlet property="userImageViewLeftConstraint" destination="Dcy-TW-9e3" id="OWJ-i3-Hqc"/>
+                <outlet property="userImageViewRightConstraint" destination="x6S-4v-KEf" id="BVJ-so-sec"/>
             </connections>
             <point key="canvasLocation" x="36.799999999999997" y="262.66866566716647"/>
         </tableViewCell>

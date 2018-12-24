@@ -15,23 +15,40 @@ class OutgoingMessageCell: CustomCell {
     @IBOutlet private weak var userImageView: UIImageView!
     @IBOutlet private weak var answerView: AnswerViewForCell!
     @IBOutlet private weak var answerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var userImageViewLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var userImageViewRightConstraint: NSLayoutConstraint!
     
-    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
-        super.configure(model: model, answerModel: answerModel)
+    override func configure(model: CustomViewModel, defaultModel: DefaultViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, defaultModel: defaultModel, answerModel: answerModel)
         guard let model = model as? MessageCellViewModel else { return }
         
+        setModelParameters(model: model)
+        setDefaultParameters(model: defaultModel)
+        
+        guard let answerModel = answerModel else { return }
+        answerView.configure(model: answerModel, withFont: defaultModel.timeLabelFont)
+        answerViewTopConstraint.constant = 4
+        answerView.isHidden = false
+    }
+    
+    private func setModelParameters(model: MessageCellViewModel) {
         messageLabel.text = model.message
+        messageLabel.font = model.font
+        messageLabel.textColor = model.outputColor
         timeLabel.text = model.date
         userImageView.downloadImage(from: model.userImageUrl)
-
+        
         bubble.image = model.outputBubble
         self.backgroundColor = model.backgroundColor
         
         answerViewTopConstraint.constant = -answerView.frame.height
         answerView.isHidden = true
-        guard let answerModel = answerModel else { return }
-        answerView.configure(model: answerModel)
-        answerViewTopConstraint.constant = 4
-        answerView.isHidden = false
+    }
+    
+    private func setDefaultParameters(model: DefaultViewModel) {
+        userImageViewLeftConstraint.constant = model.toMessage
+        userImageViewRightConstraint.constant = model.toBoard
+        timeLabel.textColor = model.timeLabelColorForMessage
+        timeLabel.font = model.timeLabelFont
     }
 }

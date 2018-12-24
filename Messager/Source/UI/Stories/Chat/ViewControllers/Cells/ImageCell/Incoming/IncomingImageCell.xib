@@ -64,11 +64,13 @@
                 <outlet property="messageImage" destination="K5E-Gs-l4g" id="5gm-yj-G6Y"/>
                 <outlet property="timeLabel" destination="4Uz-xd-hms" id="h5F-kD-MFI"/>
                 <outlet property="userImage" destination="jrd-lm-Eq3" id="sxq-JQ-5mw"/>
+                <outlet property="userImageViewLeftConstraint" destination="Stu-aJ-VFB" id="GnO-R3-f30"/>
+                <outlet property="userImageViewRightConstraint" destination="llj-eM-Iog" id="1Hv-H1-OGI"/>
             </connections>
             <point key="canvasLocation" x="-103.2" y="8.995502248875562"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person" width="32" height="32"/>
+        <image name="person" width="128" height="128"/>
     </resources>
 </document>

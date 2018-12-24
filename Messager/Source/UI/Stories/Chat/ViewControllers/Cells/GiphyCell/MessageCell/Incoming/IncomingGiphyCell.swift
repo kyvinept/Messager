@@ -9,6 +9,8 @@ import UIKit
 
 class IncomingGiphyCell: CustomCell {
 
+    @IBOutlet private weak var userImageViewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var userImageViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var containAnswerView: UIView!
     @IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
@@ -18,9 +20,11 @@ class IncomingGiphyCell: CustomCell {
     @IBOutlet private weak var answerView: AnswerViewForCell!
     private var progress: UIActivityIndicatorView!
 
-    override func configure(model: CustomViewModel, answerModel: AnswerViewForCellViewModel?) {
-        super.configure(model: model, answerModel: answerModel)
+    override func configure(model: CustomViewModel, defaultModel: DefaultViewModel, answerModel: AnswerViewForCellViewModel?) {
+        super.configure(model: model, defaultModel: defaultModel, answerModel: answerModel)
         guard let model = model as? GiphyChatCellViewModel else { return }
+        
+        setDefaultParameters(model: defaultModel)
         
         userImage.downloadImage(from: model.userImageUrl)
         downloadGiphy(url: model.giphy.url)
@@ -35,7 +39,14 @@ class IncomingGiphyCell: CustomCell {
         }
         answerView.isHidden = false
         containAnswerView.isHidden = false
-        answerView.configure(model: answerModel)
+        answerView.configure(model: answerModel, withFont: defaultModel.timeLabelFont)
+    }
+    
+    private func setDefaultParameters(model: DefaultViewModel) {
+        userImageViewLeftConstraint.constant = model.toBoard
+        userImageViewRightConstraint.constant = model.toMessage
+        dateLabel.textColor = model.timeLabelColorForMedia
+        dateLabel.font = model.timeLabelFont
     }
     
     private func downloadGiphy(url: String) {
