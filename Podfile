@@ -16,5 +16,8 @@ pod 'JGProgressHUD'
 pod 'SDWebImage'
 pod 'GiphyCoreSDK'
 pod 'SwiftGifOrigin'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'FBSDKLoginKit'
 end
             

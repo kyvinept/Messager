@@ -23,17 +23,10 @@ class AnswerViewForCell: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        contentView = loadViewFromNib()
+        contentView = loadViewFromNib(withNibName: "AnswerViewForCell")
         contentView!.frame = bounds
         contentView!.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         addSubview(contentView!)
-    }
-    
-    func loadViewFromNib() -> UIView! {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "AnswerViewForCell", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        return view
     }
     
     func configure(model: AnswerViewForCellViewModel) {

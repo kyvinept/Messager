@@ -61,6 +61,10 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 
 extension AuthorizationRouter: LoginViewControllerDelegate {
     
+    func didLoginFromFacebook(tokenString: String, expirationDate: Date, viewController: LoginViewController) {
+        assembly.appAssembly.authorizationManager.loginFromFacebook()
+    }
+    
     func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton) {
         showRegistrationVC(from: viewController)
     }

@@ -75,6 +75,8 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                         with: .push,
                     animated: true)
             viewController.tabBarController?.tabBar.isHidden = true
+            vc.navigationController?.navigationBar.isHidden = true
+            vc.configureNavigationBarHeight(vc.navigationController!.navigationBar.frame)
         }
         
         self.checkBackground(forViewController: vc)
@@ -270,6 +272,19 @@ extension ChatRouter: AddUserViewControllerDelegate {
 }
 
 extension ChatRouter: ChatViewControllerDelegate {
+   
+    func didUserProfileTapped(messages: [Message], viewController: ChatViewController) {
+        let vc = assembly.createAttachmentsViewController(withMessages: messages)
+        action(with: vc,
+               from: viewController,
+               with: .push,
+           animated: true)
+        vc.backButtonTapped = {
+            vc.navigationController?.navigationBar.isHidden = true
+            vc.navigationController?.popViewController(animated: true)
+        }
+        vc.navigationController?.navigationBar.isHidden = false
+    }
     
     func didTouchEndPreviewGiphy(viewController: ChatViewController) {
         giphyPreviewViewController?.dismiss(animated: true, completion: nil)
@@ -378,6 +393,7 @@ extension ChatRouter: ChatViewControllerDelegate {
     func didTouchBackButton(viewController: ChatViewController) {
         viewController.navigationController?.popViewController(animated: true)
         viewController.tabBarController?.tabBar.isHidden = false
+        viewController.navigationController?.navigationBar.isHidden = false
         chatViewController = nil
         updateUsers()
     }

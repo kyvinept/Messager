@@ -1,20 +1,30 @@
  
  import UIKit
+ import FBSDKCoreKit
+ import FBSDKLoginKit
  
  protocol LoginViewControllerDelegate: class {
     
     func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton)
     func loginViewController(viewController: LoginViewController, didTouchPasswordRecoveryButton sender: UIButton)
     func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton)
+    func didLoginFromFacebook(tokenString: String, expirationDate: Date, viewController: LoginViewController)
  }
  
  class LoginViewController: UIViewController {
     
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
-    @IBOutlet weak var eyeButton: UIButton!
-
+    @IBOutlet private weak var eyeButton: UIButton!
+    @IBOutlet private weak var facebookLoginButton: FBSDKLoginButton!
+    
     weak var delegate: LoginViewControllerDelegate?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        facebookLoginButton.readPermissions = ["public_profile", "email"]
+        facebookLoginButton.delegate = self
+    }
     
     @IBAction func registrationButtonTapped(_ sender: UIButton) {
         delegate?.loginViewController(viewController: self, didTouchRegisterButton: sender)
@@ -41,3 +51,15 @@
     }
  }
                 
+ extension LoginViewController: FBSDKLoginButtonDelegate {
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        delegate?.didLoginFromFacebook(tokenString: result.token.tokenString,
+                                    expirationDate: result.token.expirationDate,
+                                    viewController: self)
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Log out")
+    }
+ }

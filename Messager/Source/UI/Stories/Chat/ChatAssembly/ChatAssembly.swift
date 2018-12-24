@@ -22,7 +22,6 @@ class ChatAssembly: ChatAssemblyProtocol {
     
     func createChatViewController(currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) -> ChatViewController {
         let vc = getStoryboard().instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        vc.title = "Chats"
         vc.configure(with: currentUser, toUser: toUser, messages: messages, giphyViewController: giphyViewController)
         return vc
     }
@@ -55,6 +54,13 @@ class ChatAssembly: ChatAssemblyProtocol {
     
     func createMapViewController(withLocation location: CLLocationCoordinate2D) -> MapViewController {
         return mapViewController(withLocation: location)
+    }
+    
+    func createAttachmentsViewController(withMessages messages: [Message]) -> AttachmentsViewController{
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "AttachmentsViewController") as! AttachmentsViewController
+        vc.configure(messages: messages)
+        vc.title = "Attachments"
+        return vc
     }
     
     func createMapViewController() -> MapViewController {

@@ -22,6 +22,7 @@ protocol ChatViewControllerDelegate: class {
     func didTouchEndPreviewGiphy(viewController: ChatViewController)
     func didEditTextMessage(message: Message, toUser: User, viewController: ChatViewController)
     func didTappedCalendarButton(viewController: ChatViewController)
+    func didUserProfileTapped(messages: [Message], viewController: ChatViewController)
 }
 
 class ChatViewController: UIViewController {
@@ -44,6 +45,8 @@ class ChatViewController: UIViewController {
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var backgroundViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var answerView: AnswerView!
+    @IBOutlet private weak var navigationBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var navigationBar: UserView!
     
     private var searchView: SearchView?
     private var isGiphyInput = false
@@ -85,6 +88,7 @@ class ChatViewController: UIViewController {
         addGiphyViewController(giphyViewController)
         addSearchButton()
         initTableView()
+        navigationBarConfigure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +110,10 @@ class ChatViewController: UIViewController {
     func searchMessages(byDate date: Date) {
         let messagesForDay = messages.filter { date.toString(dateFormat: "yyyy-MM-dd") == $0.sentDate.toString(dateFormat: "yyyy-MM-dd") }
         searchView?.set(messages: messagesForDay)
+    }
+    
+    func configureNavigationBarHeight(_ frame: CGRect) {
+        navigationBarHeightConstraint.constant = frame.origin.y + frame.height
     }
 
     func configure(with currentUser: User, toUser: User, messages: [Message], giphyViewController: GiphyViewController) {
@@ -197,6 +205,7 @@ class ChatViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         isAnswer = false
+        navigationBarHeightConstraint.constant = 70
     }
     
     private func addGiphyViewController(_ viewController: GiphyViewController) {
@@ -332,6 +341,23 @@ class ChatViewController: UIViewController {
 }
 
 private extension ChatViewController {
+    
+    func navigationBarConfigure() {
+        navigationBar.configure(model: UserViewViewModel(userName: toUser.name,
+                                                     userImageUrl: toUser.imageUrl,
+                                                 backButtonTapped: { [weak self] in
+                                                                        guard let strongSelf = self else { return }
+                                                                        strongSelf.delegate?.didTouchBackButton(viewController: strongSelf)
+                                                                   },
+                                               searchButtonTapped: { [weak self] in
+                                                                        self?.searchButtonTapped()
+                                                                   },
+                                                userProfileTapped: { [weak self] in
+                                                                        guard let strongSelf = self else { return }
+                                                                        strongSelf.delegate?.didUserProfileTapped(messages: strongSelf.messages,
+                                                                                                            viewController: strongSelf)
+                                                                   }))
+    }
     
     func initTableView() {
         rowBuilder = ChatViewRowBuilder(tableView: tableView)
@@ -649,7 +675,7 @@ extension ChatViewController {
 
 extension ChatViewController: ChatViewControllerProtocol {
    
-    func changeAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat) {
+    func configureAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat) {
         rowBuilder.setDefaultAnswerMessage(messageFont: messageFont,
                                           messageColor: messageColor,
                                               nameFont: nameFont,
@@ -658,57 +684,57 @@ extension ChatViewController: ChatViewControllerProtocol {
                                             boardWidth: boardWidth)
     }
     
-    func changeBubble(inputBubble input: UIImage, outputBubble output: UIImage) {
+    func configureBubble(inputBubble input: UIImage, outputBubble output: UIImage) {
         rowBuilder.setDefaultBubbles(inputBubble: input, outputBubble: output)
     }
     
-    func change(font: UIFont) {
-        rowBuilder.setMessageFont(font: font)
+    func configure(messageFont: UIFont) {
+        rowBuilder.setMessageFont(font: messageFont)
     }
     
-    func changeColorMessage(inputColor: UIColor, outputColor: UIColor) {
+    func configureColorMessage(inputColor: UIColor, outputColor: UIColor) {
         rowBuilder.setMessageColor(input: inputColor, output: outputColor)
     }
     
-    func changeLocation(withImage image: UIImage, size: CGSize) {
+    func configureLocation(withImage image: UIImage, size: CGSize) {
         rowBuilder.setDefaultLocation(image: image, size: size)
     }
     
-    func changeIcons(sendMessage: UIImage, camera: UIImage, files: UIImage) {
-        sendMessageButton.setImage(sendMessage, for: .normal)
-        cameraButton.setImage(camera, for: .normal)
-        getFileButton.setImage(files, for: .normal)
+    func configure(sendMessageIcon: UIImage, cameraIcon: UIImage, fileIcon: UIImage) {
+        sendMessageButton.setImage(sendMessageIcon, for: .normal)
+        cameraButton.setImage(cameraIcon, for: .normal)
+        getFileButton.setImage(fileIcon, for: .normal)
     }
     
-    func changeGiphyIcons(activeState: UIImage, defaultState: UIImage) {
-        activeStateGiphyImage = activeState
-        defaultStateGiphyImage = defaultState
-        giphyButton.setImage(isGiphyInput ? activeState : defaultState, for: .normal)
+    func configureGiphy(activeStateIcon: UIImage, defaultStateIcon: UIImage) {
+        self.activeStateGiphyImage = activeStateIcon
+        self.defaultStateGiphyImage = defaultStateIcon
+        giphyButton.setImage(isGiphyInput ? activeStateIcon : defaultStateIcon, for: .normal)
     }
     
-    func changeIcons(calendar: UIImage, searchToTop: UIImage, searchToBottom: UIImage) {
-        calendarIcon = calendar
-        searchToBottomIcon = searchToBottom
-        searchToTopIcon = searchToTop
+    func configure(calendarIcon: UIImage, searchToTopIcon: UIImage, searchToBottomIcon: UIImage) {
+        self.calendarIcon = calendarIcon
+        self.searchToBottomIcon = searchToBottomIcon
+        self.searchToTopIcon = searchToTopIcon
     }
     
-    func changePlaceHolder(forInputText text: String) {
+    func configurePlaceHolder(forInputText text: String) {
         inputTextPlaceholder = text
     }
     
-    func changePlaceHolder(forSearchGiphy text: String) {
+    func configurePlaceHolder(forSearchGiphy text: String) {
         searchGiphyPlaceholder = text
     }
     
-    func changePlaceHolder(forSearchMessage text: String) {
+    func configurePlaceHolder(forSearchMessage text: String) {
         searchTextPlaceholder = text
     }
     
-    func changeOffsetForUserIcon(toMessage: CGFloat, toBoard: CGFloat) {
+    func configureOffsetForUserIcon(toMessage: CGFloat, toBoard: CGFloat) {
         rowBuilder.setDefaultOffsetForUserImage(toMessage: toMessage, toBoard: toBoard)
     }
     
-    func changeTimeLabelColor(forMessage messageColor: UIColor, forMedia mediaColor: UIColor, font: UIFont) {
+    func configureTimeLabelColor(forMessage messageColor: UIColor, forMedia mediaColor: UIColor, font: UIFont) {
         rowBuilder.setDefault(timeLabelFont: font,
                    timeLabelColorForMessage: messageColor,
                      timeLabelColorForMedia: mediaColor)

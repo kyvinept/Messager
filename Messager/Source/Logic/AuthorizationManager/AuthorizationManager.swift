@@ -51,6 +51,10 @@ class AuthorizationManager {
                                                 })
     }
     
+    func loginFromFacebook() {
+        //backendless.userService.login(withFacebookSDK: <#T##String!#>, tokenString: <#T##String!#>, expirationDate: <#T##Date!#>, fieldsMapping: <#T##[AnyHashable : Any]!#>, response: <#T##((BackendlessUser?) -> Void)!##((BackendlessUser?) -> Void)!##(BackendlessUser?) -> Void#>, error: <#T##((Fault?) -> Void)!##((Fault?) -> Void)!##(Fault?) -> Void#>)
+    }
+    
     func register(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
         let newUser = BackendlessUser(properties: ["email" : email, "name" : name, "password" : password])
         backendless.userService.register(newUser,
@@ -60,9 +64,9 @@ class AuthorizationManager {
                                                                                         successBlock(user)
                                                                                     })
                                                    },
-                                           error: { (error) in
+                                            error: { (error) in
                                                         errorBlock(error)
-                                                  })
+                                                   })
     }
     
     func passwordRecovery(with email: String, successBlock: @escaping () -> (), errorBlock: @escaping (Fault?) -> ()) {

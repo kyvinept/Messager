@@ -1,5 +1,7 @@
 
 import UIKit
+import FacebookLogin
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.applicationRouter = applicationRouter
         
         applicationAssembly.notificationManager.startNotifications()
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
 
     private func setupWindow() {
