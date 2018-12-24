@@ -53,8 +53,8 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v79-Yv-LE2">
-                    <rect key="frame" x="20" y="9" width="38" height="33"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="20" y="13" width="41" height="33"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <state key="normal" title="Back">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
@@ -78,7 +78,7 @@
             <constraints>
                 <constraint firstItem="9eT-Wm-OxG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="58s-wU-mNS"/>
                 <constraint firstItem="9eT-Wm-OxG" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="MBx-Rx-b0U"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="v79-Yv-LE2" secondAttribute="bottom" constant="12" id="OpY-cA-NQz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="v79-Yv-LE2" secondAttribute="bottom" constant="8" id="OpY-cA-NQz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="v6U-gm-hJt" secondAttribute="bottom" constant="12" id="ScV-dG-QSi"/>
                 <constraint firstItem="v79-Yv-LE2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="bdJ-Y2-uxX"/>
                 <constraint firstItem="9eT-Wm-OxG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hKI-pK-Jfp"/>

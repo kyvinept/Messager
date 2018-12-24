@@ -459,7 +459,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pg3-1f-K9c">
-                                <rect key="frame" x="0.0" y="20" width="375" height="29"/>
+                                <rect key="frame" x="8" y="20" width="359" height="29"/>
                                 <segments>
                                     <segment title="All"/>
                                     <segment title="Image"/>
@@ -511,8 +511,8 @@
                         <constraints>
                             <constraint firstItem="pg3-1f-K9c" firstAttribute="top" secondItem="32C-sm-zY2" secondAttribute="top" id="IX0-4s-WYf"/>
                             <constraint firstItem="HBt-Pt-CAk" firstAttribute="centerY" secondItem="CBp-8o-cMY" secondAttribute="centerY" id="Jis-8f-LDg"/>
-                            <constraint firstItem="pg3-1f-K9c" firstAttribute="leading" secondItem="32C-sm-zY2" secondAttribute="leading" id="JyN-zj-wOj"/>
-                            <constraint firstItem="32C-sm-zY2" firstAttribute="trailing" secondItem="pg3-1f-K9c" secondAttribute="trailing" id="Ot2-Su-Xsy"/>
+                            <constraint firstItem="pg3-1f-K9c" firstAttribute="leading" secondItem="32C-sm-zY2" secondAttribute="leading" constant="8" id="JyN-zj-wOj"/>
+                            <constraint firstItem="32C-sm-zY2" firstAttribute="trailing" secondItem="pg3-1f-K9c" secondAttribute="trailing" constant="8" id="Ot2-Su-Xsy"/>
                             <constraint firstItem="8N3-1b-2cQ" firstAttribute="leading" secondItem="32C-sm-zY2" secondAttribute="leading" id="PcK-pk-YFL"/>
                             <constraint firstItem="32C-sm-zY2" firstAttribute="trailing" secondItem="8N3-1b-2cQ" secondAttribute="trailing" id="Rca-DL-NeD"/>
                             <constraint firstItem="32C-sm-zY2" firstAttribute="bottom" secondItem="8N3-1b-2cQ" secondAttribute="bottom" id="Xld-Bv-Dz8"/>

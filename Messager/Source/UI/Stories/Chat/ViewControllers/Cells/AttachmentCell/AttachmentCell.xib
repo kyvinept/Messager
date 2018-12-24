@@ -19,29 +19,41 @@
                 <rect key="frame" x="0.0" y="0.0" width="324" height="141.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TwH-Ad-VNX">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TwH-Ad-VNX">
                         <rect key="frame" x="8" y="8" width="125.5" height="125.5"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="125.5" id="EA6-lK-kng"/>
-                            <constraint firstAttribute="width" constant="125.5" id="XoP-9M-vcG"/>
+                            <constraint firstAttribute="width" constant="125.5" id="2hR-vP-tJr"/>
+                            <constraint firstAttribute="height" constant="125.5" id="Eq7-AX-zLi"/>
+                        </constraints>
+                    </imageView>
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="47g-Wb-L1y">
+                        <rect key="frame" x="41" y="41" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="VTc-rE-jmt"/>
+                            <constraint firstAttribute="height" constant="60" id="dRY-7n-9Ej"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="TwH-Ad-VNX" secondAttribute="bottom" constant="8" id="GDm-PY-9Px"/>
-                    <constraint firstItem="TwH-Ad-VNX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Gp5-sA-mla"/>
-                    <constraint firstItem="TwH-Ad-VNX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ICl-5J-OGn"/>
-                    <constraint firstItem="TwH-Ad-VNX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="apF-NG-EHr"/>
+                    <constraint firstItem="47g-Wb-L1y" firstAttribute="centerX" secondItem="TwH-Ad-VNX" secondAttribute="centerX" id="MeW-UM-206"/>
+                    <constraint firstItem="47g-Wb-L1y" firstAttribute="centerY" secondItem="TwH-Ad-VNX" secondAttribute="centerY" id="cPU-6D-x4A"/>
+                    <constraint firstItem="TwH-Ad-VNX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fo7-ud-CMj"/>
+                    <constraint firstAttribute="bottom" secondItem="TwH-Ad-VNX" secondAttribute="bottom" constant="8" id="k7G-DM-9LG"/>
+                    <constraint firstItem="TwH-Ad-VNX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="oxa-q4-aYH"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="attachmentImageView" destination="TwH-Ad-VNX" id="bug-Up-H2f"/>
-                <outlet property="heightImageViewConstraint" destination="EA6-lK-kng" id="W0S-SL-SMF"/>
-                <outlet property="widthImageViewContraint" destination="XoP-9M-vcG" id="EDF-WX-Ws9"/>
+                <outlet property="heightImageViewConstraint" destination="Eq7-AX-zLi" id="JmD-x5-D6F"/>
+                <outlet property="playButton" destination="47g-Wb-L1y" id="ltg-Oq-zPI"/>
+                <outlet property="widthImageViewContraint" destination="2hR-vP-tJr" id="7E8-OU-kbe"/>
             </connections>
-            <point key="canvasLocation" x="136" y="194.30284857571215"/>
+            <point key="canvasLocation" x="76.799999999999997" y="6.2968515742128943"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="play" width="32" height="32"/>
+    </resources>
 </document>
