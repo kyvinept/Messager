@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol AttachmentsViewControllerDelegate: class {
+    func didTappedBackButton(viewController: AttachmentsViewController)
+    func didTappedShowLocationButton(coordinate: CLLocationCoordinate2D, viewController: AttachmentsViewController)
+}
+
 class AttachmentsViewController: UIViewController {
     
-    var backButtonTapped: (() -> ())?
+    weak var delegate: AttachmentsViewControllerDelegate?
     
     enum AttachmentsType: Int {
         case all
@@ -87,7 +92,12 @@ extension AttachmentsViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AttachmentCell
-        cell.configure(model: AttachmentCellViewModel(messageKind: messages[indexPath.row].kind))
+        cell.configure(model: AttachmentCellViewModel(messageKind: messages[indexPath.row].kind,
+                                                     showLocation: { [weak self] location in
+                                                                        guard let strongSelf = self else { return }
+                                                                        strongSelf.delegate?.didTappedShowLocationButton(coordinate: location,
+                                                                                                                     viewController: strongSelf)
+                                                                   }))
         return cell
     }
     
@@ -108,7 +118,7 @@ private extension AttachmentsViewController {
     }
     
     @objc func backButtonWasTapped() {
-        backButtonTapped?()
+        delegate?.didTappedBackButton(viewController: self)
     }
     
     func registerCell() {

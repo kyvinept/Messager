@@ -18,6 +18,7 @@ class AttachmentCell: UITableViewCell {
     private var widthLocationImage: CGFloat = 120
     private var heightLocationImage: CGFloat = 57
     private var player: AVPlayer?
+    private var model: AttachmentCellViewModel!
     private var isPlay = false {
         didSet {
             playButton.isHidden = isPlay
@@ -29,9 +30,11 @@ class AttachmentCell: UITableViewCell {
         attachmentImageView.layer.sublayers?.removeAll()
         playButton.isHidden = true
         attachmentImageView.gestureRecognizers?.removeAll()
+        model = nil
     }
     
     func configure(model: AttachmentCellViewModel) {
+        self.model = model
         playButton.isHidden = true
         switch model.messageKind {
         case .photo(let mediaItem):
@@ -42,6 +45,7 @@ class AttachmentCell: UITableViewCell {
             attachmentImageView.image = UIImage(named: "location")
             widthImageViewContraint.constant = widthLocationImage
             heightImageViewConstraint.constant = heightLocationImage
+            setGesture(withSelector: #selector(AttachmentCell.locationWasTapped))
         case .giphy(let giphy):
             downloadGiphy(url: giphy.url)
             widthImageViewContraint.constant = giphy.width
@@ -49,6 +53,7 @@ class AttachmentCell: UITableViewCell {
         case .video(let videoItem):
             playButton.isHidden = false
             setVideo(videoItem)
+            setGesture(withSelector: #selector(AttachmentCell.videoWasTapped))
         default:
             break
         }
@@ -63,8 +68,6 @@ class AttachmentCell: UITableViewCell {
         let videoLayer = AVPlayerLayer(player: player)
         videoLayer.frame.size = size
         attachmentImageView.layer.addSublayer(videoLayer)
-        
-        setGesture()
     }
     
     private func downloadGiphy(url: String) {
@@ -88,8 +91,8 @@ class AttachmentCell: UITableViewCell {
         }
     }
     
-    private func setGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(AttachmentCell.videoWasTapped))
+    private func setGesture(withSelector selector: Selector) {
+        let tap = UITapGestureRecognizer(target: self, action: selector)
         attachmentImageView.addGestureRecognizer(tap)
     }
     
@@ -100,5 +103,14 @@ class AttachmentCell: UITableViewCell {
             player?.play()
         }
         isPlay.toggle()
+    }
+    
+    @objc func locationWasTapped() {
+        switch model.messageKind {
+        case .location(let coordinate):
+            model.showLocation?(coordinate)
+        default:
+            break
+        }
     }
 }

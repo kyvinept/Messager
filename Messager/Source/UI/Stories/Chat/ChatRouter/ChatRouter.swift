@@ -16,6 +16,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var mapViewController: MapViewController?
     private var calendarViewController: CalendarViewController?
     private var giphyPreviewViewController: GiphyPreviewViewController?
+    private var attachmentsViewController: AttachmentsViewController?
     private var rootViewController: UIViewController!
     lazy private var currentUser: User? = {
         return assembly.appAssembly.authorizationManager.currentUser
@@ -275,14 +276,12 @@ extension ChatRouter: ChatViewControllerDelegate {
    
     func didUserProfileTapped(messages: [Message], viewController: ChatViewController) {
         let vc = assembly.createAttachmentsViewController(withMessages: messages)
+        attachmentsViewController = vc
         action(with: vc,
                from: viewController,
                with: .push,
            animated: true)
-        vc.backButtonTapped = {
-            vc.navigationController?.navigationBar.isHidden = true
-            vc.navigationController?.popViewController(animated: true)
-        }
+        vc.delegate = self
         vc.navigationController?.navigationBar.isHidden = false
     }
     
@@ -359,6 +358,10 @@ extension ChatRouter: ChatViewControllerDelegate {
     }
     
     func didTappedLocationCell(withLocation location: CLLocationCoordinate2D, viewController: ChatViewController) {
+        showLocation(location, fromViewController: viewController)
+    }
+    
+    private func showLocation(_ location: CLLocationCoordinate2D, fromViewController viewController: UIViewController) {
         let vc = assembly.createMapViewController(withLocation: location)
         self.mapViewController = vc
         action(with: vc,
@@ -449,5 +452,18 @@ extension ChatRouter: CalendarViewControllerDelegate {
     func didTappedCancelButton(viewController: CalendarViewController) {
         viewController.dismiss(animated: false, completion: nil)
         calendarViewController = nil
+    }
+}
+
+extension ChatRouter: AttachmentsViewControllerDelegate {
+    
+    func didTappedBackButton(viewController: AttachmentsViewController) {
+        viewController.navigationController?.navigationBar.isHidden = true
+        viewController.navigationController?.popViewController(animated: true)
+        attachmentsViewController = nil
+    }
+    
+    func didTappedShowLocationButton(coordinate: CLLocationCoordinate2D, viewController: AttachmentsViewController) {
+        showLocation(coordinate, fromViewController: viewController)
     }
 }
