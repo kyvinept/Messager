@@ -33,7 +33,9 @@ class ChatViewDataSource: NSObject {
     }
     
     func reloadData() {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func scrollToBottom(animated: Bool, withReload: Bool) {

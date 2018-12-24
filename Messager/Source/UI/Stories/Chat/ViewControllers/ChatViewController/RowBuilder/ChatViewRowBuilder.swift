@@ -61,10 +61,15 @@ class ChatViewRowBuilder {
             return messages[indexPath.row].sender == currentUser ?
                    createCell(indexPath: indexPath, withModel: model, answerModel: answerModel) as OutgoingGiphyCell :
                    createCell(indexPath: indexPath, withModel: model, answerModel: answerModel) as IncomingGiphyCell
-
-        case .answer(_):
-           return UITableViewCell()
         }
+    }
+    
+    func setDefaultLocation(image: UIImage, size: CGSize) {
+        rowPrototype.setDefaultLocation(image: image, size: size)
+    }
+    
+    func setDefaultBubbles(inputBubble input: UIImage, outputBubble output: UIImage) {
+        rowPrototype.setDefaultBubbles(inputBubble: input, outputBubble: output)
     }
 }
 

@@ -9,6 +9,10 @@ import UIKit
 
 struct SearchViewViewModel {
     
+    var placeholder: String
+    var calendarIcon: UIImage?
+    var searchToTopIcon: UIImage?
+    var searchToBottomIcon: UIImage?
     var endInput: (String) -> ([Message])
     var showMessage: ((Message) -> ())?
     var willChangeMessage: ((Message) -> ())?

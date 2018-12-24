@@ -14,10 +14,6 @@
 		0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B71E8407D1004B722A /* LaunchScreen.storyboard */; };
 		5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A2218A11200051DADC /* DatabaseManager.swift */; };
 		5B12F7A6218A11C60051DADC /* Messager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */; };
-		5B317B0E21CA524B004BC997 /* OutgoingAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B0C21CA524B004BC997 /* OutgoingAnswerCell.swift */; };
-		5B317B0F21CA524B004BC997 /* OutgoingAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B0D21CA524B004BC997 /* OutgoingAnswerCell.xib */; };
-		5B317B1421CA5278004BC997 /* IncomingAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1221CA5278004BC997 /* IncomingAnswerCell.swift */; };
-		5B317B1521CA5278004BC997 /* IncomingAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B1321CA5278004BC997 /* IncomingAnswerCell.xib */; };
 		5B317B1721CA547C004BC997 /* AnswerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1621CA547C004BC997 /* AnswerCellViewModel.swift */; };
 		5B317B1A21CA686D004BC997 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1921CA686D004BC997 /* AnswerView.swift */; };
 		5B317B1C21CA6878004BC997 /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B1B21CA6878004BC997 /* AnswerView.xib */; };
@@ -78,6 +74,8 @@
 		5B79A05221CBAEEA00A189CA /* ChatViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79A05121CBAEEA00A189CA /* ChatViewDataSource.swift */; };
 		5B79A05521CBB2DA00A189CA /* ChatViewRowBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79A05421CBB2DA00A189CA /* ChatViewRowBuilder.swift */; };
 		5B79A05721CBB44000A189CA /* ChatViewRowPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79A05621CBB44000A189CA /* ChatViewRowPrototype.swift */; };
+		5B79A05921CBE2D000A189CA /* ChatViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79A05821CBE2D000A189CA /* ChatViewControllerProtocol.swift */; };
+		5B79A05C21CBF2AB00A189CA /* DefaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B79A05B21CBF2AB00A189CA /* DefaultViewModel.swift */; };
 		5B801BC1218C536F004033D3 /* DatabaseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B801BC0218C536F004033D3 /* DatabaseMessage.swift */; };
 		5B81E6A121C3FE9100EDE463 /* GiphyPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */; };
 		5B8655D221CA3B69005DE017 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8655D121CA3B68005DE017 /* Image.swift */; };
@@ -140,10 +138,6 @@
 		5A28CF456D7B3F7253BD3F6B /* Pods_Messager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B12F7A2218A11200051DADC /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		5B12F7A5218A11C60051DADC /* Messager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Messager.xcdatamodel; sourceTree = "<group>"; };
-		5B317B0C21CA524B004BC997 /* OutgoingAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingAnswerCell.swift; sourceTree = "<group>"; };
-		5B317B0D21CA524B004BC997 /* OutgoingAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutgoingAnswerCell.xib; sourceTree = "<group>"; };
-		5B317B1221CA5278004BC997 /* IncomingAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingAnswerCell.swift; sourceTree = "<group>"; };
-		5B317B1321CA5278004BC997 /* IncomingAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncomingAnswerCell.xib; sourceTree = "<group>"; };
 		5B317B1621CA547C004BC997 /* AnswerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCellViewModel.swift; sourceTree = "<group>"; };
 		5B317B1921CA686D004BC997 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		5B317B1B21CA6878004BC997 /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
@@ -205,6 +199,8 @@
 		5B79A05121CBAEEA00A189CA /* ChatViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewDataSource.swift; sourceTree = "<group>"; };
 		5B79A05421CBB2DA00A189CA /* ChatViewRowBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewRowBuilder.swift; sourceTree = "<group>"; };
 		5B79A05621CBB44000A189CA /* ChatViewRowPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewRowPrototype.swift; sourceTree = "<group>"; };
+		5B79A05821CBE2D000A189CA /* ChatViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerProtocol.swift; sourceTree = "<group>"; };
+		5B79A05B21CBF2AB00A189CA /* DefaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewModel.swift; sourceTree = "<group>"; };
 		5B801BC0218C536F004033D3 /* DatabaseMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseMessage.swift; sourceTree = "<group>"; };
 		5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyPreviewViewController.swift; sourceTree = "<group>"; };
 		5B8655D121CA3B68005DE017 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -313,37 +309,11 @@
 			path = DatabaseManager;
 			sourceTree = "<group>";
 		};
-		5B317B0921CA5211004BC997 /* AnswerCell */ = {
-			isa = PBXGroup;
-			children = (
-				5B317B0B21CA522E004BC997 /* Incoming */,
-				5B317B0A21CA5227004BC997 /* Outgoing */,
-			);
-			path = AnswerCell;
-			sourceTree = "<group>";
-		};
-		5B317B0A21CA5227004BC997 /* Outgoing */ = {
-			isa = PBXGroup;
-			children = (
-				5B317B0C21CA524B004BC997 /* OutgoingAnswerCell.swift */,
-				5B317B0D21CA524B004BC997 /* OutgoingAnswerCell.xib */,
-			);
-			path = Outgoing;
-			sourceTree = "<group>";
-		};
-		5B317B0B21CA522E004BC997 /* Incoming */ = {
-			isa = PBXGroup;
-			children = (
-				5B317B1221CA5278004BC997 /* IncomingAnswerCell.swift */,
-				5B317B1321CA5278004BC997 /* IncomingAnswerCell.xib */,
-			);
-			path = Incoming;
-			sourceTree = "<group>";
-		};
 		5B317B1821CA6839004BC997 /* ChatViewController */ = {
 			isa = PBXGroup;
 			children = (
 				5BD3EBE3217F687A00FD3D83 /* ChatViewController.swift */,
+				5B79A05821CBE2D000A189CA /* ChatViewControllerProtocol.swift */,
 				5B79A04F21CBAEB800A189CA /* DataSource */,
 				5B79A05021CBAEC300A189CA /* RowBuilder */,
 				5B317B2021CA9BD9004BC997 /* AnswerViewForCell */,
@@ -626,7 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				5BA3B62021C923AC008B4A2D /* CustomCell.swift */,
-				5B317B0921CA5211004BC997 /* AnswerCell */,
 				5B972A3F219F136900DAD8FB /* GiphyCell */,
 				5B774AEE219DA7FA00D201D6 /* VideoCell */,
 				5B7439B4219C0CF200D64EFB /* LocationCell */,
@@ -930,6 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				5BA3B61D21C922AC008B4A2D /* CustomViewModel.swift */,
+				5B79A05B21CBF2AB00A189CA /* DefaultViewModel.swift */,
 				5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */,
 				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
 				5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */,
@@ -1140,14 +1110,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BB514E82188A0CD003D2C04 /* IncomingImageCell.xib in Resources */,
-				5B317B1521CA5278004BC997 /* IncomingAnswerCell.xib in Resources */,
 				5B5BA9B721AC2D4000509B38 /* RefreshCell.xib in Resources */,
 				0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */,
 				5BB514D321889D82003D2C04 /* OutgoingMessageCell.xib in Resources */,
 				5B65F8BD218892A5006EF9F8 /* IncomingMessageCell.xib in Resources */,
 				0F22E1B61E8407D1004B722A /* Assets.xcassets in Resources */,
 				5BD3EBE2217F683000FD3D83 /* Chat.storyboard in Resources */,
-				5B317B0F21CA524B004BC997 /* OutgoingAnswerCell.xib in Resources */,
 				5BB514E22188A0AB003D2C04 /* OutgoingImageCell.xib in Resources */,
 				5BDFE02D21AEA4D700107459 /* SearchView.xib in Resources */,
 				5B7439BA219C0D3B00D64EFB /* IncomingLocationCell.xib in Resources */,
@@ -1261,7 +1229,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B79A05921CBE2D000A189CA /* ChatViewControllerProtocol.swift in Sources */,
 				0F22E1B11E8407D1004B722A /* LoginViewController.swift in Sources */,
+				5B79A05C21CBF2AB00A189CA /* DefaultViewModel.swift in Sources */,
 				5B9E21A6217DD8EF00884A96 /* AuthorizationRouter.swift in Sources */,
 				5B9E21A8217DD8F900884A96 /* AuthorizationRouterProtocol.swift in Sources */,
 				5B317B1A21CA686D004BC997 /* AnswerView.swift in Sources */,
@@ -1277,7 +1247,6 @@
 				5B360961217E2F0C008B46EB /* MainUIAssembly.swift in Sources */,
 				5B9E21A2217DD8B000884A96 /* AuthorizationAssembly.swift in Sources */,
 				5BD3EBEE217F68D100FD3D83 /* ChatRouterProtocol.swift in Sources */,
-				5B317B0E21CA524B004BC997 /* OutgoingAnswerCell.swift in Sources */,
 				5B9E21A4217DD8BF00884A96 /* AuthorizationAssemblyProtocol.swift in Sources */,
 				5B65F8B1218869EF006EF9F8 /* UITableView.swift in Sources */,
 				5B79A05221CBAEEA00A189CA /* ChatViewDataSource.swift in Sources */,
@@ -1292,7 +1261,6 @@
 				5B317B1F21CA6960004BC997 /* AnswerViewViewModel.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
 				5B65F8BC218892A5006EF9F8 /* IncomingMessageCell.swift in Sources */,
-				5B317B1421CA5278004BC997 /* IncomingAnswerCell.swift in Sources */,
 				5B9E2180217DC4CC00884A96 /* ApplicationAssembly.swift in Sources */,
 				5B36095C217E1209008B46EB /* BaseRouter.swift in Sources */,
 				5B65F8B9218872FF006EF9F8 /* MessageCellViewModel.swift in Sources */,

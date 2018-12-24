@@ -52,8 +52,6 @@ class DatabaseMapper {
             messageEntity.giphy = giphy.url
             messageEntity.giphyWidth = Float(giphy.width)
             messageEntity.giphyHeight = Float(giphy.height)
-        case .answer(_):
-            break
         }
     }
     
@@ -108,8 +106,6 @@ class DatabaseMapper {
                                                  url: messageEntity.giphy!,
                                               height: CGFloat(messageEntity.giphyHeight),
                                                width: CGFloat(messageEntity.giphyWidth)))
-        case MessageType.answer.rawValue:
-            messageKind = MessageKind.answer(messageEntity.answer!)
         default:
             break
         }

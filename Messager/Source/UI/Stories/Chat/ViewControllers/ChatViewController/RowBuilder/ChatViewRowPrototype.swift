@@ -10,6 +10,23 @@ import UIKit
 class ChatViewRowPrototype {
     
     var messages: [Message]!
+    private var locationImage = UIImage(named: "location")
+    private var locationImageSize = CGSize(width: 120, height: 57)
+    private var inputBubble = UIImage(named: "bubble")
+    private var outputBubble = UIImage(named: "bubble1")
+}
+
+extension ChatViewRowPrototype {
+    
+    func setDefaultLocation(image: UIImage, size: CGSize) {
+        locationImage = image
+        locationImageSize = size
+    }
+    
+    func setDefaultBubbles(inputBubble input: UIImage, outputBubble output: UIImage) {
+        inputBubble = input
+        outputBubble = output
+    }
 }
 
 extension ChatViewRowPrototype {
@@ -29,14 +46,16 @@ extension ChatViewRowPrototype {
     }
     
     func createMessageModel(forMessage message: Message, withText text: String, chooseCell: Bool) -> MessageCellViewModel {
-        return MessageCellViewModel(message: text,
-                                       date: message.sentDate,
-                               userImageUrl: message.sender.imageUrl,
-                            backgroundColor: chooseCell ? UIColor(red: 151.0/255.0,
-                                                                green: 195.0/255.0,
-                                                                 blue: 255.0/255.0,
-                                                                alpha: 1)
-                                                        : UIColor.clear)
+        return MessageCellViewModel(inputBubble: inputBubble,
+                                   outputBubble: outputBubble,
+                                        message: text,
+                                           date: message.sentDate,
+                                   userImageUrl: message.sender.imageUrl,
+                                backgroundColor: chooseCell ? UIColor(red: 151.0/255.0,
+                                                                    green: 195.0/255.0,
+                                                                     blue: 255.0/255.0,
+                                                                    alpha: 1)
+                                                            : UIColor.clear)
     }
     
     func createGiphyModel(forMessage message: Message, withGiphy giphy: Giphy) -> GiphyChatCellViewModel {
@@ -61,11 +80,13 @@ extension ChatViewRowPrototype {
     }
     
     func createLocationModel(forMessage message: Message, withLocation location: CLLocationCoordinate2D, didTapLocation: ((CLLocationCoordinate2D) -> ())?) -> LocationCellViewModel {
-        return LocationCellViewModel(date: message.sentDate,
-                             userImageUrl: message.sender.imageUrl,
-                                 location: location,
-                                  tapCell: { location in
-                                               didTapLocation?(location)
-                                           })
+        return LocationCellViewModel(locationImage: locationImage,
+                                 locationImageSize: locationImageSize,
+                                              date: message.sentDate,
+                                      userImageUrl: message.sender.imageUrl,
+                                          location: location,
+                                           tapCell: { location in
+                                                        didTapLocation?(location)
+                                                    })
     }
 }

@@ -19,12 +19,14 @@ class SearchView: UIView {
     private var showMessage: ((Message) -> ())?
     private var willChangeMessage: ((Message) -> ())?
     private var showCalendar: (() -> ())?
+    private var searchTextPlaceholder = "Search text..."
     
     private var foundMessages = [Message]()
     private var currentMessageIndex = 0
     
     override func awakeFromNib() {
         searchTextField.delegate = self
+        searchTextField.placeholder = searchTextPlaceholder
     }
     
     func set(messages: [Message]) {
@@ -36,10 +38,15 @@ class SearchView: UIView {
     }
     
     func configure(model: SearchViewViewModel) {
+        self.searchTextPlaceholder = model.placeholder
         self.endInput = model.endInput
         self.showMessage = model.showMessage
         self.willChangeMessage = model.willChangeMessage
         self.showCalendar = model.showCalendar
+        searchTextField.placeholder = searchTextPlaceholder
+        calendarButton.setImage(model.calendarIcon, for: .normal)
+        upButton.setImage(model.searchToTopIcon, for: .normal)
+        downButton.setImage(model.searchToBottomIcon, for: .normal)
     }
     
     @IBAction private func upButtonTapped(_ sender: Any) {
@@ -67,6 +74,7 @@ class SearchView: UIView {
     }
     
     func updateUI() {
+        searchTextField.placeholder = searchTextPlaceholder
         if foundMessages.count > 0 {
             upButton.isEnabled = true
             downButton.isEnabled = true

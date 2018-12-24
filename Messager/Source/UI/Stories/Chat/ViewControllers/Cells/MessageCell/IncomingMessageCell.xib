@@ -77,6 +77,7 @@
             <connections>
                 <outlet property="answerView" destination="04Z-t6-hs7" id="O0D-Nt-PFW"/>
                 <outlet property="answerViewTopConstraint" destination="cFF-iY-mfG" id="WbB-ZX-WnI"/>
+                <outlet property="bubble" destination="VU7-S7-Vnj" id="IMF-Nt-LCK"/>
                 <outlet property="messageLabel" destination="I87-vd-j12" id="lmL-8G-ZkE"/>
                 <outlet property="timeLabel" destination="7Na-DZ-vFu" id="glo-Sm-eR2"/>
                 <outlet property="userImage" destination="ks8-Yf-nG9" id="1gn-Ze-CNV"/>

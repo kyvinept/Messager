@@ -121,6 +121,7 @@ class ApiManager {
                                                    print(progress)
                                                },
                             completionHandler: { (url) in
+                                                   mediaItem.downloaded = true
                                                    guard let url = url else { return }
                                                    request[MessageType.image.rawValue] = url
                                                    request[MessageType.push.rawValue] = "[photo]"
@@ -148,8 +149,6 @@ class ApiManager {
             request[MessageType.push.rawValue] = "[giphy]"
             request[MessageType.giphySize.rawValue] = "\(giphy.height),\(giphy.width)"
             sendMessage(message: request, successBlock: successBlock, errorBlock: errorBlock)
-        case .answer(_):
-            break
         }
     }
     
@@ -389,8 +388,6 @@ class ApiManager {
                                                 url: giphy,
                                              height: CGFloat(Double(size[0]) ?? 150),
                                               width: CGFloat(Double(size[1]) ?? 150))))
-        } else if let answer = databaseMessage.answer {
-            successBlock(MessageKind.answer(answer))
         }
     }
 }

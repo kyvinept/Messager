@@ -60,6 +60,14 @@ class ChatViewController: UIViewController {
     private var editingMessage: Message?
     private var searchMessageIndex: Int?
     private var dataSource: ChatViewDataSource!
+    private var searchGiphyPlaceholder = "Search giphy..."
+    private var searchTextPlaceholder = "Search text..."
+    private var inputTextPlaceholder = "Input text..."
+    private var defaultStateGiphyImage = UIImage(named: "happiness")
+    private var activeStateGiphyImage = UIImage(named: "smiling")
+    private var calendarIcon = UIImage(named: "calendar")
+    private var searchToTopIcon = UIImage(named: "top")
+    private var searchToBottomIcon = UIImage(named: "down")
     private var rowBuilder: ChatViewRowBuilder!
     private var isAnswer = false {
         didSet {
@@ -82,6 +90,10 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dataSource.scrollToBottom(animated: false, withReload: false)
+    }
+    
+    func updateMessages() {
+        dataSource.reloadData()
     }
     
     func setBackground(image: UIImage) {
@@ -158,16 +170,16 @@ class ChatViewController: UIViewController {
         view.endEditing(true)
         if isGiphyInput {
             isGiphyInput.toggle()
-            textView.text = "Input text..."
-            giphyButton.setImage(UIImage(named: "happiness"), for: .normal)
+            textView.text = inputTextPlaceholder
+            giphyButton.setImage(defaultStateGiphyImage, for: .normal)
             bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
             textViewBottomConstraint.constant = 0
             UIView.animate(withDuration: 0.5) {
                 self.view.layoutIfNeeded()
             }
         } else {
-            textView.text = "Search giphy..."
-            giphyButton.setImage(UIImage(named: "smiling"), for: .normal)
+            textView.text = searchGiphyPlaceholder
+            giphyButton.setImage(activeStateGiphyImage, for: .normal)
             isGiphyInput.toggle()
             removeNotification()
             bottomGiphyViewConstraint.constant = -view.safeAreaInsets.bottom
@@ -336,6 +348,10 @@ private extension ChatViewController {
         dataSource.showHideLabelCount = { [weak self] isShow in
             self?.noMassageLabel.isHidden = isShow
         }
+        rowBuilder.didTapLocation = { [weak self] location in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.didTappedLocationCell(withLocation: location, viewController: strongSelf)
+        }
     }
     
     func addSearchButton() {
@@ -374,7 +390,11 @@ private extension ChatViewController {
         addCancelSearchButton()
         hideKeyboard()
         let searchView = UINib(nibName: "SearchView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SearchView
-        searchView.configure(model: SearchViewViewModel(endInput: { [weak self] text in
+        searchView.configure(model: SearchViewViewModel(placeholder: searchTextPlaceholder,
+                                                        calendarIcon: calendarIcon,
+                                                        searchToTopIcon: searchToTopIcon,
+                                                        searchToBottomIcon: searchToBottomIcon,
+                                                        endInput: { [weak self] text in
                                                                       self?.searchMessageChangeColor()
                                                                       let searchText = text.lowercased()
                                                                       let textMessages = self?.messages.filter {
@@ -451,7 +471,7 @@ extension ChatViewController {
         if isGiphyInput {
             isGiphyInput.toggle()
             textView.text = "Input text..."
-            giphyButton.setImage(UIImage(named: "happiness"), for: .normal)
+            giphyButton.setImage(defaultStateGiphyImage, for: .normal)
         }
         bottomGiphyViewConstraint.constant = -giphyViewHeight.constant*2
         textViewBottomConstraint.constant = 0
@@ -498,9 +518,9 @@ extension ChatViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if isGiphyInput {
-            textView.text = "Search giphy..."
+            textView.text = searchGiphyPlaceholder
         } else {
-            textView.text = "Input text..."
+            textView.text = inputTextPlaceholder
         }
         textView.textColor = UIColor.lightGray
         textViewNoText()
@@ -593,8 +613,6 @@ extension ChatViewController {
                 self.newTextInTextView()
                 self.editingMessage = self.messages[indexPath.row]
             }))
-        case .answer(_):
-            return
         default:
             break
         }
@@ -627,8 +645,65 @@ extension ChatViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+}
 
-    private func didTappedCell(location: CLLocationCoordinate2D) {
-        delegate?.didTappedLocationCell(withLocation: location, viewController: self)
+extension ChatViewController: ChatViewControllerProtocol {
+    
+    func changeBubble(inputBubble input: UIImage, outputBubble output: UIImage) {
+        rowBuilder.setDefaultBubbles(inputBubble: input, outputBubble: output)
+    }
+    
+    func change(font: UIFont) {
+        
+    }
+    
+    func changeLocation(withImage image: UIImage, size: CGSize) {
+        rowBuilder.setDefaultLocation(image: image, size: size)
+    }
+    
+    func changeIcons(sendMessage: UIImage, camera: UIImage, files: UIImage) {
+        sendMessageButton.setImage(sendMessage, for: .normal)
+        cameraButton.setImage(camera, for: .normal)
+        getFileButton.setImage(files, for: .normal)
+    }
+    
+    func changeGiphyIcons(activeState: UIImage, defaultState: UIImage) {
+        activeStateGiphyImage = activeState
+        defaultStateGiphyImage = defaultState
+        giphyButton.setImage(isGiphyInput ? activeState : defaultState, for: .normal)
+    }
+    
+    func changeIcons(calendar: UIImage, searchToTop: UIImage, searchToBottom: UIImage) {
+        calendarIcon = calendar
+        searchToBottomIcon = searchToBottom
+        searchToTopIcon = searchToTop
+    }
+    
+    func changeColorMessage(inputColor: UIColor, outputColor: UIColor) {
+        
+    }
+    
+    func changePlaceHolder(forInputText text: String) {
+        inputTextPlaceholder = text
+    }
+    
+    func changePlaceHolder(forSearchGiphy text: String) {
+        searchGiphyPlaceholder = text
+    }
+    
+    func changePlaceHolder(forSearchMessage text: String) {
+        searchTextPlaceholder = text
+    }
+    
+    func changeBackgroundColorForAnswerMessage(_ color: UIColor) {
+        
+    }
+    
+    func changeOffsetForUserIcon(left: CGFloat, right: CGFloat) {
+        
+    }
+    
+    func change(timeLabelColor color: UIColor, font: UIFont) {
+        
     }
 }

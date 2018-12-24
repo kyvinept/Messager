@@ -9,7 +9,6 @@ import UIKit
 
 enum MessageKind {
     case text(String)
-    case answer(String)
     case photo(MediaItem)
     case video(VideoItem)
     case location(CLLocationCoordinate2D)
@@ -27,8 +26,6 @@ extension MessageKind: RawRepresentable {
     public var rawValue: RawValue {
         switch self {
         case .text(let text):
-            return text
-        case .answer(let text):
             return text
         case .photo(_):
             return "[photo]"

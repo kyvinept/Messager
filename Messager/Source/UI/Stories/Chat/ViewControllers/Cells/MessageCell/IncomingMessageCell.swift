@@ -9,6 +9,7 @@ import UIKit
 
 class IncomingMessageCell: CustomCell {
     
+    @IBOutlet private weak var bubble: UIImageView!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
@@ -23,6 +24,7 @@ class IncomingMessageCell: CustomCell {
         timeLabel.text = model.date
         userImage.downloadImage(from: model.userImageUrl)
         
+        bubble.image = model.inputBubble
         self.backgroundColor = model.backgroundColor
         
         answerViewTopConstraint.constant = -answerView.frame.height

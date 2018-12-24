@@ -121,7 +121,6 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
                                          },
                              errorBlock: {
                                              refresh.dismiss()
-                                             //self.showInfo(to: viewController, title: "Error", message: error?.detail ?? "")
                                          })
     }
 }
@@ -367,10 +366,12 @@ extension ChatRouter: ChatViewControllerDelegate {
         assembly.appAssembly.apiManager.publishMessage(message,
                                                        toUser: toUser,
                                                  successBlock: {
+                                                                   viewController.updateMessages()
                                                                    print("Success publish")
                                                                },
                                                    errorBlock: {
-                                                                    print("Error publish")
+                                                                   viewController.updateMessages()
+                                                                   print("Error publish")
                                                                })
     }
     

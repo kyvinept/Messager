@@ -23,6 +23,8 @@ class IncomingLocationCell: CustomCell {
         userImage.downloadImage(from: model.userImageUrl)
         self.tapCell = model.tapCell
         self.location = model.location
+        locationImageView.frame.size = model.locationImageSize
+        locationImageView.image = model.locationImage
         
         addTapGesture()
     }
