@@ -20,4 +20,5 @@ protocol ChatViewControllerProtocol {
     func changePlaceHolder(forSearchMessage text: String)
     func changeOffsetForUserIcon(toMessage: CGFloat, toBoard: CGFloat)
     func changeTimeLabelColor(forMessage messageColor: UIColor, forMedia mediaColor: UIColor, font: UIFont)
+    func changeAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat)
 }

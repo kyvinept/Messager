@@ -648,6 +648,15 @@ extension ChatViewController {
 }
 
 extension ChatViewController: ChatViewControllerProtocol {
+   
+    func changeAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat) {
+        rowBuilder.setDefaultAnswerMessage(messageFont: messageFont,
+                                          messageColor: messageColor,
+                                              nameFont: nameFont,
+                                             nameColor: nameColor,
+                                            boardColor: boardColor,
+                                            boardWidth: boardWidth)
+    }
     
     func changeBubble(inputBubble input: UIImage, outputBubble output: UIImage) {
         rowBuilder.setDefaultBubbles(inputBubble: input, outputBubble: output)

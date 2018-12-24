@@ -11,4 +11,10 @@ struct AnswerViewForCellViewModel {
     
     var answerMessage: Message
     var answerMessageWasTapped: ((Message) -> ())?
+    var messageFont: UIFont
+    var messageColor: UIColor
+    var nameFont: UIFont
+    var nameColor: UIColor
+    var borderColor: UIColor
+    var borderWidth: CGFloat
 }

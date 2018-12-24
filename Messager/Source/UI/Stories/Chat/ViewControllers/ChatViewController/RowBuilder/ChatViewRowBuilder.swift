@@ -18,11 +18,6 @@ class ChatViewRowBuilder {
     }
     var currentUser: User!
     
-    private var toMessageOffset: CGFloat = 8
-    private var toBoardOffset: CGFloat = 8
-    private var timeLabelColorForMessage: UIColor = .black
-    private var timeLabelColorForMedia: UIColor = .white
-    private var timeLabelFont: UIFont = UIFont.systemFont(ofSize: 12)
     private var tableView: UITableView
     private var rowPrototype = ChatViewRowPrototype()
     
@@ -33,11 +28,7 @@ class ChatViewRowBuilder {
     func createCell(forIndexPath indexPath: IndexPath) -> UITableViewCell {
         let answerModel = rowPrototype.createAnswerViewForCellViewModel(withMessage: messages[indexPath.row],
                                                                         selectedRow: selectedAnswerMessage)
-        let defaultModel = rowPrototype.createDefaultModel(toMessageOffset: toMessageOffset,
-                                                             toBoardOffset: toBoardOffset,
-                                                  timeLabelColorForMessage: timeLabelColorForMessage,
-                                                    timeLabelColorForMedia: timeLabelColorForMedia,
-                                                             timeLabelFont: timeLabelFont)
+        let defaultModel = rowPrototype.createDefaultModel()
         
         switch messages[indexPath.row].kind {
         case .text(let text):
@@ -91,14 +82,22 @@ class ChatViewRowBuilder {
     }
     
     func setDefaultOffsetForUserImage(toMessage: CGFloat, toBoard: CGFloat) {
-        self.toMessageOffset = toMessage
-        self.toBoardOffset = toBoard
+        rowPrototype.setDefaultOffsetForUserImage(toMessage: toMessage, toBoard: toBoard)
     }
     
     func setDefault(timeLabelFont: UIFont, timeLabelColorForMessage: UIColor, timeLabelColorForMedia: UIColor) {
-        self.timeLabelColorForMessage = timeLabelColorForMessage
-        self.timeLabelColorForMedia = timeLabelColorForMedia
-        self.timeLabelFont = timeLabelFont
+        rowPrototype.setDefault(timeLabelFont: timeLabelFont,
+                     timeLabelColorForMessage: timeLabelColorForMessage,
+                       timeLabelColorForMedia: timeLabelColorForMedia)
+    }
+    
+    func setDefaultAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat) {
+        rowPrototype.setDefaultAnswerMessage(messageFont: messageFont,
+                                            messageColor: messageColor,
+                                                nameFont: nameFont,
+                                               nameColor: nameColor,
+                                              boardColor: boardColor,
+                                              boardWidth: boardWidth)
     }
 }
 

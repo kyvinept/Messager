@@ -17,6 +17,17 @@ class ChatViewRowPrototype {
     private var inputMessageColor: UIColor = .black
     private var outputMessageColor: UIColor = .black
     private var messageFont = UIFont.systemFont(ofSize: 17)
+    private var answerMessageFont: UIFont = UIFont.systemFont(ofSize: 14)
+    private var answerMessageColor: UIColor = .black
+    private var answerNameFont: UIFont = UIFont.boldSystemFont(ofSize: 12)
+    private var answerNameColor: UIColor = .white
+    private var answerBoardColor: UIColor = .white
+    private var answerBoardWidth: CGFloat = 2
+    private var toMessageOffset: CGFloat = 8
+    private var toBoardOffset: CGFloat = 8
+    private var timeLabelColorForMessage: UIColor = .black
+    private var timeLabelColorForMedia: UIColor = .white
+    private var timeLabelFont: UIFont = UIFont.systemFont(ofSize: 12)
 }
 
 extension ChatViewRowPrototype {
@@ -39,6 +50,26 @@ extension ChatViewRowPrototype {
     func setMessageFont(font: UIFont) {
         messageFont = font
     }
+    
+    func setDefaultAnswerMessage(messageFont: UIFont, messageColor: UIColor, nameFont: UIFont, nameColor: UIColor, boardColor: UIColor, boardWidth: CGFloat) {
+        answerNameFont = nameFont
+        answerNameColor = nameColor
+        answerMessageFont = messageFont
+        answerMessageColor = messageColor
+        answerBoardColor = boardColor
+        answerBoardWidth = boardWidth
+    }
+    
+    func setDefaultOffsetForUserImage(toMessage: CGFloat, toBoard: CGFloat) {
+        self.toMessageOffset = toMessage
+        self.toBoardOffset = toBoard
+    }
+    
+    func setDefault(timeLabelFont: UIFont, timeLabelColorForMessage: UIColor, timeLabelColorForMedia: UIColor) {
+        self.timeLabelColorForMessage = timeLabelColorForMessage
+        self.timeLabelColorForMedia = timeLabelColorForMedia
+        self.timeLabelFont = timeLabelFont
+    }
 }
 
 extension ChatViewRowPrototype {
@@ -48,11 +79,17 @@ extension ChatViewRowPrototype {
         if let messageAnswerId = message.answer,
             let message = messages.first(where: { $0.messageId == messageAnswerId }) {
             answerModel = AnswerViewForCellViewModel(answerMessage: message,
-                                                     answerMessageWasTapped: { [weak self] answerMessage in
-                                                        guard let messageIndex = self?.messages.firstIndex(of: message) else { return }
-                                                        let indexPath = IndexPath(row: messageIndex, section: 0)
-                                                        selectedRow?(indexPath)
-            })
+                                            answerMessageWasTapped: { [weak self] answerMessage in
+                                                                        guard let messageIndex = self?.messages.firstIndex(of: message) else { return }
+                                                                        let indexPath = IndexPath(row: messageIndex, section: 0)
+                                                                        selectedRow?(indexPath)
+                                                                    },
+                                                       messageFont: answerMessageFont,
+                                                      messageColor: answerMessageColor,
+                                                          nameFont: answerNameFont,
+                                                         nameColor: answerNameColor,
+                                                       borderColor: answerBoardColor,
+                                                       borderWidth: answerBoardWidth)
         }
         return answerModel
     }
@@ -105,7 +142,7 @@ extension ChatViewRowPrototype {
                                                     })
     }
     
-    func createDefaultModel(toMessageOffset: CGFloat, toBoardOffset: CGFloat, timeLabelColorForMessage: UIColor, timeLabelColorForMedia: UIColor, timeLabelFont: UIFont) -> DefaultViewModel {
+    func createDefaultModel() -> DefaultViewModel {
         return DefaultViewModel(toMessage: toMessageOffset,
                                   toBoard: toBoardOffset,
                  timeLabelColorForMessage: timeLabelColorForMessage,

@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="134" id="Ylk-ek-JnD" customClass="IncomingImageCell" customModule="Messager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="197" height="134"/>
+            <rect key="frame" x="0.0" y="0.0" width="363" height="134"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ylk-ek-JnD" id="MFI-1k-Xx7">
-                <rect key="frame" x="0.0" y="0.0" width="197" height="133.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="363" height="133.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="jrd-lm-Eq3">
@@ -46,19 +46,48 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mRx-vS-4nE">
+                        <rect key="frame" x="199" y="8" width="154" height="51"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIO-ir-tvs" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
+                                <rect key="frame" x="5" y="5" width="144" height="41"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="0f1-YO-5dU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kIO-ir-tvs" secondAttribute="trailing" constant="5" id="17d-mE-1ex"/>
+                            <constraint firstItem="kIO-ir-tvs" firstAttribute="leading" secondItem="mRx-vS-4nE" secondAttribute="leading" constant="5" id="U47-2n-M2q"/>
+                            <constraint firstItem="kIO-ir-tvs" firstAttribute="top" secondItem="mRx-vS-4nE" secondAttribute="top" constant="5" id="lAz-co-uKu"/>
+                            <constraint firstAttribute="bottom" secondItem="kIO-ir-tvs" secondAttribute="bottom" constant="5" id="w24-z4-LdA"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="K5E-Gs-l4g" firstAttribute="top" secondItem="MFI-1k-Xx7" secondAttribute="top" constant="8" id="ByY-dH-g15"/>
                     <constraint firstAttribute="bottom" secondItem="jrd-lm-Eq3" secondAttribute="bottom" constant="8" id="CQ2-ei-bsM"/>
+                    <constraint firstItem="mRx-vS-4nE" firstAttribute="top" secondItem="K5E-Gs-l4g" secondAttribute="top" id="OGb-nz-3JV"/>
                     <constraint firstItem="4Uz-xd-hms" firstAttribute="trailing" secondItem="K5E-Gs-l4g" secondAttribute="trailing" constant="-4" id="QFx-6e-Kf3"/>
                     <constraint firstItem="jrd-lm-Eq3" firstAttribute="leading" secondItem="MFI-1k-Xx7" secondAttribute="leading" constant="8" id="Stu-aJ-VFB"/>
+                    <constraint firstAttribute="trailing" secondItem="mRx-vS-4nE" secondAttribute="trailing" constant="10" id="VV3-Uh-uZN"/>
                     <constraint firstAttribute="bottom" secondItem="K5E-Gs-l4g" secondAttribute="bottom" constant="7.5" id="Zjp-yF-ChR"/>
                     <constraint firstItem="K5E-Gs-l4g" firstAttribute="leading" secondItem="jrd-lm-Eq3" secondAttribute="trailing" constant="8" id="llj-eM-Iog"/>
+                    <constraint firstItem="mRx-vS-4nE" firstAttribute="leading" secondItem="K5E-Gs-l4g" secondAttribute="trailing" constant="10" id="oWn-Eg-pG4"/>
                     <constraint firstItem="4Uz-xd-hms" firstAttribute="bottom" secondItem="K5E-Gs-l4g" secondAttribute="bottom" constant="-4" id="vqu-8V-Qbf"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="NlM-s5-dg8"/>
             <connections>
+                <outlet property="answerView" destination="kIO-ir-tvs" id="rc0-K0-bY3"/>
+                <outlet property="containAnswerView" destination="mRx-vS-4nE" id="dZ2-TI-ZOa"/>
                 <outlet property="imageViewHeightConstraint" destination="Lkj-jr-Nnz" id="dv3-w7-f6c"/>
                 <outlet property="imageViewWidthConstraint" destination="Ra0-sS-wNQ" id="Jdt-Il-vfV"/>
                 <outlet property="messageImage" destination="K5E-Gs-l4g" id="5gm-yj-G6Y"/>
@@ -67,7 +96,7 @@
                 <outlet property="userImageViewLeftConstraint" destination="Stu-aJ-VFB" id="GnO-R3-f30"/>
                 <outlet property="userImageViewRightConstraint" destination="llj-eM-Iog" id="1Hv-H1-OGI"/>
             </connections>
-            <point key="canvasLocation" x="-103.2" y="8.995502248875562"/>
+            <point key="canvasLocation" x="29.600000000000001" y="8.995502248875562"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnswerViewForCell" customModule="Messager" customModuleProvider="target">
             <connections>
+                <outlet property="board" destination="Xhy-yw-DaT" id="RyW-vd-cGK"/>
+                <outlet property="borderWidthConstraint" destination="Dyr-Xk-Y0r" id="Okn-00-HOW"/>
                 <outlet property="contentView" destination="9e7-5d-7AF" id="fAu-Jd-78K"/>
                 <outlet property="nameLabel" destination="met-JI-UC2" id="XSu-R1-gM7"/>
                 <outlet property="textLabel" destination="uyr-5r-TyH" id="Mfp-iz-sKn"/>

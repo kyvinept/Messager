@@ -16,6 +16,8 @@ class IncomingImageCell: CustomCell {
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var userImageViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet private weak var userImageViewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var answerView: AnswerViewForCell!
+    @IBOutlet private weak var containAnswerView: UIView!
     
     override func configure(model: CustomViewModel, defaultModel: DefaultViewModel, answerModel: AnswerViewForCellViewModel?) {
         super.configure(model: model, defaultModel: defaultModel, answerModel: answerModel)
@@ -29,6 +31,15 @@ class IncomingImageCell: CustomCell {
         
         imageViewWidthConstraint.constant = model.imageSize.width
         imageViewHeightConstraint.constant = model.imageSize.height
+        
+        guard let answerModel = answerModel else {
+            answerView.isHidden = true
+            containAnswerView.isHidden = true
+            return
+        }
+        answerView.isHidden = false
+        containAnswerView.isHidden = false
+        answerView.configure(model: answerModel)
     }
     
     private func setDefaultParameters(model: DefaultViewModel) {

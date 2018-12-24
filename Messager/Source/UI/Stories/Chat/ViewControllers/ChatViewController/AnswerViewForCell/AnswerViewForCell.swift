@@ -12,6 +12,8 @@ class AnswerViewForCell: UIView {
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var board: UIView!
+    @IBOutlet private weak var borderWidthConstraint: NSLayoutConstraint!
     private var answerMessageWasTapped: ((Message) -> ())?
     private var message: Message?
 
@@ -41,6 +43,13 @@ class AnswerViewForCell: UIView {
         contentView.backgroundColor = .clear
         answerMessageWasTapped = model.answerMessageWasTapped
         message = model.answerMessage
+        
+        nameLabel.font = model.nameFont
+        nameLabel.textColor = model.nameColor
+        textLabel.textColor = model.messageColor
+        textLabel.font = model.messageFont
+        board.backgroundColor = model.borderColor
+        borderWidthConstraint.constant = model.borderWidth
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
