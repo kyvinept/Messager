@@ -16,7 +16,7 @@ class ChatViewRowPrototype {
     private var outputBubble = UIImage(named: "bubble1")
     private var inputMessageColor: UIColor = .black
     private var outputMessageColor: UIColor = .black
-    private var messageFont = UIFont(name: "Times New Roman", size: 17)!
+    private var messageFont = UIFont.systemFont(ofSize: 17)
 }
 
 extension ChatViewRowPrototype {

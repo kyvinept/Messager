@@ -22,7 +22,7 @@ class ChatViewRowBuilder {
     private var toBoardOffset: CGFloat = 8
     private var timeLabelColorForMessage: UIColor = .black
     private var timeLabelColorForMedia: UIColor = .white
-    private var timeLabelFont: UIFont = UIFont(name: "Times New Roman", size: 12)!
+    private var timeLabelFont: UIFont = UIFont.systemFont(ofSize: 12)
     private var tableView: UITableView
     private var rowPrototype = ChatViewRowPrototype()
     
