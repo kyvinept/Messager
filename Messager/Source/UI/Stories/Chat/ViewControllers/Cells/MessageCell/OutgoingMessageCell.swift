@@ -26,7 +26,7 @@ class OutgoingMessageCell: CustomCell {
         setDefaultParameters(model: defaultModel)
         
         guard let answerModel = answerModel else { return }
-        answerView.configure(model: answerModel, withFont: defaultModel.timeLabelFont)
+        answerView.configure(model: answerModel)
         answerViewTopConstraint.constant = 4
         answerView.isHidden = false
     }

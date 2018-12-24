@@ -34,14 +34,13 @@ class AnswerViewForCell: UIView {
         return view
     }
     
-    func configure(model: AnswerViewForCellViewModel, withFont font: UIFont) {
+    func configure(model: AnswerViewForCellViewModel) {
         nameLabel.text = model.answerMessage.sender.name
         textLabel.text = model.answerMessage.kind.rawValue
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         answerMessageWasTapped = model.answerMessageWasTapped
         message = model.answerMessage
-        textLabel.font = font
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

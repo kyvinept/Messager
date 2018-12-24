@@ -44,7 +44,7 @@ class OutgoingGiphyCell: CustomCell {
         }
         answerView.isHidden = false
         containAnswerView.isHidden = false
-        answerView.configure(model: answerModel, withFont: defaultModel.timeLabelFont)
+        answerView.configure(model: answerModel)
     }
     
     private func setDefaultParameters(model: DefaultViewModel) {
