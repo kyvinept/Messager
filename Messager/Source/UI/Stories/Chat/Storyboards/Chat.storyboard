@@ -454,7 +454,7 @@
         <scene sceneID="zHM-GQ-3A1">
             <objects>
                 <viewController storyboardIdentifier="FullImageViewController" id="Z0X-QY-2pZ" customClass="FullImageViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="w7Z-V5-zJ1">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="w7Z-V5-zJ1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
