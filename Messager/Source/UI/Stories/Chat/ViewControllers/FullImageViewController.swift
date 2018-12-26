@@ -56,7 +56,7 @@ private extension FullImageViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(FullImageViewController.imageWasTapped))
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(FullImageViewController.scaleImage))
         let pan = UIPanGestureRecognizer(target: self, action: #selector(FullImageViewController.panImage))
-        imageView.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
         imageView.addGestureRecognizer(pinch)
         imageView.addGestureRecognizer(pan)
     }

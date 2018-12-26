@@ -33,6 +33,6 @@ class ShareServices: NSObject {
 
 extension ShareServices: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        print(result)
+        controller.dismiss(animated: true, completion: nil)
     }
 }
