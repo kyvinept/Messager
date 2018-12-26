@@ -10,4 +10,5 @@ import UIKit
 struct AttachmentCellViewModel {
     var messageKind: MessageKind
     var showLocation: ((CLLocationCoordinate2D) -> ())?
+    var showFullImage: ((UIImage) -> ())?
 }

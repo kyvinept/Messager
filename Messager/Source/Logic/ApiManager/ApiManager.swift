@@ -72,8 +72,8 @@ class ApiManager {
         
         var users = [fromUser.id, toUser.id]
         users.sort()
-        users[0].removeSubrange(String.Index(encodedOffset: 22)...String.Index(encodedOffset: users[0].count-1))
-        users[1].removeSubrange(String.Index(encodedOffset: 22)...String.Index(encodedOffset: users[1].count-1))
+        users[0].removeSubrange(String.Index(encodedOffset: users[0].count/2)...String.Index(encodedOffset: users[0].count-1))
+        users[1].removeSubrange(String.Index(encodedOffset: users[1].count/2)...String.Index(encodedOffset: users[1].count-1))
         let idChat = users[0] + users[1]
         channel = Backendless.sharedInstance().messaging.subscribe(idChat)
         channel?.addJoinListener({

@@ -54,6 +54,7 @@
  extension LoginViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        guard !result.isCancelled else { return }
         delegate?.didLoginFromFacebook(tokenString: result.token.tokenString,
                                     expirationDate: result.token.expirationDate,
                                     viewController: self)

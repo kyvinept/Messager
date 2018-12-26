@@ -41,6 +41,7 @@ class AttachmentCell: UITableViewCell {
             widthImageViewContraint.constant = mediaItem.size.width
             heightImageViewConstraint.constant = mediaItem.size.height
             attachmentImageView.image = mediaItem.image
+            setGesture(withSelector: #selector(AttachmentCell.imageWasTapped))
         case .location(_):
             attachmentImageView.image = UIImage(named: "location")
             widthImageViewContraint.constant = widthLocationImage
@@ -96,7 +97,7 @@ class AttachmentCell: UITableViewCell {
         attachmentImageView.addGestureRecognizer(tap)
     }
     
-    @objc func videoWasTapped() {
+    @objc private func videoWasTapped() {
         if isPlay {
             player?.pause()
         } else {
@@ -105,7 +106,13 @@ class AttachmentCell: UITableViewCell {
         isPlay.toggle()
     }
     
-    @objc func locationWasTapped() {
+    @objc private func imageWasTapped() {
+        if let image = attachmentImageView.image {
+            model.showFullImage?(image)
+        }
+    }
+    
+    @objc private func locationWasTapped() {
         switch model.messageKind {
         case .location(let coordinate):
             model.showLocation?(coordinate)

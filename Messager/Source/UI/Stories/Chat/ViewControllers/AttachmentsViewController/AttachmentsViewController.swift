@@ -10,6 +10,7 @@ import UIKit
 protocol AttachmentsViewControllerDelegate: class {
     func didTappedBackButton(viewController: AttachmentsViewController)
     func didTappedShowLocationButton(coordinate: CLLocationCoordinate2D, viewController: AttachmentsViewController)
+    func didTappedShowFullImageButton(image: UIImage, viewController: AttachmentsViewController)
 }
 
 class AttachmentsViewController: UIViewController {
@@ -97,6 +98,10 @@ extension AttachmentsViewController: UITableViewDelegate, UITableViewDataSource 
                                                                         guard let strongSelf = self else { return }
                                                                         strongSelf.delegate?.didTappedShowLocationButton(coordinate: location,
                                                                                                                      viewController: strongSelf)
+                                                                   },
+                                                    showFullImage: { [weak self] image in
+                                                                        guard let strongSelf = self else { return }
+
                                                                    }))
         return cell
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class AuthorizationManager {
     
@@ -51,8 +52,20 @@ class AuthorizationManager {
                                                 })
     }
     
-    func loginFromFacebook() {
-        //backendless.userService.login(withFacebookSDK: <#T##String!#>, tokenString: <#T##String!#>, expirationDate: <#T##Date!#>, fieldsMapping: <#T##[AnyHashable : Any]!#>, response: <#T##((BackendlessUser?) -> Void)!##((BackendlessUser?) -> Void)!##(BackendlessUser?) -> Void#>, error: <#T##((Fault?) -> Void)!##((Fault?) -> Void)!##(Fault?) -> Void#>)
+    func loginFromFacebook(withTokenString tokenString: String, expirationDate: Date, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
+        backendless.userService.login(withFacebookSDK: "1879724968731669",
+                                          tokenString: tokenString,
+                                       expirationDate: expirationDate,
+                                        fieldsMapping: ["email" : "email"],
+                                             response: { user in
+                                                           self.checkCurrentUser(user: user,
+                                                                         successBlock: { user in
+                                                                                            successBlock(user)
+                                                                                       })
+                                                       },
+                                                error: { error in
+                                                           errorBlock(error)
+                                                       })
     }
     
     func register(with email: String, name: String, password: String, successBlock: @escaping (User?) -> (), errorBlock: @escaping (Fault?) -> ()) {
@@ -79,6 +92,8 @@ class AuthorizationManager {
     }
     
     func logout() {
+        FBSDKLoginManager().logOut()
+        backendless.userService.logout()
         keychainManager.delete()
         databaseManager.removeAddUsers()
     }

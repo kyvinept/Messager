@@ -8,7 +8,6 @@
 import UIKit
 
 protocol SettingsRouterDelegate: class {
-    
     func logoutButtonWasTapped()
 }
 

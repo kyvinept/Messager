@@ -62,7 +62,17 @@ class AuthorizationRouter: BaseRouter, AuthorizationRouterProtocol {
 extension AuthorizationRouter: LoginViewControllerDelegate {
     
     func didLoginFromFacebook(tokenString: String, expirationDate: Date, viewController: LoginViewController) {
-        assembly.appAssembly.authorizationManager.loginFromFacebook()
+        assembly.appAssembly.authorizationManager
+        .loginFromFacebook(withTokenString: tokenString,
+                            expirationDate: expirationDate,
+                              successBlock: { [weak self] user in
+                                                 self?.delegate?.authorizationStoryWasOver(from: viewController, currentUser: user!)
+                                            },
+                                errorBlock: { error in
+                                                 self.showInfo(to: viewController,
+                                                            title: "Error",
+                                                          message: error!.detail)
+                                            })
     }
     
     func loginViewController(viewController: LoginViewController, didTouchRegisterButton sender: UIButton) {
@@ -76,16 +86,17 @@ extension AuthorizationRouter: LoginViewControllerDelegate {
     func loginViewController(withEmail email: String, password: String, viewController: LoginViewController, didTouchLoginButton sender: UIButton) {
         sender.isEnabled = false
         assembly.appAssembly.authorizationManager.login(withEmail: email,
-                                                                  password: password,
-                                                              successBlock: { user in
-                                                                                self.delegate?.authorizationStoryWasOver(from: viewController, currentUser: user!)
-                                                                            },
-                                                                errorBlock: { error in
-                                                                                self.showInfo(to: viewController,
-                                                                                           title: "Error",
-                                                                                         message: error!.detail)
-                                                                                sender.isEnabled = true
-                                                                            })
+                                                         password: password,
+                                                     successBlock: { user in
+                                                                        self.delegate?.authorizationStoryWasOver(from: viewController,
+                                                                                                          currentUser: user!)
+                                                                   },
+                                                       errorBlock: { error in
+                                                                        self.showInfo(to: viewController,
+                                                                                   title: "Error",
+                                                                                 message: error!.detail)
+                                                                        sender.isEnabled = true
+                                                                   })
     }
 }
 

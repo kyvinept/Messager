@@ -14,7 +14,6 @@
 		0F22E1B91E8407D1004B722A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E1B71E8407D1004B722A /* LaunchScreen.storyboard */; };
 		5B12F7A3218A11200051DADC /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A2218A11200051DADC /* DatabaseManager.swift */; };
 		5B12F7A6218A11C60051DADC /* Messager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B12F7A4218A11C60051DADC /* Messager.xcdatamodeld */; };
-		5B317B1721CA547C004BC997 /* AnswerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1621CA547C004BC997 /* AnswerCellViewModel.swift */; };
 		5B317B1A21CA686D004BC997 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1921CA686D004BC997 /* AnswerView.swift */; };
 		5B317B1C21CA6878004BC997 /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B317B1B21CA6878004BC997 /* AnswerView.xib */; };
 		5B317B1F21CA6960004BC997 /* AnswerViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317B1E21CA6960004BC997 /* AnswerViewViewModel.swift */; };
@@ -146,7 +145,6 @@
 		5A28CF456D7B3F7253BD3F6B /* Pods_Messager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B12F7A2218A11200051DADC /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		5B12F7A5218A11C60051DADC /* Messager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Messager.xcdatamodel; sourceTree = "<group>"; };
-		5B317B1621CA547C004BC997 /* AnswerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCellViewModel.swift; sourceTree = "<group>"; };
 		5B317B1921CA686D004BC997 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		5B317B1B21CA6878004BC997 /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
 		5B317B1E21CA6960004BC997 /* AnswerViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewViewModel.swift; sourceTree = "<group>"; };
@@ -328,12 +326,13 @@
 		5B317B1821CA6839004BC997 /* ChatViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5B8F554D21D3760D008935AC /* ViewModels */,
+				5B8F554321D37530008935AC /* Views */,
+				5B8F554221D37509008935AC /* Cells */,
 				5BD3EBE3217F687A00FD3D83 /* ChatViewController.swift */,
 				5B79A05821CBE2D000A189CA /* ChatViewControllerProtocol.swift */,
 				5B79A04F21CBAEB800A189CA /* DataSource */,
 				5B79A05021CBAEC300A189CA /* RowBuilder */,
-				5B317B2021CA9BD9004BC997 /* AnswerViewForCell */,
-				5B317B1D21CA687B004BC997 /* AnswerView */,
 			);
 			path = ChatViewController;
 			sourceTree = "<group>";
@@ -609,35 +608,6 @@
 			path = NotificationManager;
 			sourceTree = "<group>";
 		};
-		5B7828F721874DBF00059F6B /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				5BA3B62021C923AC008B4A2D /* CustomCell.swift */,
-				5B928F3421D12AEF007EA1FC /* AttachmentCell */,
-				5B972A3F219F136900DAD8FB /* GiphyCell */,
-				5B774AEE219DA7FA00D201D6 /* VideoCell */,
-				5B7439B4219C0CF200D64EFB /* LocationCell */,
-				5BB514DA2188A051003D2C04 /* ImageCell */,
-				5B65F8B321886D9A006EF9F8 /* MessageCell */,
-				5B65F8B221886D8F006EF9F8 /* UserCell */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		5B7828FC2187501D00059F6B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				5BA3B61F21C92324008B4A2D /* ChatCellViewModel */,
-				5B972A3D219F12F900DAD8FB /* GiphyCellViewModel.swift */,
-				5BDFE02E21AEC88B00107459 /* SearchViewViewModel.swift */,
-				5B7828FD2187502B00059F6B /* UserCellViewModel.swift */,
-				5B317B1621CA547C004BC997 /* AnswerCellViewModel.swift */,
-				5B928F3221D11905007EA1FC /* UserViewViewModel.swift */,
-				5B928F3921D13225007EA1FC /* AttachmentCellViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		5B79A04D21CB89CE00A189CA /* BackgroundChangeViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,6 +660,115 @@
 				5B972A40219F137400DAD8FB /* Outgoing */,
 			);
 			path = MessageCell;
+			sourceTree = "<group>";
+		};
+		5B8F554221D37509008935AC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5BA3B62021C923AC008B4A2D /* CustomCell.swift */,
+				5B972A3F219F136900DAD8FB /* GiphyCell */,
+				5B774AEE219DA7FA00D201D6 /* VideoCell */,
+				5B7439B4219C0CF200D64EFB /* LocationCell */,
+				5BB514DA2188A051003D2C04 /* ImageCell */,
+				5B65F8B321886D9A006EF9F8 /* MessageCell */,
+				5B317B2021CA9BD9004BC997 /* AnswerViewForCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5B8F554321D37530008935AC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B928F2921D11710007EA1FC /* SearchView */,
+				5B928F2A21D11719007EA1FC /* UserView */,
+				5B317B1D21CA687B004BC997 /* AnswerView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5B8F554421D3753F008935AC /* UsersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F554A21D375A5008935AC /* ViewModels */,
+				5B8F554521D3754C008935AC /* Cells */,
+				5BD3EBE5217F688600FD3D83 /* UsersViewController.swift */,
+			);
+			path = UsersViewController;
+			sourceTree = "<group>";
+		};
+		5B8F554521D3754C008935AC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5B65F8B221886D8F006EF9F8 /* UserCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5B8F554721D37574008935AC /* AttachmentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F554921D37594008935AC /* ViewModels */,
+				5B8F554821D37580008935AC /* Cells */,
+				5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */,
+			);
+			path = AttachmentsViewController;
+			sourceTree = "<group>";
+		};
+		5B8F554821D37580008935AC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5B928F3421D12AEF007EA1FC /* AttachmentCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5B8F554921D37594008935AC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5B928F3921D13225007EA1FC /* AttachmentCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5B8F554A21D375A5008935AC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5B7828FD2187502B00059F6B /* UserCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5B8F554B21D375BE008935AC /* GiphyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F554C21D375C5008935AC /* ViewModels */,
+				5B972A39219EB43100DAD8FB /* GiphyViewController.swift */,
+			);
+			path = GiphyViewController;
+			sourceTree = "<group>";
+		};
+		5B8F554C21D375C5008935AC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5B972A3D219F12F900DAD8FB /* GiphyCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5B8F554D21D3760D008935AC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5BDFE02E21AEC88B00107459 /* SearchViewViewModel.swift */,
+				5B928F3221D11905007EA1FC /* UserViewViewModel.swift */,
+				5BA3B61D21C922AC008B4A2D /* CustomViewModel.swift */,
+				5B79A05B21CBF2AB00A189CA /* DefaultViewModel.swift */,
+				5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */,
+				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
+				5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */,
+				5B774AFB219DA89600D201D6 /* VideoCellViewModel.swift */,
+				5B939F4D21A5572A00EFDDF8 /* GiphyChatCellViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		5B928F2921D11710007EA1FC /* SearchView */ = {
@@ -942,20 +1021,6 @@
 			path = AuthorizationRouter;
 			sourceTree = "<group>";
 		};
-		5BA3B61F21C92324008B4A2D /* ChatCellViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				5BA3B61D21C922AC008B4A2D /* CustomViewModel.swift */,
-				5B79A05B21CBF2AB00A189CA /* DefaultViewModel.swift */,
-				5B65F8B8218872FF006EF9F8 /* MessageCellViewModel.swift */,
-				5BB514E92188A2F0003D2C04 /* ImageCellViewModel.swift */,
-				5B7439C1219C104800D64EFB /* LocationCellViewModel.swift */,
-				5B774AFB219DA89600D201D6 /* VideoCellViewModel.swift */,
-				5B939F4D21A5572A00EFDDF8 /* GiphyChatCellViewModel.swift */,
-			);
-			path = ChatCellViewModel;
-			sourceTree = "<group>";
-		};
 		5BA3B62721C953A7008B4A2D /* UserDefaultsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,17 +1104,14 @@
 		5BD3EBDE217F681300FD3D83 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5BDFE02921AEA4AA00107459 /* Views */,
-				5B7828F721874DBF00059F6B /* Cells */,
-				5B7828FC2187501D00059F6B /* ViewModel */,
-				5BD3EBE5217F688600FD3D83 /* UsersViewController.swift */,
+				5B8F554421D3753F008935AC /* UsersViewController */,
 				5B317B1821CA6839004BC997 /* ChatViewController */,
 				5B737D09218B047000455FF8 /* AddUserViewController.swift */,
 				5B7439C3219C17AF00D64EFB /* MapViewController.swift */,
-				5B972A39219EB43100DAD8FB /* GiphyViewController.swift */,
+				5B8F554B21D375BE008935AC /* GiphyViewController */,
 				5BDFE03021AEED0A00107459 /* CalendarViewController.swift */,
 				5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */,
-				5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */,
+				5B8F554721D37574008935AC /* AttachmentsViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1070,15 +1132,6 @@
 				5BD3EBE9217F68B900FD3D83 /* ChatAssemblyProtocol.swift */,
 			);
 			path = ChatAssembly;
-			sourceTree = "<group>";
-		};
-		5BDFE02921AEA4AA00107459 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				5B928F2A21D11719007EA1FC /* UserView */,
-				5B928F2921D11710007EA1FC /* SearchView */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9EF7CB5648798CD53B55066E /* Pods */ = {
@@ -1316,7 +1369,6 @@
 				5B7439C2219C104800D64EFB /* LocationCellViewModel.swift in Sources */,
 				5B774AF9219DA85D00D201D6 /* OutgoingVideoCell.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
-				5B317B1721CA547C004BC997 /* AnswerCellViewModel.swift in Sources */,
 				5B774AEB219D9F8500D201D6 /* AVURLAsset.swift in Sources */,
 				5B317B1F21CA6960004BC997 /* AnswerViewViewModel.swift in Sources */,
 				5B76B5012180982E003B5351 /* Message.swift in Sources */,
