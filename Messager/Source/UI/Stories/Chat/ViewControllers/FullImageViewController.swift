@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import FacebookShare
+
+protocol FullImageViewControllerDelegate: class {
+    func didTappedShareToFacebookButton(image: UIImage, viewController: FullImageViewController)
+    func didTappedShareToMailButton(image: UIImage, viewController: FullImageViewController)
+}
 
 class FullImageViewController: UIViewController {
 
@@ -14,6 +20,8 @@ class FullImageViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     private var image: UIImage?
     private var isShowNavigationBar = true
+    
+    weak var delegate: FullImageViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,13 +97,23 @@ private extension FullImageViewController {
     }
     
     @objc func shareButtonTapped() {
-        let photo = Photo(image: image, userGenerated: true)
-        let content = PhotoShareContent(photos: [photo])
-        do {
-            try ShareDialog.show(from: viewController, content: content)
-        } catch {
-            print("Error")
-        }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "To Facebook",
+                                      style: .default,
+                                    handler: { [weak self] _ in
+                                                  guard let strongSelf = self, let image = strongSelf.image else { return }
+                                                  strongSelf.delegate?.didTappedShareToFacebookButton(image: image,
+                                                                                             viewController: strongSelf)
+                                             }))
+        alert.addAction(UIAlertAction(title: "To Mail",
+                                      style: .default,
+                                    handler: { [weak self] _ in
+                                                  guard let strongSelf = self, let image = strongSelf.image else { return }
+                                                  strongSelf.delegate?.didTappedShareToMailButton(image: image,
+                                                                                         viewController: strongSelf)
+                                             }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     func hideNavigationBar() {

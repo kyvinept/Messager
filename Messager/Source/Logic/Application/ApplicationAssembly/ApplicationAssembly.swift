@@ -17,6 +17,7 @@ class ApplicationAssembly: ApplicationAssemblyProtocol {
     lazy var keychainManager = KeychainManager()
     lazy var notificationManager = NotificationManager(databaseManager: databaseManager)
     lazy var userDefaultsManager = UserDefaultsManager()
+    lazy var shareServices = ShareServices()
     
     lazy private var mediaManager = MediaManager()
     lazy private var mapper = Mapper()

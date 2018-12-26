@@ -21,9 +21,16 @@ PODS:
     - FacebookCore (~> 0.5)
     - FBSDKCoreKit (~> 4.37)
     - FBSDKLoginKit (~> 4.37)
+  - FacebookShare (0.5.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKShareKit (~> 4.37)
   - FBSDKCoreKit (4.38.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.38.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.38.1):
     - FBSDKCoreKit
   - GiphyCoreSDK (1.4.0)
   - JGProgressHUD (2.0.3)
@@ -44,6 +51,7 @@ DEPENDENCIES:
   - Cloudinary (~> 2.0)
   - FacebookCore
   - FacebookLogin
+  - FacebookShare
   - FBSDKLoginKit
   - GiphyCoreSDK
   - JGProgressHUD
@@ -62,8 +70,10 @@ SPEC REPOS:
     - Cloudinary
     - FacebookCore
     - FacebookLogin
+    - FacebookShare
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKShareKit
     - GiphyCoreSDK
     - JGProgressHUD
     - MessageKit
@@ -82,8 +92,10 @@ SPEC CHECKSUMS:
   Cloudinary: d87b545d6a5d00c4022bec964839fdaf359d7c53
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
+  FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
+  FBSDKShareKit: 6ffe22f0a0618eb7424d4104ab0ef3ce9643d42a
   GiphyCoreSDK: 1fe401c5fc65f182e7aa8b7fb2c9005f2a523374
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
   MessageKit: 16160036b16476b04bd0e9f2c7ce67e662e503e4
@@ -93,6 +105,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 46a03c34f62eb6781bd2b61f06ae91e4b5d454c8
+PODFILE CHECKSUM: a13fe7098db9dd36f48e4ac04e807f7b4dad3266
 
 COCOAPODS: 1.5.3

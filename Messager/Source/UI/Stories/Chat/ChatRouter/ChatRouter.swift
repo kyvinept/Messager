@@ -16,6 +16,7 @@ class ChatRouter: BaseRouter, ChatRouterProtocol {
     private var mapViewController: MapViewController?
     private var calendarViewController: CalendarViewController?
     private var giphyPreviewViewController: GiphyPreviewViewController?
+    private var fullImageViewController: FullImageViewController?
     private var attachmentsViewController: AttachmentsViewController?
     private var rootViewController: UIViewController!
     lazy private var currentUser: User? = {
@@ -459,6 +460,8 @@ extension ChatRouter: AttachmentsViewControllerDelegate {
    
     func didTappedShowFullImageButton(image: UIImage, viewController: AttachmentsViewController) {
         let vc = assembly.createFullImageViewController(withImage: image)
+        fullImageViewController = vc
+        vc.delegate = self
         action(with: vc,
                from: viewController,
                with: .push,
@@ -473,5 +476,16 @@ extension ChatRouter: AttachmentsViewControllerDelegate {
     
     func didTappedShowLocationButton(coordinate: CLLocationCoordinate2D, viewController: AttachmentsViewController) {
         showLocation(coordinate, fromViewController: viewController)
+    }
+}
+
+extension ChatRouter: FullImageViewControllerDelegate {
+    
+    func didTappedShareToFacebookButton(image: UIImage, viewController: FullImageViewController) {
+        assembly.appAssembly.shareServices.shareFacebook(image: image, from: viewController)
+    }
+    
+    func didTappedShareToMailButton(image: UIImage, viewController: FullImageViewController) {
+        assembly.appAssembly.shareServices.shareGmail(viewController: viewController, image: image)
     }
 }

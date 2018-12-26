@@ -79,6 +79,7 @@
 		5B81E6A121C3FE9100EDE463 /* GiphyPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */; };
 		5B8655D221CA3B69005DE017 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8655D121CA3B68005DE017 /* Image.swift */; };
 		5B8F554F21D3783C008935AC /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F554E21D3783C008935AC /* FullImageViewController.swift */; };
+		5B8F555721D3958F008935AC /* ShareServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F555621D3958F008935AC /* ShareServices.swift */; };
 		5B928F2821D1124C007EA1FC /* AttachmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */; };
 		5B928F2C21D1172E007EA1FC /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B928F2B21D1172E007EA1FC /* UserView.swift */; };
 		5B928F2E21D11738007EA1FC /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B928F2D21D11738007EA1FC /* UserView.xib */; };
@@ -212,6 +213,7 @@
 		5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyPreviewViewController.swift; sourceTree = "<group>"; };
 		5B8655D121CA3B68005DE017 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		5B8F554E21D3783C008935AC /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		5B8F555621D3958F008935AC /* ShareServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareServices.swift; sourceTree = "<group>"; };
 		5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsViewController.swift; sourceTree = "<group>"; };
 		5B928F2B21D1172E007EA1FC /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		5B928F2D21D11738007EA1FC /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
@@ -773,6 +775,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		5B8F555521D39582008935AC /* ShareServices */ = {
+			isa = PBXGroup;
+			children = (
+				5B8F555621D3958F008935AC /* ShareServices.swift */,
+			);
+			path = ShareServices;
+			sourceTree = "<group>";
+		};
 		5B928F2921D11710007EA1FC /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,6 +870,7 @@
 		5B9E2174217DC3BF00884A96 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				5B8F555521D39582008935AC /* ShareServices */,
 				5BA3B62721C953A7008B4A2D /* UserDefaultsManager */,
 				5B77552E21B66B2300479BFA /* NotificationManager */,
 				5B774AFF219DCD0300D201D6 /* GiphyManager */,
@@ -1280,8 +1291,10 @@
 				"${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GiphyCoreSDK/GiphyCoreSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -1301,8 +1314,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cloudinary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GiphyCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -1428,6 +1443,7 @@
 				5B928F3121D1182E007EA1FC /* UIView.swift in Sources */,
 				5B774AFC219DA89600D201D6 /* VideoCellViewModel.swift in Sources */,
 				5BA3B61E21C922AC008B4A2D /* CustomViewModel.swift in Sources */,
+				5B8F555721D3958F008935AC /* ShareServices.swift in Sources */,
 				5BA3B62121C923AC008B4A2D /* CustomCell.swift in Sources */,
 				0F22E1AF1E8407D1004B722A /* AppDelegate.swift in Sources */,
 				5B317B2221CA9C25004BC997 /* AnswerViewForCellViewModel.swift in Sources */,
