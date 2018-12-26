@@ -17,6 +17,7 @@ pod 'SDWebImage'
 pod 'GiphyCoreSDK'
 pod 'SwiftGifOrigin'
 pod 'FacebookCore'
+pod 'FacebookShare'
 pod 'FacebookLogin'
 pod 'FBSDKLoginKit'
 end

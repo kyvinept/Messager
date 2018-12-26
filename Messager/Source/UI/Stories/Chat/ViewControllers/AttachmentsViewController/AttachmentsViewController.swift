@@ -101,7 +101,8 @@ extension AttachmentsViewController: UITableViewDelegate, UITableViewDataSource 
                                                                    },
                                                     showFullImage: { [weak self] image in
                                                                         guard let strongSelf = self else { return }
-
+                                                                        strongSelf.delegate?.didTappedShowFullImageButton(image: image,
+                                                                                                                 viewController: strongSelf)
                                                                    }))
         return cell
     }

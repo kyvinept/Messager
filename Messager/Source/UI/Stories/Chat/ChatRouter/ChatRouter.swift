@@ -456,6 +456,14 @@ extension ChatRouter: CalendarViewControllerDelegate {
 }
 
 extension ChatRouter: AttachmentsViewControllerDelegate {
+   
+    func didTappedShowFullImageButton(image: UIImage, viewController: AttachmentsViewController) {
+        let vc = assembly.createFullImageViewController(withImage: image)
+        action(with: vc,
+               from: viewController,
+               with: .push,
+           animated: true)
+    }
     
     func didTappedBackButton(viewController: AttachmentsViewController) {
         viewController.navigationController?.navigationBar.isHidden = true

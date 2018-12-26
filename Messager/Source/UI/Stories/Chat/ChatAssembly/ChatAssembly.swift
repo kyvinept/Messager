@@ -72,6 +72,13 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
+    func createFullImageViewController(withImage image: UIImage) -> FullImageViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "FullImageViewController") as! FullImageViewController
+        vc.configure(image: image)
+        vc.title = "Image"
+        return vc
+    }
+    
     private func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Chat", bundle: nil)
     }

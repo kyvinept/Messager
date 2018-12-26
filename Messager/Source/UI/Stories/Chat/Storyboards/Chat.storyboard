@@ -450,6 +450,40 @@
             </objects>
             <point key="canvasLocation" x="2162.4000000000001" y="131.78410794602701"/>
         </scene>
+        <!--Full Image View Controller-->
+        <scene sceneID="zHM-GQ-3A1">
+            <objects>
+                <viewController storyboardIdentifier="FullImageViewController" id="Z0X-QY-2pZ" customClass="FullImageViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w7Z-V5-zJ1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xwS-f5-KBc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="667" id="7bu-2C-fHh"/>
+                                    <constraint firstAttribute="width" constant="375" id="rcJ-dG-Dlm"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xwS-f5-KBc" firstAttribute="centerY" secondItem="w7Z-V5-zJ1" secondAttribute="centerY" id="WN2-YF-3ng"/>
+                            <constraint firstItem="xwS-f5-KBc" firstAttribute="centerX" secondItem="w7Z-V5-zJ1" secondAttribute="centerX" id="uzR-oX-Lcv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6q1-Rc-LjQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="xwS-f5-KBc" id="itc-Ng-vVl"/>
+                        <outlet property="imageViewHeightConstraint" destination="7bu-2C-fHh" id="VZl-5w-Xhb"/>
+                        <outlet property="imageViewWidthConstraint" destination="rcJ-dG-Dlm" id="1PQ-kO-bSL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sfs-om-ijX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="749.60000000000002" y="843.32833583208401"/>
+        </scene>
         <!--Attachments View Controller-->
         <scene sceneID="CTb-pc-kE0">
             <objects>
