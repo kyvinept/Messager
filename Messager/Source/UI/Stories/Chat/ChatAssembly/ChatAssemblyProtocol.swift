@@ -21,4 +21,5 @@ protocol ChatAssemblyProtocol {
     func createGiphyPreviewViewController(giphyUrl: String) -> GiphyPreviewViewController
     func createAttachmentsViewController(withMessages messages: [Message]) -> AttachmentsViewController
     func createFullImageViewController(withImage image: UIImage) -> FullImageViewController
+    func createFullVideoViewController() -> FullVideoViewController
 }

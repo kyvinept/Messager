@@ -79,6 +79,12 @@ class ChatAssembly: ChatAssemblyProtocol {
         return vc
     }
     
+    func createFullVideoViewController() -> FullVideoViewController {
+        let vc = getStoryboard().instantiateViewController(withIdentifier: "FullVideoViewController") as! FullVideoViewController
+        vc.title = "Video"
+        return vc
+    }
+    
     private func getStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Chat", bundle: nil)
     }

@@ -11,6 +11,7 @@ protocol AttachmentsViewControllerDelegate: class {
     func didTappedBackButton(viewController: AttachmentsViewController)
     func didTappedShowLocationButton(coordinate: CLLocationCoordinate2D, viewController: AttachmentsViewController)
     func didTappedShowFullImageButton(image: UIImage, viewController: AttachmentsViewController)
+    func didTappedShowFullVideoButton(video: VideoItem, viewController: AttachmentsViewController)
 }
 
 class AttachmentsViewController: UIViewController {
@@ -102,6 +103,11 @@ extension AttachmentsViewController: UITableViewDelegate, UITableViewDataSource 
                                                     showFullImage: { [weak self] image in
                                                                         guard let strongSelf = self else { return }
                                                                         strongSelf.delegate?.didTappedShowFullImageButton(image: image,
+                                                                                                                 viewController: strongSelf)
+                                                                   },
+                                                    showFullVideo: { [weak self] videoItem in
+                                                                        guard let strongSelf = self else { return }
+                                                                        strongSelf.delegate?.didTappedShowFullVideoButton(video: videoItem,
                                                                                                                  viewController: strongSelf)
                                                                    }))
         return cell

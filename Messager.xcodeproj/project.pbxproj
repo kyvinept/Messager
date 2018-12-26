@@ -80,6 +80,7 @@
 		5B8655D221CA3B69005DE017 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8655D121CA3B68005DE017 /* Image.swift */; };
 		5B8F554F21D3783C008935AC /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F554E21D3783C008935AC /* FullImageViewController.swift */; };
 		5B8F555721D3958F008935AC /* ShareServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F555621D3958F008935AC /* ShareServices.swift */; };
+		5B8F555921D39BB6008935AC /* FullVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8F555821D39BB6008935AC /* FullVideoViewController.swift */; };
 		5B928F2821D1124C007EA1FC /* AttachmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */; };
 		5B928F2C21D1172E007EA1FC /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B928F2B21D1172E007EA1FC /* UserView.swift */; };
 		5B928F2E21D11738007EA1FC /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B928F2D21D11738007EA1FC /* UserView.xib */; };
@@ -214,6 +215,7 @@
 		5B8655D121CA3B68005DE017 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		5B8F554E21D3783C008935AC /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		5B8F555621D3958F008935AC /* ShareServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareServices.swift; sourceTree = "<group>"; };
+		5B8F555821D39BB6008935AC /* FullVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullVideoViewController.swift; sourceTree = "<group>"; };
 		5B928F2721D1124C007EA1FC /* AttachmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsViewController.swift; sourceTree = "<group>"; };
 		5B928F2B21D1172E007EA1FC /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		5B928F2D21D11738007EA1FC /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
@@ -1126,6 +1128,7 @@
 				5B81E6A021C3FE9100EDE463 /* GiphyPreviewViewController.swift */,
 				5B8F554721D37574008935AC /* AttachmentsViewController */,
 				5B8F554E21D3783C008935AC /* FullImageViewController.swift */,
+				5B8F555821D39BB6008935AC /* FullVideoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1385,6 +1388,7 @@
 				5B737D0E218B311700455FF8 /* String.swift in Sources */,
 				5B774AF3219DA83500D201D6 /* IncomingVideoCell.swift in Sources */,
 				5B7439C2219C104800D64EFB /* LocationCellViewModel.swift in Sources */,
+				5B8F555921D39BB6008935AC /* FullVideoViewController.swift in Sources */,
 				5B774AF9219DA85D00D201D6 /* OutgoingVideoCell.swift in Sources */,
 				5BD3EBE8217F68AF00FD3D83 /* ChatAssembly.swift in Sources */,
 				5B774AEB219D9F8500D201D6 /* AVURLAsset.swift in Sources */,

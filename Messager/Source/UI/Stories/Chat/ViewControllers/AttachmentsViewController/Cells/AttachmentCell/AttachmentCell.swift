@@ -21,7 +21,8 @@ class AttachmentCell: UITableViewCell {
     private var model: AttachmentCellViewModel!
     private var isPlay = false {
         didSet {
-            playButton.isHidden = isPlay
+            playButton.alpha = isPlay ? 0.25 : 1
+            playButton.image = isPlay ? UIImage(named: "pause") : UIImage(named: "play")
         }
     }
     
@@ -41,12 +42,12 @@ class AttachmentCell: UITableViewCell {
             widthImageViewContraint.constant = mediaItem.size.width
             heightImageViewConstraint.constant = mediaItem.size.height
             attachmentImageView.image = mediaItem.image
-            setGesture(withSelector: #selector(AttachmentCell.imageWasTapped))
+            setGesture(withSelector: #selector(AttachmentCell.imageWasTapped), toView: attachmentImageView)
         case .location(_):
             attachmentImageView.image = UIImage(named: "location")
             widthImageViewContraint.constant = widthLocationImage
             heightImageViewConstraint.constant = heightLocationImage
-            setGesture(withSelector: #selector(AttachmentCell.locationWasTapped))
+            setGesture(withSelector: #selector(AttachmentCell.locationWasTapped), toView: attachmentImageView)
         case .giphy(let giphy):
             downloadGiphy(url: giphy.url)
             widthImageViewContraint.constant = giphy.width
@@ -54,7 +55,8 @@ class AttachmentCell: UITableViewCell {
         case .video(let videoItem):
             playButton.isHidden = false
             setVideo(videoItem)
-            setGesture(withSelector: #selector(AttachmentCell.videoWasTapped))
+            setGesture(withSelector: #selector(AttachmentCell.videoWasTapped), toView: playButton)
+            setGesture(withSelector: #selector(AttachmentCell.fullViewWasTapped), toView: attachmentImageView)
         default:
             break
         }
@@ -92,9 +94,18 @@ class AttachmentCell: UITableViewCell {
         }
     }
     
-    private func setGesture(withSelector selector: Selector) {
+    @objc private func fullViewWasTapped() {
+        switch model.messageKind {
+        case .video(let videoItem):
+            model.showFullVideo?(videoItem)
+        default:
+            break
+        }
+    }
+    
+    private func setGesture(withSelector selector: Selector, toView: UIView) {
         let tap = UITapGestureRecognizer(target: self, action: selector)
-        attachmentImageView.addGestureRecognizer(tap)
+        toView.addGestureRecognizer(tap)
     }
     
     @objc private func videoWasTapped() {

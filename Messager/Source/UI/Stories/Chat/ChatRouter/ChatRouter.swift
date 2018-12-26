@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class ChatRouter: BaseRouter, ChatRouterProtocol {
 
@@ -457,6 +459,16 @@ extension ChatRouter: CalendarViewControllerDelegate {
 }
 
 extension ChatRouter: AttachmentsViewControllerDelegate {
+    
+    func didTappedShowFullVideoButton(video: VideoItem, viewController: AttachmentsViewController) {
+        let player = AVPlayer(url: URL(fileURLWithPath: video.videoUrl.absoluteString))
+        let playerController = AVPlayerViewController()
+        playerController.player = player
+        action(with: playerController,
+               from: viewController,
+               with: .present,
+           animated: true)
+    }
    
     func didTappedShowFullImageButton(image: UIImage, viewController: AttachmentsViewController) {
         let vc = assembly.createFullImageViewController(withImage: image)

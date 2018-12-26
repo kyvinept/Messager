@@ -450,6 +450,21 @@
             </objects>
             <point key="canvasLocation" x="2162.4000000000001" y="131.78410794602701"/>
         </scene>
+        <!--Full Video View Controller-->
+        <scene sceneID="mFs-TW-Jgt">
+            <objects>
+                <viewController storyboardIdentifier="FullVideoViewController" id="A9I-bg-gev" customClass="FullVideoViewController" customModule="Messager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h3u-ep-lIV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hE5-21-Zdo"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pUb-PQ-m8z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="845"/>
+        </scene>
         <!--Full Image View Controller-->
         <scene sceneID="zHM-GQ-3A1">
             <objects>
